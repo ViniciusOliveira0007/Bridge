@@ -1,0 +1,24 @@
+{
+  "name": "bridge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ViniciusOliveira0007/Bridge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ViniciusOliveira0007/Bridge/issues"
+  },
+  "homepage": "https://github.com/ViniciusOliveira0007/Bridge#readme",
+  "description": "",
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "live-server": "^1.2.2"
+  }
+}
