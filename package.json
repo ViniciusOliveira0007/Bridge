@@ -20,5 +20,8 @@
   "dependencies": {
     "bootstrap": "^5.3.7",
     "live-server": "^1.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }
