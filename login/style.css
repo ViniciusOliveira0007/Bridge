@@ -429,6 +429,11 @@
   top: calc(50% - 279px);
   box-shadow: 0px 10px 20px 1px rgba(0, 0, 0, 0.25);
   overflow: hidden;
+
+  transition: zoomIn;
+  animation-name: zoomIn;
+  animation-duration: 2.0s;
+  animation-fill-mode: both;
 }
 
 .container-tela-inicial {
@@ -437,6 +442,7 @@
 
 .container-tela-inicial.ativo{
   opacity: 0;
+  transition: 6s fadeout;
 }
 
 
@@ -711,3 +717,5 @@
 
 
 */
+
+
