@@ -10,12 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/ViniciusOliveira0007/Bridge.git"
   },
-
-  "[prisma]":{
+  "[prisma]": {
     "editor.formatOnSave": true
   },
-
-
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -24,7 +21,9 @@
   },
   "homepage": "https://github.com/ViniciusOliveira0007/Bridge#readme",
   "dependencies": {
+    "@prisma/client": "^6.13.0",
     "bootstrap": "^5.3.7",
+    "express": "^5.1.0",
     "live-server": "^1.2.2"
   },
   "devDependencies": {
