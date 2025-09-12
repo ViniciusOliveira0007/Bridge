@@ -1,0 +1,110 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        nav {
+            background-color: #7E0000;
+            padding: 10px 20px;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .menu img {
+            height: 40px;
+            width: auto;
+        }
+
+        .menu ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            margin: 0;
+        }
+
+        .menu li {
+            margin: 0;
+        }
+
+        nav a {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            text-decoration: underline; 
+        }
+
+        
+
+        .perfil {
+            display: flex;
+            align-items: center;
+        }
+
+        .foto-de-perfil {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+        }
+    
+    .nome-da-guia {
+        justify-items: center;
+        height: 40px;
+
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        
+        
+        background-color: #cb0b0b;
+    }
+
+    .txt-guia {
+        justify-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 15px;
+        
+        color: #ffffff;
+        justify-content: center;
+    }
+
+
+
+    .conteudo-principal {
+        display: flex;
+
+    }
+
+    .bloco-de-conteudo {
+        flex: 1;
+        padding: 20px;
+        background-color: #f4f4f4;
+        min-height: calc(100vh - 60px);
+
+    }
+
+    .bloco-de-conteudo2{
+        flex: 4;
+        padding: 20px;
+        background-color: #e0e0e0;
+        min-height: calc(100vh - 60px);
+    }
