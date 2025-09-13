@@ -89,6 +89,17 @@
 
 
 
+
+
+
+
+
+     /* Estilos para o conteúdo principal */
+
+
+
+
+
     .conteudo-principal {
         display: flex;
 
@@ -108,3 +119,198 @@
         background-color: #e0e0e0;
         min-height: calc(100vh - 60px);
     }
+
+    .bloco-de-conteudo .foto-de-perfil-diario{
+        width: 100px;
+        height: 100px;
+        background-origin: 10px;
+        
+    }
+
+    .titulo-bloco {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .bloco-interno {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .texto-e-info {
+        background-color: rgb(209, 209, 209);
+        margin-left:10px;
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .texto-e-info .info-aluno{
+        font-size: 12px;
+        margin-left: 12px;
+        
+    }
+     
+
+
+    .btn-muda-foto{
+        background-color: #7E0000;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+   .bloco-de-detalhe{
+        margin-top: 10px;
+        font-size: 14px;
+        color: #333;
+        background-color: rgb(208, 208, 208);
+        padding: 10px;
+        border-radius: 5px;
+        align-items: center;
+        
+   }
+
+   .bloco-de-detalhe h1{
+        margin-bottom: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        
+   }
+
+   .bloco-de-detalhe h4{
+        margin-bottom: 5px;
+        font-size: 12px;
+        color: #565656;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: rgb(255, 255, 255);
+        border-radius: 5px;
+        padding: 5px;
+        text-align: center;
+   }
+
+   .sub-guia-diario{
+    height: auto; 
+    display: flex;
+    flex-direction: column;
+    gap: 5px; 
+    padding: 15px; 
+    background-color: #cb0b0b;
+    border-radius: 20px;
+    margin-top: 20px;
+    justify-content: left;
+}
+
+   .sub-guia-diario .btn-sub-guia{
+        font-family: Arial, Helvetica, sans-serif;
+        color: #ffffff;
+        font-weight: bold;
+        text-decoration: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+        margin-bottom: 20px;
+        
+        
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* parte maior da página */
+
+   .bloco-interno-maior{
+    display: flex;
+    flex-direction: row;
+    
+    
+   }
+
+
+   .bloco-interno-maior .Informacoes .Informacoes-para-aluno{
+        background-color: #ffffff;
+        height: 200px;
+        width: 300px;
+        border-radius: 5px;
+        padding: 10px;
+       
+
+
+
+
+   }
+
+   .bloco-interno-maior .Informacoes .Informacoes-para-aluno h3{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        margin-bottom: 3px;
+        font-weight: normal;
+        
+
+   }
+
+
+
+   .bloco-interno-maior .Informacoes{
+    margin-left: 150px;
+    margin-top: 50px;
+   }
+
+
+   .bloco-interno-maior .Informacoes h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    margin-bottom: 5px;
+   }
+
+
+   .Informacoes-not {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        margin-bottom: 3px;
+        font-weight: normal; 
+        margin-left: 150px;
+        margin-top: 60px;
+   }
+
+   .Informacoes-para-aluno-not{
+        background-color: #ffffff;
+        height: 200px;
+        width: 750px;
+        border-radius: 5px;
+        padding: 10px;
+   }
