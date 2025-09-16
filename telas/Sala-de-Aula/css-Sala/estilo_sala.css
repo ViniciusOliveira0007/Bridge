@@ -1,0 +1,731 @@
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Navegação principal */
+        nav {
+            background-color: #161616;
+            padding: 10px 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            border: #e0e0e0;
+        }
+
+        .menu {
+            display: flex;  
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 20px;
+            
+        }
+
+        .menu-1, .menu-2, .menu-3 {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-1 {
+            flex: 0 0 auto;
+        }
+
+        .menu-2 {
+            flex: 1;
+            min-width: 0; /* Permite que o elemento encolha */
+            max-width: 800px; /* Limita a largura máxima */
+            margin: 0 auto;
+        }
+
+        .menu-2 input {
+            width: 100%;
+            height: 30px;
+            border-radius: 20px;
+            background-image: url('../imagens-diario/lupa.svg');
+            background-repeat: no-repeat;
+            background-position: 15px center;
+            background-size: 20px 20px;
+            padding-left: 45px;
+            padding-right: 15px;
+            border: 1px solid #ccc;
+        }
+
+        .menu-2 input:focus {
+            outline: none;
+            border-color: #fdfdfd;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 10);
+        }
+
+        .menu-3 {
+            flex: 0 0 auto;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .menu-3 a {
+            text-decoration: none;
+            color: white;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .menu-3 img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .foto-de-perfil {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* Menu da guia Diário */
+        .nome-da-guia {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            background-color: #161616;
+            padding: 0 20px;
+            gap: 30px;
+            justify-content: center;
+            
+        }
+
+        .txt-guia {
+            font-weight: bold;
+            font-size: 15px;
+            color: #ffffff;
+            
+        }
+
+        .nome-da-guia ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nome-da-guia li a {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover, .nome-da-guia a:hover {
+            color: #ffffff;
+            text-decoration: underline; 
+            
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Conteúdo principal */
+        
+
+
+
+
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .menu {
+                flex-wrap: wrap;
+            }
+            
+            .menu-2 {
+                order: 3;
+                flex: 0 0 100%;
+                margin-top: 10px;
+            }
+            
+            .nome-da-guia ul {
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .conteudo-principal {
+                flex-direction: column;
+            }
+            
+            .bloco-interno-maior {
+                flex-direction: column;
+            }
+            
+            .menu-3 a {
+                display: none;
+            }
+            
+            .nome-da-guia {
+                flex-direction: column;
+                height: auto;
+                padding: 10px;
+            }
+            
+            .nome-da-guia ul {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+
+
+
+
+
+        /*codigo no figma*/
+
+
+
+
+
+
+
+
+.frame-687,
+        .frame-687 * {
+            box-sizing: border-box;
+        }
+        .frame-687 {
+            display: grid;
+            gap: 53px;
+            row-gap: 27px;
+            position: relative;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-rows: repeat(4, minmax(0, 1fr));
+            padding: 20px;
+            margin-left: 180px;
+        }
+
+        /* Transformando classes com "btn" em botões interativos */
+        .btn-componentes-ads,
+        .btn-componentes-bd,
+        .btn-componentes-dsi,
+        .btn-componentes-pam,
+        .btn-componentes-pw,
+        .btn-componentes-se,
+        .btn-componentes-tcc {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            width: 493px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            padding: 0;
+        }
+
+        .btn-componentes-ads:hover,
+        .btn-componentes-bd:hover,
+        .btn-componentes-dsi:hover,
+        .btn-componentes-pam:hover,
+        .btn-componentes-pw:hover,
+        .btn-componentes-se:hover,
+        .btn-componentes-tcc:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-componentes-ads:active,
+        .btn-componentes-bd:active,
+        .btn-componentes-dsi:active,
+        .btn-componentes-pam:active,
+        .btn-componentes-pw:active,
+        .btn-componentes-se:active,
+        .btn-componentes-tcc:active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Posicionamento no grid */
+        .btn-componentes-ads {
+            grid-column: 1 / span 1;
+            grid-row: 1 / span 1;
+        }
+        .btn-componentes-bd {
+            grid-column: 2 / span 1;
+            grid-row: 1 / span 1;
+        }
+        .btn-componentes-dsi {
+            grid-column: 1 / span 1;
+            grid-row: 2 / span 1;
+        }
+        .btn-componentes-pam {
+            grid-column: 2 / span 1;
+            grid-row: 2 / span 1;
+        }
+        .btn-componentes-pw {
+            grid-column: 1 / span 1;
+            grid-row: 3 / span 1;
+        }
+        .btn-componentes-se {
+            grid-column: 2 / span 1;
+            grid-row: 3 / span 1;
+        }
+        .btn-componentes-tcc {
+            grid-column: 1 / span 1;
+            grid-row: 4 / span 1;
+        }
+
+        .frame-686 {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            align-self: stretch;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .frame-685 {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            align-self: stretch;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .frame-290 {
+            display: flex;
+            flex-direction: row;
+            gap: 6px;
+            align-items: center;
+            justify-content: flex-start;
+            align-self: stretch;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        /* Estilos dos componentes de sigla */
+        .s-igla-componentes {
+            background: #178386;
+            border-radius: 20px 0px 0px 0px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 98px;
+            height: 46px;
+            position: relative;
+        }
+        .s-igla-componentes2 {
+            background: #d93b02;
+            border-radius: 20px 0px 0px 0px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 98px;
+            height: 46px;
+            position: relative;
+        }
+        .s-igla-componentes3 {
+            background: #d50ac6;
+            border-radius: 20px 0px 0px 0px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 98px;
+            height: 46px;
+            position: relative;
+        }
+        .s-igla-componentes4 {
+            background: #8151fd;
+            border-radius: 20px 0px 0px 0px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 98px;
+            height: 46px;
+            position: relative;
+        }
+        .s-igla-componentes5 {
+            background: #757575;
+            border-radius: 20px 0px 0px 0px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 98px;
+            height: 46px;
+            position: relative;
+        }
+        .s-igla-componentes6 {
+            background: #cd0c37;
+            border-radius: 20px 0px 0px 0px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 98px;
+            height: 46px;
+            position: relative;
+        }
+        .s-igla-componentes7 {
+            background: #ed0510;
+            border-radius: 20px 0px 0px 0px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 98px;
+            height: 46px;
+            position: relative;
+        }
+
+        /* Textos das siglas */
+        .ads, .bd, .dsi, .pam, .pw, .se, .tcc {
+            color: #ffffff;
+            text-align: center;
+            font-family: "Roboto", sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hover-nome-componente {
+            background: #e6e6e6;
+            border-radius: 0px 20px 0px 0px;
+            flex-shrink: 0;
+            width: 389px;
+            height: 46px;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Efeito hover no nome do componente */
+        .btn-componentes-ads:hover .hover-nome-componente,
+        .btn-componentes-bd:hover .hover-nome-componente,
+        .btn-componentes-dsi:hover .hover-nome-componente,
+        .btn-componentes-pam:hover .hover-nome-componente,
+        .btn-componentes-pw:hover .hover-nome-componente,
+        .btn-componentes-se:hover .hover-nome-componente,
+        .btn-componentes-tcc:hover .hover-nome-componente {
+            background: #d0d0d0;
+        }
+
+        .planejamento-do-trabalho-de-conclus-o-de-curso,
+        .planejamento-do-trabalho-de-conclus-o-de-curso2 {
+            color: #000000;
+            text-align: left;
+            font-family: "Roboto", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            position: absolute;
+            left: calc(50% - 169.5px);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 324px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* Rodapés */
+        .rodap-componente-sala {
+            background: #3a5959;
+            border-radius: 0px 0px 20px 20px;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .rodap-componente-sala2 {
+            background: #a22f06;
+            border-radius: 0px 0px 20px 20px;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .rodap-componente-sala3 {
+            background: #991a90;
+            border-radius: 0px 0px 20px 20px;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .rodap-componente-sala4 {
+            background: #5c3ab3;
+            border-radius: 0px 0px 20px 20px;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .rodap-componente-sala5 {
+            background: #595959;
+            border-radius: 0px 0px 20px 20px;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .rodap-componente-sala6 {
+            background: #910c29;
+            border-radius: 0px 0px 20px 20px;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .rodap-componente-sala7 {
+            background: #9a050c;
+            border-radius: 0px 0px 20px 20px;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*banner compontentes*/
+
+
+
+
+
+
+
+        .banner-componentes{
+            margin-left: 250px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            
+        }
+
+          .frame-1,
+                .frame-1 * {
+                box-sizing: border-box;
+                
+                }
+                .frame-1 {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+                justify-content: flex-start;
+                align-self: stretch;
+                flex-shrink: 0;
+                position: relative;
+                }
+                .componentes {
+                align-self: stretch;
+                flex-shrink: 0;
+                height: 65px;
+                position: relative;
+                }
+                .frame-componente {
+                border-radius: 30px;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                align-items: center;
+                justify-content: center;
+                width: 877px;
+                height: 65px;
+                position: absolute;
+                left: 157px;
+                top: 0px;
+                }
+                .frame-288 {
+                background: #e6e6e6;
+                border-radius: 10px;
+                padding: 10px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: center;
+                align-self: stretch;
+                flex-shrink: 0;
+                height: 65px;
+                position: relative;
+                }
+                .com-logo {
+                width: 227px;
+                height: 65px;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                }
+                .background {
+                width: 213px;
+                height: 65px;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                }
+                .rectangle-17 {
+                border-radius: 0px;
+                width: 158.64px;
+                height: 65px;
+                position: absolute;
+                left: 68px;
+                top: 0px;
+                overflow: visible;
+                }
+                .rectangle-18 {
+                border-radius: 0px;
+                width: 120px;
+                height: 65px;
+                position: absolute;
+                left: 55.5px;
+                top: 0px;
+                overflow: visible;
+                }
+                .rectangle-16 {
+                border-radius: 0px;
+                width: 121px;
+                height: 65px;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                overflow: visible;
+                }
+                .cps {
+                width: 46px;
+                height: 33px;
+                position: absolute;
+                left: 15px;
+                top: 16px;
+                overflow: hidden;
+                object-fit: cover;
+                aspect-ratio: 46/33;
+                }
+                .componentes2 {
+                color: #005c6d;
+                text-align: left;
+                font-family: "Roboto-Bold", sans-serif;
+                font-size: 24px;
+                font-weight: 700;
+                position: absolute;
+                left: 441px;
+                top: 18px;
+                }
+
+
+
+
+
+
+        /*termino no figma*/
+
+
+
+
+
+
+
+
+
+
+        /* Responsividade */
+        @media (max-width: 1200px) {
+            .frame-687 {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .btn-componentes-ads,
+            .btn-componentes-bd,
+            .btn-componentes-dsi,
+            .btn-componentes-pam,
+            .btn-componentes-pw,
+            .btn-componentes-se,
+            .btn-componentes-tcc {
+                grid-column: 1 / span 1 !important;
+                max-width: 100%;
+                width: 100%;
+            }
+        }
