@@ -148,7 +148,7 @@
   padding: 16px 20px;
   text-align: left;
   border-bottom: 1px solid #ffefef;
-  white-space: nowrap; /* deixa a tabela com um scroll lateral*/
+  
 }
 
 .titulo-guia {
@@ -194,4 +194,12 @@
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(203, 11, 11, 0.2);
+}
+
+
+
+
+.bloco-cronograma {
+  justify-content: center;
+  display: flex;
 }

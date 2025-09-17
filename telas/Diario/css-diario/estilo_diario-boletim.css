@@ -38,6 +38,7 @@
   overflow-x: auto;
   width: 992px; 
   margin-top: 0; 
+  
 }
 
 .tabela {
@@ -49,13 +50,14 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
   border-radius: 0 0 8px 8px; 
   overflow: hidden;
+  
 }
 
 .tabela th, .tabela td {
   padding: 16px 20px;
   text-align: left;
   border-bottom: 1px solid #ffefef;
-  white-space: nowrap; /* deixa a tabela com um scroll lateral*/
+   /* deixa a tabela com um scroll lateral*/
 }
 
 .titulo-guia {
@@ -64,7 +66,7 @@
   font-weight: 600;
   text-transform: uppercase;
   font-size: 15px;
-  letter-spacing: 0.5px;
+  
   position: sticky;
   top: 0;
 }
@@ -101,4 +103,12 @@
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(203, 11, 11, 0.2);
+}
+
+
+
+
+.bloco-boletim {
+  justify-content: center;
+  display: flex;
 }
