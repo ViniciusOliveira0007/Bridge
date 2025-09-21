@@ -1,0 +1,150 @@
+.frame-476,
+.frame-476 * {
+  box-sizing: border-box;
+}
+.frame-476 {
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Removido o gap para grudar os elementos */
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+}
+.frame-387 {
+  background: #7e0000;
+  border-radius: 20px 20px 0px 0px;
+  padding: 10px 10px 10px 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 992px;
+  position: relative;
+  margin-bottom: 0; /* Garante que não há margem inferior */
+}
+.boletim-2025-2-modulo {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: relative;
+}
+
+.bloco-tabela {
+  padding: 0; 
+  overflow-x: auto;
+  width: 992px; 
+  margin-top: 0; 
+  
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0; 
+  font-size: 16px;
+  min-width: 800px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  border-radius: 0 0 8px 8px; 
+  overflow: hidden;
+  
+}
+
+.tabela th, .tabela td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid #ffefef;
+   /* deixa a tabela com um scroll lateral*/
+}
+
+.titulo-guia {
+  background-color: #cb0b0b;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 15px;
+  
+  position: sticky;
+  top: 0;
+}
+
+.tabela tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.tabela tr:last-child td {
+  border-bottom: none;
+}
+
+.tabela tr:hover {
+  background-color: #f1f3f5;
+}
+
+.tabela td {
+  color: #333;
+  font-weight: 500;
+}
+
+.tabela a {
+  color: #cb0b0b;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: rgba(203, 11, 11, 0.1);
+  display: inline-block;
+}
+
+.tabela a:hover {
+  background-color: #cb0b0b;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(203, 11, 11, 0.2);
+}
+
+
+
+
+.bloco-boletim {
+  justify-content: center;
+  display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*estilização de legenda*/
+
+.Legenda{
+    margin-top: 50px;
+    background-color: #f1f3f5;
+    border-radius: 10px;
+}
+
+.Legenda .titulo-legenda{
+    background-color: #7e0000;
+    color: #f1f3f5;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 22px;
+}
+
+.Legenda .mat{
+    font-weight: normal;
+    padding: 8px;
+}
+

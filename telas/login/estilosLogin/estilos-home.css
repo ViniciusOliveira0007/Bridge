@@ -1,0 +1,101 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+
+
+
+
+.bloco-de-opcoes
+.bloco-de-opcoes * {
+  box-sizing: border-box;
+}
+.bloco-de-opcoes {
+  background: #161616;
+  padding: 31px 50px 31px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  height: 30px;
+  position: relative;
+}
+.layout-fixo {
+  display: flex;
+  flex-direction: row;
+  gap: 885px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.bloco-logo {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.bridge {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  position: relative;
+}
+.navega {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.botoes {
+  border-radius: 20px;
+  padding: 10px 20px 10px 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 10px;
+  position: relative;
+}
+.button {
+  color: #ffffff;
+  border: none;
+  background: none;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  position: relative;
+  text-decoration: none;
+}
+
+.entrar {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: relative;
+  padding: 10px;
+  text-decoration: none;
+  
+  background-color: #ffffff;
+  
+  width: 100px;
+  text-align: center;
+  border-radius: 30px;
+  
+
+}
