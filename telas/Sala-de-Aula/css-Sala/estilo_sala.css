@@ -1,4 +1,4 @@
- * {
+* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -16,6 +16,7 @@
             display: flex;
             align-items: center;
             border: #e0e0e0;
+            position: relative; /* Necessário para o dropdown */
         }
 
         .menu {
@@ -24,7 +25,6 @@
             align-items: center;
             width: 100%;
             gap: 20px;
-            
         }
 
         .menu-1, .menu-2, .menu-3 {
@@ -38,8 +38,8 @@
 
         .menu-2 {
             flex: 1;
-            min-width: 0; /* Permite que o elemento encolha */
-            max-width: 800px; /* Limita a largura máxima */
+            min-width: 0;
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -47,7 +47,7 @@
             width: 100%;
             height: 30px;
             border-radius: 20px;
-            background-image: url('../imagens-sala/lupa.svg');/*Lupa de fundo da barra de pesquisa*/
+            background-image: url('../imagens-sala/lupa.svg');
             background-repeat: no-repeat;
             background-position: 15px center;
             background-size: 20px 20px;
@@ -66,6 +66,7 @@
             flex: 0 0 auto;
             justify-content: flex-end;
             gap: 15px;
+            position: relative; /* Para posicionar o dropdown */
         }
 
         .menu-3 a {
@@ -80,23 +81,168 @@
             height: 24px;
         }
 
+        .btn-notificao-nav {
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-notificao-nav:hover {
+            opacity: 0.8;
+        }
+
+        .btn-config {
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-config:hover {
+            opacity: 0.8;
+        }
+
         .foto-de-perfil {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #ffffff;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
         }
 
+        .foto-de-perfil:hover {
+            opacity: 0.8;
+        }
 
+        /* Dropdowns (base comum) */
+        .dropdown-notificacoes,
+        .dropdown-configuracoes,
+        .dropdown-perfil {
+            position: absolute;
+            top: 45px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            min-width: 200px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
 
+        /* Posicionamento específico de cada dropdown */
+        .dropdown-notificacoes {
+            right: 120px;
+        }
 
+        .dropdown-configuracoes {
+            right: 70px;
+        }
 
+        .dropdown-perfil {
+            right: 10px;
+            min-width: 220px;
+        }
 
+        .dropdown-notificacoes.ativo,
+        .dropdown-configuracoes.ativo,
+        .dropdown-perfil.ativo {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
 
+        .dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
 
+        .dropdown-titulo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
+        .dropdown-titulo img {
+            width: 20px;
+            height: 20px;
+        }
 
+        .perfil-mini {
+            width: 20px !important;
+            height: 20px !important;
+            border: 1px solid #ccc !important;
+        }
+
+        .dropdown-titulo span {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .btn-fechar {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #666;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-fechar:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown-opcoes {
+            padding: 10px 0;
+        }
+
+        .opcao-item {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+
+        .opcao-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Estilo especial para "Sair da Conta" */
+        .sair-conta {
+            color: #d32f2f !important;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 5px;
+        }
+
+        .sair-conta:hover {
+            background-color: #ffebee !important;
+        }
+
+        /* Estilo para notificações vazias */
+        .notificacao-vazia {
+            padding: 20px 15px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            font-style: italic;
+        }
 
         /* Menu da guia Diário */
         .nome-da-guia {
@@ -107,14 +253,13 @@
             padding: 0 20px;
             gap: 30px;
             justify-content: center;
-            
         }
 
         .txt-guia {
             font-weight: bold;
             font-size: 15px;
             color: #ffffff;
-            
+            padding: 20px;
         }
 
         .nome-da-guia ul {
@@ -123,6 +268,7 @@
             gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
+            padding: 20px;
         }
 
         .nome-da-guia li a {
@@ -131,34 +277,183 @@
             font-weight: bold;
             font-size: 15px;
             text-decoration: none;
-            transition: color 0.3s ease;
             white-space: nowrap;
+            padding: 8px;
+            border-radius: 10px;
+            background-color: transparent;
+        }
+
+        .nome-da-guia li a:hover {
+            background-color: #e0e0e0;
+            color: #000000;
+            border-radius: 20px;
+            transition: 0.3s;
         }
 
         nav a:hover, .nome-da-guia a:hover {
-            color: #ffffff;
-            text-decoration: underline; 
-            
+            color: #000000; 
+            text-decoration: none; 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
         /* Conteúdo principal */
-        
+        .conteudo-principal {
+            display: flex;
+        }
 
+        .bloco-de-conteudo {
+            flex: 1;
+            padding: 20px;
+            background-color: #f4f4f4;
+            min-height: calc(100vh - 100px);
+        }
 
+        .bloco-de-conteudo2 {
+            flex: 4;
+            padding: 20px;
+            background-color: #e0e0e0;
+            min-height: calc(100vh - 100px);
+        }
 
+        .titulo-bloco {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
+        .bloco-interno {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .foto-de-perfil-diario {
+            width: 100px;
+            height: 100px;
+        }
+
+        .texto-e-info {
+            background-color: rgb(209, 209, 209);
+            margin-left: 10px;
+            width: 100%;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .texto-e-info .info-aluno {
+            font-size: 12px;
+            margin-left: 12px;
+        }
+
+        .btn-muda-foto {
+            background-color: #7E0000;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .bloco-de-detalhe {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+            background-color: rgb(208, 208, 208);
+            padding: 10px;
+            border-radius: 5px;
+            align-items: center;
+        }
+
+        .bloco-de-detalhe h1 {
+            margin-bottom: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .bloco-de-detalhe h4 {
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #565656;
+            background-color: rgb(255, 255, 255);
+            border-radius: 5px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .sub-guia-diario {
+            height: auto; 
+            display: flex;
+            flex-direction: column;
+            gap: 5px; 
+            padding: 15px; 
+            background-color: #cb0b0b;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        .sub-guia-diario .btn-sub-guia {
+            color: #ffffff;
+            font-weight: bold;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            margin-bottom: 10px;
+            text-align: left;
+            padding: 5px;
+        }
+
+        /* Parte maior da página */
+        .bloco-interno-maior {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .bloco-interno-maior .Informacoes {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .bloco-interno-maior .Informacoes h1 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .Informacoes-para-aluno {
+            background-color: #ffffff;
+            height: 200px;
+            width: 100%;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .bloco-interno-maior .Informacoes .Informacoes-para-aluno h3 {
+            font-size: 12px;
+            margin-bottom: 3px;
+            font-weight: normal;
+        }
+
+        .Informacoes-not {
+            margin-top: 20px;
+        }
+
+        .Informacoes-not h3 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .Informacoes-para-aluno-not {
+            background-color: #ffffff;
+            height: 200px;
+            width: 100%;
+            border-radius: 5px;
+            padding: 10px;
+        }
 
         /* Responsividade */
         @media (max-width: 1024px) {
@@ -174,6 +469,21 @@
             
             .nome-da-guia ul {
                 gap: 10px;
+            }
+
+            .dropdown-notificacoes {
+                right: 100px;
+                min-width: 180px;
+            }
+
+            .dropdown-configuracoes {
+                right: 50px;
+                min-width: 180px;
+            }
+
+            .dropdown-perfil {
+                right: 0px;
+                min-width: 200px;
             }
         }
 
@@ -200,11 +510,12 @@
                 flex-direction: column;
                 gap: 5px;
             }
+
+            .dropdown-configuracoes {
+                right: 10px;
+                min-width: 180px;
+            }
         }
-
-
-
-
 
 
         /*codigo no figma*/
@@ -212,496 +523,6 @@
 
 
 
-
-
-
-
-.frame-687,
-        .frame-687 * {
-            box-sizing: border-box;
-        }
-        .frame-687 {
-            display: grid;
-            gap: 53px;
-            row-gap: 27px;
-            position: relative;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            grid-template-rows: repeat(4, minmax(0, 1fr));
-            padding: 20px;
-            margin-left: 180px;
-        }
-
-        /* Transformando classes com "btn" em botões interativos */
-        .btn-componentes-ads,
-        .btn-componentes-bd,
-        .btn-componentes-dsi,
-        .btn-componentes-pam,
-        .btn-componentes-pw,
-        .btn-componentes-se,
-        .btn-componentes-tcc {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            align-items: flex-start;
-            justify-content: flex-start;
-            width: 493px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            background: none;
-            padding: 0;
-        }
-
-        .btn-componentes-ads:hover,
-        .btn-componentes-bd:hover,
-        .btn-componentes-dsi:hover,
-        .btn-componentes-pam:hover,
-        .btn-componentes-pw:hover,
-        .btn-componentes-se:hover,
-        .btn-componentes-tcc:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-componentes-ads:active,
-        .btn-componentes-bd:active,
-        .btn-componentes-dsi:active,
-        .btn-componentes-pam:active,
-        .btn-componentes-pw:active,
-        .btn-componentes-se:active,
-        .btn-componentes-tcc:active {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Posicionamento no grid */
-        .btn-componentes-ads {
-            grid-column: 1 / span 1;
-            grid-row: 1 / span 1;
-        }
-        .btn-componentes-bd {
-            grid-column: 2 / span 1;
-            grid-row: 1 / span 1;
-        }
-        .btn-componentes-dsi {
-            grid-column: 1 / span 1;
-            grid-row: 2 / span 1;
-        }
-        .btn-componentes-pam {
-            grid-column: 2 / span 1;
-            grid-row: 2 / span 1;
-        }
-        .btn-componentes-pw {
-            grid-column: 1 / span 1;
-            grid-row: 3 / span 1;
-        }
-        .btn-componentes-se {
-            grid-column: 2 / span 1;
-            grid-row: 3 / span 1;
-        }
-        .btn-componentes-tcc {
-            grid-column: 1 / span 1;
-            grid-row: 4 / span 1;
-        }
-
-        .frame-686 {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: flex-start;
-            justify-content: flex-start;
-            align-self: stretch;
-            flex-shrink: 0;
-            position: relative;
-        }
-        .frame-685 {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            align-items: flex-start;
-            justify-content: flex-start;
-            align-self: stretch;
-            flex-shrink: 0;
-            position: relative;
-        }
-        .frame-290 {
-            display: flex;
-            flex-direction: row;
-            gap: 6px;
-            align-items: center;
-            justify-content: flex-start;
-            align-self: stretch;
-            flex-shrink: 0;
-            position: relative;
-        }
-
-        /* Estilos dos componentes de sigla */
-        .s-igla-componentes {
-            background: #178386;
-            border-radius: 20px 0px 0px 0px;
-            padding: 10px;
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 98px;
-            height: 46px;
-            position: relative;
-        }
-        .s-igla-componentes2 {
-            background: #d93b02;
-            border-radius: 20px 0px 0px 0px;
-            padding: 10px;
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 98px;
-            height: 46px;
-            position: relative;
-        }
-        
-        .s-igla-componentes3 {
-            background: #d50ac6;
-            border-radius: 20px 0px 0px 0px;
-            padding: 10px;
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 98px;
-            height: 46px;
-            position: relative;
-        }
-
-        .s-igla-componentes4 {
-            background: #8151fd;
-            border-radius: 20px 0px 0px 0px;
-            padding: 10px;
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 98px;
-            height: 46px;
-            position: relative;
-        }
-        .s-igla-componentes5 {
-            background: #757575;
-            border-radius: 20px 0px 0px 0px;
-            padding: 10px;
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 98px;
-            height: 46px;
-            position: relative;
-        }
-        .s-igla-componentes6 {
-            background: #cd0c37;
-            border-radius: 20px 0px 0px 0px;
-            padding: 10px;
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 98px;
-            height: 46px;
-            position: relative;
-        }
-        .s-igla-componentes7 {
-            background: #ed0510;
-            border-radius: 20px 0px 0px 0px;
-            padding: 10px;
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 98px;
-            height: 46px;
-            position: relative;
-        }
-
-        /* Textos das siglas */
-        .ads, .bd, .dsi, .pam, .pw, .se, .tcc {
-            color: #ffffff;
-            text-align: center;
-            font-family: "Roboto", sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hover-nome-componente {
-            background: #e6e6e6;
-            border-radius: 0px 20px 0px 0px;
-            flex-shrink: 0;
-            width: 389px;
-            height: 46px;
-            position: relative;
-            overflow: hidden;
-            transition: background-color 0.3s ease;
-        }
-
-        /* Efeito hover no nome do componente */
-        .btn-componentes-ads:hover .hover-nome-componente,
-        .btn-componentes-bd:hover .hover-nome-componente,
-        .btn-componentes-dsi:hover .hover-nome-componente,
-        .btn-componentes-pam:hover .hover-nome-componente,
-        .btn-componentes-pw:hover .hover-nome-componente,
-        .btn-componentes-se:hover .hover-nome-componente,
-        .btn-componentes-tcc:hover .hover-nome-componente {
-            background: #d0d0d0;
-        }
-
-        .planejamento-do-trabalho-de-conclus-o-de-curso,
-        .planejamento-do-trabalho-de-conclus-o-de-curso2 {
-            color: #000000;
-            text-align: left;
-            font-family: "Roboto", sans-serif;
-            font-size: 16px;
-            font-weight: 700;
-            position: absolute;
-            left: calc(50% - 169.5px);
-            top: 50%;
-            transform: translateY(-50%);
-            width: 324px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-        }
-
-        /* Rodapés */
-        .rodap-componente-sala {
-            background: #3a5959;
-            border-radius: 0px 0px 20px 20px;
-            align-self: stretch;
-            flex-shrink: 0;
-            height: 14px;
-            position: relative;
-            overflow: hidden;
-        }
-        .rodap-componente-sala2 {
-            background: #a22f06;
-            border-radius: 0px 0px 20px 20px;
-            align-self: stretch;
-            flex-shrink: 0;
-            height: 14px;
-            position: relative;
-            overflow: hidden;
-        }
-        .rodap-componente-sala3 {
-            background: #991a90;
-            border-radius: 0px 0px 20px 20px;
-            align-self: stretch;
-            flex-shrink: 0;
-            height: 14px;
-            position: relative;
-            overflow: hidden;
-        }
-        .rodap-componente-sala4 {
-            background: #5c3ab3;
-            border-radius: 0px 0px 20px 20px;
-            align-self: stretch;
-            flex-shrink: 0;
-            height: 14px;
-            position: relative;
-            overflow: hidden;
-        }
-        .rodap-componente-sala5 {
-            background: #595959;
-            border-radius: 0px 0px 20px 20px;
-            align-self: stretch;
-            flex-shrink: 0;
-            height: 14px;
-            position: relative;
-            overflow: hidden;
-        }
-        .rodap-componente-sala6 {
-            background: #910c29;
-            border-radius: 0px 0px 20px 20px;
-            align-self: stretch;
-            flex-shrink: 0;
-            height: 14px;
-            position: relative;
-            overflow: hidden;
-        }
-        .rodap-componente-sala7 {
-            background: #9a050c;
-            border-radius: 0px 0px 20px 20px;
-            align-self: stretch;
-            flex-shrink: 0;
-            height: 14px;
-            position: relative;
-            overflow: hidden;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*banner compontentes*/
-
-
-
-
-
-
-
-        .banner-componentes{
-            margin-left: 250px;
-            margin-top: 40px;
-            margin-bottom: 40px;
-            
-        }
-
-          .frame-1,
-                .frame-1 * {
-                box-sizing: border-box;
-                
-                }
-                .frame-1 {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                align-items: flex-start;
-                justify-content: flex-start;
-                align-self: stretch;
-                flex-shrink: 0;
-                position: relative;
-                }
-                .componentes {
-                align-self: stretch;
-                flex-shrink: 0;
-                height: 65px;
-                position: relative;
-                }
-                .frame-componente {
-                border-radius: 30px;
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-                align-items: center;
-                justify-content: center;
-                width: 877px;
-                height: 65px;
-                position: absolute;
-                left: 157px;
-                top: 0px;
-                }
-                .frame-288 {
-                background: #e6e6e6;
-                border-radius: 10px;
-                padding: 10px;
-                display: flex;
-                flex-direction: row;
-                gap: 10px;
-                align-items: center;
-                justify-content: center;
-                align-self: stretch;
-                flex-shrink: 0;
-                height: 65px;
-                position: relative;
-                }
-                .com-logo {
-                width: 227px;
-                height: 65px;
-                position: absolute;
-                left: 0px;
-                top: 0px;
-                }
-                .background {
-                width: 213px;
-                height: 65px;
-                position: absolute;
-                left: 0px;
-                top: 0px;
-                }
-                .rectangle-17 {
-                border-radius: 0px;
-                width: 158.64px;
-                height: 65px;
-                position: absolute;
-                left: 68px;
-                top: 0px;
-                overflow: visible;
-                }
-                .rectangle-18 {
-                border-radius: 0px;
-                width: 120px;
-                height: 65px;
-                position: absolute;
-                left: 55.5px;
-                top: 0px;
-                overflow: visible;
-                }
-                .rectangle-16 {
-                border-radius: 0px;
-                width: 121px;
-                height: 65px;
-                position: absolute;
-                left: 0px;
-                top: 0px;
-                overflow: visible;
-                }
-                .cps {
-                width: 46px;
-                height: 33px;
-                position: absolute;
-                left: 15px;
-                top: 16px;
-                overflow: hidden;
-                object-fit: cover;
-                aspect-ratio: 46/33;
-                }
-                .componentes2 {
-                color: #005c6d;
-                text-align: left;
-                font-family: "Roboto-Bold", sans-serif;
-                font-size: 24px;
-                font-weight: 700;
-                position: absolute;
-                left: 441px;
-                top: 18px;
-                }
-
-
-
-
-
-
-        /*termino no figma*/
 
 
 

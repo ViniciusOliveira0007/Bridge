@@ -1,4 +1,4 @@
- * {
+* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -16,6 +16,7 @@
             display: flex;
             align-items: center;
             border: #e0e0e0;
+            position: relative; /* Necessário para o dropdown */
         }
 
         .menu {
@@ -24,7 +25,6 @@
             align-items: center;
             width: 100%;
             gap: 20px;
-            
         }
 
         .menu-1, .menu-2, .menu-3 {
@@ -38,8 +38,8 @@
 
         .menu-2 {
             flex: 1;
-            min-width: 0; /* Permite que o elemento encolha */
-            max-width: 800px; /* Limita a largura máxima */
+            min-width: 0;
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -66,6 +66,7 @@
             flex: 0 0 auto;
             justify-content: flex-end;
             gap: 15px;
+            position: relative; /* Para posicionar o dropdown */
         }
 
         .menu-3 a {
@@ -80,23 +81,168 @@
             height: 24px;
         }
 
+        .btn-notificao-nav {
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-notificao-nav:hover {
+            opacity: 0.8;
+        }
+
+        .btn-config {
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-config:hover {
+            opacity: 0.8;
+        }
+
         .foto-de-perfil {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #ffffff;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
         }
 
+        .foto-de-perfil:hover {
+            opacity: 0.8;
+        }
 
+        /* Dropdowns (base comum) */
+        .dropdown-notificacoes,
+        .dropdown-configuracoes,
+        .dropdown-perfil {
+            position: absolute;
+            top: 45px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            min-width: 200px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
 
+        /* Posicionamento específico de cada dropdown */
+        .dropdown-notificacoes {
+            right: 120px;
+        }
 
+        .dropdown-configuracoes {
+            right: 70px;
+        }
 
+        .dropdown-perfil {
+            right: 10px;
+            min-width: 220px;
+        }
 
+        .dropdown-notificacoes.ativo,
+        .dropdown-configuracoes.ativo,
+        .dropdown-perfil.ativo {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
 
+        .dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
 
+        .dropdown-titulo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
+        .dropdown-titulo img {
+            width: 20px;
+            height: 20px;
+        }
 
+        .perfil-mini {
+            width: 20px !important;
+            height: 20px !important;
+            border: 1px solid #ccc !important;
+        }
+
+        .dropdown-titulo span {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .btn-fechar {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #666;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-fechar:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown-opcoes {
+            padding: 10px 0;
+        }
+
+        .opcao-item {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+
+        .opcao-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Estilo especial para "Sair da Conta" */
+        .sair-conta {
+            color: #d32f2f !important;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 5px;
+        }
+
+        .sair-conta:hover {
+            background-color: #ffebee !important;
+        }
+
+        /* Estilo para notificações vazias */
+        .notificacao-vazia {
+            padding: 20px 15px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            font-style: italic;
+        }
 
         /* Menu da guia Diário */
         .nome-da-guia {
@@ -107,14 +253,13 @@
             padding: 0 20px;
             gap: 30px;
             justify-content: center;
-            
         }
 
         .txt-guia {
             font-weight: bold;
             font-size: 15px;
             color: #ffffff;
-            
+            padding: 20px;
         }
 
         .nome-da-guia ul {
@@ -123,6 +268,7 @@
             gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
+            padding: 20px;
         }
 
         .nome-da-guia li a {
@@ -131,27 +277,23 @@
             font-weight: bold;
             font-size: 15px;
             text-decoration: none;
-            transition: color 0.3s ease;
             white-space: nowrap;
+            padding: 8px;
+            border-radius: 10px;
+            background-color: transparent;
+        }
+
+        .nome-da-guia li a:hover {
+            background-color: #e0e0e0;
+            color: #000000;
+            border-radius: 20px;
+            transition: 0.3s;
         }
 
         nav a:hover, .nome-da-guia a:hover {
-            color: #ffffff;
-            text-decoration: underline; 
-            
+            color: #000000; 
+            text-decoration: none; 
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
         /* Conteúdo principal */
         .conteudo-principal {
@@ -190,7 +332,7 @@
 
         .texto-e-info {
             background-color: rgb(209, 209, 209);
-            margin-left:10px;
+            margin-left: 10px;
             width: 100%;
             border-radius: 10px;
             padding: 10px;
@@ -249,10 +391,7 @@
             background-color: #cb0b0b;
             border-radius: 20px;
             margin-top: 20px;
-            height: auto;
         }
-
-        
 
         .sub-guia-diario .btn-sub-guia {
             color: #ffffff;
@@ -266,13 +405,6 @@
             text-align: left;
             padding: 5px;
         }
-
-
-
-
-
-
-
 
         /* Parte maior da página */
         .bloco-interno-maior {
@@ -323,11 +455,6 @@
             padding: 10px;
         }
 
-
-
-
-
-
         /* Responsividade */
         @media (max-width: 1024px) {
             .menu {
@@ -342,6 +469,21 @@
             
             .nome-da-guia ul {
                 gap: 10px;
+            }
+
+            .dropdown-notificacoes {
+                right: 100px;
+                min-width: 180px;
+            }
+
+            .dropdown-configuracoes {
+                right: 50px;
+                min-width: 180px;
+            }
+
+            .dropdown-perfil {
+                right: 0px;
+                min-width: 200px;
             }
         }
 
@@ -367,5 +509,10 @@
             .nome-da-guia ul {
                 flex-direction: column;
                 gap: 5px;
+            }
+
+            .dropdown-configuracoes {
+                right: 10px;
+                min-width: 180px;
             }
         }

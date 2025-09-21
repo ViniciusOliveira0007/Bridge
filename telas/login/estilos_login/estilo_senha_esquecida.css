@@ -1,0 +1,430 @@
+.container-principal,
+.container-principal * {
+  box-sizing: border-box;
+}
+.container-principal {
+  background: #161616;
+  border-radius: 50px;
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: 1px;
+  padding: 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  height: 428px;
+  position: relative;
+  margin-bottom: 45px;
+}
+.formulario-senha {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 396px;
+  position: relative;
+}
+.campos-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-end;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.campo-nova-senha {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.cabecalho-campo {
+  padding: 5px 10px 5px 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.nova-senha {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  position: relative;
+}
+.entrada-texto {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  border: none;
+}
+.entrada-texto::placeholder {
+  color: #929292;
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+}
+.campo-confirmar-senha {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.confirmar-senha {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  position: relative;
+}
+
+
+.area-ajuda {
+  padding: 0px 5px 5px 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.precisa-de-ajuda {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  position: relative;
+  cursor: pointer;
+}
+.botao-confirmar {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px 20px 10px 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 39px;
+  position: relative;
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  
+}
+
+.botao-confirmar:hover {
+  background: #15D3B1;
+  border-radius: 10px;
+  padding: 10px 20px 10px 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 39px;
+  position: relative;
+  color: #ffffff;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s;
+  
+}
+
+
+
+.painel-requisitos {
+  flex-shrink: 0;
+  width: 282px;
+  height: 356px;
+  position: relative;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25);
+}
+.fundo-requisitos {
+  border-radius: 0px;
+  width: 282px;
+  height: 356px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  overflow: visible;
+}
+.conteudo-requisitos {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-end;
+  justify-content: flex-start;
+  width: 248px;
+  position: absolute;
+  left: 17px;
+  top: 55px;
+}
+.titulo-requisitos {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.requisitos-para-validacao-de-senha {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  position: relative;
+}
+.lista-requisitos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.item-requisito {
+  background: #ffffff;
+  border-radius: 50px;
+  padding: 5px 20px 5px 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.item-requisito:first-child {
+  padding: 5px 39px 5px 5px;
+}
+.item-requisito:last-child {
+  padding: 5px 39px 5px 5px;
+}
+.icone-aceitacao {
+  border-radius: 100px;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  overflow: visible;
+}
+.ter-pelo-menos-8-caracteres {
+  color: #929292;
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  position: relative;
+}
+.ter-pelo-menos-1-letra-maiuscula {
+  color: #929292;
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  position: relative;
+}
+.ter-pelo-menos-1-letra-minuscula {
+  color: #929292;
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  position: relative;
+}
+.ter-pelo-menos-1-caracter-especial {
+  color: #929292;
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  position: relative;
+}
+.ter-pelo-menos-1-numero {
+  color: #929292;
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  position: relative;
+}
+.botao-voltar-secao {
+  border-radius: 20px;
+  padding: 10px 20px 10px 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 120px;
+  height: 40px;
+  position: absolute;
+  left: 30px;
+  top: 32px;
+  cursor: pointer;
+}
+
+.voltar1 {
+            color: #ffffff;
+         border-radius: 20px;
+        padding: 10px 20px 10px 20px;
+        display: flex;
+        flex-direction: row;
+        gap: 0px;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 73px;
+        height: 40px;
+        position: absolute;
+        
+
+
+        
+        font-family: "Roboto", Arial, sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        text-decoration: none;
+        background-image: url('../imagens_login/seta.svg');
+        background-repeat: no-repeat;
+        background-position: 15px center;
+        background-size: 20px 20px;
+
+        text-indent: 15px;
+        width: 120px;
+           
+            
+           
+        text-align: center;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        }
+
+        .voltar1:hover{
+            color: #000000;
+         background-color: #ffffff;
+        border-radius: 20px;
+        padding: 10px 20px 10px 20px;
+        display: flex;
+        flex-direction: row;
+        gap: 0px;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        
+
+
+        
+        
+        text-decoration: none;
+        background-image: url('../imagens_login/Setas-black.svg');
+        background-repeat: no-repeat;
+        background-position: 15px center;
+        background-size: 20px 20px;
+
+        text-indent: 15px;
+        width: 120px;
+           
+            
+           
+        text-align: center;
+        border-radius: 30px;
+        
+        cursor: pointer;
+        }
+
+
+
+
+
+.setas {
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  position: relative;
+  overflow: visible;
+}
+
+.etec {
+  flex-shrink: 0;
+  width: 89px;
+  height: 45px;
+  position: absolute;
+  left: 357px;
+  top: 29px;
+  overflow: hidden;
+  object-fit: cover;
+}
+.logo-bridge {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: absolute;
+  left: 38px;
+  top: 373px;
+}
+.bridge {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  position: relative;
+}
