@@ -1,0 +1,641 @@
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #161616;
+            min-height: 100vh;
+        }
+
+        /* Navegação */
+        .bloco-de-opcoes {
+            background: #161616;
+            padding: 31px 50px 31px 32px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+        }
+
+        .layout-fixo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .bloco-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bridge {
+            color: #ffffff;
+            font-family: "Roboto", Arial, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .barra {
+            background: #ffffff;
+            width: 2px;
+            height: 33px;
+        }
+
+        .login {
+            color: #ffffff;
+            font-family: "Roboto", Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .navega {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .button {
+            color: #ffffff;
+            font-family: "Roboto", Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .voltar {
+            color: #000000;
+            font-family: "Roboto", Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            background-color: #ffffff;
+            display: inline-block;
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .voltar:hover {
+            color: #ffffff;
+            background-color: #15D3B1;
+            background-image: url('../imagens_login/seta.svg');
+            background-repeat: no-repeat;
+            background-position: 15px center;
+            background-size: 20px 20px;
+            box-shadow: 0 0 10px rgba(21, 211, 177, 0.5);
+            text-indent: 15px;
+            width: 220px;
+        }
+
+        /* Main Content */
+        main {
+            background: #161616;
+            min-height: calc(100vh - 90px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px 0;
+        }
+
+
+             
+            .bloco-senha,
+            .bloco-senha * {
+                box-sizing: border-box;
+            }
+
+            .bloco-senha {
+                background: var(
+                    --login,
+                    linear-gradient(
+                        270deg,
+                        rgba(21, 211, 177, 0) 0%,
+                        rgba(4, 132, 109, 1) 73.55769276618958%
+                    )
+                );
+                border-radius: 80px;
+                border-style: solid;
+                border-color: #ffffff;
+                border-width: 1px;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+                justify-content: flex-start;
+                align-self: stretch;
+                flex-shrink: 0;
+                height: 486px;
+                width: 846px;
+                position: relative;
+                object-fit: cover;
+            }
+
+            /* Degradê sobreposto da esquerda para direita */
+            .bloco-senha::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    to right,
+                    rgba(0, 0, 0, 0.7) 0%,    /* Esquerda mais escura */
+                    rgba(0, 0, 0, 0.4) 50%,   /* Meio com opacidade média */
+                    rgba(0, 0, 0, 0) 100%     /* Direita transparente */
+                );
+                border-radius: 80px; /* Mantém o mesmo border-radius */
+                pointer-events: none; /* Permite cliques através do overlay */
+                z-index: 1; /* Coloca o degradê acima da imagem */
+            }
+
+
+
+
+            .bloco-senha-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.degrade-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to right,
+        rgba(2, 255, 150, 0.7) 0%,
+        rgba(0, 255, 115, 0.4) 50%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    border-radius: 80px;
+    pointer-events: none;
+}
+
+
+
+
+
+    /*código do bloco de colocar a senha*/
+
+
+
+
+
+
+        .bloco-de-senha,
+        .bloco-de-senha * {
+        box-sizing: border-box;
+        }
+        .bloco-de-senha {
+        background: #161616;
+        border-radius: 50px;
+        border-style: solid;
+        border-color: #ffffff;
+        border-width: 1px;
+        padding: 50px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+        justify-content: flex-start;
+        height: 428px;
+        position: relative;
+        }
+        .frame-673 {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-shrink: 0;
+        width: 396px;
+        position: relative;
+        }
+        .frame-672 {
+        border-style: solid;
+        border-color: #ffffff;
+        border-width: 0px 0px 1px 0px;
+        padding: 10px 10px 5px 10px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+        justify-content: flex-start;
+        align-self: stretch;
+        flex-shrink: 0;
+        position: relative;
+        }
+        .email-exemplo-com-br {
+        color: #ffffff;
+        text-align: left;
+        font-family: "Roboto-Regular", sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        position: relative;
+        }
+        .frame-657 {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-end;
+        justify-content: center;
+        align-self: stretch;
+        flex-shrink: 0;
+        position: relative;
+        }
+        .frame-655 {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        align-self: stretch;
+        flex-shrink: 0;
+        position: relative;
+        }
+        .frame-654 {
+        padding: 5px 10px 5px 10px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+        }
+        .senha {
+        color: #ffffff;
+        text-align: left;
+        font-family: "Roboto-Bold", sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        position: relative;
+        }
+        .campo-senha {
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+        justify-content: flex-start;
+        align-self: stretch;
+        flex-shrink: 0;
+        position: relative;
+        }
+        .insira-sua-senha {
+        color: #929292;
+        text-align: left;
+        font-family: "Roboto-Regular", sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        position: relative;
+        }
+        
+        .esqueci-minha-senha {
+        color: #ffffff;
+        text-align: left;
+        font-family: "Roboto-Regular", sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        position: relative;
+        cursor: pointer;
+        }
+        .btn-avancar {
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 10px 20px 10px 20px;
+        display: flex;
+        flex-direction: row;
+        gap: 0px;
+        align-items: center;
+        justify-content: center;
+        align-self: stretch;
+        flex-shrink: 0;
+        height: 39px;
+        position: relative;
+
+        color: #000000;
+        text-align: left;
+        font-family: "Roboto-Bold", sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        position: relative;
+        cursor: pointer;
+        text-decoration: none;
+
+
+
+        }
+
+
+        .btn-avancar:hover {
+         color: #ffffff;
+        background: #15D3B1;
+        border-radius: 10px;
+        padding: 10px 20px 10px 20px;
+        display: flex;
+        flex-direction: row;
+        gap: 0px;
+        align-items: center;
+        justify-content: center;
+        align-self: stretch;
+        flex-shrink: 0;
+        height: 39px;
+        position: relative;
+        transition: 0.3s;
+        cursor: pointer;
+        text-decoration: none;
+
+        }
+        
+        
+
+
+
+        
+        .btn-voltar-1-secao .voltar1 {
+            color: #ffffff;
+         border-radius: 20px;
+        padding: 10px 20px 10px 20px;
+        display: flex;
+        flex-direction: row;
+        gap: 0px;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 73px;
+        height: 40px;
+        position: absolute;
+        left: 30px;
+        top: 32px;
+
+
+        
+        font-family: "Roboto", Arial, sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        text-decoration: none;
+        background-image: url('../imagens_login/seta.svg');
+        background-repeat: no-repeat;
+        background-position: 15px center;
+        background-size: 20px 20px;
+
+        text-indent: 15px;
+        width: 120px;
+           
+            
+           
+        text-align: center;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        }
+
+        .btn-voltar-1-secao .voltar1:hover{
+            color: #000000;
+         background-color: #ffffff;
+        border-radius: 20px;
+        padding: 10px 20px 10px 20px;
+        display: flex;
+        flex-direction: row;
+        gap: 0px;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        
+
+
+        
+        
+        text-decoration: none;
+        background-image: url('../imagens_login/Setas-black.svg');
+        background-repeat: no-repeat;
+        background-position: 15px center;
+        background-size: 20px 20px;
+
+        text-indent: 15px;
+        width: 120px;
+           
+            
+           
+        text-align: center;
+        border-radius: 30px;
+        
+        cursor: pointer;
+        }
+
+
+
+
+
+        
+        .etec {
+        flex-shrink: 0;
+        width: 89px;
+        height: 45px;
+        position: absolute;
+        left: 357px;
+        top: 29px;
+        overflow: hidden;
+        object-fit: cover;
+        }
+        .nossa-marca {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        align-items: center;
+        justify-content: flex-start;
+        flex-shrink: 0;
+        position: absolute;
+        left: 38px;
+        top: 373px;
+        }
+        
+        .bridge {
+        color: #ffffff;
+        text-align: left;
+        font-family: "Roboto-Bold", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        position: relative;
+        }
+
+
+
+
+
+
+
+
+
+
+        /* Main Content - adicione position relative */
+main {
+    background: #161616;
+    min-height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px 0;
+    position: relative; /* Adicione esta linha */
+}
+
+/* Wrapper da imagem de fundo */
+.bloco-senha-wrapper {
+    position: absolute; /* Mude para absoluto */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza */
+    z-index: 0; /* Coloca atrás */
+}
+
+.bloco-senha,
+.bloco-senha * {
+    box-sizing: border-box;
+}
+
+.bloco-senha {
+    background: var(
+        --login,
+        linear-gradient(
+            270deg,
+            rgba(21, 211, 177, 0) 0%,
+            rgba(4, 132, 109, 1) 73.55769276618958%
+        )
+    );
+    border-radius: 80px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 1px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    height: 486px;
+    width: 846px;
+    position: relative;
+    object-fit: cover;
+}
+
+.degrade-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to right,
+        rgba(0, 255, 145, 0.7) 0%,
+        rgba(0, 255, 149, 0.4) 50%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    border-radius: 80px;
+    pointer-events: none;
+}
+
+/* Bloco de formulário de senha - posiciona sobre a imagem */
+.bloco-de-senha {
+    background: #161616;
+    border-radius: 50px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 1px;
+    padding: 50px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    height: 428px;
+    position: relative;
+    z-index: 10; /* Coloca na frente */
+    box-sizing: border-box;
+    margin-bottom: 50px;
+    margin-right: 300px;
+}
+
+
+
+
+        
+
+        
+        /* Responsividade */
+
+
+
+
+
+        @media (max-width: 768px) {
+            .layout-fixo {
+                gap: 20px;
+            }
+            
+            .navega {
+                gap: 10px;
+            }
+            
+            .button {
+                font-size: 14px;
+                padding: 6px 10px;
+            }
+            
+            .voltar {
+                width: 80px;
+                font-size: 16px;
+            }
+            
+            .login-container {
+                padding: 30px 20px;
+                border-radius: 30px;
+                margin-bottom: 30px;
+            }
+            
+            .brand-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .welcome-text {
+                margin-left: 0;
+            }
+
+            .instituicoes-parceiras {
+                font-size: 20px;
+            }
+
+            .carrossel {
+                gap: 40px;
+            }
+
+            .bloco-referencias {
+                padding-bottom: 30px;
+            }
+        }
