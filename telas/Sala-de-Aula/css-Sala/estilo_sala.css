@@ -295,165 +295,335 @@
             text-decoration: none; 
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /* Conteúdo principal */
         .conteudo-principal {
             display: flex;
+            justify-content: center; /* centraliza horizontalmente */
+            align-items: center;     /* centraliza verticalmente */
+            margin-top: 30px;
         }
 
-        .bloco-de-conteudo {
-            flex: 1;
-            padding: 20px;
-            background-color: #f4f4f4;
-            min-height: calc(100vh - 100px);
+        .banner-componentes {
+            display: block; /* muda de flex para block */
+            max-width: 100%; /* torna responsiva */
+            height: auto;    /* mantém proporção */
+            border-radius: 20px;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.7);
         }
 
-        .bloco-de-conteudo2 {
-            flex: 4;
-            padding: 20px;
-            background-color: #e0e0e0;
-            min-height: calc(100vh - 100px);
+        main{
+            height: 1000px;
         }
 
-        .titulo-bloco {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
 
-        .bloco-interno {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       /*Botões das matérias*/
+
+       
+
+
+        /* Container principal dos botões de curso */
+        .container-principal-cursos {
             display: flex;
             flex-direction: row;
+            gap: 86px;
+            align-items: flex-start; /* Mudança: alinha no topo */
+            justify-content: center;
+            position: relative;
+            margin-top: 50px;
         }
 
-        .foto-de-perfil-diario {
-            width: 100px;
-            height: 100px;
-        }
-
-        .texto-e-info {
-            background-color: rgb(209, 209, 209);
-            margin-left: 10px;
-            width: 100%;
-            border-radius: 10px;
-            padding: 10px;
-        }
-
-        .texto-e-info .info-aluno {
-            font-size: 12px;
-            margin-left: 12px;
-        }
-
-        .btn-muda-foto {
-            background-color: #7E0000;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 10px;
-            width: 100%;
-        }
-
-        .bloco-de-detalhe {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #333;
-            background-color: rgb(208, 208, 208);
-            padding: 10px;
-            border-radius: 5px;
-            align-items: center;
-        }
-
-        .bloco-de-detalhe h1 {
-            margin-bottom: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .bloco-de-detalhe h4 {
-            margin-bottom: 5px;
-            font-size: 12px;
-            color: #565656;
-            background-color: rgb(255, 255, 255);
-            border-radius: 5px;
-            padding: 5px;
-            text-align: center;
-        }
-
-        .sub-guia-diario {
-            height: auto; 
+        /* Coluna esquerda de botões */
+        .coluna-esquerda-cursos {
             display: flex;
             flex-direction: column;
-            gap: 5px; 
-            padding: 15px; 
-            background-color: #cb0b0b;
-            border-radius: 20px;
-            margin-top: 20px;
+            gap: 30px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-shrink: 0;
+            width: 390px;
+            position: relative;
         }
 
-        .sub-guia-diario .btn-sub-guia {
-            color: #ffffff;
-            font-weight: bold;
-            text-decoration: none;
-            background: none;
-            border: none;
+        /* Coluna direita de botões */
+        .coluna-direita-cursos {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-shrink: 0;
+            width: 390px;
+            position: relative;
+        }
+
+        /* Botão individual do curso com hover */
+        .botao-curso {
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 100px;
+            position: relative;
             cursor: pointer;
-            font-size: 15px;
-            margin-bottom: 10px;
-            text-align: left;
-            padding: 5px;
+            transition: transform 0.2s ease;
+            overflow: visible; /* Mudança: permite que a descrição apareça fora do botão */
+            margin-bottom: 25px; /* Adiciona espaço fixo para a descrição */
+            border:none;
         }
 
-        /* Parte maior da página */
-        .bloco-interno-maior {
+        /* Remove margem do último botão de cada coluna */
+        .botao-curso:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Efeito hover no botão - remove a expansão de altura */
+        .botao-curso:hover {
+            transform: translateY(-2px);
+            /* Remove: height: 150px; */
+        }
+
+        /* Conteúdo interno do botão */
+        .conteudo-botao-curso {
+            background: #ffffff;
+            border-radius: 20px 20px 0px 0px; /* Pontas superiores arredondadas */
+            border: 1px solid #000000;
+            border-bottom: none; /* Remove borda inferior para grudar na descrição */
+            padding: 10px;
             display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
-            gap: 20px;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-start;
+            width: 390px;
+            height: 100px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            overflow: hidden;
+            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
+            z-index: 2; /* Garante que o botão fique acima da descrição */
         }
 
-        .bloco-interno-maior .Informacoes {
-            flex: 1;
-            min-width: 250px;
+        /* Área interna do componente */
+        .area-interna-curso {
+            flex-shrink: 0;
+            width: 363px;
+            height: 74px;
+            position: relative;
         }
 
-        .bloco-interno-maior .Informacoes h1 {
-            font-size: 15px;
-            margin-bottom: 5px;
+        /* Logo/sigla do curso */
+        .sigla-curso {
+            background: #178386; /* Cor verde igual ao ADS */
+            border-radius: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 0px;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0px;
+            top: -1px;
+            box-shadow: inset 0px 4px 10px 0px rgba(0, 0, 0, 0.25),
+                0px 4px 4px 0px rgba(0, 0, 0, 0.25);
         }
 
-        .Informacoes-para-aluno {
-            background-color: #ffffff;
-            height: 200px;
-            width: 100%;
-            border-radius: 5px;
-            padding: 10px;
+        /* Texto da sigla */
+        .texto-sigla {
+            color: #ffffff;
+            text-align: center;
+            font-family: "Roboto", Arial, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            position: relative;
+            width: 75px;
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .bloco-interno-maior .Informacoes .Informacoes-para-aluno h3 {
-            font-size: 12px;
-            margin-bottom: 3px;
-            font-weight: normal;
+        /* Área do nome do curso */
+        .area-nome-curso {
+            padding: 10px 10px 10px 20px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            height: 75px;
+            position: absolute;
+            left: 75px;
+            top: -1px;
         }
 
-        .Informacoes-not {
-            margin-top: 20px;
+        /* Texto do nome do curso */
+        .texto-nome-curso {
+            color: #000000;
+            text-align: center;
+            font-family: "Roboto", Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .Informacoes-not h3 {
-            font-size: 15px;
-            margin-bottom: 5px;
+        /* Descrição deslizante que aparece no hover */
+        .descricao-deslizante {
+            position: absolute;
+            top: 99px; /* Grudada na parte inferior do botão */
+            left: 0px;
+            width: 390px;
+            height: 50px;
+            background-color: #178386; /* Mesma cor verde do ADS */
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            padding: 0 15px;
+            border-radius: 0px 0px 20px 20px; /* Apenas pontas inferiores arredondadas */
+            border: 1px solid #000000;
+            border-top: none; /* Remove borda superior para grudar no botão */
+            transform: translateY(-50px); /* Escondida por trás do botão inicialmente */
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+            z-index: 1; /* Fica atrás do botão */
         }
 
-        .Informacoes-para-aluno-not {
-            background-color: #ffffff;
-            height: 200px;
-            width: 100%;
-            border-radius: 5px;
-            padding: 10px;
+        /* Mostrar descrição no hover */
+        .botao-curso:hover .descricao-deslizante {
+            transform: translateY(0px); /* Desliza para baixo saindo de trás do botão */
+            opacity: 1;
         }
+
+        /* Responsividade para tablets */
+        @media (max-width: 1024px) {
+            .container-principal-cursos {
+                gap: 40px;
+            }
+            
+            .coluna-esquerda-cursos,
+            .coluna-direita-cursos {
+                width: 320px;
+            }
+            
+            .conteudo-botao-curso {
+                width: 320px;
+            }
+            
+            .descricao-deslizante {
+                width: 320px;
+            }
+            
+            .area-interna-curso {
+                width: 293px;
+            }
+        }
+
+        /* Responsividade para mobile */
+        @media (max-width: 768px) {
+            .container-principal-cursos {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .coluna-esquerda-cursos,
+            .coluna-direita-cursos {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .conteudo-botao-curso {
+                width: 100%;
+            }
+            
+            .descricao-deslizante {
+                width: 100%;
+                height: 45px;
+                font-size: 12px;
+            }
+            
+            .area-interna-curso {
+                width: calc(100% - 27px);
+            }
+        }
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 
         /* Responsividade */
         @media (max-width: 1024px) {

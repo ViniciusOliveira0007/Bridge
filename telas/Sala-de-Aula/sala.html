@@ -94,45 +94,239 @@
 
 
 
-    <main class="conteudo-principal">
+    <main >
 
 
-
-
-
-
-
-
-
-
-
+        <div class="conteudo-principal">
+        <img src="./imagens-sala/Titulo seção.svg" alt="" class="banner-componentes"> 
+        </div>
         
 
+          <div class="container-principal-cursos">
+        
+        <!-- Coluna esquerda de cursos -->
+        <div class="coluna-esquerda-cursos">
             
+            <!-- Botão: Análise e Desenvolvimento de Sistemas -->
+            <button class="botao-curso" onclick="selecionarCurso('ads')">
+                <div class="conteudo-botao-curso">
+                    <div class="area-interna-curso">
+                        <!-- Sigla do curso -->
+                        <div class="sigla-curso">
+                            <div class="texto-sigla">ADS</div>
+                        </div>
+                        <!-- Nome do curso -->
+                        <div class="area-nome-curso">
+                            <div class="texto-nome-curso">
+                                ANÁLISE E DESENVOLVIMENTO DE SISTEMAS
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Descrição deslizante -->
+                <div class="descricao-deslizante">
+                    Curso focado em desenvolvimento de software e análise de sistemas
+                </div>
+            </button>
 
+            <!-- Botão: Gestão da Tecnologia da Informação -->
+            <button class="botao-curso" onclick="selecionarCurso('gti')">
+                <div class="conteudo-botao-curso">
+                    <div class="area-interna-curso">
+                        <div class="sigla-curso">
+                            <div class="texto-sigla">GTI</div>
+                        </div>
+                        <div class="area-nome-curso">
+                            <div class="texto-nome-curso">
+                                GESTÃO DA TECNOLOGIA DA INFORMAÇÃO
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="descricao-deslizante">
+                    Curso voltado para gestão e administração de recursos de TI
+                </div>
+            </button>
 
+            <!-- Botão: Redes de Computadores -->
+            <button class="botao-curso" onclick="selecionarCurso('redes')">
+                <div class="conteudo-botao-curso">
+                    <div class="area-interna-curso">
+                        <div class="sigla-curso">
+                            <div class="texto-sigla">RC</div>
+                        </div>
+                        <div class="area-nome-curso">
+                            <div class="texto-nome-curso">
+                                REDES DE COMPUTADORES
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="descricao-deslizante">
+                    Especialização em infraestrutura e segurança de redes
+                </div>
+            </button>
 
+            <!-- Botão: Sistemas para Internet -->
+            <button class="botao-curso" onclick="selecionarCurso('si')">
+                <div class="conteudo-botao-curso">
+                    <div class="area-interna-curso">
+                        <div class="sigla-curso">
+                            <div class="texto-sigla">SI</div>
+                        </div>
+                        <div class="area-nome-curso">
+                            <div class="texto-nome-curso">
+                                SISTEMAS PARA INTERNET
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="descricao-deslizante">
+                    Desenvolvimento de aplicações e sistemas web
+                </div>
+            </button>
+        </div>
 
+        <!-- Coluna direita de cursos -->
+        <div class="coluna-direita-cursos">
+            
+            <!-- Botão: Ciência da Computação -->
+            <button class="botao-curso" onclick="selecionarCurso('cc')">
+                <div class="conteudo-botao-curso">
+                    <div class="area-interna-curso">
+                        <div class="sigla-curso">
+                            <div class="texto-sigla">CC</div>
+                        </div>
+                        <div class="area-nome-curso">
+                            <div class="texto-nome-curso">
+                                CIÊNCIA DA COMPUTAÇÃO
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="descricao-deslizante">
+                    Bacharelado completo em computação e programação
+                </div>
+            </button>
 
+            <!-- Botão: Engenharia de Software -->
+            <button class="botao-curso" onclick="selecionarCurso('es')">
+                <div class="conteudo-botao-curso">
+                    <div class="area-interna-curso">
+                        <div class="sigla-curso">
+                            <div class="texto-sigla">ES</div>
+                        </div>
+                        <div class="area-nome-curso">
+                            <div class="texto-nome-curso">
+                                ENGENHARIA DE SOFTWARE
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="descricao-deslizante">
+                    Engenharia focada em desenvolvimento de software robusto
+                </div>
+            </button>
 
+            <!-- Botão: Segurança da Informação -->
+            <button class="botao-curso" onclick="selecionarCurso('seginfo')">
+                <div class="conteudo-botao-curso">
+                    <div class="area-interna-curso">
+                        <div class="sigla-curso">
+                            <div class="texto-sigla">SEG</div>
+                        </div>
+                        <div class="area-nome-curso">
+                            <div class="texto-nome-curso">
+                                SEGURANÇA DA INFORMAÇÃO
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="descricao-deslizante">
+                    Especialização em proteção e segurança de dados
+                </div>
+            </button>
 
+            <!-- Botão: Banco de Dados -->
+            <button class="botao-curso" onclick="selecionarCurso('bd')">
+                <div class="conteudo-botao-curso">
+                    <div class="area-interna-curso">
+                        <div class="sigla-curso">
+                            <div class="texto-sigla">BD</div>
+                        </div>
+                        <div class="area-nome-curso">
+                            <div class="texto-nome-curso">
+                                BANCO DE DADOS
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="descricao-deslizante">
+                    Gerenciamento e administração de bases de dados
+                </div>
+            </button>
+        </div>
+    </div>
 
+    <script>
+        /* Função para lidar com seleção de cursos */
+        function selecionarCurso(codigoCurso) {
+            console.log('Curso selecionado:', codigoCurso);
+            
+            // Aqui você pode adicionar lógica específica para cada curso
+            switch(codigoCurso) {
+                case 'ads':
+                    alert('Redirecionando para Análise e Desenvolvimento de Sistemas');
+                    // window.location.href = 'cursos/ads.html';
+                    break;
+                case 'gti':
+                    alert('Redirecionando para Gestão da Tecnologia da Informação');
+                    // window.location.href = 'cursos/gti.html';
+                    break;
+                case 'redes':
+                    alert('Redirecionando para Redes de Computadores');
+                    // window.location.href = 'cursos/redes.html';
+                    break;
+                case 'si':
+                    alert('Redirecionando para Sistemas para Internet');
+                    // window.location.href = 'cursos/si.html';
+                    break;
+                case 'cc':
+                    alert('Redirecionando para Ciência da Computação');
+                    // window.location.href = 'cursos/cc.html';
+                    break;
+                case 'es':
+                    alert('Redirecionando para Engenharia de Software');
+                    // window.location.href = 'cursos/es.html';
+                    break;
+                case 'seginfo':
+                    alert('Redirecionando para Segurança da Informação');
+                    // window.location.href = 'cursos/seguranca.html';
+                    break;
+                case 'bd':
+                    alert('Redirecionando para Banco de Dados');
+                    // window.location.href = 'cursos/bd.html';
+                    break;
+                default:
+                    console.error('Curso não encontrado:', codigoCurso);
+            }
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        /* Adicionar efeitos de acessibilidade via teclado */
+        document.querySelectorAll('.botao-curso').forEach(botao => {
+            botao.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+    </script>
 
         
+
+
+       
     </main>
 </body>
 
