@@ -13,7 +13,7 @@
      <nav class="navegacao">
         <div class="menu">
             <div class="menu-1">
-                <img src="./imagens-diario/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
+                <img src="../imagens-Sala/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
             </div>
 
             <div class="menu-2">
@@ -21,15 +21,15 @@
             </div> 
 
             <div class="menu-3">
-                <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav" onclick="toggleDropdownNotif()">
-                <img src="./imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config" onclick="toggleDropdownConfig()">
-                <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" onclick="toggleDropdownPerfil()">
+                <img src="../imagens-sala/sininho.svg" alt="notificação" class="btn-notificao-nav" onclick="toggleDropdownNotif()">
+                <img src="../imagens-sala/configuracao.svg" alt="botão de configuração" class="btn-config" onclick="toggleDropdownConfig()">
+                <img src="../imagens-sala/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" width="30px" height="30px" onclick="toggleDropdownPerfil()">
                 
                 <!-- Dropdown de Notificações -->
                 <div class="dropdown-notificacoes" id="dropdownNotif">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="./imagens-diario/sino-black.svg" alt="Notificação">
+                            <img src="../imagens-sala/sino-black.svg" alt="Notificação">
                             <span>Notificações</span>
                         </div>
                         <button class="btn-fechar" onclick="fecharDropdownNotif()">&times;</button>
@@ -43,7 +43,7 @@
                 <div class="dropdown-configuracoes" id="dropdownConfig">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="./imagens-diario/configuracao.svg" alt="Configuração">
+                            <img src="../imagens-sala/configuracao.svg" alt="Configuração">
                             <span>Configurações</span>
                         </div>
                         <button class="btn-fechar" onclick="fecharDropdownConfig()">&times;</button>
@@ -59,7 +59,7 @@
                 <div class="dropdown-perfil" id="dropdownPerfil">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
+                            <img src="../imagens-sala/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
                             <span>Olá, Rodrigo</span>
                         </div>
                         <button class="btn-fechar" onclick="fecharDropdownPerfil()">&times;</button>
@@ -75,158 +75,118 @@
         </div>
     </nav>
     
+
+
+
     <div class="nome-da-guia">
         <ul>
-            <li><a href="../Rede/connect.html">Redes</a></li>
-            <li><a href="../Sala-de-Aula/sala.html">Sala de Aula</a></li>
+            <li><a href="/telas/Rede/connect.html">Redes</a></li>
+            <li><a href="/telas/Sala-de-Aula/sala.html">Sala de Aula</a></li>
             <li><a href="trilhas.html">Trilhas</a></li>
-            <li><a href="diario.html">Diário</a></li>
+            <li><a href="/telas/Diario/diario.html">Diário</a></li>
         </ul>
     </div>
 
 
 
 
+    
 
 
+    <main>
 
 
+                <!--Código do Figma-->
+         <div class="sidebar" id="sidebar">
+            <div class="sidebar-content">
+                <div class="expand-section">
+                    <div class="expand-button" onclick="toggleSidebar()">
+                        <svg class="expand-icon" viewBox="0 0 24 24">
+                            <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+                        </svg>
+                        <span class="expand-text" id="expandText">Expandir</span>
+                    </div>
+                </div>
 
+                <nav class="nav-menu">
+                    <div class="nav-item active">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                        </svg>
+                        <span class="nav-text visao-geral-text">Visão<br>Geral</span>
+                    </div>
 
+                    <div class="nav-item">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        </svg>
+                        <span class="nav-text">Tarefas</span>
+                    </div>
 
+                    <div class="nav-item">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19Z"/>
+                        </svg>
+                        <span class="nav-text">Postagens</span>
+                    </div>
 
+                    <div class="nav-item">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path d="M6,2A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z"/>
+                        </svg>
+                        <span class="nav-text">Arquivos</span>
+                    </div>
 
+                    <div class="nav-item">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path d="M12,5.5A3.5,3.5 0 0,1 15.5,9A3.5,3.5 0 0,1 12,12.5A3.5,3.5 0 0,1 8.5,9A3.5,3.5 0 0,1 12,5.5M5,8C5.56,8 6.08,8.15 6.53,8.42C6.38,9.85 6.8,11.27 7.66,12.38C7.16,13.34 6.16,14 5,14A3,3 0 0,1 2,11A3,3 0 0,1 5,8M19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14C17.84,14 16.84,13.34 16.34,12.38C17.2,11.27 17.62,9.85 17.47,8.42C17.92,8.15 18.44,8 19,8M5.5,18.25C5.5,16.18 8.41,14.5 12,14.5C15.59,14.5 18.5,16.18 18.5,18.25V20H5.5V18.25Z"/>
+                        </svg>
+                        <span class="nav-text">Membros</span>
+                    </div>
+                </nav>
+            </div>
+        </div>
 
-
-
-    <main class="conteudo-principal">
-        <div class="bloco-de-conteudo">
+        <!-- Container principal -->
+        <div class="container-principal">
 
             
-
-
-            <div class="sub-guia-diario">
-                <a class="btn-sub-guia" href="diario.html">Início</a>
-                <a class="btn-sub-guia" href="diario-aulas.html">Aula e Faltas</a>
-                <a class="btn-sub-guia" href="diario-cronograma.html">Cronograma</a>
-                <a class="btn-sub-guia" href="diario-boletim.html">Boletim</a>
-                <a class="btn-sub-guia" href="diario-turma.html">Turma</a>
-                <a class="btn-sub-guia" href="diario-professor.html">Professores</a>
-                
-
-            </div>
-
-
-
-
-
-        </div>
-
-        <div class="bloco-de-conteudo2">
-
-
-            <!--Inicio do código do figma-->
-
-                                        <div class="frame-60">
-  
-
-
-
-
-
-    
-                    <div class="bloco-cronograma">
-
-                <div class="frame-476">
-                    <div class="frame-387">
-                        <div class="boletim-2025-2-modulo">CRONOGRAMA DE COMPONENTES</div>
-                    </div>
-                    <div class="frame-569">
-    
-
-
-
-
-
-
-
-
-
-            <!--Termino do código do figma-->
-
-            <div class="bloco-tabela">
-                    <table class="tabela">
-
-                        <tr>
-                            <th class="titulo-guia">AULAS PREVISTAS</th>
-                            <th class="titulo-guia">SEGUNDA-FEIRA</th>
-                            <th class="titulo-guia">TERÇA-FEIRA</th>
-                            <th class="titulo-guia">QUARTA-FEIRA</th>
-                            <th class="titulo-guia">QUINTA-FEIRA</th>
-                            <th class="titulo-guia">SEXTA-FEIRA</th>
-                            
-                            
-                            
-                            
-                            
-                        </tr>
-                        <tr>
-                            
-                            <td>1ª Aula 19:00</td>
-                            <td>PLANEJAMENTO DO TRABALHO DE CONCLUSÃO DE CURSO (TCC)</td>
-                            <td>ANÁLISE E PROJETO DE SISTEMAS</td>
-                            <td>SISTEMAS EMBARCOS</td>
-                            <td>PROGRAMAÇÃO WEB</td>
-                            <td>PROGRAMAÇÃO DE APLICATIVOS MOBILE</td>
-                            
-                        </tr>
-                        <tr>
-                            
-                            <td>2ª Aula 19:55</td>
-                            <td>PLANEJAMENTO DO TRABALHO DE CONCLUSÃO DE CURSO (TCC)</td>
-                            <td>ANÁLISE E PROJETO DE SISTEMAS</td>
-                            <td>SISTEMAS EMBARCOS</td>
-                            <td>PROGRAMAÇÃO WEB</td>
-                            <td>PROGRAMAÇÃO DE APLICATIVOS MOBILE</td>
-                            
-                        </tr>
-
-                        <tr>
-                            
-                            <td>3ª Aula 21:10</td>
-                            <td>DESENVOLVIMENTO DE SISTEMAS I</td>
-                            <td>ANÁLISE E PROJETO DE SISTEMAS</td>
-                            <td>DESENVOLVIMENTO DE SISTEMAS</td>
-                            <td>PROGRAMAÇÃO WEB</td>
-                            <td>PROGRAMAÇÃO DE APLICATIVOS MOBILE</td>
-                            
-                        </tr>
-
-                        <tr>
-                            
-                            <td>4ª Aula 22:05</td>
-                            <td>DESENVOLVIMENTO DE SISTEMAS I</td>
-                            <td>BANCO DE DADOS II</td>
-                            <td>DESENVOLVIMENTO DE SISTEMAS I</td>
-                            <td>PROGRAMAÇÃO WEB</td>
-                            <td>PROGRAMAÇÃO DE APLICATIVOS MOBILE</td>
-                            
-                        </tr>
-
-                        
-                        
-                    </table>
-            </div>
+            
         </div>
 
 
 
+           
 
-        </div>
+
+
+
+
+
+
+
 
     </main>
 
-    <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+
+<script>
         // Funções para Dropdown de Notificações
         function toggleDropdownNotif() {
             const dropdown = document.getElementById('dropdownNotif');
@@ -328,13 +288,57 @@
                 fecharDropdownPerfil();
             }
         });
+
+        // Toggle da sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const expandText = document.getElementById('expandText');
+            const visaoGeralText = document.querySelector('.visao-geral-text');
+            
+            sidebar.classList.toggle('expanded');
+            
+            // Muda o texto do botão
+            if (sidebar.classList.contains('expanded')) {
+                expandText.textContent = 'Recolher';
+                visaoGeralText.innerHTML = 'Visão Geral';
+            } else {
+                expandText.textContent = 'Expandir';
+                visaoGeralText.innerHTML = 'Visão<br>Geral';
+            }
+        }
+
+        // Adiciona funcionalidade de clique nos itens do menu
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active de todos os itens
+                document.querySelectorAll('.nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+                
+                // Adiciona active ao item clicado
+                this.classList.add('active');
+            });
+        });
+
+        // Adiciona suporte a teclado para acessibilidade
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const sidebar = document.getElementById('sidebar');
+                if (sidebar.classList.contains('expanded')) {
+                    sidebar.classList.remove('expanded');
+                    document.getElementById('expandText').textContent = 'Expandir';
+                }
+                
+                // Também fecha dropdowns
+                fecharDropdownNotif();
+                fecharDropdownConfig();
+                fecharDropdownPerfil();
+            }
+        });
     </script>
 
-    
-</body>
-
-    <link rel="stylesheet" href="./css-diario/estilos_diario.css">
-    <link rel="stylesheet" href="./css-diario/estilo_diario-cronograma.css">
-
-
+<link rel="stylesheet" href="../css-Sala/estilo_componente.css">
 </html>
+
+
+

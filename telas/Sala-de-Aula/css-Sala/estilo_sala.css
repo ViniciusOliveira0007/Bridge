@@ -320,7 +320,7 @@
             display: flex;
             justify-content: center; /* centraliza horizontalmente */
             align-items: center;     /* centraliza verticalmente */
-            margin-top: 30px;
+            
         }
 
         .banner-componentes {
@@ -333,6 +333,14 @@
 
         main{
             height: 1000px;
+            background-color: #dadada;
+            height: 900px;
+        }
+        
+
+
+        .banner-componentes{
+            margin-top: 30px;
         }
 
 
@@ -363,6 +371,8 @@
 
 
         /* Container principal dos botões de curso */
+
+        
         .container-principal-cursos {
             display: flex;
             flex-direction: row;
@@ -372,6 +382,17 @@
             position: relative;
             margin-top: 50px;
         }
+
+
+
+
+
+
+
+
+
+
+
 
         /* Coluna esquerda de botões */
         .coluna-esquerda-cursos {
@@ -408,16 +429,19 @@
             overflow: visible; /* Mudança: permite que a descrição apareça fora do botão */
             margin-bottom: 25px; /* Adiciona espaço fixo para a descrição */
             border:none;
+            border-radius: 30px;
         }
 
         /* Remove margem do último botão de cada coluna */
         .botao-curso:last-child {
             margin-bottom: 0;
+            
         }
 
         /* Efeito hover no botão - remove a expansão de altura */
         .botao-curso:hover {
             transform: translateY(-2px);
+           
             /* Remove: height: 150px; */
         }
 
