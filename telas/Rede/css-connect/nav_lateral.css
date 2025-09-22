@@ -1,0 +1,264 @@
+    
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  src: url('../fonts/Material_Symbols/Material_Symbols_Outlined/MaterialSymbolsOutlined.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Material Symbols Rounded';
+  src: url('../fonts/Material_Symbols/Material_Symbols_Rounded/MaterialSymbolsRounded.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Material Symbols Sharp';
+  src: url('../fonts/Material_Symbols/Material_Symbols_Sharp/MaterialSymbolsSharp.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+.iconeSimples,
+.iconeArredondado,
+.iconeReto {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+  font-size: 28px;
+  line-height: 1;
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  user-select: none;
+  font-feature-settings: 'liga';
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.iconeSimples     { font-family: 'Material Symbols Outlined'; }
+.iconeArredondado { font-family: 'Material Symbols Rounded'; }
+.iconeReto  { font-family: 'Material Symbols Sharp'; }
+    
+    
+    
+    
+    
+    
+    
+    
+    .navLateral{
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+        
+        position: fixed;
+        top: 100px; 
+        left: 0;
+        width: 220px;
+        height: 100%;
+        border-right: 1px solid #ddd;
+      }
+      
+      
+  /* CARD DO PERFIL*/   
+              .card {
+                  width: 190px;             
+                  height: 100px;            
+                  border: 2px solid black;
+                  border-radius: 7.6px;     
+                  overflow: hidden;
+                  font-family: Arial, sans-serif;
+                  background: #fff;
+                  position: relative;
+                  margin: 20px 0 0 10px;    
+                  
+                  transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+
+                .card:hover {
+                  transform: scale(1.05); 
+                  box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* opcional, sombra para destacar */
+                }
+
+                /* Faixa superior */
+                .top {
+                  background: linear-gradient(90deg, #111 70%, #222 100%);
+                  height: 34px;         
+                  position: relative;
+                }
+
+                /* Linha */
+                .divider {
+                  position: absolute;
+                  top: 38px;                
+                  left: 0;
+                  width: 100%;
+                  height: 0;
+                  border-top: 0.76px solid black; 
+                  z-index: 1;
+                }
+
+                /* Foto */
+                .photo {
+                  position: absolute;
+                  top: 19px;                
+                  left: 15px;                 
+                  width: 38px;             
+                  height: 38px;               
+                  background: #bbb;
+                  border-radius: 19px;       
+                  border: 0.76px solid black; 
+                  background-clip: padding-box;
+                  z-index: 2;
+                }
+
+                /* Conteúdo */
+                .content {
+                  padding: 30.4px 20px 7.6px 7.6px;
+                  text-align: center;
+                }
+
+                .name {
+                  font-size: 16px;         
+                  font-weight: bold;
+                  margin-bottom: 3px;       
+                }
+
+                .info {
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 8.36px;        
+                  font-weight: bold;
+                  color: #666;
+                  padding: 0 15.2px;          
+                }
+
+
+
+  /* BTN NAV*/
+
+                .btn-perfil {
+                  display: flex;
+                  align-items: center;
+                  border-radius: 30px;
+                  overflow: hidden;
+                  font-family: Arial, sans-serif;
+                  cursor: pointer;
+                  margin: 15px 0  0 10px;
+                }
+
+               
+                .btn-perfil .icon-area {
+                  background: transparent;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 40px;
+                  height: 40px;
+                  border-top-left-radius: 30px;
+                  border-bottom-left-radius: 30px;
+                  flex-shrink: 0;
+                }
+                
+                .btn-perfil .bars {
+                    display: none; /* escondido no estado normal */
+                  }
+                
+                .btn-perfil .text-area {
+                  background: transparent;
+                  color: black;
+                  font-weight: bold;
+                  font-size: 16px;
+                  width: 120px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  height: 40px;
+                  border-top-right-radius: 30px;
+                  border-bottom-right-radius: 30px;
+                }
+
+                .btn-perfil .icon-area .iconeSimples {
+                    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+                    color: black;
+                    font-size: 24px;
+                  }
+
+          
+
+                              /* BTN selecionado*/
+                              .btn-perfil.selecionado .icon-area {
+                                  background: #E7E7E7;
+                                }
+
+
+                                .btn-perfil.selecionado .bars {
+                                display: flex;
+                                flex-direction: row;
+                                gap: 1px;
+                                height: 40px;
+                                align-items: center;
+                                padding: 0 1px;
+                                background: white;
+                              }
+
+                              .btn-perfil.selecionado .bar {
+                                width: 6px;
+                                height: 100%;
+                                background: black;
+                              }
+
+
+                              .btn-perfil.selecionado .text-area {
+                                  background: black;
+                                  color: white;
+                              }
+
+                              .btn-perfil.selecionado .icon-area .iconeSimples {
+                                font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+                                
+                                color: black;
+                              }
+
+
+                      
+                              /* BTN HOVER*/
+
+
+                              .btn-perfil:not(.selecionado):hover .icon-area {
+                                background: black;
+                                color: white; /* deixa o emoji branco */
+                              }
+                              
+                              .btn-perfil:not(.selecionado):hover .bars {
+                                display: flex;
+                                flex-direction: row;
+                                gap: 1px;
+                                height: 40px;
+                                align-items: center;
+                                padding: 0 1px;
+                                background: white;
+                              }
+
+                              .btn-perfil:not(.selecionado):hover .bar {
+                                width: 6px;
+                                height: 100%;
+                                background: black;
+                              }
+
+                              .btn-perfil:not(.selecionado):hover .text-area {
+                                background: #E7E7E7;
+                                color: black;
+                              }
+
+                              .btn-perfil:not(.selecionado):hover .icon-area .iconeSimples {
+                                  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+                                  color: white;
+                                }

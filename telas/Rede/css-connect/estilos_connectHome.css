@@ -1,0 +1,329 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Navegação principal */
+        nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+             width: 100%;
+            z-index: 1000;
+            background-color: #161616;
+            padding: 10px 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            border: #e0e0e0;
+        }
+
+        .menu {
+            display: flex;  
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 20px;
+            
+        }
+
+        .menu-1, .menu-2, .menu-3 {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-1 {
+            flex: 0 0 auto;
+        }
+
+        .menu-2 {
+            flex: 1;
+            min-width: 0; /* Permite que o elemento encolha */
+            max-width: 800px; /* Limita a largura máxima */
+            margin: 0 auto;
+        }
+
+        .menu-2 input {
+            width: 100%;
+            height: 30px;
+            border-radius: 20px;
+            background-image: url('../imagens-diario/lupa.svg');
+            background-repeat: no-repeat;
+            background-position: 15px center;
+            background-size: 20px 20px;
+            padding-left: 45px;
+            padding-right: 15px;
+            border: 1px solid #ccc;
+        }
+
+        .menu-2 input:focus {
+            outline: none;
+            border-color: #fdfdfd;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 10);
+        }
+
+        .menu-3 {
+            flex: 0 0 auto;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .menu-3 a {
+            text-decoration: none;
+            color: white;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .menu-3 img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .foto-de-perfil {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* Menu da guia Diário */
+            .nome-da-guia {
+                position: fixed;
+                top: 60px; /* altura do nav */
+                left: 0;
+                width: 100%;
+                z-index: 999;
+                display: flex;
+                align-items: center;
+                height: 40px;
+                background-color: #161616;
+                padding: 0 20px;
+                gap: 30px;
+                justify-content: center;
+            }
+
+            .nome-da-guia ul {
+                display: flex;
+                list-style: none;
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nome-da-guia ul li {
+                display: inline-block;
+                margin: 0 20px;
+            }
+
+            .nome-da-guia li a {
+                font-family: Arial, Helvetica, sans-serif;
+                color: #ffffff;
+                font-weight: bold;
+                font-size: 15px;
+                text-decoration: none;
+                transition: .2s;
+                white-space: nowrap;
+                display: block;
+                position: relative;
+
+                /* Mantém todos iguais */
+                min-width: 100px;
+                height: 28px;
+                line-height: 28px;
+                text-align: center;
+                border-radius: 50px;
+            }
+
+            ul:hover li a {
+                opacity: .3;
+            }
+
+            ul li a:hover,
+            ul li a.selecionado {
+                opacity: 1;
+                color: #161616;
+                transform: scale(1);  
+                z-index: 1; 
+            }
+
+            /* Fundo animado */
+            ul li a::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+                z-index: -1;
+                transform-origin: right;
+                transform: scaleX(0);
+                transition: .2s;
+                border-radius: 50px;
+            }
+
+            ul li a:hover::before,
+            ul li a.selecionado::before {
+                transform-origin: left;
+                transform: scaleX(1);
+                transition: transform .2s;
+            }
+
+
+
+
+
+
+
+
+
+
+        /* Conteúdo principal */
+
+
+                    .conteudo-principal {
+                    display: grid;
+                    grid-template-columns: 220px 1fr; /* remove a terceira coluna do grid */
+                    gap: 20px;
+                    padding: 20px;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding-top: 100px;
+                    padding-right: 300px;  /* deixa espaço para o painel fixo */
+                    
+                    }
+
+
+
+                    .feed {
+                    grid-column: 2;
+                    padding: 10px;
+                    }
+
+
+                    
+
+                   
+
+
+ /* POSTAGEM */
+
+                    .postagem{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        margin-top: 25px;
+                    }
+
+
+
+            /* PERFIL DO POST */
+                                .perfilPost {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 12px;
+                                    max-width: 600px;
+                                    margin-right: 60px;
+                                    }
+
+                                    /* Foto de perfil */
+                                    .fotoPost {
+                                    width: 55px;
+                                    height: 55px;
+                                    border-radius: 50%;
+                                    border: 2px solid black;
+                                    background: lightgray;
+                                    }
+
+                                    /* Infos principais */
+                                    .infosPost {
+                                    display: flex;
+                                    flex-direction: column;
+                                    }
+
+                                    .linha {
+                                    border-top: 5px solid black;
+                                    margin-bottom: 5px;
+                                    width: 100%;
+                                    border-radius: 15px;
+                                    }
+
+                                    .nome {
+                                    font-weight: bold;
+                                    font-size: 18px;
+                                    }
+
+                                    .detalhes {
+                                    display: flex;
+                                    margin-top: 4px;
+                                    font-weight: bold;
+                                    color: gray;
+                                    font-size: 12px;
+                                    width: 100%;
+                                    justify-content:space-between;
+                                    }
+
+                                    .tempo {
+                                    color: gray;
+                                    font-weight: bold;
+                                    margin-left: 8px;
+                                    font-size: 15px;
+                                    }
+
+                                    .cabecalho {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 8px;
+                                    }
+
+             /* ITEM DO POST */
+                                    .imagem{
+                                        background-color: #ccc;
+                                        border-radius: 20px;
+                                        width: 420px;
+                                        height: 470px;
+                                        margin-top: 10px;
+                                    }
+             /* ICONES DE REAÇÃO */
+                                    .reacoes{
+                                        width: 350px;
+                                        height: 25px;
+                                        background-color: rgb(224, 224, 224);
+                                        margin-top: 10px;
+                                    }
+
+
+
+        /* CARD SUGESTÕES DIREITA */        
+                        .sugestoes {
+                            position: fixed;
+                            top: 100px;        
+                            right: 0;         
+                            height: 300px;
+                            width: 250px;      
+                            background-color: #ccc;
+                            margin-right: 100px;
+                            margin-top: 50px;
+                            border-radius: 20px;
+
+                        }
+                   
