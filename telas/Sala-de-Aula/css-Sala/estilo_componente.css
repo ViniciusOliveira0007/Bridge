@@ -325,6 +325,1734 @@
 
 
 
+
+        /*Estilização de banner*/
+
+
+        .banner {
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+        
+        .ativado{
+            display: 1;
+            
+
+        }
+
+
+        .desativado{
+            display: none;
+        }
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Estilização do elementos da tela de visão Geral*/
+
+
+
+
+        .vis-o-geral,
+            .vis-o-geral * {
+            box-sizing: border-box;
+            
+            }
+            .vis-o-geral {
+            height: 380px;
+            position: relative;
+            margin-top:30px;
+            display: flex;
+            }
+            .descri-o {
+            width: 741px;
+            height: 134px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            }
+            .card-componente {
+            background: #ed0510;
+            border-radius: 20px 20px 0px 0px;
+            padding: 10px 5px 10px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: flex-start;
+            justify-content: center;
+            width: 741px;
+            height: 38px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            overflow: hidden;
+            }
+            .nome-logo {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-items: center;
+            justify-content: flex-start;
+            flex-shrink: 0;
+            width: 731px;
+            height: 53px;
+            position: relative;
+            }
+            .sigla-componente {
+            background: #ed0510;
+            border-radius: 20px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 52px;
+            height: 40px;
+            position: relative;
+            aspect-ratio: 52/40;
+            }
+            .se {
+            color: #ffffff;
+            text-align: left;
+            font-family: "Roboto-Bold", sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            position: relative;
+            }
+            .separador {
+            background: #ffffff;
+            flex-shrink: 0;
+            width: 1px;
+            height: 20px;
+            position: relative;
+            }
+            .nome-componente {
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-start;
+            flex-shrink: 0;
+            width: 654px;
+            position: relative;
+            }
+            .sistemas-embarados {
+            color: #ffffff;
+            text-align: left;
+            font-family: "Roboto-Bold", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            position: relative;
+            }
+            .descri-o-componente {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            align-items: center;
+            justify-content: center;
+            width: 741px;
+            position: absolute;
+            left: 0px;
+            top: 38px;
+            }
+            .descri-o2 {
+            background: #ed0510;
+            border-style: solid;
+            border-color: #ffffff;
+            border-width: 1px 0px 0px 0px;
+            padding: 5px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 22px;
+            position: relative;
+            }
+            .descri-o3 {
+            color: #ffffff;
+            text-align: left;
+            font-family: "Roboto-Bold", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            position: relative;
+            }
+            .texto-descri-o {
+            background: #ffffff;
+            border-radius: 0px 0px 20px 20px;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 74px;
+            position: relative;
+            overflow: hidden;
+            }
+            .texto {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            justify-content: center;
+            width: 741px;
+            position: absolute;
+            left: 0px;
+            top: 3px;
+            }
+            .descri-o-do-seu-componente-sera-descrito-bem-aqui-mesmo {
+            color: #000000;
+            text-align: left;
+            font-family: "Roboto-Regular", sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            position: relative;
+            align-self: stretch;
+            }
+            .tarefa {
+            width: 450px;
+            height: 108px;
+            position: absolute;
+            left: 0px;
+            top: 149px;
+            }
+            .tarefas-viss-o-geral {
+            background: #ffffff;
+            border-radius: 0px 0px 20px 20px;
+            width: 450px;
+            height: 74px;
+            position: absolute;
+            left: 0px;
+            top: 34px;
+            overflow: hidden;
+            }
+            .frame-geral-tarefa {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            width: 450px;
+            position: absolute;
+            left: 0px;
+            top: 10px;
+            }
+            .frame-geral-tarefa-em-breve {
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            align-items: flex-start;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 450px;
+            height: 46px;
+            position: relative;
+            overflow: hidden;
+            }
+            .frame-202 {
+            padding: 10px 10px 5px 9px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-start;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 30px;
+            position: relative;
+            }
+            .nome-da-atividade {
+            color: #000000;
+            text-align: left;
+            font-family: "Roboto-Regular", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            }
+            .frame-201 {
+            padding: 10px 10px 16px 9px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 15px;
+            position: relative;
+            }
+            .prazo-de-entrega {
+            color: #666666;
+            text-align: left;
+            font-family: "Roboto-Regular", sans-serif;
+            font-size: 10px;
+            font-weight: 400;
+            position: relative;
+            flex: 1;
+            height: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            }
+            .tarefa2 {
+            background: #ed0510;
+            border-radius: 20px 20px 0px 0px;
+            padding: 5px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            width: 450px;
+            height: 34px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            }
+            .tarefa3 {
+            color: #ffffff;
+            text-align: left;
+            font-family: "Roboto-Bold", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            position: relative;
+            }
+            .professor {
+            width: 276px;
+            height: 108px;
+            position: absolute;
+            left: 0px;
+            top: 123px;
+            }
+            .dia-aula-vis-o-geral {
+            background: #ffffff;
+            border-radius: 0px 0px 20px 20px;
+            width: 276px;
+            height: 74px;
+            position: absolute;
+            left: 0px;
+            top: 34px;
+            overflow: hidden;
+            }
+            .professor2 {
+            width: 187px;
+            height: 24px;
+            position: absolute;
+            left: 10px;
+            top: 11px;
+            }
+            .professor3 {
+            border-radius: 10px;
+            padding: 5px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 24px;
+            top: 0px;
+            }
+            .oswaldo-luiz-paquier-bertoli {
+            color: #000000;
+            text-align: left;
+            font-family: "Roboto-Regular", sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            position: relative;
+            }
+            .foto-professor {
+            background: #d9d9d9;
+            border-radius: 20px;
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            overflow: hidden;
+            }
+            .professor4 {
+            width: 187px;
+            height: 24px;
+            position: absolute;
+            left: 10px;
+            top: 39px;
+            }
+            .professor5 {
+            background: #ed0510;
+            border-radius: 20px 20px 0px 0px;
+            padding: 5px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            width: 276px;
+            height: 34px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            }
+            .professor6 {
+            color: #ffffff;
+            text-align: left;
+            font-family: "Roboto-Bold", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            position: relative;
+            }
+            .postagens {
+            width: 450px;
+            height: 108px;
+            position: absolute;
+            left: 291px;
+            top: 272px;
+            }
+            .postagem {
+            width: 433px;
+            height: 40px;
+            position: absolute;
+            left: 7px;
+            top: 17px;
+            }
+            .postagens2 {
+            border-radius: 10px 0px 0px 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            overflow: visible;
+            }
+            .contexto {
+            border-radius: 0px 10px 10px 0px;
+            border-style: solid;
+            border-color: #d9d9d9;
+            border-width: 1px 1px 1px 0px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-start;
+            width: 393px;
+            height: 40px;
+            position: absolute;
+            left: 40px;
+            top: 0px;
+            }
+            .v-deo-auxiliar-para-realizar-tarefa {
+            color: #ed0510;
+            text-align: left;
+            font-family: "Inter-Bold", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            position: relative;
+            }
+            .postagens3 {
+            color: #ffffff;
+            text-align: left;
+            font-family: "Roboto-Bold", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            position: relative;
+            }
+            .dia-aula {
+            width: 276px;
+            height: 108px;
+            position: absolute;
+            left: 465px;
+            top: 149px;
+            }
+            .dias {
+            background: #ffffff;
+            width: 276px;
+            height: 46px;
+            position: absolute;
+            left: 0px;
+            top: 14px;
+            overflow: hidden;
+            }
+            .d-ias {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: absolute;
+            left: 13px;
+            top: 5px;
+            }
+            .cabe-alho {
+            background: #ffffff;
+            border-radius: 10px;
+            border-style: solid;
+            border-color: #d9d9d9;
+            border-width: 1px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            height: 35px;
+            position: relative;
+            }
+            .cabe-alho2 {
+            color: #ed0510;
+            text-align: left;
+            font-family: "Roboto-Bold", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            position: relative;
+            }
+            .d-ias2 {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: absolute;
+            left: 65px;
+            top: 5px;
+            }
+            .d-ias3 {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: absolute;
+            left: 166px;
+            top: 5px;
+            }
+            .d-ias4 {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: absolute;
+            left: 113px;
+            top: 5px;
+            }
+            .cabe-alho3 {
+            color: #d9d9d9;
+            text-align: left;
+            font-family: "Roboto-Regular", sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            position: relative;
+            }
+            .d-ias5 {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: absolute;
+            left: 215px;
+            top: 5px;
+            }
+            .dia-aula2 {
+            background: #ed0510;
+            border-radius: 20px 20px 0px 0px;
+            padding: 5px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            width: 276px;
+            height: 34px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            }
+            .dias-de-aula {
+            color: #ffffff;
+            text-align: left;
+            font-family: "Roboto-Bold", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            position: relative;
+            }
+
+
+
+
+
+
+
+            /*Estilização da tela de tarefa*/
+
+
+            .frame-691,
+            .frame-691 * {
+            box-sizing: border-box;
+            }
+            .frame-691 {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: relative;
+            }
+            .transi-ao-tarefa {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-items: center;
+            justify-content: flex-start;
+            align-self: stretch;
+            flex-shrink: 0;
+            position: relative;
+            }
+            .estado-tarefa {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 639px;
+            position: relative;
+            }
+            .frame-203 {
+            background: #ffffff;
+            border-radius: 20px 0px 0px 20px;
+            padding: 6px 8px 6px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            align-self: stretch;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            }
+            .estado-tarefa2 {
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+            align-self: stretch;
+            flex-shrink: 0;
+            position: relative;
+            }
+            .pendente-transi-o {
+            border-radius: 10px 0px 0px 0px;
+            padding: 6px 10px 6px 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 93px;
+            position: relative;
+            }
+            .pendente {
+            color: #005c6d;
+            text-align: center;
+            font-family: "Roboto-Bold", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            position: relative;
+            align-self: stretch;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            }
+            .selecionado {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-shrink: 0;
+            width: 93px;
+            height: 3px;
+            position: absolute;
+            left: 0px;
+            top: 28px;
+            border: none;
+            }
+            .frame-194 {
+            background: #b20000;
+            border-radius: 20px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            align-self: stretch;
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            }
+            .em-atraso-transi-o {
+            padding: 6px 10px 6px 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 93px;
+            position: relative;
+            }
+            .em-atraso {
+            color: #005c6d;
+            text-align: center;
+            font-family: "Roboto-Bold", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            position: relative;
+            align-self: stretch;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            }
+            .selecionado2 {
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-shrink: 0;
+            width: 5px;
+            height: 3px;
+            position: absolute;
+            left: 44px;
+            top: 28px;
+            }
+            .frame-1942 {
+            background: rgba(178, 0, 0, 0);
+            border-radius: 20px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            width: 5px;
+            position: relative;
+            transform-origin: 0 0;
+            transform: rotate(0deg) scale(-1, 1);
+            overflow: hidden;
+            }
+            .conclu-da-transi-o {
+            padding: 6px 10px 6px 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 93px;
+            position: relative;
+            }
+            .conclu-da {
+            color: #005c6d;
+            text-align: center;
+            font-family: "Roboto-Bold", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            position: relative;
+            align-self: stretch;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            }
+            .sigla-componente {
+            background: #cd0c37;
+            border-radius: 0px 20px 20px 0px;
+            padding: 7px 34px 7px 34px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            height: 43px;
+            position: relative;
+            overflow: hidden;
+            }
+            .se {
+            color: #ffffff;
+            text-align: center;
+            font-family: "Roboto-Bold", sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            }
+            .frame-617 {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            align-self: stretch;
+            flex-shrink: 0;
+            position: relative;
+            }
+            .data {
+            padding: 2px 40px 2px 70px;
+            display: flex;
+            flex-direction: row;
+            gap: 0px;
+            align-items: center;
+            justify-content: flex-start;
+            flex-shrink: 0;
+            position: relative;
+            }
+            ._30-de-jun-quarta-feira {
+            color: #005c6d;
+            text-align: left;
+            font-family: "-", sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            }
+            ._30-de-jun-quarta-feira-span {
+            font-family: "Roboto-Bold", sans-serif;
+            font-weight: 700;
+            }
+            ._30-de-jun-quarta-feira-span2 {
+            font-family: "Roboto-Regular", sans-serif;
+            }
+            .card-tarefa {
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 70px;
+            position: relative;
+            }
+            .sigla-componente2 {
+            background: #cd0c37;
+            border-radius: 20px 0px 0px 20px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 70px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            }
+            .estado-tarefa3 {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: absolute;
+            left: 70px;
+            top: 0px;
+            }
+            .frame-tarefa-em-breve {
+            background: #ffffff;
+            border-radius: 0px 20px 0px 0px;
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            align-items: flex-start;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 671px;
+            height: 46px;
+            position: relative;
+            overflow: hidden;
+            }
+            .frame-202 {
+            padding: 10px 10px 5px 9px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-start;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 30px;
+            position: relative;
+            }
+            .nome-da-atividade {
+            color: #000000;
+            text-align: left;
+            font-family: "Roboto-Regular", sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            }
+            .frame-201 {
+            padding: 10px 10px 16px 9px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            align-self: stretch;
+            flex-shrink: 0;
+            height: 15px;
+            position: relative;
+            }
+            .prazo-de-entrega {
+            color: #666666;
+            text-align: left;
+            font-family: "Roboto-Regular", sans-serif;
+            font-size: 10px;
+            font-weight: 400;
+            position: relative;
+            flex: 1;
+            height: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            }
+            .nome-componente-rodap {
+            background: #910c29;
+            border-radius: 0px 0px 20px 0px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            justify-content: center;
+            width: 671px;
+            height: 17px;
+            position: absolute;
+            left: 70px;
+            top: 53px;
+            overflow: hidden;
+            }
+            .frame-200 {
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            width: 671px;
+            position: relative;
+            }
+            .nome-do-componente {
+            color: #ffffff;
+            text-align: left;
+            font-family: "Roboto-Regular", sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            position: relative;
+            flex: 1;
+            height: 12px;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /*Inicio de postagens */
+
+
+            .postagem,
+                .postagem * {
+                box-sizing: border-box;
+                }
+                .postagem {
+                height: 419px;
+                position: relative;
+                }
+                .professor-postagem {
+                width: 741px;
+                height: 94px;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                }
+                .professor {
+                width: 741px;
+                height: 30px;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                }
+                .nome-professor {
+                display: flex;
+                flex-direction: row;
+                gap: 0px;
+                align-items: center;
+                justify-content: flex-start;
+                height: 30px;
+                position: absolute;
+                left: 30px;
+                top: 0px;
+                }
+                .frame-334 {
+                padding: 10px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                width: 243px;
+                height: 22px;
+                position: relative;
+                }
+                .oswaldo-luiz-parquier-bertoli {
+                color: #005c6d;
+                text-align: left;
+                font-family: "Roboto-Regular", sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                position: relative;
+                }
+                .frame-335 {
+                padding: 10px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                height: 22px;
+                position: relative;
+                }
+                ._08-05-19-42 {
+                color: #666666;
+                text-align: left;
+                font-family: "Roboto-Regular", sans-serif;
+                font-size: 12px;
+                font-weight: 400;
+                position: relative;
+                }
+                .foto-professor {
+                background: #ffffff;
+                border-radius: 20px;
+                width: 30px;
+                height: 30px;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                overflow: hidden;
+                aspect-ratio: 1;
+                }
+                .postagem2 {
+                width: 741px;
+                height: 58px;
+                position: absolute;
+                left: 0px;
+                top: 36px;
+                }
+                .component {
+                background: #ed0510;
+                border-radius: 20px 0px 0px 0px;
+                padding: 10px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: center;
+                width: 93px;
+                height: 58px;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                }
+                .tcc {
+                color: #ffffff;
+                text-align: left;
+                font-family: "Roboto-Bold", sans-serif;
+                font-size: 24px;
+                font-weight: 700;
+                position: relative;
+                }
+                .postagens-componente {
+                background: #ffffff;
+                border-radius: 0px 20px 0px 0px;
+                display: flex;
+                flex-direction: column;
+                gap: 0px;
+                align-items: flex-start;
+                justify-content: flex-start;
+                width: 648px;
+                position: absolute;
+                left: 93px;
+                top: 0px;
+                overflow: hidden;
+                }
+                .frame-332 {
+                padding: 10px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: flex-start;
+                align-self: stretch;
+                flex-shrink: 0;
+                height: 29px;
+                position: relative;
+                }
+                .v-deo-aula-imagem-arquivo {
+                color: #000000;
+                text-align: center;
+                font-family: "Roboto-Regular", sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                }
+                .frame-333 {
+                padding: 10px 15px 10px 10px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: flex-start;
+                align-self: stretch;
+                flex-shrink: 0;
+                height: 29px;
+                position: relative;
+                }
+                .pequena-descri-o-sobre-o-assunto {
+                color: #757575;
+                text-align: center;
+                font-family: "Roboto-Regular", sans-serif;
+                font-size: 12px;
+                font-weight: 400;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                }
+                .frame-619 {
+                width: 15px;
+                height: 29px;
+                position: absolute;
+                left: 0px;
+                top: 94px;
+                overflow: hidden;
+                }
+                .comentarios {
+                width: 741px;
+                height: 125px;
+                position: absolute;
+                left: 0px;
+                top: 294px;
+                }
+                .comentarios2 {
+                border-style: solid;
+                border-color: #000000;
+                border-width: 0px 0px 1px 0px;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                align-items: flex-start;
+                justify-content: flex-start;
+                width: 741px;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                }
+                .frame-339 {
+                background: #ffffff;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+                justify-content: flex-start;
+                align-self: stretch;
+                flex-shrink: 0;
+                position: relative;
+                overflow: hidden;
+                }
+                .frame-349 {
+                display: flex;
+                flex-direction: column;
+                gap: 0px;
+                align-items: flex-start;
+                justify-content: flex-start;
+                align-self: stretch;
+                flex-shrink: 0;
+                position: relative;
+                }
+                .frame-344 {
+                display: flex;
+                flex-direction: column;
+                gap: 0px;
+                align-items: flex-start;
+                justify-content: flex-start;
+                align-self: stretch;
+                flex-shrink: 0;
+                height: 59px;
+                position: relative;
+                }
+                .frame-343 {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                align-self: stretch;
+                flex-shrink: 0;
+                position: relative;
+                }
+                .frame-340 {
+                padding: 10px 4px 0px 20px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: flex-start;
+                flex-shrink: 0;
+                width: 102px;
+                height: 35px;
+                position: relative;
+                }
+                .nome-aluno {
+                color: #000000;
+                text-align: left;
+                font-family: "Roboto-Bold", sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                }
+                .frame-342 {
+                padding: 10px 10px 0px 5px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: flex-start;
+                flex-shrink: 0;
+                width: 813px;
+                height: 35px;
+                position: relative;
+                }
+                ._04-02-19-21 {
+                color: #666666;
+                text-align: left;
+                font-family: "Roboto-Regular", sans-serif;
+                font-size: 12px;
+                font-weight: 400;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                }
+                .frame-341 {
+                padding: 0px 10px 10px 20px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: flex-start;
+                align-self: stretch;
+                flex-shrink: 0;
+                height: 27px;
+                position: relative;
+                }
+                .coment-rio-do-aluno {
+                color: #000000;
+                text-align: left;
+                font-family: "Roboto-Regular", sans-serif;
+                font-size: 12px;
+                font-weight: 400;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                }
+                .frame-348 {
+                padding: 10px 10px 15px 20px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: flex-start;
+                align-self: stretch;
+                flex-shrink: 0;
+                height: 25px;
+                position: relative;
+                }
+                .outros-coment-rios {
+                color: #005c6d;
+                text-align: left;
+                font-family: "Roboto-Bold", sans-serif;
+                font-size: 12px;
+                font-weight: 700;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                }
+                .responder-tcc {
+                width: 687px;
+                height: 40px;
+                position: absolute;
+                left: 0px;
+                top: 85px;
+                }
+                .frame-346 {
+                background: #fbfbfb;
+                border-radius: 0px 0px 20px 0px;
+                width: 94.32%;
+                height: 100%;
+                position: absolute;
+                right: -7.86%;
+                left: 13.54%;
+                bottom: 0%;
+                top: 0%;
+                overflow: hidden;
+                }
+                .frame-347 {
+                background: #ed0510;
+                border-radius: 0px 0px 0px 20px;
+                padding: 10px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: center;
+                width: 13.54%;
+                height: 100%;
+                position: absolute;
+                right: 86.46%;
+                left: 0%;
+                bottom: 0%;
+                top: 0%;
+                }
+                .responder {
+                color: #ffffff;
+                text-align: left;
+                font-family: "Roboto-Bold", sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                }
+                .postagem-coteudo {
+                background: #ffffff;
+                border-style: solid;
+                border-color: #000000;
+                border-width: 1px 0px 1px 0px;
+                width: 741px;
+                height: 200px;
+                position: absolute;
+                left: 0px;
+                top: 94px;
+                overflow: hidden;
+                }
+
+
+
+
+
+
+
+            /* Fim de postagens */
+
+
+
+
+
+
+            /*Arquivos*/
+
+
+            .frame-692,
+                .frame-692 * {
+                box-sizing: border-box;
+                }
+                .frame-692 {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+                justify-content: flex-start;
+                position: relative;
+                }
+                .arquivo {
+                align-self: stretch;
+                flex-shrink: 0;
+                height: 55px;
+                position: relative;
+                }
+                .arquivos {
+                border-radius: 10px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: center;
+                width: 55px;
+                height: 55px;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                overflow: visible;
+                aspect-ratio: 1;
+                }
+                .texto-arquivo {
+                background: #ffffff;
+                border-radius: 10px;
+                padding: 10px 20px 10px 20px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: flex-start;
+                width: 681px;
+                height: 55px;
+                position: absolute;
+                left: 60px;
+                top: 0px;
+                }
+                .exemplo-de-estrututa-o-de-c-digo {
+                color: #000000;
+                text-align: left;
+                font-family: "Roboto-Regular", sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                position: relative;
+                }
+                .arquivos2 {
+                border-radius: 10px;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                justify-content: center;
+                width: 55px;
+                height: 55px;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                overflow: visible;
+                aspect-ratio: 1;
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /*Estilização de Membros*/
+
+
+
+            .membros,
+            .membros * {
+            box-sizing: border-box;
+            }
+            .membros {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: relative;
+            }
+            .membro {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-items: center;
+            justify-content: flex-start;
+            align-self: stretch;
+            flex-shrink: 0;
+            position: relative;
+            }
+            .frame-613 {
+            border-radius: 30px;
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            position: relative;
+            overflow: hidden;
+            object-fit: cover;
+            aspect-ratio: 1;
+            }
+            .frame-615 {
+            background: #ffffff;
+            border-radius: 10px;
+            border-style: solid;
+            border-color: #000000;
+            border-width: 0.5px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-start;
+            flex-shrink: 0;
+            width: 520px;
+            height: 50px;
+            position: relative;
+            }
+            .rodrigo-dos-santos-pereira-junior {
+            color: #000000;
+            text-align: center;
+            font-family: "Roboto-Regular", sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            }
+            .membro-perfl {
+            background: #b20000;
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            height: 50px;
+            position: relative;
+            box-shadow: inset 3px 4px 10px 0px rgba(255, 255, 255, 0.25);
+            }
+            .ver-perfil {
+            color: #ffffff;
+            text-align: center;
+            font-family: "Roboto-Regular", sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            }
+
+
+
+
+            /* Fim de estilização de membros */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /*Estilização centro do conteúdo principal*/
+
+
+
+
+
+            .conteudo-visao-geral {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: relative;
+            margin-left: 20%;
+            margin-right: 70%;
+            }
+
+            .conteudo-tarefas{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: relative;
+            margin-left: 20%;
+            margin-right: 70%;
+
+            }
+
+
+
+            .conteudo-postagens{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: relative;
+            margin-left: 20%;
+            margin-right: 70%;
+
+            }
+
+
+            .conteudo-membros {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+                justify-content: flex-start;
+                position: relative;
+                margin-left: 20%;
+                margin-right: 70%;
+            }
+
+
+            .conteudo-arquivo {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+                justify-content: flex-start;
+                position: relative;
+                margin-left: 20%;
+                margin-right: 70%;
+            }
+
+
+
+
+
+
+
+
+
+
+            .desativado{
+                display: none;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /* Sidebar */
         .sidebar {
             background: #161616;
