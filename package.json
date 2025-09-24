@@ -23,12 +23,22 @@
   "dependencies": {
     "@prisma/client": "^6.13.0",
     "bootstrap": "^5.3.7",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
-    "live-server": "^1.2.2"
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "live-server": "^1.2.2",
+    "validator": "^13.15.15"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.5.2",
+    "@types/validator": "^13.15.3",
+    "nodemon": "^3.1.10",
     "prisma": "^6.12.0",
-    "typescript": "^5.8.3"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
   },
   "description": ""
 }
