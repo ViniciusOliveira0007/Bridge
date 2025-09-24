@@ -6,7 +6,6 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background-color: #dadada;
         }
 
         /* Navegação principal */
@@ -17,7 +16,7 @@
             display: flex;
             align-items: center;
             border: #e0e0e0;
-            position: relative;
+            position: relative; /* Necessário para o dropdown */
         }
 
         .menu {
@@ -67,31 +66,54 @@
             flex: 0 0 auto;
             justify-content: flex-end;
             gap: 15px;
-            position: relative;
+            position: relative; /* Para posicionar o dropdown */
+        }
+
+        .menu-3 a {
+            text-decoration: none;
+            color: white;
+            white-space: nowrap;
+            font-size: 14px;
         }
 
         .menu-3 img {
             width: 24px;
             height: 24px;
-            cursor: pointer;
-            
         }
 
-        .menu-3 img:hover {
+        .btn-notificao-nav {
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-notificao-nav:hover {
+            opacity: 0.8;
+        }
+
+        .btn-config {
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-config:hover {
             opacity: 0.8;
         }
 
         .foto-de-perfil {
-            width: 40px !important;
-            height: 40px !important;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #ffffff;
             cursor: pointer;
-           
+            transition: opacity 0.2s ease;
         }
 
-        /* Dropdowns */
+        .foto-de-perfil:hover {
+            opacity: 0.8;
+        }
+
+        /* Dropdowns (base comum) */
         .dropdown-notificacoes,
         .dropdown-configuracoes,
         .dropdown-perfil {
@@ -108,6 +130,7 @@
             transition: all 0.3s ease;
         }
 
+        /* Posicionamento específico de cada dropdown */
         .dropdown-notificacoes {
             right: 120px;
         }
@@ -201,6 +224,7 @@
             background-color: #f5f5f5;
         }
 
+        /* Estilo especial para "Sair da Conta" */
         .sair-conta {
             color: #d32f2f !important;
             border-top: 1px solid #e0e0e0;
@@ -211,6 +235,7 @@
             background-color: #ffebee !important;
         }
 
+        /* Estilo para notificações vazias */
         .notificacao-vazia {
             padding: 20px 15px;
             text-align: center;
@@ -219,14 +244,22 @@
             font-style: italic;
         }
 
-        /* Menu de navegação das guias */
+        /* Menu da guia Diário */
         .nome-da-guia {
             display: flex;
             align-items: center;
-            height: 60px;
+            height: 40px;
             background-color: #161616;
             padding: 0 20px;
+            gap: 30px;
             justify-content: center;
+        }
+
+        .txt-guia {
+            font-weight: bold;
+            font-size: 15px;
+            color: #ffffff;
+            padding: 20px;
         }
 
         .nome-da-guia ul {
@@ -235,6 +268,7 @@
             gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
+            padding: 20px;
         }
 
         .nome-da-guia li a {
@@ -244,17 +278,35 @@
             font-size: 15px;
             text-decoration: none;
             white-space: nowrap;
-            padding: 10px 20px;
+            padding: 8px;
             border-radius: 10px;
             background-color: transparent;
-            transition: 0.3s;
         }
 
         .nome-da-guia li a:hover {
             background-color: #e0e0e0;
             color: #000000;
             border-radius: 20px;
+            transition: 0.3s;
         }
+
+        nav a:hover, .nome-da-guia a:hover {
+            color: #000000; 
+            text-decoration: none; 
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /* Layout principal */
         .conteudo-principal {

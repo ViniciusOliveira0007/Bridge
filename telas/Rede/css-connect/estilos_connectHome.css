@@ -6,23 +6,17 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            padding: 0;
-            margin: 0;
         }
 
         /* Navegação principal */
         nav {
-            position: fixed;
-            left: 0;
-            top: 0;
-             width: 100%;
-            z-index: 1000;
             background-color: #161616;
             padding: 10px 20px;
             height: 60px;
             display: flex;
             align-items: center;
             border: #e0e0e0;
+            position: relative; /* Necessário para o dropdown */
         }
 
         .menu {
@@ -31,7 +25,6 @@
             align-items: center;
             width: 100%;
             gap: 20px;
-            
         }
 
         .menu-1, .menu-2, .menu-3 {
@@ -45,8 +38,8 @@
 
         .menu-2 {
             flex: 1;
-            min-width: 0; /* Permite que o elemento encolha */
-            max-width: 800px; /* Limita a largura máxima */
+            min-width: 0;
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -54,7 +47,7 @@
             width: 100%;
             height: 30px;
             border-radius: 20px;
-            background-image: url('../imagens-diario/lupa.svg');
+            background-image: url('/telas/Diario/imagens-diario/lupa.svg');
             background-repeat: no-repeat;
             background-position: 15px center;
             background-size: 20px 20px;
@@ -73,6 +66,7 @@
             flex: 0 0 auto;
             justify-content: flex-end;
             gap: 15px;
+            position: relative; /* Para posicionar o dropdown */
         }
 
         .menu-3 a {
@@ -87,12 +81,167 @@
             height: 24px;
         }
 
+        .btn-notificao-nav {
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-notificao-nav:hover {
+            opacity: 0.8;
+        }
+
+        .btn-config {
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-config:hover {
+            opacity: 0.8;
+        }
+
         .foto-de-perfil {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #ffffff;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .foto-de-perfil:hover {
+            opacity: 0.8;
+        }
+
+        /* Dropdowns (base comum) */
+        .dropdown-notificacoes,
+        .dropdown-configuracoes,
+        .dropdown-perfil {
+            position: absolute;
+            top: 45px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            min-width: 200px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        /* Posicionamento específico de cada dropdown */
+        .dropdown-notificacoes {
+            right: 120px;
+        }
+
+        .dropdown-configuracoes {
+            right: 70px;
+        }
+
+        .dropdown-perfil {
+            right: 10px;
+            min-width: 220px;
+        }
+
+        .dropdown-notificacoes.ativo,
+        .dropdown-configuracoes.ativo,
+        .dropdown-perfil.ativo {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .dropdown-titulo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dropdown-titulo img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .perfil-mini {
+            width: 20px !important;
+            height: 20px !important;
+            border: 1px solid #ccc !important;
+        }
+
+        .dropdown-titulo span {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .btn-fechar {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #666;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-fechar:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown-opcoes {
+            padding: 10px 0;
+        }
+
+        .opcao-item {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+
+        .opcao-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Estilo especial para "Sair da Conta" */
+        .sair-conta {
+            color: #d32f2f !important;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 5px;
+        }
+
+        .sair-conta:hover {
+            background-color: #ffebee !important;
+        }
+
+        /* Estilo para notificações vazias */
+        .notificacao-vazia {
+            padding: 20px 15px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            font-style: italic;
         }
 
 
@@ -101,59 +250,65 @@
 
 
 
-
-
-
+        
 
         /* Menu da guia Diário */
-            .nome-da-guia {
-                position: fixed;
-                top: 60px; /* altura do nav */
-                left: 0;
-                width: 100%;
-                z-index: 999;
-                display: flex;
-                align-items: center;
-                height: 40px;
-                background-color: #161616;
-                padding: 0 20px;
-                gap: 30px;
-                justify-content: center;
-            }
+        .nome-da-guia {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            background-color: #161616;
+            padding: 0 20px;
+            gap: 30px;
+            justify-content: center;
+        }
 
-            .nome-da-guia ul {
-                display: flex;
-                list-style: none;
-                gap: 20px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+        .txt-guia {
+            font-weight: bold;
+            font-size: 15px;
+            color: #ffffff;
+            padding: 20px;
+        }
 
-            .nome-da-guia ul li {
-                display: inline-block;
-                margin: 0 20px;
-            }
+        .nome-da-guia ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
 
-            .nome-da-guia li a {
-                font-family: Arial, Helvetica, sans-serif;
-                color: #ffffff;
-                font-weight: bold;
-                font-size: 15px;
-                text-decoration: none;
-                transition: .2s;
-                white-space: nowrap;
-                display: block;
-                position: relative;
+        .nome-da-guia li a {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 15px;
+            text-decoration: none;
+            white-space: nowrap;
+            padding: 8px;
+            border-radius: 10px;
+            background-color: transparent;
+        }
 
-                /* Mantém todos iguais */
-                min-width: 100px;
-                height: 28px;
-                line-height: 28px;
-                text-align: center;
-                border-radius: 50px;
-            }
+        .nome-da-guia li a:hover {
+            background-color: #e0e0e0;
+            color: #000000;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
 
-            ul:hover li a {
+        nav a:hover, .nome-da-guia a:hover {
+            color: #000000; 
+            text-decoration: none; 
+        }
+
+
+
+            
+            /*
+            
+
                 opacity: .3;
             }
 
@@ -163,9 +318,13 @@
                 color: #161616;
                 transform: scale(1);  
                 z-index: 1; 
-            }
+            } */
+
+
 
             /* Fundo animado */
+
+            /*
             ul li a::before {
                 content: "";
                 position: absolute;
@@ -186,14 +345,18 @@
                 transform-origin: left;
                 transform: scaleX(1);
                 transition: transform .2s;
-            }
+            } 
+                */
 
 
 
 
 
 
-
+        .fixacao{
+            position: fixed;
+            width: 100%;
+        }
 
 
 
@@ -340,6 +503,7 @@
                             margin-right: 100px;
                             margin-top: 50px;
                             border-radius: 20px;
+                            display: none;
 
                         }
                    
