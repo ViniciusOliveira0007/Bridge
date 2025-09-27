@@ -1,440 +1,441 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sala de Aula</title>
-    <style>
-       
-    </style>
-</head>
-<body>
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sala de Aula</title>
+        <style>
+        
+        </style>
+    </head>
+    <body>
 
-     <nav class="navegacao">
-        <div class="menu">
-            <div class="menu-1">
-                <img src="./imagens-Sala/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
+        <nav class="navegacao">
+            <div class="menu">
+                <div class="menu-1">
+                    <img src="./imagens-Sala/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
+                </div>
+
+                <div class="menu-2">
+                    <input type="text" placeholder="Pesquise aqui...">
+                </div> 
+
+                <div class="menu-3">
+                    <img src="./imagens-sala/sininho.svg" alt="notificação" class="btn-notificao-nav" onclick="toggleDropdownNotif()">
+                    <img src="./imagens-sala/configuracao.svg" alt="botão de configuração" class="btn-config" onclick="toggleDropdownConfig()">
+                    <img src="./imagens-sala/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" onclick="toggleDropdownPerfil()">
+                    
+                    <!-- Dropdown de Notificações -->
+                    <div class="dropdown-notificacoes" id="dropdownNotif">
+                        <div class="dropdown-header">
+                            <div class="dropdown-titulo">
+                                <img src="./imagens-sala/sino-black.svg" alt="Notificação">
+                                <span>Notificações</span>
+                            </div>
+                            <button class="btn-fechar" onclick="fecharDropdownNotif()">&times;</button>
+                        </div>
+                        <div class="dropdown-opcoes">
+                            <div class="notificacao-vazia">Nenhuma notificação no momento</div>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown de Configurações -->
+                    <div class="dropdown-configuracoes" id="dropdownConfig">
+                        <div class="dropdown-header">
+                            <div class="dropdown-titulo">
+                                <img src="/telas/Diario/imagens-diario/configuracao-black.svg" alt="Configuração">
+                                <span>Configurações</span>
+                            </div>
+                            <button class="btn-fechar" onclick="fecharDropdownConfig()">&times;</button>
+                        </div>
+                        <div class="dropdown-opcoes">
+                            <button class="opcao-item" onclick="abrirTema()">Tema</button>
+                            <button class="opcao-item" onclick="abrirAcessibilidade()">Acessibilidade</button>
+                            <button class="opcao-item" onclick="abrirOpcoesAvancadas()">Opções avançadas</button>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown de Perfil -->
+                    <div class="dropdown-perfil" id="dropdownPerfil">
+                        <div class="dropdown-header">
+                            <div class="dropdown-titulo">
+                                <img src="./imagens-sala/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
+                                <span>Olá, Rodrigo</span>
+                            </div>
+                            <button class="btn-fechar" onclick="fecharDropdownPerfil()">&times;</button>
+                        </div>
+                        <div class="dropdown-opcoes">
+                            <button class="opcao-item" onclick="abrirSeuPerfil()">Seu perfil</button>
+                            <button class="opcao-item" onclick="abrirPrivacidade()">Privacidade</button>
+                            <button class="opcao-item" onclick="abrirAjudaRecursos()">Ajuda e Recursos</button>
+                            <button class="opcao-item sair-conta" onclick="sairDaConta()">Sair da Conta</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </nav>
+        
 
-            <div class="menu-2">
-                <input type="text" placeholder="Pesquise aqui...">
-            </div> 
 
-            <div class="menu-3">
-                <img src="./imagens-sala/sininho.svg" alt="notificação" class="btn-notificao-nav" onclick="toggleDropdownNotif()">
-                <img src="./imagens-sala/configuracao.svg" alt="botão de configuração" class="btn-config" onclick="toggleDropdownConfig()">
-                <img src="./imagens-sala/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" onclick="toggleDropdownPerfil()">
+
+        <div class="nome-da-guia">
+            <ul>
+                <li><a href="../Rede/connect.html">Redes</a></li>
+                <li><a href="../Sala-de-Aula/sala.html">Sala de Aula</a></li>
+                <li><a href="../Trilhas/trilhas.html">Trilhas</a></li>
+                <li><a href="../Diario/diario.html">Diário</a></li>
+            </ul>
+        </div>
+
+
+
+
+
+
+
+
+        <main >
+
+
+            <div class="conteudo-principal">
+            <img src="./imagens-sala/Banner_Titulo_seção_Sala.svg" alt="" class="banner-componentes"> 
+            </div>
+            
+
+            <div class="container-principal-cursos">
+            
+            <!-- Coluna esquerda de cursos -->
+            <div class="coluna-esquerda-cursos">
                 
-                <!-- Dropdown de Notificações -->
-                <div class="dropdown-notificacoes" id="dropdownNotif">
-                    <div class="dropdown-header">
-                        <div class="dropdown-titulo">
-                            <img src="./imagens-sala/sino-black.svg" alt="Notificação">
-                            <span>Notificações</span>
+                <!-- Botão: Análise e Desenvolvimento de Sistemas -->
+                <button class="botao-curso" onclick="selecionarCurso('ads')">
+                    <div class="conteudo-botao-curso">
+                        <div class="area-interna-curso">
+                            <!-- Sigla do curso -->
+                            <div class="sigla-curso">
+                                <div class="texto-sigla">ADS</div>
+                            </div>
+                            <!-- Nome do curso -->
+                            <div class="area-nome-curso">
+                                <div class="texto-nome-curso">
+                                    ANÁLISE E DESENVOLVIMENTO DE SISTEMAS
+                                </div>
+                            </div>
                         </div>
-                        <button class="btn-fechar" onclick="fecharDropdownNotif()">&times;</button>
                     </div>
-                    <div class="dropdown-opcoes">
-                        <div class="notificacao-vazia">Nenhuma notificação no momento</div>
+                    <!-- Descrição deslizante -->
+                    <div class="descricao-deslizante">
+                        Curso focado em desenvolvimento de software e análise de sistemas
                     </div>
-                </div>
+                </button>
 
-                <!-- Dropdown de Configurações -->
-                <div class="dropdown-configuracoes" id="dropdownConfig">
-                    <div class="dropdown-header">
-                        <div class="dropdown-titulo">
-                            <img src="/telas/Diario/imagens-diario/configuracao-black.svg" alt="Configuração">
-                            <span>Configurações</span>
+                <!-- Botão: Gestão da Tecnologia da Informação -->
+                <button class="botao-curso" onclick="selecionarCurso('gti')">
+                    <div class="conteudo-botao-curso">
+                        <div class="area-interna-curso">
+                            <div class="sigla-curso">
+                                <div class="texto-sigla">GTI</div>
+                            </div>
+                            <div class="area-nome-curso">
+                                <div class="texto-nome-curso">
+                                    GESTÃO DA TECNOLOGIA DA INFORMAÇÃO
+                                </div>
+                            </div>
                         </div>
-                        <button class="btn-fechar" onclick="fecharDropdownConfig()">&times;</button>
                     </div>
-                    <div class="dropdown-opcoes">
-                        <button class="opcao-item" onclick="abrirTema()">Tema</button>
-                        <button class="opcao-item" onclick="abrirAcessibilidade()">Acessibilidade</button>
-                        <button class="opcao-item" onclick="abrirOpcoesAvancadas()">Opções avançadas</button>
+                    <div class="descricao-deslizante">
+                        Curso voltado para gestão e administração de recursos de TI
                     </div>
-                </div>
+                </button>
 
-                <!-- Dropdown de Perfil -->
-                <div class="dropdown-perfil" id="dropdownPerfil">
-                    <div class="dropdown-header">
-                        <div class="dropdown-titulo">
-                            <img src="./imagens-sala/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
-                            <span>Olá, Rodrigo</span>
+                <!-- Botão: Redes de Computadores -->
+                <button class="botao-curso" onclick="selecionarCurso('redes')">
+                    <div class="conteudo-botao-curso">
+                        <div class="area-interna-curso">
+                            <div class="sigla-curso">
+                                <div class="texto-sigla">RC</div>
+                            </div>
+                            <div class="area-nome-curso">
+                                <div class="texto-nome-curso">
+                                    REDES DE COMPUTADORES
+                                </div>
+                            </div>
                         </div>
-                        <button class="btn-fechar" onclick="fecharDropdownPerfil()">&times;</button>
                     </div>
-                    <div class="dropdown-opcoes">
-                        <button class="opcao-item" onclick="abrirSeuPerfil()">Seu perfil</button>
-                        <button class="opcao-item" onclick="abrirPrivacidade()">Privacidade</button>
-                        <button class="opcao-item" onclick="abrirAjudaRecursos()">Ajuda e Recursos</button>
-                        <button class="opcao-item sair-conta" onclick="sairDaConta()">Sair da Conta</button>
+                    <div class="descricao-deslizante">
+                        Especialização em infraestrutura e segurança de redes
                     </div>
-                </div>
+                </button>
+
+                <!-- Botão: Sistemas para Internet -->
+                <button class="botao-curso" onclick="selecionarCurso('si')">
+                    <div class="conteudo-botao-curso">
+                        <div class="area-interna-curso">
+                            <div class="sigla-curso">
+                                <div class="texto-sigla">SI</div>
+                            </div>
+                            <div class="area-nome-curso">
+                                <div class="texto-nome-curso">
+                                    SISTEMAS PARA INTERNET
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="descricao-deslizante">
+                        Desenvolvimento de aplicações e sistemas web
+                    </div>
+                </button>
+            </div>
+
+            <!-- Coluna direita de cursos -->
+            <div class="coluna-direita-cursos">
+                
+                <!-- Botão: Ciência da Computação -->
+                <button class="botao-curso" onclick="selecionarCurso('cc')">
+                    <div class="conteudo-botao-curso">
+                        <div class="area-interna-curso">
+                            <div class="sigla-curso">
+                                <div class="texto-sigla">CC</div>
+                            </div>
+                            <div class="area-nome-curso">
+                                <div class="texto-nome-curso">
+                                    CIÊNCIA DA COMPUTAÇÃO
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="descricao-deslizante">
+                        Bacharelado completo em computação e programação
+                    </div>
+                </button>
+
+                <!-- Botão: Engenharia de Software -->
+                <button class="botao-curso" onclick="selecionarCurso('es')">
+                    <div class="conteudo-botao-curso">
+                        <div class="area-interna-curso">
+                            <div class="sigla-curso">
+                                <div class="texto-sigla">ES</div>
+                            </div>
+                            <div class="area-nome-curso">
+                                <div class="texto-nome-curso">
+                                    ENGENHARIA DE SOFTWARE
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="descricao-deslizante">
+                        Engenharia focada em desenvolvimento de software robusto
+                    </div>
+                </button>
+
+                <!-- Botão: Segurança da Informação -->
+                <button class="botao-curso" onclick="selecionarCurso('seginfo')">
+                    <div class="conteudo-botao-curso">
+                        <div class="area-interna-curso">
+                            <div class="sigla-curso">
+                                <div class="texto-sigla">SEG</div>
+                            </div>
+                            <div class="area-nome-curso">
+                                <div class="texto-nome-curso">
+                                    SEGURANÇA DA INFORMAÇÃO
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="descricao-deslizante">
+                        Especialização em proteção e segurança de dados
+                    </div>
+                </button>
+
+                <!-- Botão: Banco de Dados -->
+                <button class="botao-curso" onclick="selecionarCurso('bd')">
+                    <div class="conteudo-botao-curso">
+                        <div class="area-interna-curso">
+                            <div class="sigla-curso">
+                                <div class="texto-sigla">BD</div>
+                            </div>
+                            <div class="area-nome-curso">
+                                <div class="texto-nome-curso">
+                                    BANCO DE DADOS
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="descricao-deslizante">
+                        Gerenciamento e administração de bases de dados
+                    </div>
+                </button>
             </div>
         </div>
-    </nav>
-    
 
+        <script>
+            /* Função para lidar com seleção de cursos */
+            function selecionarCurso(codigoCurso) {
+                console.log('Curso selecionado:', codigoCurso);
+                
+                // Aqui você pode adicionar lógica específica para cada curso
+                switch(codigoCurso) {
+                    case 'ads':
+                        alert('Redirecionando para Análise e Desenvolvimento de Sistemas');
+                        window.location.href = './cursos/componente-ads.html';
+                        break;
+                    case 'gti':
+                        alert('Redirecionando para Gestão da Tecnologia da Informação');
+                        // window.location.href = 'cursos/gti.html';
+                        break;
+                    case 'redes':
+                        alert('Redirecionando para Redes de Computadores');
+                        // window.location.href = 'cursos/redes.html';
+                        break;
+                    case 'si':
+                        alert('Redirecionando para Sistemas para Internet');
+                        // window.location.href = 'cursos/si.html';
+                        break;
+                    case 'cc':
+                        alert('Redirecionando para Ciência da Computação');
+                        // window.location.href = 'cursos/cc.html';
+                        break;
+                    case 'es':
+                        alert('Redirecionando para Engenharia de Software');
+                        // window.location.href = 'cursos/es.html';
+                        break;
+                    case 'seginfo':
+                        alert('Redirecionando para Segurança da Informação');
+                        // window.location.href = 'cursos/seguranca.html';
+                        break;
+                    case 'bd':
+                        alert('Redirecionando para Banco de Dados');
+                        // window.location.href = 'cursos/bd.html';
+                        break;
+                    default:
+                        console.error('Curso não encontrado:', codigoCurso);
+                }
+            }
 
+            /* Adicionar efeitos de acessibilidade via teclado */
+            document.querySelectorAll('.botao-curso').forEach(botao => {
+                botao.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+        </script>
 
-    <div class="nome-da-guia">
-        <ul>
-            <li><a href="../Rede/connect.html">Redes</a></li>
-            <li><a href="../Sala-de-Aula/sala.html">Sala de Aula</a></li>
-            <li><a href="../Trilhas/trilhas.html">Trilhas</a></li>
-            <li><a href="../Diario/diario.html">Diário</a></li>
-        </ul>
-    </div>
-
-
-
-
-
-
-
-
-    <main >
-
-
-        <div class="conteudo-principal">
-        <img src="./imagens-sala/Banner_Titulo_seção_Sala.svg" alt="" class="banner-componentes"> 
-        </div>
-        
-
-          <div class="container-principal-cursos">
-        
-        <!-- Coluna esquerda de cursos -->
-        <div class="coluna-esquerda-cursos">
             
-            <!-- Botão: Análise e Desenvolvimento de Sistemas -->
-            <button class="botao-curso" onclick="selecionarCurso('ads')">
-                <div class="conteudo-botao-curso">
-                    <div class="area-interna-curso">
-                        <!-- Sigla do curso -->
-                        <div class="sigla-curso">
-                            <div class="texto-sigla">ADS</div>
-                        </div>
-                        <!-- Nome do curso -->
-                        <div class="area-nome-curso">
-                            <div class="texto-nome-curso">
-                                ANÁLISE E DESENVOLVIMENTO DE SISTEMAS
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Descrição deslizante -->
-                <div class="descricao-deslizante">
-                    Curso focado em desenvolvimento de software e análise de sistemas
-                </div>
-            </button>
 
-            <!-- Botão: Gestão da Tecnologia da Informação -->
-            <button class="botao-curso" onclick="selecionarCurso('gti')">
-                <div class="conteudo-botao-curso">
-                    <div class="area-interna-curso">
-                        <div class="sigla-curso">
-                            <div class="texto-sigla">GTI</div>
-                        </div>
-                        <div class="area-nome-curso">
-                            <div class="texto-nome-curso">
-                                GESTÃO DA TECNOLOGIA DA INFORMAÇÃO
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="descricao-deslizante">
-                    Curso voltado para gestão e administração de recursos de TI
-                </div>
-            </button>
 
-            <!-- Botão: Redes de Computadores -->
-            <button class="botao-curso" onclick="selecionarCurso('redes')">
-                <div class="conteudo-botao-curso">
-                    <div class="area-interna-curso">
-                        <div class="sigla-curso">
-                            <div class="texto-sigla">RC</div>
-                        </div>
-                        <div class="area-nome-curso">
-                            <div class="texto-nome-curso">
-                                REDES DE COMPUTADORES
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="descricao-deslizante">
-                    Especialização em infraestrutura e segurança de redes
-                </div>
-            </button>
+        
+        </main>
+    </body>
 
-            <!-- Botão: Sistemas para Internet -->
-            <button class="botao-curso" onclick="selecionarCurso('si')">
-                <div class="conteudo-botao-curso">
-                    <div class="area-interna-curso">
-                        <div class="sigla-curso">
-                            <div class="texto-sigla">SI</div>
-                        </div>
-                        <div class="area-nome-curso">
-                            <div class="texto-nome-curso">
-                                SISTEMAS PARA INTERNET
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="descricao-deslizante">
-                    Desenvolvimento de aplicações e sistemas web
-                </div>
-            </button>
-        </div>
-
-        <!-- Coluna direita de cursos -->
-        <div class="coluna-direita-cursos">
-            
-            <!-- Botão: Ciência da Computação -->
-            <button class="botao-curso" onclick="selecionarCurso('cc')">
-                <div class="conteudo-botao-curso">
-                    <div class="area-interna-curso">
-                        <div class="sigla-curso">
-                            <div class="texto-sigla">CC</div>
-                        </div>
-                        <div class="area-nome-curso">
-                            <div class="texto-nome-curso">
-                                CIÊNCIA DA COMPUTAÇÃO
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="descricao-deslizante">
-                    Bacharelado completo em computação e programação
-                </div>
-            </button>
-
-            <!-- Botão: Engenharia de Software -->
-            <button class="botao-curso" onclick="selecionarCurso('es')">
-                <div class="conteudo-botao-curso">
-                    <div class="area-interna-curso">
-                        <div class="sigla-curso">
-                            <div class="texto-sigla">ES</div>
-                        </div>
-                        <div class="area-nome-curso">
-                            <div class="texto-nome-curso">
-                                ENGENHARIA DE SOFTWARE
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="descricao-deslizante">
-                    Engenharia focada em desenvolvimento de software robusto
-                </div>
-            </button>
-
-            <!-- Botão: Segurança da Informação -->
-            <button class="botao-curso" onclick="selecionarCurso('seginfo')">
-                <div class="conteudo-botao-curso">
-                    <div class="area-interna-curso">
-                        <div class="sigla-curso">
-                            <div class="texto-sigla">SEG</div>
-                        </div>
-                        <div class="area-nome-curso">
-                            <div class="texto-nome-curso">
-                                SEGURANÇA DA INFORMAÇÃO
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="descricao-deslizante">
-                    Especialização em proteção e segurança de dados
-                </div>
-            </button>
-
-            <!-- Botão: Banco de Dados -->
-            <button class="botao-curso" onclick="selecionarCurso('bd')">
-                <div class="conteudo-botao-curso">
-                    <div class="area-interna-curso">
-                        <div class="sigla-curso">
-                            <div class="texto-sigla">BD</div>
-                        </div>
-                        <div class="area-nome-curso">
-                            <div class="texto-nome-curso">
-                                BANCO DE DADOS
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="descricao-deslizante">
-                    Gerenciamento e administração de bases de dados
-                </div>
-            </button>
-        </div>
-    </div>
 
     <script>
-        /* Função para lidar com seleção de cursos */
-        function selecionarCurso(codigoCurso) {
-            console.log('Curso selecionado:', codigoCurso);
-            
-            // Aqui você pode adicionar lógica específica para cada curso
-            switch(codigoCurso) {
-                case 'ads':
-                    alert('Redirecionando para Análise e Desenvolvimento de Sistemas');
-                    window.location.href = './cursos/componente-ads.html';
-                    break;
-                case 'gti':
-                    alert('Redirecionando para Gestão da Tecnologia da Informação');
-                    // window.location.href = 'cursos/gti.html';
-                    break;
-                case 'redes':
-                    alert('Redirecionando para Redes de Computadores');
-                    // window.location.href = 'cursos/redes.html';
-                    break;
-                case 'si':
-                    alert('Redirecionando para Sistemas para Internet');
-                    // window.location.href = 'cursos/si.html';
-                    break;
-                case 'cc':
-                    alert('Redirecionando para Ciência da Computação');
-                    // window.location.href = 'cursos/cc.html';
-                    break;
-                case 'es':
-                    alert('Redirecionando para Engenharia de Software');
-                    // window.location.href = 'cursos/es.html';
-                    break;
-                case 'seginfo':
-                    alert('Redirecionando para Segurança da Informação');
-                    // window.location.href = 'cursos/seguranca.html';
-                    break;
-                case 'bd':
-                    alert('Redirecionando para Banco de Dados');
-                    // window.location.href = 'cursos/bd.html';
-                    break;
-                default:
-                    console.error('Curso não encontrado:', codigoCurso);
+            // Funções para Dropdown de Notificações
+            function toggleDropdownNotif() {
+                const dropdown = document.getElementById('dropdownNotif');
+                // Fecha outros dropdowns
+                fecharDropdownConfig();
+                fecharDropdownPerfil();
+                dropdown.classList.toggle('ativo');
             }
-        }
 
-        /* Adicionar efeitos de acessibilidade via teclado */
-        document.querySelectorAll('.botao-curso').forEach(botao => {
-            botao.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.click();
+            function fecharDropdownNotif() {
+                const dropdown = document.getElementById('dropdownNotif');
+                dropdown.classList.remove('ativo');
+            }
+
+            // Funções para Dropdown de Configurações
+            function toggleDropdownConfig() {
+                const dropdown = document.getElementById('dropdownConfig');
+                // Fecha outros dropdowns
+                fecharDropdownNotif();
+                fecharDropdownPerfil();
+                dropdown.classList.toggle('ativo');
+            }
+
+            function fecharDropdownConfig() {
+                const dropdown = document.getElementById('dropdownConfig');
+                dropdown.classList.remove('ativo');
+            }
+
+            function abrirTema() {
+                alert('Funcionalidade de Tema será implementada');
+                fecharDropdownConfig();
+            }
+
+            function abrirAcessibilidade() {
+                alert('Funcionalidade de Acessibilidade será implementada');
+                fecharDropdownConfig();
+            }
+
+            function abrirOpcoesAvancadas() {
+                alert('Funcionalidade de Opções Avançadas será implementada');
+                fecharDropdownConfig();
+            }
+
+            // Funções para Dropdown de Perfil
+            function toggleDropdownPerfil() {
+                const dropdown = document.getElementById('dropdownPerfil');
+                // Fecha outros dropdowns
+                fecharDropdownNotif();
+                fecharDropdownConfig();
+                dropdown.classList.toggle('ativo');
+            }
+
+            function fecharDropdownPerfil() {
+                const dropdown = document.getElementById('dropdownPerfil');
+                dropdown.classList.remove('ativo');
+            }
+
+            function abrirSeuPerfil() {
+                alert('Redirecionando para Seu Perfil');
+                fecharDropdownPerfil();
+            }
+
+            function abrirPrivacidade() {
+                alert('Abrindo configurações de Privacidade');
+                fecharDropdownPerfil();
+            }
+
+            function abrirAjudaRecursos() {
+                alert('Abrindo Ajuda e Recursos');
+                fecharDropdownPerfil();
+            }
+
+            function sairDaConta() {
+                if (confirm('Tem certeza que deseja sair da conta?')) {
+                    alert('Saindo da conta...');
+                    // Aqui você pode adicionar a lógica para logout
+                    window.location.href = '/home.html'
+                }
+                fecharDropdownPerfil();
+            }
+
+            // Fechar dropdowns ao clicar fora deles
+            document.addEventListener('click', function(event) {
+                const dropdownNotif = document.getElementById('dropdownNotif');
+                const dropdownConfig = document.getElementById('dropdownConfig');
+                const dropdownPerfil = document.getElementById('dropdownPerfil');
+                
+                const btnNotif = document.querySelector('.btn-notificao-nav');
+                const btnConfig = document.querySelector('.btn-config');
+                const btnPerfil = document.querySelector('.foto-de-perfil');
+                
+                // Se o clique não foi em nenhum dropdown ou botão, fecha todos
+                if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
+                    !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
+                    !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
+                    
+                    fecharDropdownNotif();
+                    fecharDropdownConfig();
+                    fecharDropdownPerfil();
                 }
             });
-        });
-    </script>
-
+        </script>
         
 
 
-       
-    </main>
-</body>
-
-
-<script>
-        // Funções para Dropdown de Notificações
-        function toggleDropdownNotif() {
-            const dropdown = document.getElementById('dropdownNotif');
-            // Fecha outros dropdowns
-            fecharDropdownConfig();
-            fecharDropdownPerfil();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownNotif() {
-            const dropdown = document.getElementById('dropdownNotif');
-            dropdown.classList.remove('ativo');
-        }
-
-        // Funções para Dropdown de Configurações
-        function toggleDropdownConfig() {
-            const dropdown = document.getElementById('dropdownConfig');
-            // Fecha outros dropdowns
-            fecharDropdownNotif();
-            fecharDropdownPerfil();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownConfig() {
-            const dropdown = document.getElementById('dropdownConfig');
-            dropdown.classList.remove('ativo');
-        }
-
-        function abrirTema() {
-            alert('Funcionalidade de Tema será implementada');
-            fecharDropdownConfig();
-        }
-
-        function abrirAcessibilidade() {
-            alert('Funcionalidade de Acessibilidade será implementada');
-            fecharDropdownConfig();
-        }
-
-        function abrirOpcoesAvancadas() {
-            alert('Funcionalidade de Opções Avançadas será implementada');
-            fecharDropdownConfig();
-        }
-
-        // Funções para Dropdown de Perfil
-        function toggleDropdownPerfil() {
-            const dropdown = document.getElementById('dropdownPerfil');
-            // Fecha outros dropdowns
-            fecharDropdownNotif();
-            fecharDropdownConfig();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownPerfil() {
-            const dropdown = document.getElementById('dropdownPerfil');
-            dropdown.classList.remove('ativo');
-        }
-
-        function abrirSeuPerfil() {
-            alert('Redirecionando para Seu Perfil');
-            fecharDropdownPerfil();
-        }
-
-        function abrirPrivacidade() {
-            alert('Abrindo configurações de Privacidade');
-            fecharDropdownPerfil();
-        }
-
-        function abrirAjudaRecursos() {
-            alert('Abrindo Ajuda e Recursos');
-            fecharDropdownPerfil();
-        }
-
-        function sairDaConta() {
-            if (confirm('Tem certeza que deseja sair da conta?')) {
-                alert('Saindo da conta...');
-                // Aqui você pode adicionar a lógica para logout
-                window.location.href = '/home.html'
-            }
-            fecharDropdownPerfil();
-        }
-
-        // Fechar dropdowns ao clicar fora deles
-        document.addEventListener('click', function(event) {
-            const dropdownNotif = document.getElementById('dropdownNotif');
-            const dropdownConfig = document.getElementById('dropdownConfig');
-            const dropdownPerfil = document.getElementById('dropdownPerfil');
-            
-            const btnNotif = document.querySelector('.btn-notificao-nav');
-            const btnConfig = document.querySelector('.btn-config');
-            const btnPerfil = document.querySelector('.foto-de-perfil');
-            
-            // Se o clique não foi em nenhum dropdown ou botão, fecha todos
-            if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
-                
-                fecharDropdownNotif();
-                fecharDropdownConfig();
-                fecharDropdownPerfil();
-            }
-        });
-    </script>
-
-
-<link rel="stylesheet" href="./css-Sala/estilo_sala.css">
-</html>
+    <link rel="stylesheet" href="./css-Sala/estilo_sala.css">
+    </html>
