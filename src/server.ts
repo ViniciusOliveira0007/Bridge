@@ -85,3 +85,6 @@ process.on('SIGINT', async () => {
   console.log('🔌 Desconectado do banco de dados');
   process.exit(0);
 });
+
+
+
