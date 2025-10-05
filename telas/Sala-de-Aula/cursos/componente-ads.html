@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diário</title>
-    <style>
-       
-    </style>
+    <link rel="stylesheet" href="../css-Sala/estilo_componente.css">
 </head>
 <body>
 
-     <nav class="navegacao">
+    <nav class="navegacao">
         <div class="menu">
             <div class="menu-1">
                 <img src="../imagens-Sala/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
@@ -21,9 +19,9 @@
             </div> 
 
             <div class="menu-3">
-                <img src="../imagens-sala/sininho.svg" alt="notificação" class="btn-notificao-nav" onclick="toggleDropdownNotif()">
-                <img src="../imagens-sala/configuracao.svg" alt="botão de configuração" class="btn-config" onclick="toggleDropdownConfig()">
-                <img src="../imagens-sala/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" width="30px" height="30px" onclick="toggleDropdownPerfil()">
+                <img src="../imagens-sala/sininho.svg" alt="notificação" class="btn-notificao-nav">
+                <img src="../imagens-sala/configuracao.svg" alt="botão de configuração" class="btn-config">
+                <img src="../imagens-sala/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" width="30px" height="30px">
                 
                 <!-- Dropdown de Notificações -->
                 <div class="dropdown-notificacoes" id="dropdownNotif">
@@ -32,7 +30,7 @@
                             <img src="../imagens-sala/sino-black.svg" alt="Notificação">
                             <span>Notificações</span>
                         </div>
-                        <button class="btn-fechar" onclick="fecharDropdownNotif()">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-notif">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
                         <div class="notificacao-vazia">Nenhuma notificação no momento</div>
@@ -43,15 +41,15 @@
                 <div class="dropdown-configuracoes" id="dropdownConfig">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="/telas/Diario/imagens-diario/configuracao-black.svg" alt="Configuração">
+                            <img src="../imagens-sala/configuracao-black.svg" alt="Configuração">
                             <span>Configurações</span>
                         </div>
-                        <button class="btn-fechar" onclick="fecharDropdownConfig()">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-config">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
-                        <button class="opcao-item" onclick="abrirTema()">Tema</button>
-                        <button class="opcao-item" onclick="abrirAcessibilidade()">Acessibilidade</button>
-                        <button class="opcao-item" onclick="abrirOpcoesAvancadas()">Opções avançadas</button>
+                        <button class="opcao-item" data-action="abrir-tema">Tema</button>
+                        <button class="opcao-item" data-action="abrir-acessibilidade">Acessibilidade</button>
+                        <button class="opcao-item" data-action="abrir-opcoes-avancadas">Opções avançadas</button>
                     </div>
                 </div>
 
@@ -62,27 +60,24 @@
                             <img src="../imagens-sala/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
                             <span>Olá, Rodrigo</span>
                         </div>
-                        <button class="btn-fechar" onclick="fecharDropdownPerfil()">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
-                        <button class="opcao-item" onclick="abrirSeuPerfil()">Seu perfil</button>
-                        <button class="opcao-item" onclick="abrirPrivacidade()">Privacidade</button>
-                        <button class="opcao-item" onclick="abrirAjudaRecursos()">Ajuda e Recursos</button>
-                        <button class="opcao-item sair-conta" onclick="sairDaConta()">Sair da Conta</button>
+                        <button class="opcao-item" data-action="abrir-seu-perfil">Seu perfil</button>
+                        <button class="opcao-item" data-action="abrir-privacidade">Privacidade</button>
+                        <button class="opcao-item" data-action="abrir-ajuda-recursos">Ajuda e Recursos</button>
+                        <button class="opcao-item sair-conta" data-action="sair-da-conta">Sair da Conta</button>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
-    
-
-
 
     <div class="nome-da-guia">
         <ul>
             <li><a href="/telas/Rede/connect.html">Redes</a></li>
             <li><a href="/telas/Sala-de-Aula/sala.html">Sala de Aula</a></li>
-            <li><a href="../Trilhas/trilhas.html">Trilhas</a></li>
+            <li><a href="/telas/Trilhas/trilhas.html">Trilhas</a></li>
             <li><a href="/telas/Diario/diario.html">Diário</a></li>
         </ul>
     </div>
@@ -90,22 +85,21 @@
 
 
 
-    
+
+
+
+
+
+
+
+
 
 
     <main>
-
-
-                <!--Código do Figma-->
-
-
-
-
-
-         <div class="sidebar" id="sidebar">
+        <div class="sidebar" id="sidebar">
             <div class="sidebar-content">
                 <div class="expand-section">
-                    <div class="expand-button" onclick="toggleSidebar()">
+                    <div class="expand-button" id="expandButton">
                         <svg class="expand-icon" viewBox="0 0 24 24">
                             <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
                         </svg>
@@ -114,43 +108,35 @@
                 </div>
 
                 <nav class="nav-menu">
-                    <div class="nav-item active" onclick="subTelaVisao()">
+                    <div class="nav-item active" data-tela="visao">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
                         </svg>
                         <span class="nav-text visao-geral-text">Visão<br>Geral</span>
                     </div>
 
-
-
-
-
-                    <div class="nav-item" onclick="subTelaTarefa()">
+                    <div class="nav-item" data-tela="tarefa">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
                         </svg>
                         <span class="nav-text">Tarefas</span>
                     </div>
 
-
-
-
-
-                    <div class="nav-item" onclick="subTelaPostagens()">
+                    <div class="nav-item" data-tela="postagens">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19Z"/>
                         </svg>
                         <span class="nav-text">Postagens</span>
                     </div>
 
-                    <div class="nav-item" onclick="subTelaArquivo()">
+                    <div class="nav-item" data-tela="arquivo">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path d="M6,2A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z"/>
                         </svg>
                         <span class="nav-text">Arquivos</span>
                     </div>
 
-                    <div class="nav-item" onclick="subTelaMembros()">
+                    <div class="nav-item" data-tela="membros">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path d="M12,5.5A3.5,3.5 0 0,1 15.5,9A3.5,3.5 0 0,1 12,12.5A3.5,3.5 0 0,1 8.5,9A3.5,3.5 0 0,1 12,5.5M5,8C5.56,8 6.08,8.15 6.53,8.42C6.38,9.85 6.8,11.27 7.66,12.38C7.16,13.34 6.16,14 5,14A3,3 0 0,1 2,11A3,3 0 0,1 5,8M19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14C17.84,14 16.84,13.34 16.34,12.38C17.2,11.27 17.62,9.85 17.47,8.42C17.92,8.15 18.44,8 19,8M5.5,18.25C5.5,16.18 8.41,14.5 12,14.5C15.59,14.5 18.5,16.18 18.5,18.25V20H5.5V18.25Z"/>
                         </svg>
@@ -160,144 +146,102 @@
             </div>
         </div>
 
-        <!-- Container principal -->
         <div class="container-principal">
-
-
-
-
-
-
-
             <!-- tela de visão geral-->
-
-
-
             <div class="conteudo-visao-geral" id="conteudoVisao">
-                    <img src="../imagens-sala/Banner_Titulo_seção_Visao.svg" alt="" class="banner visao-geral" id="banner">
+                <img src="../imagens-sala/Banner_Titulo_seção_Visao.svg" alt="" class="banner visao-geral" id="banner">
 
-
-
-            
-                    <div class="vis-o-geral" >
-                        <div class="descri-o">
-                            <div class="card-componente">   
+                <div class="vis-o-geral">
+                    <div class="descri-o">
+                        <div class="card-componente">   
                             <div class="nome-logo"> 
                                 <div class="sigla-componente">
-                                <div class="se">SE</div>
+                                    <div class="se">SE</div>
                                 </div>
                                 <div class="separador"></div>
                                 <div class="nome-componente">
-                                <div class="sistemas-embarados">Sistemas Embarados</div>
+                                    <div class="sistemas-embarados">Sistemas Embarados</div>
                                 </div>
                             </div>
-                            </div>
-                            <div class="descri-o-componente">
+                        </div>
+                        <div class="descri-o-componente">
                             <div class="descri-o2">
                                 <div class="descri-o3">Descrição</div>
                             </div>
                             <div class="texto-descri-o">
                                 <div class="texto">
-                                <div class="descri-o-do-seu-componente-sera-descrito-bem-aqui-mesmo">
-                                    Descrição do seu componente sera descrito bem aqui mesmo..
+                                    <div class="descri-o-do-seu-componente-sera-descrito-bem-aqui-mesmo">
+                                        Descrição do seu componente sera descrito bem aqui mesmo..
+                                    </div>
                                 </div>
-                                </div>
-                            </div>
                             </div>
                         </div>
-                        <div class="tarefa">
-                            <div class="tarefas-viss-o-geral">
+                    </div>
+                    <div class="tarefa">
+                        <div class="tarefas-viss-o-geral">
                             <div class="frame-geral-tarefa">
                                 <div class="frame-geral-tarefa-em-breve">
-                                <div class="frame-202">
-                                    <div class="nome-da-atividade">Nome da Atividade</div>
-                                </div>
-                                <div class="frame-201">
-                                    <div class="prazo-de-entrega">
-                                    Prazo de entrega 20 de Junho 2025 às 23:59
+                                    <div class="frame-202">
+                                        <div class="nome-da-atividade">Nome da Atividade</div>
+                                    </div>
+                                    <div class="frame-201">
+                                        <div class="prazo-de-entrega">Prazo de entrega 20 de Junho 2025 às 23:59</div>
                                     </div>
                                 </div>
-                                </div>
                             </div>
-                            </div>
-                            <div class="tarefa2">
+                        </div>
+                        <div class="tarefa2">
                             <div class="tarefa3">Tarefa</div>
-                            </div>
-                            <div class="professor">
+                        </div>
+                        <div class="professor">
                             <div class="dia-aula-vis-o-geral">
                                 <div class="professor2">
-                                <div class="professor3">
-                                    <div class="oswaldo-luiz-paquier-bertoli">
-                                    Oswaldo Luiz Paquier Bertoli
+                                    <div class="professor3">
+                                        <div class="oswaldo-luiz-paquier-bertoli">Oswaldo Luiz Paquier Bertoli</div>
                                     </div>
-                                </div>
-                                <div class="foto-professor"></div>
+                                    <div class="foto-professor"></div>
                                 </div>
                                 <div class="professor4">
-                                <div class="professor3">
-                                    <div class="oswaldo-luiz-paquier-bertoli">
-                                    Oswaldo Luiz Paquier Bertoli
+                                    <div class="professor3">
+                                        <div class="oswaldo-luiz-paquier-bertoli">Oswaldo Luiz Paquier Bertoli</div>
                                     </div>
-                                </div>
-                                <div class="foto-professor"></div>
+                                    <div class="foto-professor"></div>
                                 </div>
                             </div>
                             <div class="professor5">
                                 <div class="professor6">Professor</div>
                             </div>
-                            </div>
                         </div>
-                        <div class="postagens">
-                            <div class="tarefas-viss-o-geral">
+                    </div>
+                    <div class="postagens">
+                        <div class="tarefas-viss-o-geral">
                             <div class="postagem">
                                 <img class="postagens2" src="postagens1.svg" />
                                 <div class="contexto">
-                                <div class="v-deo-auxiliar-para-realizar-tarefa">
-                                    Vídeo auxiliar para realizar tarefa
-                                </div>
+                                    <div class="v-deo-auxiliar-para-realizar-tarefa">Vídeo auxiliar para realizar tarefa</div>
                                 </div>
                             </div>
-                            </div>
-                            <div class="tarefa2">
+                        </div>
+                        <div class="tarefa2">
                             <div class="postagens3">Postagens</div>
-                            </div>
                         </div>
-                        <div class="dia-aula">
-                            <div class="dia-aula-vis-o-geral">
+                    </div>
+                    <div class="dia-aula">
+                        <div class="dia-aula-vis-o-geral">
                             <div class="dias">
-                                <div class="d-ias">
-                                <div class="cabe-alho">
-                                    <div class="cabe-alho2">Seg</div>
-                                </div>
-                                </div>
-                                <div class="d-ias2">
-                                <div class="cabe-alho">
-                                    <div class="cabe-alho2">Ter</div>
-                                </div>
-                                </div>
-                                <div class="d-ias3">
-                                <div class="cabe-alho">
-                                    <div class="cabe-alho2">Qui</div>
-                                </div>
-                                </div>
-                                <div class="d-ias4">
-                                <div class="cabe-alho">
-                                    <div class="cabe-alho3">Qua</div>
-                                </div>
-                                </div>
-                                <div class="d-ias5">
-                                <div class="cabe-alho">
-                                    <div class="cabe-alho3">Sex</div>
-                                </div>
-                                </div>
+                                <div class="d-ias"><div class="cabe-alho"><div class="cabe-alho2">Seg</div></div></div>
+                                <div class="d-ias2"><div class="cabe-alho"><div class="cabe-alho2">Ter</div></div></div>
+                                <div class="d-ias3"><div class="cabe-alho"><div class="cabe-alho2">Qui</div></div></div>
+                                <div class="d-ias4"><div class="cabe-alho"><div class="cabe-alho3">Qua</div></div></div>
+                                <div class="d-ias5"><div class="cabe-alho"><div class="cabe-alho3">Sex</div></div></div>
                             </div>
-                            </div>
-                            <div class="dia-aula2">
+                        </div>
+                        <div class="dia-aula2">
                             <div class="dias-de-aula">Dias de Aula</div>
-                            </div>
                         </div>
-                        </div>
+                    </div>
                 </div>
+            </div>
 
 
 
@@ -305,117 +249,72 @@
 
 
 
-                <!-- fim da tela de visão geral-->
-
-                <!--INÍCIO DE TAREFAS -->
 
 
-                <div class="conteudo-tarefas desativado" id="conteudoTarefas">
-                    <img src="../imagens-sala/Banner_Titulo_seção-Tarefa.svg" alt="Banner de Tarefas" class="banner tarefas">
 
-                    <div class="frame-691">
-                        <div class="transi-ao-tarefa">
-                            <div class="estado-tarefa">
+
+
+
+
+            <!-- TAREFAS -->
+            <div class="conteudo-tarefas desativado" id="conteudoTarefas">
+                <img src="../imagens-sala/Banner_Titulo_seção-Tarefa.svg" alt="Banner de Tarefas" class="banner tarefas">
+                <div class="frame-691">
+                    <div class="transi-ao-tarefa">
+                        <div class="estado-tarefa">
                             <div class="frame-203">
                                 <div class="estado-tarefa2">
-                                <div class="pendente-transi-o">
-                                    <button class="pendente ">Pendente</button>
-                                    <div class="selecionado"></div>
-                                    <div class="selecionado">
-                                    <div class="frame-194"></div>
+                                    <div class="pendente-transi-o">
+                                        <button class="pendente">Pendente</button>
+                                        <div class="selecionado"></div>
+                                        <div class="selecionado"><div class="frame-194"></div></div>
+                                    </div>
+                                    <div class="em-atraso-transi-o">
+                                        <button class="em-atraso">Em atraso</button>
+                                        <div class="selecionado2"><div class="frame-1942"></div></div>
+                                    </div>
+                                    <div class="conclu-da-transi-o">
+                                        <button class="conclu-da">Concluída</button>
+                                        <div class="selecionado2"><div class="frame-1942"></div></div>
                                     </div>
                                 </div>
-                                <div class="em-atraso-transi-o">
-                                    <button class="em-atraso">Em atraso</button >
-                                    <div class="selecionado2">
-                                    <div class="frame-1942"></div>
-                                    </div>
-                                </div>
-                                <div class="conclu-da-transi-o">
-                                    <button class="conclu-da">Concluída</button>
-                                    <div class="selecionado2">
-                                    <div class="frame-1942"></div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-
-
-
-
-
-
-
-
-
-                            <div class="sigla-componente">
-                            <div class="se">SE</div>
                             </div>
                         </div>
-                        <div class="frame-617">
-                            <div class="data">
+                        <div class="sigla-componente"><div class="se">SE</div></div>
+                    </div>
+                    <div class="frame-617">
+                        <div class="data">
                             <div class="_30-de-jun-quarta-feira">
-                                <span>
-                                <span class="_30-de-jun-quarta-feira-span">30 de Jun.</span>
-                                <span class="_30-de-jun-quarta-feira-span2">Quarta-Feira</span>
-                                </span>
+                                <span><span class="_30-de-jun-quarta-feira-span">30 de Jun.</span><span class="_30-de-jun-quarta-feira-span2">Quarta-Feira</span></span>
                             </div>
-                            </div>
-                            <div class="card-tarefa">
-                            <div class="sigla-componente2">
-                                <div class="se">SE</div>
-                            </div>
-
-
-
-
-
-
-
-
-
+                        </div>
+                        <div class="card-tarefa">
+                            <div class="sigla-componente2"><div class="se">SE</div></div>
                             <div class="estado-tarefa3">
                                 <div class="frame-tarefa-em-breve">
-                                <div class="frame-202">
-                                    <div class="nome-da-atividade">Nome da Atividade</div>
-                                </div>
-                                <div class="frame-201">
-                                    <div class="prazo-de-entrega">Prazo de entrega às 23:59</div>
-                                </div>
+                                    <div class="frame-202"><div class="nome-da-atividade">Nome da Atividade</div></div>
+                                    <div class="frame-201"><div class="prazo-de-entrega">Prazo de entrega às 23:59</div></div>
                                 </div>
                             </div>
                             <div class="nome-componente-rodap">
-                                <div class="frame-200">
-                                <div class="nome-do-componente">SISTEMAS EMBARCADOS</div>
-                                </div>
+                                <div class="frame-200"><div class="nome-do-componente">SISTEMAS EMBARCADOS</div></div>
                             </div>
-                            </div>
-                            <div class="card-tarefa">
-                            <div class="sigla-componente2">
-                                <div class="se">SE</div>
-                            </div>
+                        </div>
+                        <div class="card-tarefa">
+                            <div class="sigla-componente2"><div class="se">SE</div></div>
                             <div class="estado-tarefa3">
                                 <div class="frame-tarefa-em-breve">
-                                <div class="frame-202">
-                                    <div class="nome-da-atividade">Nome da Atividade</div>
-                                </div>
-                                <div class="frame-201">
-                                    <div class="prazo-de-entrega">Prazo de entrega às 23:59</div>
-                                </div>
+                                    <div class="frame-202"><div class="nome-da-atividade">Nome da Atividade</div></div>
+                                    <div class="frame-201"><div class="prazo-de-entrega">Prazo de entrega às 23:59</div></div>
                                 </div>
                             </div>
                             <div class="nome-componente-rodap">
-                                <div class="frame-200">
-                                <div class="nome-do-componente">SISTEMAS EMBARCADOS</div>
-                                </div>
-                            </div>
+                                <div class="frame-200"><div class="nome-do-componente">SISTEMAS EMBARCADOS</div></div>
                             </div>
                         </div>
-                        </div>
-
-
+                    </div>
                 </div>
+            </div>
 
 
 
@@ -426,125 +325,50 @@
 
 
 
-
-
-
-
-
-                <!--FIM DE TAREFAS -->
-
-                <!-- Início de Postagens -->
-
-
-                <div class="conteudo-postagens desativado centraliza" id="conteudoPostagens">
-
+            <!-- POSTAGENS -->
+            <div class="conteudo-postagens desativado centraliza" id="conteudoPostagens">
                 <img src="../imagens-sala/Titulo_seção_Postagens.svg" alt="Banner de Postagens" class="banner BannerPostagens">
-
                 <div class="postagem">
-                        <div class="professor-postagem">
-                            <div class="professor">
+                    <div class="professor-postagem">
+                        <div class="professor">
                             <div class="nome-professor">
-                                <div class="frame-334">
-                                <div class="oswaldo-luiz-parquier-bertoli">
-                                    OSWALDO LUIZ PARQUIER BERTOLI
-                                </div>
-                                </div>
-                                <div class="frame-335">
-                                <div class="_08-05-19-42">08/05 19:42</div>
-                                </div>
+                                <div class="frame-334"><div class="oswaldo-luiz-parquier-bertoli">OSWALDO LUIZ PARQUIER BERTOLI</div></div>
+                                <div class="frame-335"><div class="_08-05-19-42">08/05 19:42</div></div>
                             </div>
                             <div class="foto-professor"></div>
-                            </div>
-                            <div class="postagem2">
-                            <div class="component">
-                                <div class="tcc">TCC</div>
-                            </div>
-                            <div class="postagens-componente">
-                                <div class="frame-332">
-                                <div class="v-deo-aula-imagem-arquivo">Vídeo Aula/Imagem/Arquivo</div>
-                                </div>
-                                <div class="frame-333">
-                                <div class="pequena-descri-o-sobre-o-assunto">
-                                    Pequena descrição sobre o assunto
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-619"></div>
                         </div>
-                        <div class="comentarios">
-                            <div class="comentarios2">
+                        <div class="postagem2">
+                            <div class="component"><div class="tcc">TCC</div></div>
+                            <div class="postagens-componente">
+                                <div class="frame-332"><div class="v-deo-aula-imagem-arquivo">Vídeo Aula/Imagem/Arquivo</div></div>
+                                <div class="frame-333"><div class="pequena-descri-o-sobre-o-assunto">Pequena descrição sobre o assunto</div></div>
+                            </div>
+                        </div>
+                        <div class="frame-619"></div>
+                    </div>
+                    <div class="comentarios">
+                        <div class="comentarios2">
                             <div class="frame-339">
                                 <div class="frame-349">
-                                <div class="frame-344">
-                                    <div class="frame-343">
-                                    <div class="frame-340">
-                                        <div class="nome-aluno">Nome Aluno</div>
+                                    <div class="frame-344">
+                                        <div class="frame-343">
+                                            <div class="frame-340"><div class="nome-aluno">Nome Aluno</div></div>
+                                            <div class="frame-342"><div class="_04-02-19-21">04/02 19:21</div></div>
+                                        </div>
+                                        <div class="frame-341"><div class="coment-rio-do-aluno">Comentário do Aluno</div></div>
                                     </div>
-                                    <div class="frame-342">
-                                        <div class="_04-02-19-21">04/02 19:21</div>
-                                    </div>
-                                    </div>
-                                    <div class="frame-341">
-                                    <div class="coment-rio-do-aluno">Comentário do Aluno</div>
-                                    </div>
-                                </div>
-                                <div class="frame-348">
-                                    <div class="outros-coment-rios">Outros Comentários</div>
-                                </div>
+                                    <div class="frame-348"><div class="outros-coment-rios">Outros Comentários</div></div>
                                 </div>
                             </div>
-                            </div>
-                            <div class="responder-tcc">
+                        </div>
+                        <div class="responder-tcc">
                             <div class="frame-346"></div>
-                            <div class="frame-347">
-                                <div class="responder">Responder</div>
-                            </div>
-                            </div>
+                            <div class="frame-347"><div class="responder">Responder</div></div>
                         </div>
-                        <div class="postagem-coteudo"></div>
-                        </div>
-
-
-
-                   
-
-
+                    </div>
+                    <div class="postagem-coteudo"></div>
                 </div>
-
-
-
-
-
-
-
-
-                <!--INÍCIO DE ARQUIVO-->
-
-
-                <div class="conteudo-arquivo desativado" id="conteudoArquivo">
-                    <img src="../imagens-sala/Titulo_seção_arquivos.svg" alt="Banner de Arquivos" class="banner tarefas">
-
-                    <div class="frame-692">
-                        <div class="arquivo">
-                            <img class="arquivos" src="../imagens-sala/ArquivosIcon.svg" />
-                            <div class="texto-arquivo">
-                            <div class="exemplo-de-estrututa-o-de-c-digo">
-                                Exemplo de estrututação de código
-                            </div>
-                            </div>
-                        </div>
-                        <div class="arquivo">
-                            <img class="arquivos2" src="../imagens-sala/ArquivosIcon.svg" />
-                            <div class="texto-arquivo">
-                            <div class="exemplo-de-estrututa-o-de-c-digo">
-                                Exemplo de estrututação de código
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-
-                    
+            </div>
 
 
 
@@ -557,81 +381,20 @@
 
 
 
-
-
-
-
-
-
-
-
+            <!-- ARQUIVO -->
+            <div class="conteudo-arquivo desativado" id="conteudoArquivo">
+                <img src="../imagens-sala/Titulo_seção_arquivos.svg" alt="Banner de Arquivos" class="banner tarefas">
+                <div class="frame-692">
+                    <div class="arquivo">
+                        <img class="arquivos" src="../imagens-sala/ArquivosIcon.svg" />
+                        <div class="texto-arquivo"><div class="exemplo-de-estrututa-o-de-c-digo">Exemplo de estrututação de código</div></div>
+                    </div>
+                    <div class="arquivo">
+                        <img class="arquivos2" src="../imagens-sala/ArquivosIcon.svg" />
+                        <div class="texto-arquivo"><div class="exemplo-de-estrututa-o-de-c-digo">Exemplo de estrututação de código</div></div>
+                    </div>
                 </div>
-
-
-
-
-
-
-
-
-                <!-- Fim de Postagens -->
-                 <!-- Inicio de Membros-->
-
-                 <div class="conteudo-membros desativado centraliza" id="conteudoMembros">
-
-                    <img src="../imagens-sala/Titulo_seção_Membros.svg" alt="banner de Membros" class="banner BannerMembros">
-
-                    <div class="membros">
-                        <div class="membro">
-                            <img class="frame-613" src="../imagens-sala/foto_de_perfil.png" />
-                            <div class="frame-615">
-                            <div class="rodrigo-dos-santos-pereira-junior">
-                                Rodrigo dos Santos Pereira Junior
-                            </div>
-                            </div>
-                            <div class="membro-perfl">
-                            <div class="ver-perfil">Ver Perfil</div>
-                            </div>
-                        </div>
-                        <div class="membro">
-                            <img class="frame-613" src="../imagens-sala/foto_de_perfil.png" />
-                            <div class="frame-615">
-                            <div class="rodrigo-dos-santos-pereira-junior">
-                                Rodrigo dos Santos Pereira Junior
-                            </div>
-                            </div>
-                            <div class="membro-perfl">
-                            <div class="ver-perfil">Ver Perfil</div>
-                            </div>
-                        </div>
-                        <div class="membro">
-                            <img class="frame-613" src="../imagens-sala/foto_de_perfil.png" />
-                            <div class="frame-615">
-                            <div class="rodrigo-dos-santos-pereira-junior">
-                                Rodrigo dos Santos Pereira Junior
-                            </div>
-                            </div>
-                            <div class="membro-perfl">
-                            <div class="ver-perfil">Ver Perfil</div>
-                            </div>
-                        </div>
-                        <div class="membro">
-                            <img class="frame-613" src="../imagens-sala/foto_de_perfil.png" />
-                            <div class="frame-615">
-                            <div class="rodrigo-dos-santos-pereira-junior">
-                                Rodrigo dos Santos Pereira Junior
-                            </div>
-                            </div>
-                            <div class="membro-perfl">
-                            <div class="ver-perfil">Ver Perfil</div>
-                            </div>
-                        </div>
-                        </div>
-
-
-
-
-                 </div>
+            </div>
 
 
 
@@ -644,29 +407,33 @@
 
 
 
-
-
-
-
-
-
-
-            
-            
+            <!-- MEMBROS -->
+            <div class="conteudo-membros desativado centraliza" id="conteudoMembros">
+                <img src="../imagens-sala/Titulo_seção_Membros.svg" alt="banner de Membros" class="banner BannerMembros">
+                <div class="membros">
+                    <div class="membro">
+                        <img class="frame-613" src="../imagens-sala/foto_de_perfil.png" />
+                        <div class="frame-615"><div class="rodrigo-dos-santos-pereira-junior">Rodrigo dos Santos Pereira Junior</div></div>
+                        <div class="membro-perfl"><div class="ver-perfil">Ver Perfil</div></div>
+                    </div>
+                    <div class="membro">
+                        <img class="frame-613" src="../imagens-sala/foto_de_perfil.png" />
+                        <div class="frame-615"><div class="rodrigo-dos-santos-pereira-junior">Rodrigo dos Santos Pereira Junior</div></div>
+                        <div class="membro-perfl"><div class="ver-perfil">Ver Perfil</div></div>
+                    </div>
+                    <div class="membro">
+                        <img class="frame-613" src="../imagens-sala/foto_de_perfil.png" />
+                        <div class="frame-615"><div class="rodrigo-dos-santos-pereira-junior">Rodrigo dos Santos Pereira Junior</div></div>
+                        <div class="membro-perfl"><div class="ver-perfil">Ver Perfil</div></div>
+                    </div>
+                    <div class="membro">
+                        <img class="frame-613" src="../imagens-sala/foto_de_perfil.png" />
+                        <div class="frame-615"><div class="rodrigo-dos-santos-pereira-junior">Rodrigo dos Santos Pereira Junior</div></div>
+                        <div class="membro-perfl"><div class="ver-perfil">Ver Perfil</div></div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-
-
-           
-
-
-
-
-
-
-
-
-
     </main>
 
 
@@ -683,297 +450,134 @@
 
 
 
-
-</body>
-
-
-<script>
-        // Funções para Dropdown de Notificações
-        function toggleDropdownNotif() {
-            const dropdown = document.getElementById('dropdownNotif');
-            // Fecha outros dropdowns
-            fecharDropdownConfig();
-            fecharDropdownPerfil();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownNotif() {
-            const dropdown = document.getElementById('dropdownNotif');
-            dropdown.classList.remove('ativo');
-        }
-
-        // Funções para Dropdown de Configurações
-        function toggleDropdownConfig() {
-            const dropdown = document.getElementById('dropdownConfig');
-            // Fecha outros dropdowns
-            fecharDropdownNotif();
-            fecharDropdownPerfil();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownConfig() {
-            const dropdown = document.getElementById('dropdownConfig');
-            dropdown.classList.remove('ativo');
-        }
-
-        function abrirTema() {
-            alert('Funcionalidade de Tema será implementada');
-            fecharDropdownConfig();
-        }
-
-        function abrirAcessibilidade() {
-            alert('Funcionalidade de Acessibilidade será implementada');
-            fecharDropdownConfig();
-        }
-
-        function abrirOpcoesAvancadas() {
-            alert('Funcionalidade de Opções Avançadas será implementada');
-            fecharDropdownConfig();
-        }
-
-        // Funções para Dropdown de Perfil
-        function toggleDropdownPerfil() {
-            const dropdown = document.getElementById('dropdownPerfil');
-            // Fecha outros dropdowns
-            fecharDropdownNotif();
-            fecharDropdownConfig();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownPerfil() {
-            const dropdown = document.getElementById('dropdownPerfil');
-            dropdown.classList.remove('ativo');
-        }
-
-        function abrirSeuPerfil() {
-            alert('Redirecionando para Seu Perfil');
-            fecharDropdownPerfil();
-        }
-
-        function abrirPrivacidade() {
-            alert('Abrindo configurações de Privacidade');
-            fecharDropdownPerfil();
-        }
-
-        function abrirAjudaRecursos() {
-            alert('Abrindo Ajuda e Recursos');
-            fecharDropdownPerfil();
-        }
-
-        function sairDaConta() {
-            if (confirm('Tem certeza que deseja sair da conta?')) {
-                alert('Saindo da conta...');
-                // Aqui você pode adicionar a lógica para logout
-                window.location.href = '/home.html'
-            }
-            fecharDropdownPerfil();
-        }
-
-        // Fechar dropdowns ao clicar fora deles
-        document.addEventListener('click', function(event) {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos dos dropdowns
             const dropdownNotif = document.getElementById('dropdownNotif');
             const dropdownConfig = document.getElementById('dropdownConfig');
             const dropdownPerfil = document.getElementById('dropdownPerfil');
-            
             const btnNotif = document.querySelector('.btn-notificao-nav');
             const btnConfig = document.querySelector('.btn-config');
             const btnPerfil = document.querySelector('.foto-de-perfil');
             
-            // Se o clique não foi em nenhum dropdown ou botão, fecha todos
-            if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
-                
-                fecharDropdownNotif();
+            // Funções para fechar dropdowns
+            function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
+            function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
+            function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
+            
+            // Event listeners para abrir dropdowns
+            btnNotif.addEventListener('click', function() {
                 fecharDropdownConfig();
                 fecharDropdownPerfil();
-            }
-        });
+                dropdownNotif.classList.toggle('ativo');
+            });
+            
+            btnConfig.addEventListener('click', function() {
+                fecharDropdownNotif();
+                fecharDropdownPerfil();
+                dropdownConfig.classList.toggle('ativo');
+            });
+            
+            btnPerfil.addEventListener('click', function() {
+                fecharDropdownNotif();
+                fecharDropdownConfig();
+                dropdownPerfil.classList.toggle('ativo');
+            });
+            
+            // Event listeners para ações dos dropdowns
+            document.querySelectorAll('[data-action]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const action = this.getAttribute('data-action');
+                    switch(action) {
+                        case 'fechar-notif': fecharDropdownNotif(); break;
+                        case 'fechar-config': fecharDropdownConfig(); break;
+                        case 'fechar-perfil': fecharDropdownPerfil(); break;
+                        case 'abrir-tema': alert('Funcionalidade de Tema será implementada'); fecharDropdownConfig(); break;
+                        case 'abrir-acessibilidade': alert('Funcionalidade de Acessibilidade será implementada'); fecharDropdownConfig(); break;
+                        case 'abrir-opcoes-avancadas': alert('Funcionalidade de Opções Avançadas será implementada'); fecharDropdownConfig(); break;
+                        case 'abrir-seu-perfil': alert('Redirecionando para Seu Perfil'); fecharDropdownPerfil(); break;
+                        case 'abrir-privacidade': alert('Abrindo configurações de Privacidade'); fecharDropdownPerfil(); break;
+                        case 'abrir-ajuda-recursos': alert('Abrindo Ajuda e Recursos'); fecharDropdownPerfil(); break;
+                        case 'sair-da-conta':
+                            if (confirm('Tem certeza que deseja sair da conta?')) {
+                                alert('Saindo da conta...');
+                                window.location.href = '/home.html';
+                            }
+                            fecharDropdownPerfil();
+                            break;
+                    }
+                });
+            });
+            
+            // Fechar dropdowns ao clicar fora
+            document.addEventListener('click', function(event) {
+                if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
+                    !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
+                    !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
+                    fecharDropdownNotif();
+                    fecharDropdownConfig();
+                    fecharDropdownPerfil();
+                }
+            });
 
-
-
-
-
-
-
-
-
-
-
-        // Toggle da sidebar
-        function toggleSidebar() {
+            // Toggle da sidebar
             const sidebar = document.getElementById('sidebar');
+            const expandButton = document.getElementById('expandButton');
             const expandText = document.getElementById('expandText');
             const visaoGeralText = document.querySelector('.visao-geral-text');
             
-            sidebar.classList.toggle('expanded');
-            
-            // Muda o texto do botão
-            if (sidebar.classList.contains('expanded')) {
-                expandText.textContent = 'Recolher';
-                visaoGeralText.innerHTML = 'Visão Geral';
-            } else {
-                expandText.textContent = 'Expandir';
-                visaoGeralText.innerHTML = 'Visão<br>Geral';
-            }
-        }
+            expandButton.addEventListener('click', function() {
+                sidebar.classList.toggle('expanded');
+                if (sidebar.classList.contains('expanded')) {
+                    expandText.textContent = 'Recolher';
+                    visaoGeralText.innerHTML = 'Visão Geral';
+                } else {
+                    expandText.textContent = 'Expandir';
+                    visaoGeralText.innerHTML = 'Visão<br>Geral';
+                }
+            });
 
-        // Adiciona funcionalidade de clique nos itens do menu
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                // Remove active de todos os itens
-                document.querySelectorAll('.nav-item').forEach(navItem => {
-                    navItem.classList.remove('active');
+            // Navegação entre telas
+            const telas = {
+                'visao': document.getElementById('conteudoVisao'),
+                'tarefa': document.getElementById('conteudoTarefas'),
+                'postagens': document.getElementById('conteudoPostagens'),
+                'arquivo': document.getElementById('conteudoArquivo'),
+                'membros': document.getElementById('conteudoMembros')
+            };
+
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active de todos
+                    document.querySelectorAll('.nav-item').forEach(navItem => navItem.classList.remove('active'));
+                    // Adiciona active ao clicado
+                    this.classList.add('active');
+                    
+                    // Mostra a tela correspondente
+                    const telaAtiva = this.getAttribute('data-tela');
+                    Object.keys(telas).forEach(key => {
+                        if (key === telaAtiva) {
+                            telas[key].classList.remove('desativado');
+                        } else {
+                            telas[key].classList.add('desativado');
+                        }
+                    });
                 });
-                
-                // Adiciona active ao item clicado
-                this.classList.add('active');
+            });
+
+            // Suporte a teclado
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (sidebar.classList.contains('expanded')) {
+                        sidebar.classList.remove('expanded');
+                        expandText.textContent = 'Expandir';
+                    }
+                    fecharDropdownNotif();
+                    fecharDropdownConfig();
+                    fecharDropdownPerfil();
+                }
             });
         });
-
-        // Adiciona suporte a teclado para acessibilidade
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const sidebar = document.getElementById('sidebar');
-                if (sidebar.classList.contains('expanded')) {
-                    sidebar.classList.remove('expanded');
-                    document.getElementById('expandText').textContent = 'Expandir';
-                }
-                
-                // Também fecha dropdowns
-                fecharDropdownNotif();
-                fecharDropdownConfig();
-                fecharDropdownPerfil();
-            }
-
-
-
-
-
-
-            
-
-
-
-        });
-
-
-        // navegação entre as telas de componete
-
-
-
-            function subTelaVisao() {
-                const aparecer = document.getElementById('conteudoVisao');
-                const sumirTarefa= document.getElementById('conteudoTarefas');
-                sumirTarefa.classList.add('desativado');
-                aparecer.classList.remove('desativado');
-
-
-                const sumirPostagem= document.getElementById('conteudoPostagens');
-                sumirPostagem.classList.add('desativado');
-
-                const sumirMembros = document.getElementById('conteudoMembros');
-                sumirMembros.classList.add('desativado');
-
-
-                 const sumirArquivo = document.getElementById('conteudoArquivo');
-                sumirArquivo.classList.add('desativado'); 
-                
-                
-            }
-
-
-
-            function subTelaTarefa() {
-                const aparecerTarefa = document.getElementById('conteudoTarefas');
-                aparecerTarefa.classList.remove('desativado');
-
-                const sumirVisao= document.getElementById('conteudoVisao');
-                sumirVisao.classList.add('desativado');
-                
-                const sumirPostagem= document.getElementById('conteudoPostagens');
-                sumirPostagem.classList.add('desativado');
-
-                 const sumirArquivo = document.getElementById('conteudoArquivo');
-                sumirArquivo.classList.add('desativado'); 
-                
-                
-            }
-
-            function subTelaPostagens() {
-                const aparecerPostagem = document.getElementById('conteudoPostagens');
-                aparecerPostagem.classList.remove('desativado');
-
-                const sumirVisao= document.getElementById('conteudoVisao');
-                sumirVisao.classList.add('desativado');
-                
-                const sumirTarefa= document.getElementById('conteudoTarefas');
-                sumirTarefa.classList.add('desativado');
-
-                const sumirMembros = document.getElementById('conteudoMembros');
-                sumirMembros.classList.add('desativado');
-
-                 const sumirArquivo = document.getElementById('conteudoArquivo');
-                sumirArquivo.classList.add('desativado'); 
-                
-                
-            }
-
-            function subTelaMembros() {
-                const aparecerMembros = document.getElementById('conteudoMembros');
-                aparecerMembros.classList.remove('desativado');
-
-
-                const aparecerPostagem = document.getElementById('conteudoPostagens');
-                aparecerPostagem.classList.add('desativado');
-
-                const sumirVisao= document.getElementById('conteudoVisao');
-                sumirVisao.classList.add('desativado');
-                
-                const sumirTarefa= document.getElementById('conteudoTarefas');
-                sumirTarefa.classList.add('desativado');
-
-                const sumirArquivo = document.getElementById('conteudoArquivo');
-                sumirArquivo.classList.add('desativado'); 
-                
-                
-            }
-
-             function subTelaArquivo() {
-    const aparecerArquivo = document.getElementById('conteudoArquivo');
-    aparecerArquivo.classList.remove('desativado'); 
-
-    const sumirMembros = document.getElementById('conteudoMembros');
-    sumirMembros.classList.add('desativado'); 
-
-    const sumirPostagem = document.getElementById('conteudoPostagens');
-    sumirPostagem.classList.add('desativado');
-
-    const sumirVisao = document.getElementById('conteudoVisao');
-    sumirVisao.classList.add('desativado');
-    
-    const sumirTarefa = document.getElementById('conteudoTarefas');
-    sumirTarefa.classList.add('desativado');
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
     </script>
-
-<link rel="stylesheet" href="../css-Sala/estilo_componente.css">
+</body>
 </html>
-
-
-

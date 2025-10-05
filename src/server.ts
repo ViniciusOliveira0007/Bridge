@@ -5,6 +5,11 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 
+
+
+// Importa o controlador de autenticação de login 
+import { validateLogin } from './controllers/authController';
+
 const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
@@ -55,6 +60,20 @@ app.get('/api/health', async (req, res) => {
     });
   }
 });
+
+
+
+
+
+
+// Rota para validar login
+app.post('/api/validate-login', validateLogin);
+
+
+
+
+
+
 
 // Placeholder routes para suas funcionalidades
 app.get('/api/users', (req, res) => {
