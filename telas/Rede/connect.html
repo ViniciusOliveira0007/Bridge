@@ -40,528 +40,430 @@
         </ul>
     </div>
     -->
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rede</title>
-    <style>
-       
-    </style>
+    <link rel="stylesheet" href="../../reset.css">
+    <link rel="stylesheet" href="./css-connect/estilos_connectHome.css">
+    <link rel="stylesheet" href="./css-connect/nav_lateral.css">
 </head>
 <body>
 
     <div class="fixacao">
+        <nav class="navegacao">
+            <div class="menu">
+                <div class="menu-1">
+                    <img src="/telas/Diario/imagens-diario/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
+                </div>
 
-     <nav class="navegacao">
-        <div class="menu">
-            <div class="menu-1">
-                <img src="/telas/Diario/imagens-diario/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
+                <div class="menu-2">
+                    <input type="text" placeholder="Pesquise aqui...">
+                </div> 
+
+                <div class="menu-3">
+                    <img src="/telas/Diario/imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav">
+                    <img src="/telas/Diario/imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config">
+                    <img src="/telas/Diario/imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil">
+                    
+                    <!-- Dropdown de Notificações -->
+                    <div class="dropdown-notificacoes" id="dropdownNotif">
+                        <div class="dropdown-header">
+                            <div class="dropdown-titulo">
+                                <img src="/telas/Diario/imagens-diario/sino-black.svg" alt="Notificação">
+                                <span>Notificações</span>
+                            </div>
+                            <button class="btn-fechar" data-action="fechar-notif">&times;</button>
+                        </div>
+                        <div class="dropdown-opcoes">
+                            <div class="notificacao-vazia">Nenhuma notificação no momento</div>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown de Configurações -->
+                    <div class="dropdown-configuracoes" id="dropdownConfig">
+                        <div class="dropdown-header">
+                            <div class="dropdown-titulo">
+                                <img src="/telas/Diario/imagens-diario/configuracao-black.svg" alt="Configuração">
+                                <span>Configurações</span>
+                            </div>
+                            <button class="btn-fechar" data-action="fechar-config">&times;</button>
+                        </div>
+                        <div class="dropdown-opcoes">
+                            <button class="opcao-item" data-action="abrir-tema">Tema</button>
+                            <button class="opcao-item" data-action="abrir-acessibilidade">Acessibilidade</button>
+                            <button class="opcao-item" data-action="abrir-opcoes-avancadas">Opções avançadas</button>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown de Perfil -->
+                    <div class="dropdown-perfil" id="dropdownPerfil">
+                        <div class="dropdown-header">
+                            <div class="dropdown-titulo">
+                                <img src="/telas/Diario/imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
+                                <span>Olá, Rodrigo</span>
+                            </div>
+                            <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
+                        </div>
+                        <div class="dropdown-opcoes">
+                            <button class="opcao-item" data-action="abrir-seu-perfil">Seu perfil</button>
+                            <button class="opcao-item" data-action="abrir-privacidade">Privacidade</button>
+                            <button class="opcao-item" data-action="abrir-ajuda-recursos">Ajuda e Recursos</button>
+                            <button class="opcao-item sair-conta" data-action="sair-da-conta">Sair da Conta</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="menu-2">
-                <input type="text" placeholder="Pesquise aqui...">
-            </div> 
-
-            <div class="menu-3">
-                <img src="/telas/Diario/imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav" onclick="toggleDropdownNotif()">
-                <img src="/telas/Diario/imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config" onclick="toggleDropdownConfig()">
-                <img src="/telas/Diario/imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" onclick="toggleDropdownPerfil()">
-                
-                <!-- Dropdown de Notificações -->
-                <div class="dropdown-notificacoes" id="dropdownNotif">
-                    <div class="dropdown-header">
-                        <div class="dropdown-titulo">
-                            <img src="/telas/Diario/imagens-diario/sino-black.svg" alt="Notificação">
-                            <span>Notificações</span>
-                        </div>
-                        <button class="btn-fechar" onclick="fecharDropdownNotif()">&times;</button>
-                    </div>
-                    <div class="dropdown-opcoes">
-                        <div class="notificacao-vazia">Nenhuma notificação no momento</div>
-                    </div>
-                </div>
-
-                <!-- Dropdown de Configurações -->
-                <div class="dropdown-configuracoes" id="dropdownConfig">
-                    <div class="dropdown-header">
-                        <div class="dropdown-titulo">
-                            <img src="/telas/Diario/imagens-diario/configuracao-black.svg" alt="Configuração">
-                            <span>Configurações</span>
-                        </div>
-                        <button class="btn-fechar" onclick="fecharDropdownConfig()">&times;</button>
-                    </div>
-                    <div class="dropdown-opcoes">
-                        <button class="opcao-item" onclick="abrirTema()">Tema</button>
-                        <button class="opcao-item" onclick="abrirAcessibilidade()">Acessibilidade</button>
-                        <button class="opcao-item" onclick="abrirOpcoesAvancadas()">Opções avançadas</button>
-                    </div>
-                </div>
-
-                <!-- Dropdown de Perfil -->
-                <div class="dropdown-perfil" id="dropdownPerfil">
-                    <div class="dropdown-header">
-                        <div class="dropdown-titulo">
-                            <img src="/telas/Diario/imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
-                            <span>Olá, Rodrigo</span>
-                        </div>
-                        <button class="btn-fechar" onclick="fecharDropdownPerfil()">&times;</button>
-                    </div>
-                    <div class="dropdown-opcoes">
-                        <button class="opcao-item" onclick="abrirSeuPerfil()">Seu perfil</button>
-                        <button class="opcao-item" onclick="abrirPrivacidade()">Privacidade</button>
-                        <button class="opcao-item" onclick="abrirAjudaRecursos()">Ajuda e Recursos</button>
-                        <button class="opcao-item sair-conta" onclick="sairDaConta()">Sair da Conta</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+        </nav>
    
-    
-            <div class="nome-da-guia">
-                <ul>
-                    <li><a href="../Rede/connect.html">Redes</a></li>
-                    <li><a href="../Sala-de-Aula/sala.html">Sala de Aula</a></li>
-                    <li><a href="../Trilhas/trilhas.html">Trilhas</a></li>
-                    <li><a href="../Diario/diario.html">Diário</a></li>
-                </ul>
-            </div>
+        <div class="nome-da-guia">
+            <ul>
+                <li><a href="../Rede/connect.html">Redes</a></li>
+                <li><a href="../Sala-de-Aula/sala.html">Sala de Aula</a></li>
+                <li><a href="../Trilhas/trilhas.html">Trilhas</a></li>
+                <li><a href="../Diario/diario.html">Diário</a></li>
+            </ul>
+        </div>
     </div>
 
     <main class="conteudo-principal">
-
-
-    <aside class="navLateral">
-
-                <a href="perfil.html" class="link">
-                    <div class="card" >
-                            <div class="top"></div>
-                                <div class="divider"></div>
-                                <img src="/telas/Diario/imagens-diario/foto_de_perfil.png" class="photo" alt="">
-                            <div class="content">
-                                <div class="name">Rodrigo Santos</div>
-                                    <div class="info">
-                                        <div>Etec de Itanhaém</div>
-                                        <div>Aluno</div>
-                                    </div>
-                            </div>
+        <aside class="navLateral">
+            <a href="perfil.html" class="link">
+                <div class="card">
+                    <div class="top"></div>
+                    <div class="divider"></div>
+                    <img src="/telas/Diario/imagens-diario/foto_de_perfil.png" class="photo" alt="">
+                    <div class="content">
+                        <div class="name">Rodrigo Santos</div>
+                        <div class="info">
+                            <div>Etec de Itanhaém</div>
+                            <div>Aluno</div>
+                        </div>
                     </div>
-                </a>
+                </div>
+            </a>
 
-                            <div class="btn-navL selecionado">
-                                    <div class="icon-area">  
-                                        <span class="iconeSimples">home</span>              
-                                    </div>                               
-                                <div class="bars">
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                </div>                 
-                                <div class="text-area">Início</div>
-                            </div>
+            <div class="btn-navL selecionado">
+                <div class="icon-area">  
+                    <span class="iconeSimples">home</span>              
+                </div>                               
+                <div class="bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>                 
+                <div class="text-area">Início</div>
+            </div>
 
+            <div class="btn-navL">
+                <div class="icon-area"> 
+                    <span class="iconeSimples">map</span>               
+                </div>                               
+                <div class="bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>                 
+                <div class="text-area">Explorar</div>
+            </div>
 
+            <div class="btn-navL">
+                <div class="icon-area"> 
+                    <span class="iconeSimples">edit</span>               
+                </div>                               
+                <div class="bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>                 
+                <div class="text-area">Criar</div>
+            </div>
 
+            <div class="btn-navL">
+                <div class="icon-area"> 
+                    <span class="iconeSimples">search</span>               
+                </div>                               
+                <div class="bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>                 
+                <div class="text-area">Pesquisar</div>
+            </div>
 
-                            <div class="btn-navL">
-                                    <div class="icon-area"> 
-                                        <span class="iconeSimples">map</span>               
-                                    </div>                               
-                                <div class="bars">
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                </div>                 
-                                <div class="text-area">Explorar</div>
-                            </div>
+            <div class="btn-navL">
+                <div class="icon-area"> 
+                    <span class="iconeSimples">mail</span>               
+                </div>                               
+                <div class="bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>                 
+                <div class="text-area">Mensagens</div>
+            </div>
 
+            <div class="btn-navL">
+                <div class="icon-area"> 
+                    <span class="iconeSimples">groups</span>               
+                </div>                               
+                <div class="bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>                 
+                <div class="text-area">Grupos</div>
+            </div>
 
+            <div class="btn-navL">
+                <div class="icon-area"> 
+                    <span class="iconeSimples">notifications_active</span>               
+                </div>                               
+                <div class="bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>                 
+                <div class="text-area">Notificações</div>
+            </div>
 
-                            <div class="btn-navL">
-                                    <div class="icon-area"> 
-                                        <span class="iconeSimples">edit</span>               
-                                    </div>                               
-                                <div class="bars">
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                </div>                 
-                                <div class="text-area">Criar</div>
-                            </div>
+            <div class="btn-navL">
+                <div class="icon-area"> 
+                    <span class="iconeSimples">settings</span>               
+                </div>                               
+                <div class="bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>                 
+                <div class="text-area">Configurações</div>
+            </div>
+        </aside>       
 
-
-
-                            <div class="btn-navL">
-                                    <div class="icon-area"> 
-                                        <span class="iconeSimples">search</span>               
-                                    </div>                               
-                                <div class="bars">
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                </div>                 
-                                <div class="text-area">Pesquisar</div>
-                            </div>
-
-
-
-                            <div class="btn-navL">
-                                    <div class="icon-area"> 
-                                        <span class="iconeSimples">mail</span>               
-                                    </div>                               
-                                <div class="bars">
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                </div>                 
-                                <div class="text-area">Mensagens</div>
-                            </div>
-
-
-
-                            <div class="btn-navL">
-                                    <div class="icon-area"> 
-                                        <span class="iconeSimples">groups</span>               
-                                    </div>                               
-                                <div class="bars">
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                </div>                 
-                                <div class="text-area">Grupos</div>
-                            </div>
-
-
-
-                            <div class="btn-navL">
-                                    <div class="icon-area"> 
-                                        <span class="iconeSimples">notifications_active</span>               
-                                    </div>                               
-                                <div class="bars">
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                </div>                 
-                                <div class="text-area">Notificações</div>
-                            </div>
-
-
-
-                            <div class="btn-navL">
-                                    <div class="icon-area"> 
-                                        <span class="iconeSimples">settings</span>               
-                                    </div>                               
-                                <div class="bars">
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                </div>                 
-                                <div class="text-area">Configurações</div>
-                            </div>
-    </aside>       
-
-
-
-
-
-
-
-     <section class="feed">
-        
-
-                <div class="postagem"> 
-
-                        <div class="perfilPost"> 
-                            <img src="./assetsConnect/David.jpg" class="fotoPost" alt="">                            <div class="infosPost">                 
-                                <div class="cabecalho">
-                                        <div class="nome-bloco">
-                                            <div class="linha"></div>
-                                            <span class="nome">David_Bernardes45</span>
-                                                <div class="detalhes">
-                                                    <span>Aluno</span>
-                                                    <span>Etec de Itanhaém</span>
-                                                </div>
-                                        </div>
-                                    <span class="tempo">· 5h</span>
+        <section class="feed">
+            <div class="postagem"> 
+                <div class="perfilPost"> 
+                    <img src="./assetsConnect/David.jpg" class="fotoPost" alt="">
+                    <div class="infosPost">                 
+                        <div class="cabecalho">
+                            <div class="nome-bloco">
+                                <div class="linha"></div>
+                                <span class="nome">David_Bernardes45</span>
+                                <div class="detalhes">
+                                    <span>Aluno</span>
+                                    <span>Etec de Itanhaém</span>
                                 </div>
                             </div>
+                            <span class="tempo">· 5h</span>
                         </div>
-
-                        <img src="./assetsConnect/post1ds.jpg" class="imagem" alt="">
-
-
-                         <div class="reacoes">
-                            <div class="reacoesPrincipais">
-                                    <div class="reacao"> <span class="iconeSimples">favorite</span></div>
-                                    <div class="reacao"> <span class="iconeSimples">chat</span></div>
-                                    <div class="reacao"> <span class="iconeSimples">send</span></div>
-                            </div> 
-                            
-                                <div class="reacao"> <span class="iconeSimples">star</span></div>
-                        </div>
+                    </div>
                 </div>
-               
+                <img src="./assetsConnect/post1ds.jpg" class="imagem" alt="">
+                <div class="reacoes">
+                    <div class="reacoesPrincipais">
+                        <div class="reacao"> <span class="iconeSimples">favorite</span></div>
+                        <div class="reacao"> <span class="iconeSimples">chat</span></div>
+                        <div class="reacao"> <span class="iconeSimples">send</span></div>
+                    </div> 
+                    <div class="reacao"> <span class="iconeSimples">star</span></div>
+                </div>
+            </div>
 
- 
-                <div class="postagem"> 
-
-                        <div class="perfilPost"> 
-                            <img src="./assetsConnect/Vinicius.jpg" class="fotoPost" alt="">                            <div class="infosPost">                 
-                                <div class="cabecalho">
-                                        <div class="nome-bloco">
-                                            <div class="linha"></div>
-                                            <span class="nome">Vinicius_Anunciacao</span>
-                                                <div class="detalhes">
-                                                    <span>Aluno</span>
-                                                    <span>Etec de Itanhaém</span>
-                                                </div>
-                                        </div>
-                                    <span class="tempo">· 5h</span>
+            <div class="postagem"> 
+                <div class="perfilPost"> 
+                    <img src="./assetsConnect/Vinicius.jpg" class="fotoPost" alt="">
+                    <div class="infosPost">                 
+                        <div class="cabecalho">
+                            <div class="nome-bloco">
+                                <div class="linha"></div>
+                                <span class="nome">Vinicius_Anunciacao</span>
+                                <div class="detalhes">
+                                    <span>Aluno</span>
+                                    <span>Etec de Itanhaém</span>
                                 </div>
                             </div>
+                            <span class="tempo">· 5h</span>
                         </div>
-
-                        <img src="./assetsConnect/post5ds.jpg" class="imagem" alt="">
-
-
-                         <div class="reacoes">
-                            <div class="reacoesPrincipais">
-                                    <div class="reacao"> <span class="iconeSimples">favorite</span></div>
-                                    <div class="reacao"> <span class="iconeSimples">chat</span></div>
-                                    <div class="reacao"> <span class="iconeSimples">send</span></div>
-                            </div> 
-                            
-                                <div class="reacao"> <span class="iconeSimples">star</span></div>
-                        </div>
+                    </div>
                 </div>
-               
+                <img src="./assetsConnect/post5ds.jpg" class="imagem" alt="">
+                <div class="reacoes">
+                    <div class="reacoesPrincipais">
+                        <div class="reacao"> <span class="iconeSimples">favorite</span></div>
+                        <div class="reacao"> <span class="iconeSimples">chat</span></div>
+                        <div class="reacao"> <span class="iconeSimples">send</span></div>
+                    </div> 
+                    <div class="reacao"> <span class="iconeSimples">star</span></div>
+                </div>
+            </div>
 
- 
-                <div class="postagem"> 
-
-                        <div class="perfilPost"> 
-                            <img src="./assetsConnect/aluna1.jpg" class="fotoPost" alt="">                            <div class="infosPost">                 
-                                <div class="cabecalho">
-                                        <div class="nome-bloco">
-                                            <div class="linha"></div>
-                                            <span class="nome">Ester_Medeiros428</span>
-                                                <div class="detalhes">
-                                                    <span>Aluno</span>
-                                                    <span>Etec de Itanhaém</span>
-                                                </div>
-                                        </div>
-                                    <span class="tempo">· 5h</span>
+            <div class="postagem"> 
+                <div class="perfilPost"> 
+                    <img src="./assetsConnect/aluna1.jpg" class="fotoPost" alt="">
+                    <div class="infosPost">                 
+                        <div class="cabecalho">
+                            <div class="nome-bloco">
+                                <div class="linha"></div>
+                                <span class="nome">Ester_Medeiros428</span>
+                                <div class="detalhes">
+                                    <span>Aluno</span>
+                                    <span>Etec de Itanhaém</span>
                                 </div>
                             </div>
+                            <span class="tempo">· 5h</span>
                         </div>
-
-                        <img src="./assetsConnect/post2Farm.jpeg" class="imagem" alt="">
-
-
-                         <div class="reacoes">
-                            <div class="reacoesPrincipais">
-                                    <div class="reacao"> <span class="iconeSimples">favorite</span></div>
-                                    <div class="reacao"> <span class="iconeSimples">chat</span></div>
-                                    <div class="reacao"> <span class="iconeSimples">send</span></div>
-                            </div> 
-                            
-                                <div class="reacao"> <span class="iconeSimples">star</span></div>
-                        </div>
+                    </div>
                 </div>
-               
+                <img src="./assetsConnect/post2Farm.jpeg" class="imagem" alt="">
+                <div class="reacoes">
+                    <div class="reacoesPrincipais">
+                        <div class="reacao"> <span class="iconeSimples">favorite</span></div>
+                        <div class="reacao"> <span class="iconeSimples">chat</span></div>
+                        <div class="reacao"> <span class="iconeSimples">send</span></div>
+                    </div> 
+                    <div class="reacao"> <span class="iconeSimples">star</span></div>
+                </div>
+            </div>
 
- 
-                <div class="postagem"> 
-
-                        <div class="perfilPost"> 
-                            <img src="./assetsConnect/aluna2.jpg" class="fotoPost" alt="">                            <div class="infosPost">                 
-                                <div class="cabecalho">
-                                        <div class="nome-bloco">
-                                            <div class="linha"></div>
-                                            <span class="nome">Jessica_Almeida22</span>
-                                                <div class="detalhes">
-                                                    <span>Aluno</span>
-                                                    <span>Etec de Itanhaém</span>
-                                                </div>
-                                        </div>
-                                    <span class="tempo">· 5h</span>
+            <div class="postagem"> 
+                <div class="perfilPost"> 
+                    <img src="./assetsConnect/aluna2.jpg" class="fotoPost" alt="">
+                    <div class="infosPost">                 
+                        <div class="cabecalho">
+                            <div class="nome-bloco">
+                                <div class="linha"></div>
+                                <span class="nome">Jessica_Almeida22</span>
+                                <div class="detalhes">
+                                    <span>Aluno</span>
+                                    <span>Etec de Itanhaém</span>
                                 </div>
                             </div>
+                            <span class="tempo">· 5h</span>
                         </div>
-
-                        <img src="./assetsConnect/post3culinaria.jpg" class="imagem" alt="">
-
-
-                         <div class="reacoes">
-                            <div class="reacoesPrincipais">
-                                    <div class="reacao"> <span class="iconeSimples">favorite</span></div>
-                                    <div class="reacao"> <span class="iconeSimples">chat</span></div>
-                                    <div class="reacao"> <span class="iconeSimples">send</span></div>
-                            </div> 
-                            
-                                <div class="reacao"> <span class="iconeSimples">star</span></div>
-                        </div>
+                    </div>
                 </div>
-               
+                <img src="./assetsConnect/post3culinaria.jpg" class="imagem" alt="">
+                <div class="reacoes">
+                    <div class="reacoesPrincipais">
+                        <div class="reacao"> <span class="iconeSimples">favorite</span></div>
+                        <div class="reacao"> <span class="iconeSimples">chat</span></div>
+                        <div class="reacao"> <span class="iconeSimples">send</span></div>
+                    </div> 
+                    <div class="reacao"> <span class="iconeSimples">star</span></div>
+                </div>
+            </div>
 
- 
-                <div class="postagem"> 
-
-                        <div class="perfilPost"> 
-                            <img src="./assetsConnect/Jander.png" class="fotoPost" alt="">                            <div class="infosPost">                 
-                                <div class="cabecalho">
-                                        <div class="nome-bloco">
-                                            <div class="linha"></div>
-                                            <span class="nome">Jander_Geronimo24</span>
-                                                <div class="detalhes">
-                                                    <span>Aluno</span>
-                                                    <span>Etec de Mongaguá</span>
-                                                </div>
-                                        </div>
-                                    <span class="tempo">· 5h</span>
+            <div class="postagem"> 
+                <div class="perfilPost"> 
+                    <img src="./assetsConnect/Jander.png" class="fotoPost" alt="">
+                    <div class="infosPost">                 
+                        <div class="cabecalho">
+                            <div class="nome-bloco">
+                                <div class="linha"></div>
+                                <span class="nome">Jander_Geronimo24</span>
+                                <div class="detalhes">
+                                    <span>Aluno</span>
+                                    <span>Etec de Mongaguá</span>
                                 </div>
                             </div>
+                            <span class="tempo">· 5h</span>
                         </div>
-
-                        <img src="./assetsConnect/post4adm.jpg" class="imagem" alt="">
-
-
-                         <div class="reacoes">
-                            <div class="reacoesPrincipais">
-                                    <div class="reacao"> <span class="iconeSimples">favorite</span></div>
-                                    <div class="reacao"> <span class="iconeSimples">chat</span></div>
-                                    <div class="reacao"> <span class="iconeSimples">send</span></div>
-                            </div> 
-                            
-                                <div class="reacao"> <span class="iconeSimples">star</span></div>
-                        </div>
+                    </div>
                 </div>
-               
+                <img src="./assetsConnect/post4adm.jpg" class="imagem" alt="">
+                <div class="reacoes">
+                    <div class="reacoesPrincipais">
+                        <div class="reacao"> <span class="iconeSimples">favorite</span></div>
+                        <div class="reacao"> <span class="iconeSimples">chat</span></div>
+                        <div class="reacao"> <span class="iconeSimples">send</span></div>
+                    </div> 
+                    <div class="reacao"> <span class="iconeSimples">star</span></div>
+                </div>
+            </div>
+        </section>
 
- 
-
-  </section>
-
-
-
-
- <aside class="sugestoes">
-    <div class="sugestao"></div>
-   
-  </aside>
-
-
-
-
-
-
-
-
-
-
+        <aside class="sugestoes">
+            <div class="sugestao"></div>
+        </aside>
     </main>
 
     <script>
-        // Funções para Dropdown de Notificações
-        function toggleDropdownNotif() {
-            const dropdown = document.getElementById('dropdownNotif');
-            // Fecha outros dropdowns
-            fecharDropdownConfig();
-            fecharDropdownPerfil();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownNotif() {
-            const dropdown = document.getElementById('dropdownNotif');
-            dropdown.classList.remove('ativo');
-        }
-
-        // Funções para Dropdown de Configurações
-        function toggleDropdownConfig() {
-            const dropdown = document.getElementById('dropdownConfig');
-            // Fecha outros dropdowns
-            fecharDropdownNotif();
-            fecharDropdownPerfil();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownConfig() {
-            const dropdown = document.getElementById('dropdownConfig');
-            dropdown.classList.remove('ativo');
-        }
-
-        function abrirTema() {
-            alert('Funcionalidade de Tema será implementada');
-            fecharDropdownConfig();
-        }
-
-        function abrirAcessibilidade() {
-            alert('Funcionalidade de Acessibilidade será implementada');
-            fecharDropdownConfig();
-        }
-
-        function abrirOpcoesAvancadas() {
-            alert('Funcionalidade de Opções Avançadas será implementada');
-            fecharDropdownConfig();
-        }
-
-        // Funções para Dropdown de Perfil
-        function toggleDropdownPerfil() {
-            const dropdown = document.getElementById('dropdownPerfil');
-            // Fecha outros dropdowns
-            fecharDropdownNotif();
-            fecharDropdownConfig();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownPerfil() {
-            const dropdown = document.getElementById('dropdownPerfil');
-            dropdown.classList.remove('ativo');
-        }
-
-        function abrirSeuPerfil() {
-            alert('Redirecionando para Seu Perfil');
-            fecharDropdownPerfil();
-        }
-
-        function abrirPrivacidade() {
-            alert('Abrindo configurações de Privacidade');
-            fecharDropdownPerfil();
-        }
-
-        function abrirAjudaRecursos() {
-            alert('Abrindo Ajuda e Recursos');
-            fecharDropdownPerfil();
-        }
-
-        function sairDaConta() {
-            if (confirm('Tem certeza que deseja sair da conta?')) {
-                alert('Saindo da conta...');
-                // Aqui você pode adicionar a lógica para logout
-                window.location.href = '/home.html'
-            }
-            fecharDropdownPerfil();
-        }
-
-        // Fechar dropdowns ao clicar fora deles
-        document.addEventListener('click', function(event) {
+        document.addEventListener('DOMContentLoaded', function() {
             const dropdownNotif = document.getElementById('dropdownNotif');
             const dropdownConfig = document.getElementById('dropdownConfig');
             const dropdownPerfil = document.getElementById('dropdownPerfil');
-            
             const btnNotif = document.querySelector('.btn-notificao-nav');
             const btnConfig = document.querySelector('.btn-config');
             const btnPerfil = document.querySelector('.foto-de-perfil');
             
-            // Se o clique não foi em nenhum dropdown ou botão, fecha todos
-            if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
-                
-                fecharDropdownNotif();
+            function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
+            function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
+            function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
+            
+            btnNotif.addEventListener('click', function() {
                 fecharDropdownConfig();
                 fecharDropdownPerfil();
-            }
+                dropdownNotif.classList.toggle('ativo');
+            });
+            
+            btnConfig.addEventListener('click', function() {
+                fecharDropdownNotif();
+                fecharDropdownPerfil();
+                dropdownConfig.classList.toggle('ativo');
+            });
+            
+            btnPerfil.addEventListener('click', function() {
+                fecharDropdownNotif();
+                fecharDropdownConfig();
+                dropdownPerfil.classList.toggle('ativo');
+            });
+            
+            document.querySelectorAll('[data-action]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const action = this.getAttribute('data-action');
+                    switch(action) {
+                        case 'fechar-notif': fecharDropdownNotif(); break;
+                        case 'fechar-config': fecharDropdownConfig(); break;
+                        case 'fechar-perfil': fecharDropdownPerfil(); break;
+                        case 'abrir-tema': 
+                            alert('Funcionalidade de Tema será implementada'); 
+                            fecharDropdownConfig(); 
+                            break;
+                        case 'abrir-acessibilidade': 
+                            alert('Funcionalidade de Acessibilidade será implementada'); 
+                            fecharDropdownConfig(); 
+                            break;
+                        case 'abrir-opcoes-avancadas': 
+                            alert('Funcionalidade de Opções Avançadas será implementada'); 
+                            fecharDropdownConfig(); 
+                            break;
+                        case 'abrir-seu-perfil': 
+                            alert('Redirecionando para Seu Perfil'); 
+                            fecharDropdownPerfil(); 
+                            break;
+                        case 'abrir-privacidade': 
+                            alert('Abrindo configurações de Privacidade'); 
+                            fecharDropdownPerfil(); 
+                            break;
+                        case 'abrir-ajuda-recursos': 
+                            alert('Abrindo Ajuda e Recursos'); 
+                            fecharDropdownPerfil(); 
+                            break;
+                        case 'sair-da-conta':
+                            if (confirm('Tem certeza que deseja sair da conta?')) {
+                                alert('Saindo da conta...');
+                                window.location.href = '/home.html';
+                            }
+                            fecharDropdownPerfil();
+                            break;
+                    }
+                });
+            });
+            
+            document.addEventListener('click', function(event) {
+                if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
+                    !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
+                    !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
+                    fecharDropdownNotif();
+                    fecharDropdownConfig();
+                    fecharDropdownPerfil();
+                }
+            });
         });
     </script>
-
-     <link rel="stylesheet" href="../../reset.css">
-    <link rel="stylesheet" href="./css-connect/estilos_connectHome.css">
-    <link rel="stylesheet" href="./css-connect/nav_lateral.css">
 </body>
-
 </html>

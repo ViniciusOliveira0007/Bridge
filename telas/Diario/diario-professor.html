@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diário</title>
-    <style>
-       
-    </style>
+    <title>Diário - Professores</title>
+    <link rel="stylesheet" href="./css-diario/estilos_diario.css">
+    <link rel="stylesheet" href="./css-diario/estilo_diario-professor.css">
 </head>
 <body>
 
-     <nav class="navegacao">
+    <nav class="navegacao">
         <div class="menu">
             <div class="menu-1">
                 <img src="./imagens-diario/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
@@ -21,9 +20,9 @@
             </div> 
 
             <div class="menu-3">
-                <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav" onclick="toggleDropdownNotif()">
-                <img src="./imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config" onclick="toggleDropdownConfig()">
-                <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" onclick="toggleDropdownPerfil()">
+                <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav">
+                <img src="./imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config">
+                <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil">
                 
                 <!-- Dropdown de Notificações -->
                 <div class="dropdown-notificacoes" id="dropdownNotif">
@@ -32,7 +31,7 @@
                             <img src="./imagens-diario/sino-black.svg" alt="Notificação">
                             <span>Notificações</span>
                         </div>
-                        <button class="btn-fechar" onclick="fecharDropdownNotif()">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-notif">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
                         <div class="notificacao-vazia">Nenhuma notificação no momento</div>
@@ -43,15 +42,15 @@
                 <div class="dropdown-configuracoes" id="dropdownConfig">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="/telas/Diario/imagens-diario/configuracao-black.svg" alt="Configuração">
+                            <img src="./imagens-diario/configuracao-black.svg" alt="Configuração">
                             <span>Configurações</span>
                         </div>
-                        <button class="btn-fechar" onclick="fecharDropdownConfig()">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-config">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
-                        <button class="opcao-item" onclick="abrirTema()">Tema</button>
-                        <button class="opcao-item" onclick="abrirAcessibilidade()">Acessibilidade</button>
-                        <button class="opcao-item" onclick="abrirOpcoesAvancadas()">Opções avançadas</button>
+                        <button class="opcao-item" data-action="abrir-tema">Tema</button>
+                        <button class="opcao-item" data-action="abrir-acessibilidade">Acessibilidade</button>
+                        <button class="opcao-item" data-action="abrir-opcoes-avancadas">Opções avançadas</button>
                     </div>
                 </div>
 
@@ -62,13 +61,13 @@
                             <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
                             <span>Olá, Rodrigo</span>
                         </div>
-                        <button class="btn-fechar" onclick="fecharDropdownPerfil()">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
-                        <button class="opcao-item" onclick="abrirSeuPerfil()">Seu perfil</button>
-                        <button class="opcao-item" onclick="abrirPrivacidade()">Privacidade</button>
-                        <button class="opcao-item" onclick="abrirAjudaRecursos()">Ajuda e Recursos</button>
-                        <button class="opcao-item sair-conta" onclick="sairDaConta()">Sair da Conta</button>
+                        <button class="opcao-item" data-action="abrir-seu-perfil">Seu perfil</button>
+                        <button class="opcao-item" data-action="abrir-privacidade">Privacidade</button>
+                        <button class="opcao-item" data-action="abrir-ajuda-recursos">Ajuda e Recursos</button>
+                        <button class="opcao-item sair-conta" data-action="sair-da-conta">Sair da Conta</button>
                     </div>
                 </div>
             </div>
@@ -84,26 +83,8 @@
         </ul>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <main class="conteudo-principal">
         <div class="bloco-de-conteudo">
-            
-            
-
-
             <div class="sub-guia-diario">
                 <a class="btn-sub-guia" href="diario.html">Início</a>
                 <a class="btn-sub-guia" href="diario-aulas.html">Aula e Faltas</a>
@@ -111,224 +92,151 @@
                 <a class="btn-sub-guia" href="diario-boletim.html">Boletim</a>
                 <a class="btn-sub-guia" href="diario-turma.html">Turma</a>
                 <a class="btn-sub-guia" href="diario-professor.html">Professores</a>
-                
-
             </div>
-
-
-
-
-
         </div>
 
         <div class="bloco-de-conteudo2">
-            
-            <!-- Inicio do código feito no Figma-->
-            
-                <div class="bloco-cronograma">
-
+            <div class="bloco-cronograma">
                 <div class="frame-476">
                     <div class="frame-387">
                         <div class="boletim-2025-2-modulo">CRONOGRAMA DE COMPONENTES</div>
                     </div>
                     <div class="frame-569">
-    
+                        <div class="bloco-tabela">
+                            <table class="tabela">
+                                <tr>
+                                    <th class="titulo-guia">NOME</th>
+                                    <th class="titulo-guia">DISCIPLINA</th>
+                                    <th class="titulo-guia">MÓDULO</th>
+                                    <th class="titulo-guia">PERÍODO</th>
+                                    <th class="titulo-guia">ANO</th>
+                                </tr>
+                                <tr>
+                                    <td>OSWALDO</td>
+                                    <td>BD, DD, PW e PTCC</td>
+                                    <td>1º/2º/3º</td>
+                                    <td>NOTURNO</td>
+                                    <td>2024/2025</td>
+                                </tr>
+                                <tr>
+                                    <td>OSWALDO</td>
+                                    <td>BD, DD, PW e PTCC</td>
+                                    <td>1º/2º/3º</td>
+                                    <td>NOTURNO</td>
+                                    <td>2024/2025</td>
+                                </tr>
+                                <tr>
+                                    <td>OSWALDO</td>
+                                    <td>BD, DD, PW e PTCC</td>
+                                    <td>1º/2º/3º</td>
+                                    <td>NOTURNO</td>
+                                    <td>2024/2025</td>
+                                </tr>
+                            </table>
+                        </div>
 
-
-
-
-
-
-
-
-
-            <!--Termino do código do figma-->
-
-            <div class="bloco-tabela">
-                    <table class="tabela">
-
-                        <tr>
-                            <th class="titulo-guia">NOME</th>
-                            <th class="titulo-guia">DISCIPLINA</th>
-                            <th class="titulo-guia">MÓDULO</th>
-                            <th class="titulo-guia">PERÍODO</th>
-                            <th class="titulo-guia">ANO</th>
-                            
-                            
-                            
-                            
-                            
-                            
-                        </tr>
-                        <tr>
-                            
-                            <td>OSWALDO</td>
-                            <td>BD, DD, PW e PTCC</td>
-                            <td>1º/2º/3º</td>
-                            <td>NOTURNO</td>
-                            <td>2024/2025</td>
-                            
-                            
-                        </tr>
-                        <tr>
-                            
-                            <td>OSWALDO</td>
-                            <td>BD, DD, PW e PTCC</td>
-                            <td>1º/2º/3º</td>
-                            <td>NOTURNO</td>
-                            <td>2024/2025</td>
-                            
-                            
-                        </tr>
-                        <tr>
-                            
-                            <td>OSWALDO</td>
-                            <td>BD, DD, PW e PTCC</td>
-                            <td>1º/2º/3º</td>
-                            <td>NOTURNO</td>
-                            <td>2024/2025</td>
-                            
-                            
-                        </tr>
-
-                        
-                        
-                    </table>
+                        <div class="Legenda">
+                            <h1 class="titulo-legenda">LEGENDA</h1>
+                            <h3 class="mat">BD | Banco de dados</h3>
+                            <h3 class="mat">DD | Desenvolvimento de sistemas</h3>
+                            <h3 class="mat">PW | Programação Web</h3>
+                            <h3 class="mat">PD | Programação mobile</h3>
+                            <h3 class="mat">LT | Linguagem técnica</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="Legenda">
-                <h1 class="titulo-legenda">LEGENDA</h1>
-                <h3 class="mat">BD | Banco de dados</h3>
-                <h3 class="mat">DD | Desenvolvimento de sistemas</h3>
-                <h3 class="mat">PW | Programação Web</h3>
-                <h3 class="mat">PD | Programação mobile</h3>
-                <h3 class="mat">LT | Linguagem técnica</h3>
-              
-
-            </div>
-
-
-
-
         </div>
-
-
-            <!-- Final do código feito no Figma-->
-
-        </div>
-
     </main>
 
-
     <script>
-        // Funções para Dropdown de Notificações
-        function toggleDropdownNotif() {
-            const dropdown = document.getElementById('dropdownNotif');
-            // Fecha outros dropdowns
-            fecharDropdownConfig();
-            fecharDropdownPerfil();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownNotif() {
-            const dropdown = document.getElementById('dropdownNotif');
-            dropdown.classList.remove('ativo');
-        }
-
-        // Funções para Dropdown de Configurações
-        function toggleDropdownConfig() {
-            const dropdown = document.getElementById('dropdownConfig');
-            // Fecha outros dropdowns
-            fecharDropdownNotif();
-            fecharDropdownPerfil();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownConfig() {
-            const dropdown = document.getElementById('dropdownConfig');
-            dropdown.classList.remove('ativo');
-        }
-
-        function abrirTema() {
-            alert('Funcionalidade de Tema será implementada');
-            fecharDropdownConfig();
-        }
-
-        function abrirAcessibilidade() {
-            alert('Funcionalidade de Acessibilidade será implementada');
-            fecharDropdownConfig();
-        }
-
-        function abrirOpcoesAvancadas() {
-            alert('Funcionalidade de Opções Avançadas será implementada');
-            fecharDropdownConfig();
-        }
-
-        // Funções para Dropdown de Perfil
-        function toggleDropdownPerfil() {
-            const dropdown = document.getElementById('dropdownPerfil');
-            // Fecha outros dropdowns
-            fecharDropdownNotif();
-            fecharDropdownConfig();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownPerfil() {
-            const dropdown = document.getElementById('dropdownPerfil');
-            dropdown.classList.remove('ativo');
-        }
-
-        function abrirSeuPerfil() {
-            alert('Redirecionando para Seu Perfil');
-            fecharDropdownPerfil();
-        }
-
-        function abrirPrivacidade() {
-            alert('Abrindo configurações de Privacidade');
-            fecharDropdownPerfil();
-        }
-
-        function abrirAjudaRecursos() {
-            alert('Abrindo Ajuda e Recursos');
-            fecharDropdownPerfil();
-        }
-
-        function sairDaConta() {
-            if (confirm('Tem certeza que deseja sair da conta?')) {
-                alert('Saindo da conta...');
-                // Aqui você pode adicionar a lógica para logout
-                window.location.href = '/home.html'
-            }
-            fecharDropdownPerfil();
-        }
-
-        // Fechar dropdowns ao clicar fora deles
-        document.addEventListener('click', function(event) {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos dos dropdowns
             const dropdownNotif = document.getElementById('dropdownNotif');
             const dropdownConfig = document.getElementById('dropdownConfig');
             const dropdownPerfil = document.getElementById('dropdownPerfil');
-            
             const btnNotif = document.querySelector('.btn-notificao-nav');
             const btnConfig = document.querySelector('.btn-config');
             const btnPerfil = document.querySelector('.foto-de-perfil');
             
-            // Se o clique não foi em nenhum dropdown ou botão, fecha todos
-            if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
-                
-                fecharDropdownNotif();
+            // Funções para fechar dropdowns
+            function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
+            function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
+            function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
+            
+            // Event listeners para abrir dropdowns
+            btnNotif.addEventListener('click', function() {
                 fecharDropdownConfig();
                 fecharDropdownPerfil();
-            }
+                dropdownNotif.classList.toggle('ativo');
+            });
+            
+            btnConfig.addEventListener('click', function() {
+                fecharDropdownNotif();
+                fecharDropdownPerfil();
+                dropdownConfig.classList.toggle('ativo');
+            });
+            
+            btnPerfil.addEventListener('click', function() {
+                fecharDropdownNotif();
+                fecharDropdownConfig();
+                dropdownPerfil.classList.toggle('ativo');
+            });
+            
+            // Event listeners para ações dos dropdowns
+            document.querySelectorAll('[data-action]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const action = this.getAttribute('data-action');
+                    switch(action) {
+                        case 'fechar-notif': fecharDropdownNotif(); break;
+                        case 'fechar-config': fecharDropdownConfig(); break;
+                        case 'fechar-perfil': fecharDropdownPerfil(); break;
+                        case 'abrir-tema': 
+                            alert('Funcionalidade de Tema será implementada'); 
+                            fecharDropdownConfig(); 
+                            break;
+                        case 'abrir-acessibilidade': 
+                            alert('Funcionalidade de Acessibilidade será implementada'); 
+                            fecharDropdownConfig(); 
+                            break;
+                        case 'abrir-opcoes-avancadas': 
+                            alert('Funcionalidade de Opções Avançadas será implementada'); 
+                            fecharDropdownConfig(); 
+                            break;
+                        case 'abrir-seu-perfil': 
+                            alert('Redirecionando para Seu Perfil'); 
+                            fecharDropdownPerfil(); 
+                            break;
+                        case 'abrir-privacidade': 
+                            alert('Abrindo configurações de Privacidade'); 
+                            fecharDropdownPerfil(); 
+                            break;
+                        case 'abrir-ajuda-recursos': 
+                            alert('Abrindo Ajuda e Recursos'); 
+                            fecharDropdownPerfil(); 
+                            break;
+                        case 'sair-da-conta':
+                            if (confirm('Tem certeza que deseja sair da conta?')) {
+                                alert('Saindo da conta...');
+                                window.location.href = '/home.html';
+                            }
+                            fecharDropdownPerfil();
+                            break;
+                    }
+                });
+            });
+            
+            // Fechar dropdowns ao clicar fora
+            document.addEventListener('click', function(event) {
+                if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
+                    !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
+                    !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
+                    fecharDropdownNotif();
+                    fecharDropdownConfig();
+                    fecharDropdownPerfil();
+                }
+            });
         });
     </script>
-
-    
 </body>
-
-    <link rel="stylesheet" href="./css-diario/estilos_diario.css">
-    <link rel="stylesheet" href="./css-diario/estilo_diario-professor.css">
-
-
 </html>

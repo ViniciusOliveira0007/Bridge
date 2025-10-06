@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diário</title>
-    <style>
-       
-    </style>
+    <title>Diário - Aulas e Faltas</title>
+    <link rel="stylesheet" href="./css-diario/estilos_diario.css">
+    <link rel="stylesheet" href="./css-diario/estilo_diario-aulas.css">
 </head>
 <body>
 
-     <nav class="navegacao">
+    <nav class="navegacao">
         <div class="menu">
             <div class="menu-1">
                 <img src="./imagens-diario/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
@@ -21,9 +20,9 @@
             </div> 
 
             <div class="menu-3">
-                <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav" onclick="toggleDropdownNotif()">
-                <img src="./imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config" onclick="toggleDropdownConfig()">
-                <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" onclick="toggleDropdownPerfil()">
+                <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav">
+                <img src="./imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config">
+                <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil">
                 
                 <!-- Dropdown de Notificações -->
                 <div class="dropdown-notificacoes" id="dropdownNotif">
@@ -32,7 +31,7 @@
                             <img src="./imagens-diario/sino-black.svg" alt="Notificação">
                             <span>Notificações</span>
                         </div>
-                        <button class="btn-fechar" onclick="fecharDropdownNotif()">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-notif">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
                         <div class="notificacao-vazia">Nenhuma notificação no momento</div>
@@ -43,15 +42,15 @@
                 <div class="dropdown-configuracoes" id="dropdownConfig">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="/telas/Diario/imagens-diario/configuracao-black.svg" alt="Configuração">
+                            <img src="./imagens-diario/configuracao-black.svg" alt="Configuração">
                             <span>Configurações</span>
                         </div>
-                        <button class="btn-fechar" onclick="fecharDropdownConfig()">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-config">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
-                        <button class="opcao-item" onclick="abrirTema()">Tema</button>
-                        <button class="opcao-item" onclick="abrirAcessibilidade()">Acessibilidade</button>
-                        <button class="opcao-item" onclick="abrirOpcoesAvancadas()">Opções avançadas</button>
+                        <button class="opcao-item" data-action="abrir-tema">Tema</button>
+                        <button class="opcao-item" data-action="abrir-acessibilidade">Acessibilidade</button>
+                        <button class="opcao-item" data-action="abrir-opcoes-avancadas">Opções avançadas</button>
                     </div>
                 </div>
 
@@ -62,13 +61,13 @@
                             <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
                             <span>Olá, Rodrigo</span>
                         </div>
-                        <button class="btn-fechar" onclick="fecharDropdownPerfil()">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
-                        <button class="opcao-item" onclick="abrirSeuPerfil()">Seu perfil</button>
-                        <button class="opcao-item" onclick="abrirPrivacidade()">Privacidade</button>
-                        <button class="opcao-item" onclick="abrirAjudaRecursos()">Ajuda e Recursos</button>
-                        <button class="opcao-item sair-conta" onclick="sairDaConta()">Sair da Conta</button>
+                        <button class="opcao-item" data-action="abrir-seu-perfil">Seu perfil</button>
+                        <button class="opcao-item" data-action="abrir-privacidade">Privacidade</button>
+                        <button class="opcao-item" data-action="abrir-ajuda-recursos">Ajuda e Recursos</button>
+                        <button class="opcao-item sair-conta" data-action="sair-da-conta">Sair da Conta</button>
                     </div>
                 </div>
             </div>
@@ -79,28 +78,13 @@
         <ul>
             <li><a href="../Rede/connect.html">Redes</a></li>
             <li><a href="../Sala-de-Aula/sala.html">Sala de Aula</a></li>
-             <li><a href="../Trilhas/trilhas.html">Trilhas</a></li>
+            <li><a href="../Trilhas/trilhas.html">Trilhas</a></li>
             <li><a href="diario.html">Diário</a></li>
         </ul>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
     <main class="conteudo-principal">
         <div class="bloco-de-conteudo">
-
-
-
             <div class="sub-guia-diario">
                 <a class="btn-sub-guia" href="diario.html">Início</a>
                 <a class="btn-sub-guia" href="diario-aulas.html">Aula e Faltas</a>
@@ -108,396 +92,254 @@
                 <a class="btn-sub-guia" href="diario-boletim.html">Boletim</a>
                 <a class="btn-sub-guia" href="diario-turma.html">Turma</a>
                 <a class="btn-sub-guia" href="diario-professor.html">Professores</a>
-                
-
             </div>
-
-
-
-
-
         </div>
 
         <div class="bloco-de-conteudo2">
-            
-            <!-- Inicio do código feito no Figma-->
-            
-                <div class="frame-476">
-                            <div class="frame-387">
-                                <div class="aulas-e-faltas">AULAS E FALTAS</div>
+            <div class="frame-476">
+                <div class="frame-387">
+                    <div class="aulas-e-faltas">AULAS E FALTAS</div>
+                </div>
+                <div class="frame-475">
+                    <div class="componente-curricular">
+                        <div class="frame-388">
+                            <div class="componente-curricular2">COMPONENTE CURRICULAR</div>
+                        </div>
+                        <div class="componentes">
+                            <div class="frame-390">
+                                <div class="an-lise-e-projeto-de-sistemas">ANÁLISE E PROJETO DE SISTEMAS</div>
                             </div>
-                            <div class="frame-475">
-                                <div class="componente-curricular">
-                                <div class="frame-388">
-                                    <div class="componente-curricular2">COMPONENTE CURRICULAR</div>
+                            <div class="frame-391">
+                                <div class="banco-de-dados-ii">BANCO DE DADOS II</div>
+                            </div>
+                            <div class="frame-392">
+                                <div class="desenvolvimento-de-sistemas-i">DESENVOLVIMENTO DE SISTEMAS I</div>
+                            </div>
+                            <div class="frame-393">
+                                <div class="planejamento-do-trabalho-de-conclus-o-de-curso-tcc">PLANEJAMENTO DO TRABALHO DE CONCLUSÃO DE CURSO (TCC)</div>
+                            </div>
+                            <div class="frame-394">
+                                <div class="programa-o-de-aplicativos-mobile-i">PROGRAMAÇÃO DE APLICATIVOS MOBILE I</div>
+                            </div>
+                            <div class="frame-395">
+                                <div class="programa-o-web-ii">PROGRAMAÇÃO WEB II</div>
+                            </div>
+                            <div class="frame-396">
+                                <div class="sistemas-embarcados">SISTEMAS EMBARCADOS</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="frame-448">
+                        <div class="c-h-carga-hor-ria">
+                            <div class="frame-397">
+                                <div class="c-h">C.H.</div>
+                            </div>
+                            <div class="c-h-carga-hor-ria">
+                                <div class="frame-398"><div class="_25">25</div></div>
+                                <div class="frame-399"><div class="_25">25</div></div>
+                                <div class="frame-400"><div class="_25">25</div></div>
+                                <div class="frame-401"><div class="_25">25</div></div>
+                                <div class="frame-403"><div class="_25">25</div></div>
+                                <div class="frame-402"><div class="_25">25</div></div>
+                                <div class="frame-404"><div class="_25">25</div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="frame-466">
+                        <div class="frame-405">
+                            <div class="aulas-dadas">Aulas Dadas</div>
+                        </div>
+                        <div class="frame-465">
+                            <div class="frame-406"><div class="_999">999</div></div>
+                            <div class="frame-409"><div class="_999">999</div></div>
+                            <div class="frame-407"><div class="_999">999</div></div>
+                            <div class="frame-411"><div class="_999">999</div></div>
+                            <div class="frame-410"><div class="_999">999</div></div>
+                            <div class="frame-408"><div class="_999">999</div></div>
+                            <div class="frame-412"><div class="_999">999</div></div>
+                        </div>
+                    </div>
+                    <div class="frame-468">
+                        <div class="frame-413">
+                            <div class="faltas">Faltas</div>
+                        </div>
+                        <div class="frame-467">
+                            <div class="frame-414"><div class="_999">999</div></div>
+                            <div class="frame-417"><div class="_999">999</div></div>
+                            <div class="frame-415"><div class="_999">999</div></div>
+                            <div class="frame-419"><div class="_999">999</div></div>
+                            <div class="frame-418"><div class="_999">999</div></div>
+                            <div class="frame-416"><div class="_999">999</div></div>
+                            <div class="frame-420"><div class="_999">999</div></div>
+                        </div>
+                    </div>
+                    <div class="frame-470">
+                        <div class="frame-421">
+                            <div class="faltas-permitidas">Faltas Permitidas</div>
+                        </div>
+                        <div class="frame-469">
+                            <div class="frame-422"><div class="_999">999</div></div>
+                            <div class="frame-425"><div class="_999">999</div></div>
+                            <div class="frame-423"><div class="_999">999</div></div>
+                            <div class="frame-427"><div class="_999">999</div></div>
+                            <div class="frame-426"><div class="_999">999</div></div>
+                            <div class="frame-424"><div class="_999">999</div></div>
+                            <div class="frame-428"><div class="_999">999</div></div>
+                        </div>
+                    </div>
+                    <div class="frame-472">
+                        <div class="frame-429">
+                            <div class="freq-atual">Freq. Atual</div>
+                        </div>
+                        <div class="frame-471">
+                            <div class="frame-430"><div class="_999">999</div></div>
+                            <div class="frame-433"><div class="_999">999</div></div>
+                            <div class="frame-431"><div class="_999">999</div></div>
+                            <div class="frame-435"><div class="_999">999</div></div>
+                            <div class="frame-434"><div class="_999">999</div></div>
+                            <div class="frame-432"><div class="_999">999</div></div>
+                            <div class="frame-436"><div class="_999">999</div></div>
+                        </div>
+                    </div>
+                    <div class="frame-474">
+                        <div class="frame-437">
+                            <div class="freq-total">Freq. Total</div>
+                        </div>
+                        <div class="frame-473">
+                            <div class="frame-438"><div class="_999">999</div></div>
+                            <div class="frame-441"><div class="_999">999</div></div>
+                            <div class="frame-439"><div class="_999">999</div></div>
+                            <div class="frame-443"><div class="_999">999</div></div>
+                            <div class="frame-442"><div class="_999">999</div></div>
+                            <div class="frame-440"><div class="_999">999</div></div>
+                            <div class="frame-444"><div class="_999">999</div></div>
+                        </div>
+                    </div>
+                    <div class="frame-464">
+                        <div class="frame-450">
+                            <div class="m-dia-geral">Média Geral</div>
+                        </div>
+                        <div class="frame-449">
+                            <div class="frame-457">
+                                <div class="frame-455">
+                                    <div class="frame-451"></div>
+                                    <div class="frame-454"><div class="_84">84%</div></div>
                                 </div>
-                                <div class="componentes">
-                                    <div class="frame-390">
-                                    <div class="an-lise-e-projeto-de-sistemas">
-                                        ANÁLISE E PROJETO DE SISTEMAS
-                                    </div>
-                                    </div>
-                                    <div class="frame-391">
-                                    <div class="banco-de-dados-ii">BANCO DE DADOS II</div>
-                                    </div>
-                                    <div class="frame-392">
-                                    <div class="desenvolvimento-de-sistemas-i">
-                                        DESENVOLVIMENTO DE SISTEMAS I
-                                    </div>
-                                    </div>
-                                    <div class="frame-393">
-                                    <div class="planejamento-do-trabalho-de-conclus-o-de-curso-tcc">
-                                        PLANEJAMENTO DO TRABALHO DE CONCLUSÃO DE CURSO (TCC)
-                                    </div>
-                                    </div>
-                                    <div class="frame-394">
-                                    <div class="programa-o-de-aplicativos-mobile-i">
-                                        PROGRAMAÇÃO DE APLICATIVOS MOBILE I
-                                    </div>
-                                    </div>
-                                    <div class="frame-395">
-                                    <div class="programa-o-web-ii">PROGRAMAÇÃO WEB II</div>
-                                    </div>
-                                    <div class="frame-396">
-                                    <div class="sistemas-embarcados">SISTEMAS EMBARCADOS</div>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="frame-448">
-                                <div class="c-h-carga-hor-ria">
-                                    <div class="frame-397">
-                                    <div class="c-h">C.H.</div>
-                                    </div>
-                                    <div class="c-h-carga-hor-ria">
-                                    <div class="frame-398">
-                                        <div class="_25">25</div>
-                                    </div>
-                                    <div class="frame-399">
-                                        <div class="_25">25</div>
-                                    </div>
-                                    <div class="frame-400">
-                                        <div class="_25">25</div>
-                                    </div>
-                                    <div class="frame-401">
-                                        <div class="_25">25</div>
-                                    </div>
-                                    <div class="frame-403">
-                                        <div class="_25">25</div>
-                                    </div>
-                                    <div class="frame-402">
-                                        <div class="_25">25</div>
-                                    </div>
-                                    <div class="frame-404">
-                                        <div class="_25">25</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="frame-466">
-                                <div class="frame-405">
-                                    <div class="aulas-dadas">Aulas Dadas</div>
-                                </div>
-                                <div class="frame-465">
-                                    <div class="frame-406">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-409">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-407">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-411">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-410">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-408">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-412">
-                                    <div class="_999">999</div>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="frame-468">
-                                <div class="frame-413">
-                                    <div class="faltas">Faltas</div>
-                                </div>
-                                <div class="frame-467">
-                                    <div class="frame-414">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-417">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-415">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-419">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-418">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-416">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-420">
-                                    <div class="_999">999</div>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="frame-470">
-                                <div class="frame-421">
-                                    <div class="faltas-permitidas">Faltas Permitidas</div>
-                                </div>
-                                <div class="frame-469">
-                                    <div class="frame-422">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-425">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-423">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-427">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-426">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-424">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-428">
-                                    <div class="_999">999</div>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="frame-472">
-                                <div class="frame-429">
-                                    <div class="freq-atual">Freq. Atual</div>
-                                </div>
-                                <div class="frame-471">
-                                    <div class="frame-430">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-433">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-431">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-435">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-434">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-432">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-436">
-                                    <div class="_999">999</div>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="frame-474">
-                                <div class="frame-437">
-                                    <div class="freq-total">Freq. Total</div>
-                                </div>
-                                <div class="frame-473">
-                                    <div class="frame-438">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-441">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-439">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-443">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-442">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-440">
-                                    <div class="_999">999</div>
-                                    </div>
-                                    <div class="frame-444">
-                                    <div class="_999">999</div>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="frame-464">
-                                <div class="frame-450">
-                                    <div class="m-dia-geral">Média Geral</div>
-                                </div>
-                                <div class="frame-449">
-                                    <div class="frame-457">
-                                    <div class="frame-455">
-                                        <div class="frame-451"></div>
-                                        <div class="frame-454">
-                                        <div class="_84">84%</div>
-                                        </div>
-                                    </div>
-                                    <div class="frame-456">
-                                        <div class="frame-452"></div>
-                                        <div class="frame-453">
-                                        <div class="_16">16%</div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
+                                <div class="frame-456">
+                                    <div class="frame-452"></div>
+                                    <div class="frame-453"><div class="_16">16%</div></div>
                                 </div>
                             </div>
-                            <div class="frame-446">
-                                <div
-                                class="c-h-carga-hor-ria-freq-atual-frequ-ncia-atual-freq-total-frequ-ncia-total"
-                                >
-                                C.H: Carga Horária - Freq. Atual: Frequência Atual - Freq. Total:
-                                Frequência Total
-                                </div>
-                                <div class="frame-463">
-                                <div class="frame-461">
-                                    <div class="frame-458"></div>
-                                    <div class="frame-460">
-                                    <div class="presen-a">Presença</div>
-                                    </div>
-                                </div>
-                                <div class="frame-462">
-                                    <div class="frame-4582"></div>
-                                    <div class="frame-4602">
-                                    <div class="falta">Falta</div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-
-
-
-
-            <!-- Final do código feito no Figma-->
-
+                        </div>
+                    </div>
+                </div>
+                <div class="frame-446">
+                    <div class="c-h-carga-hor-ria-freq-atual-frequ-ncia-atual-freq-total-frequ-ncia-total">
+                        C.H: Carga Horária - Freq. Atual: Frequência Atual - Freq. Total: Frequência Total
+                    </div>
+                    <div class="frame-463">
+                        <div class="frame-461">
+                            <div class="frame-458"></div>
+                            <div class="frame-460"><div class="presen-a">Presença</div></div>
+                        </div>
+                        <div class="frame-462">
+                            <div class="frame-4582"></div>
+                            <div class="frame-4602"><div class="falta">Falta</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </main>
 
-
     <script>
-        // Funções para Dropdown de Notificações
-        function toggleDropdownNotif() {
-            const dropdown = document.getElementById('dropdownNotif');
-            // Fecha outros dropdowns
-            fecharDropdownConfig();
-            fecharDropdownPerfil();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownNotif() {
-            const dropdown = document.getElementById('dropdownNotif');
-            dropdown.classList.remove('ativo');
-        }
-
-        // Funções para Dropdown de Configurações
-        function toggleDropdownConfig() {
-            const dropdown = document.getElementById('dropdownConfig');
-            // Fecha outros dropdowns
-            fecharDropdownNotif();
-            fecharDropdownPerfil();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownConfig() {
-            const dropdown = document.getElementById('dropdownConfig');
-            dropdown.classList.remove('ativo');
-        }
-
-        function abrirTema() {
-            alert('Funcionalidade de Tema será implementada');
-            fecharDropdownConfig();
-        }
-
-        function abrirAcessibilidade() {
-            alert('Funcionalidade de Acessibilidade será implementada');
-            fecharDropdownConfig();
-        }
-
-        function abrirOpcoesAvancadas() {
-            alert('Funcionalidade de Opções Avançadas será implementada');
-            fecharDropdownConfig();
-        }
-
-        // Funções para Dropdown de Perfil
-        function toggleDropdownPerfil() {
-            const dropdown = document.getElementById('dropdownPerfil');
-            // Fecha outros dropdowns
-            fecharDropdownNotif();
-            fecharDropdownConfig();
-            dropdown.classList.toggle('ativo');
-        }
-
-        function fecharDropdownPerfil() {
-            const dropdown = document.getElementById('dropdownPerfil');
-            dropdown.classList.remove('ativo');
-        }
-
-        function abrirSeuPerfil() {
-            alert('Redirecionando para Seu Perfil');
-            fecharDropdownPerfil();
-        }
-
-        function abrirPrivacidade() {
-            alert('Abrindo configurações de Privacidade');
-            fecharDropdownPerfil();
-        }
-
-        function abrirAjudaRecursos() {
-            alert('Abrindo Ajuda e Recursos');
-            fecharDropdownPerfil();
-        }
-
-        function sairDaConta() {
-            if (confirm('Tem certeza que deseja sair da conta?')) {
-                alert('Saindo da conta...');
-                // Aqui você pode adicionar a lógica para logout
-                window.location.href = '/home.html'
-            }
-            fecharDropdownPerfil();
-        }
-
-        // Fechar dropdowns ao clicar fora deles
-        document.addEventListener('click', function(event) {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos dos dropdowns
             const dropdownNotif = document.getElementById('dropdownNotif');
             const dropdownConfig = document.getElementById('dropdownConfig');
             const dropdownPerfil = document.getElementById('dropdownPerfil');
-            
             const btnNotif = document.querySelector('.btn-notificao-nav');
             const btnConfig = document.querySelector('.btn-config');
             const btnPerfil = document.querySelector('.foto-de-perfil');
             
-            // Se o clique não foi em nenhum dropdown ou botão, fecha todos
-            if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
-                
-                fecharDropdownNotif();
+            // Funções para fechar dropdowns
+            function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
+            function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
+            function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
+            
+            // Event listeners para abrir dropdowns
+            btnNotif.addEventListener('click', function() {
                 fecharDropdownConfig();
                 fecharDropdownPerfil();
-            }
+                dropdownNotif.classList.toggle('ativo');
+            });
+            
+            btnConfig.addEventListener('click', function() {
+                fecharDropdownNotif();
+                fecharDropdownPerfil();
+                dropdownConfig.classList.toggle('ativo');
+            });
+            
+            btnPerfil.addEventListener('click', function() {
+                fecharDropdownNotif();
+                fecharDropdownConfig();
+                dropdownPerfil.classList.toggle('ativo');
+            });
+            
+            // Event listeners para ações dos dropdowns
+            document.querySelectorAll('[data-action]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const action = this.getAttribute('data-action');
+                    switch(action) {
+                        case 'fechar-notif': fecharDropdownNotif(); break;
+                        case 'fechar-config': fecharDropdownConfig(); break;
+                        case 'fechar-perfil': fecharDropdownPerfil(); break;
+                        case 'abrir-tema': 
+                            alert('Funcionalidade de Tema será implementada'); 
+                            fecharDropdownConfig(); 
+                            break;
+                        case 'abrir-acessibilidade': 
+                            alert('Funcionalidade de Acessibilidade será implementada'); 
+                            fecharDropdownConfig(); 
+                            break;
+                        case 'abrir-opcoes-avancadas': 
+                            alert('Funcionalidade de Opções Avançadas será implementada'); 
+                            fecharDropdownConfig(); 
+                            break;
+                        case 'abrir-seu-perfil': 
+                            alert('Redirecionando para Seu Perfil'); 
+                            fecharDropdownPerfil(); 
+                            break;
+                        case 'abrir-privacidade': 
+                            alert('Abrindo configurações de Privacidade'); 
+                            fecharDropdownPerfil(); 
+                            break;
+                        case 'abrir-ajuda-recursos': 
+                            alert('Abrindo Ajuda e Recursos'); 
+                            fecharDropdownPerfil(); 
+                            break;
+                        case 'sair-da-conta':
+                            if (confirm('Tem certeza que deseja sair da conta?')) {
+                                alert('Saindo da conta...');
+                                window.location.href = '/home.html';
+                            }
+                            fecharDropdownPerfil();
+                            break;
+                    }
+                });
+            });
+            
+            // Fechar dropdowns ao clicar fora
+            document.addEventListener('click', function(event) {
+                if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
+                    !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
+                    !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
+                    fecharDropdownNotif();
+                    fecharDropdownConfig();
+                    fecharDropdownPerfil();
+                }
+            });
         });
     </script>
-
-    
 </body>
-
-    <link rel="stylesheet" href="./css-diario/estilos_diario.css">
-    <link rel="stylesheet" href="./css-diario/estilo_diario-aulas.css">
-
-
 </html>

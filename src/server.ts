@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 
 // Rate limiting
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutos
+    windowMs: 15 * 60 * 100000000, // 15 minutos
     max: 1000 // aumentar para 1000 requests
 });
 
