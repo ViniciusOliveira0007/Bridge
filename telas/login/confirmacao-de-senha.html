@@ -4,100 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="./estilos_login/estilos_confirmacao-de-email.css">
 </head>
 <body>
 
-
     <nav>
-            <div class="bloco-de-opcoes">
-                <div class="layout-fixo">
-                    <div class="bloco-logo">
-                            <img src="./imagens_login/lotus.svg" alt="Logo da instituição" width="30px" height="30px">
-                            <div class="bridge">BRIDGE</div>
-                            <div class="barra"></div>
-                            <div class="login">Login</div>
+        <div class="bloco-de-opcoes">
+            <div class="layout-fixo">
+                <div class="bloco-logo">
+                    <img src="./imagens_login/lotus.svg" alt="Logo da instituição" width="30px" height="30px">
+                    <div class="bridge">BRIDGE</div>
+                    <div class="barra"></div>
+                    <div class="login">Login</div>
+                </div>
+                <div class="navega">
+                    <div class="btn-voltar">
+                        <a class="voltar" href="/home.html">Voltar ao inicio</a>
                     </div>
-                    <div class="navega">
-                            <div class="btn-voltar">
-                                <a class="voltar" href="/home.html">Voltar ao inicio</a>
-                                
-                            </div>
-                            <div class="btn-default">
-                                <a class="button">Suporte</a>
-                            </div>
-                            <div class="btn-default">
-                                <div class="button">Quem somos</div>
-                            </div>
+                    <div class="btn-default">
+                        <a class="button">Suporte</a>
+                    </div>
+                    <div class="btn-default">
+                        <div class="button">Quem somos</div>
                     </div>
                 </div>
-                </div>
+            </div>
+        </div>
     </nav>
 
+    <main>
+        <div class="bloco-senha-wrapper">
+            <img class="bloco-senha" src="./imagens_login/fundo-instituicao.svg" />
+            <div class="degrade-overlay"></div>
+        </div>
 
-     <main>
-
-            <!--Código do figma-->
-
-
-
-          
-
-            <div class="bloco-senha-wrapper">
-                <img class="bloco-senha" src="./imagens_login/fundo-instituicao.svg" />
-                <div class="degrade-overlay"></div>
-            </div>
-
-
-            <div class="bloco-de-senha">
-                    <div class="frame-673">
-                        <div class="frame-672">
-                        <div class="email-exemplo-com-br">exemplo senha: 34ln1f94</div>
-                        </div>
-                        <div class="frame-657">
+        <div class="bloco-de-senha">
+            <form id="loginForm">
+                <div class="frame-673">
+                    <div class="frame-672">
+                        <div class="email-exemplo-com-br" id="userEmailDisplay">Carregando...</div>
+                    </div>
+                    <div class="frame-657">
                         <div class="frame-655">
-                                    <div class="frame-654">
-                                            <div class="senha">Senha</div>
-                                    </div>
-                                    <input class="campo-senha" type="password">
-
-                                    <div class="insira-sua-senha">Insira sua senha</div>
-
-                                </input>
+                            <div class="frame-654">
+                                <div class="senha">Senha</div>
+                            </div>
+                            <input 
+                                class="campo-senha" 
+                                type="password" 
+                                id="passwordInput"
+                                placeholder="Insira sua senha"
+                                required
+                            >
+                            <div class="insira-sua-senha">Insira sua senha</div>
+                            
+                            <!-- Mensagem de erro -->
+                            <p id="errorMessage" style="color: red; font-size: 14px; margin-top: 8px; display: none;"></p>
                         </div>
                         
                         <a class="esqueci-minha-senha" href="./senha-esquecida.html">Esqueci minha senha</a>
                         
-                        <a class="btn-avancar" href="/telas/Sala-de-Aula/sala.html">
+                        <button type="submit" class="btn-avancar" id="submitBtn">
                             Entrar
-                        </a>
-                        </div>
+                        </button>
                     </div>
-                    <div class="btn-voltar-1-secao">
-                       
-                        <a class="voltar1" href="./tela-senha.html">Voltar</a>
-                    </div>
-                    <img class="etec" src="./imagens_login/Etec.svg" />
-                    <div class="nossa-marca">
-                        <img src="./imagens_login/lotus.svg" width="30px" height="30px" alt="">
-                        <div class="bridge">BRIDGE</div>
-                    </div>
-                    </div>
-
-                    
-
-
-                              
-
-        
+                </div>
+            </form>
+            
+            <div class="btn-voltar-1-secao">
+                <a class="voltar1" href="./tela-senha.html">Voltar</a>
+            </div>
+            <img class="etec" src="./imagens_login/Etec.svg" />
+            <div class="nossa-marca">
+                <img src="./imagens_login/lotus.svg" width="30px" height="30px" alt="">
+                <div class="bridge">BRIDGE</div>
+            </div>
+        </div>
     </main>
 
+    <script>
+        // Pega o email salvo na tela anterior
+        const userEmail = localStorage.getItem('userEmail');
+        const userEmailDisplay = document.getElementById('userEmailDisplay');
+        const passwordInput = document.getElementById('passwordInput');
+        const errorMessage = document.getElementById('errorMessage');
+        const loginForm = document.getElementById('loginForm');
+        const submitBtn = document.getElementById('submitBtn');
 
+        // Se não tiver email salvo, volta para tela de email
+        if (!userEmail) {
+            alert('Sessão expirada. Por favor, insira seu email novamente.');
+            window.location.href = './tela-senha.html';
+        } else {
+            // Mostra o email do usuário
+            userEmailDisplay.textContent = userEmail;
+        }
 
-    
-
+        // Quando o formulário for enviado
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const senha = passwordInput.value;
+            
+            // Esconde mensagem de erro anterior
+            errorMessage.style.display = 'none';
+            
+            // Desabilita o botão e mostra "Entrando..."
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Entrando...';
+            
+            try {
+                // Envia email e senha para a API
+                const response = await fetch('http://localhost:3000/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        email: userEmail,
+                        senha: senha 
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Se login bem-sucedido (status 200)
+                if (response.ok && data.success) {
+                    // Salva dados do usuário
+                    localStorage.setItem('userId', data.user.id);
+                    localStorage.setItem('userName', data.user.name);
+                    
+                    // Redireciona para a sala de aula
+                    window.location.href = '/telas/Sala-de-Aula/sala.html';
+                } else {
+                    // Se senha incorreta (status 401 ou 404)
+                    errorMessage.textContent = data.message || 'Senha incorreta';
+                    errorMessage.style.display = 'block';
+                    
+                    // Reabilita o botão
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Entrar';
+                    
+                    // Limpa o campo de senha
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+                
+            } catch (error) {
+                console.error('Erro ao fazer login:', error);
+                errorMessage.textContent = 'Erro ao conectar com o servidor';
+                errorMessage.style.display = 'block';
+                
+                // Reabilita o botão
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Entrar';
+            }
+        });
+    </script>
     
 </body>
-
-
-<link rel="stylesheet" href="./estilos_login/estilos_confirmacao-de-email.css">
 </html>
