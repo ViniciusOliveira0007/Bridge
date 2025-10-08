@@ -49,7 +49,16 @@ export const validateLogin = async (req: Request, res: Response) => {
   }
 };
 
-// ← ADICIONE AQUI
+
+
+
+
+
+
+
+
+
+
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, senha } = req.body;
@@ -91,6 +100,77 @@ export const login = async (req: Request, res: Response) => {
 
   } catch (error) {
     console.error('Erro ao fazer login:', error);
+    return res.status(500).json({ 
+      success: false,
+      message: 'Erro no servidor' 
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Redefine a senha do usuário
+ * @route POST /api/reset-password
+ */
+export const resetPassword = async (req: Request, res: Response) => {
+  try {
+    const { email, novaSenha } = req.body;
+
+    // Validação 1: Verifica se email e nova senha foram enviados
+    if (!email || !novaSenha) {
+      return res.status(400).json({ 
+        success: false,
+        message: 'Email e nova senha são obrigatórios' 
+      });
+    }
+
+    // Validação 2: Verifica requisitos da senha
+    const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+    if (!senhaRegex.test(novaSenha)) {
+      return res.status(400).json({ 
+        success: false,
+        message: 'A senha não atende aos requisitos de segurança' 
+      });
+    }
+
+    // Busca o usuário
+    const user = await prisma.user.findUnique({
+      where: { email: email.toLowerCase().trim() }
+    });
+
+    if (!user) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'Usuário não encontrado' 
+      });
+    }
+
+    // Atualiza a senha
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { senha: novaSenha }
+    });
+
+    return res.status(200).json({ 
+      success: true,
+      message: 'Senha redefinida com sucesso!' 
+    });
+
+  } catch (error) {
+    console.error('Erro ao redefinir senha:', error);
     return res.status(500).json({ 
       success: false,
       message: 'Erro no servidor' 

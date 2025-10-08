@@ -6,7 +6,10 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 
 // Importa o controlador de autenticação de login 
-import { validateLogin, login } from './controllers/authController';
+import { validateLogin, login, resetPassword } from './controllers/authController';
+
+
+
 
 const app = express();
 const prisma = new PrismaClient();
@@ -40,6 +43,10 @@ app.use(helmet({
 app.use(express.static('public'));
 app.use('/telas', express.static('telas'));
 
+
+
+
+
 // ========================================
 // ROTAS
 // ========================================
@@ -72,6 +79,10 @@ app.post('/api/validate-login', validateLogin);
 // Rota para login completo (email + senha)
 app.post('/api/login', login);
 
+
+// Rota para redefinir senha
+app.post('/api/reset-password', resetPassword);
+
 // Placeholder routes para suas funcionalidades
 app.get('/api/users', (req, res) => {
   res.json({ message: 'Rota para usuários - em desenvolvimento' });
@@ -96,6 +107,8 @@ app.listen(PORT, () => {
   console.log(`🚀 Bridge Platform rodando em http://localhost:${PORT}`);
   console.log(`📊 API disponível em http://localhost:${PORT}/api/health`);
 });
+
+
 
 // Graceful shutdown
 process.on('SIGINT', async () => {
