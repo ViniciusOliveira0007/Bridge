@@ -295,19 +295,6 @@
             text-decoration: none; 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         /* Layout principal */
         .conteudo-principal {
             display: flex;
@@ -317,69 +304,112 @@
 
         /* Sidebar das empresas */
         .empresas {
-            background: #dadada;    
-            width: 240px;
+            position: fixed;
+            background: #161616;    
+            width: auto;
             min-height: 100%;
-            padding: 20px;
+            padding-left:30px;
+            padding-right:20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             flex-shrink: 0;
+            border-right: #000000 solid 1px;
+        }
+
+
+        /* Seleção de pendentes*/
+        .pendente{
+            background: rgb(255, 255, 255);
+            justify-content: center;
+            text-align: center;
+            align-content: center;
+            height: 100px;
+            width: 100%;
+            border: #000000 solid 1px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+            transform-origin: center;       
+        }
+        .pendente:hover{
+            justify-content: center;
+            text-align: center;
+            align-content: center;
+            border-radius: 10px;
+            transform: scale(1.03);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+
         }
 
         /* Seção de projetos pendentes */
-        .frame-574 {
+        .secao-projeto-pendentes {
             display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: stretch;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background: #161616;
+            padding: 15px;
+            border-radius: 20px;
+            width: auto;
+            height: auto;
+            border: #3f3f3f solid 1px;
+        }
+
+        .projetos-pendentes {
+            color: #ffffff;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+
+        /* Seção de propostas de projeto */
+        .secao-proposta-projeto {
+           display: flex;
             flex-direction: column;
             gap: 10px;
             align-items: stretch;
             width: 100%;
             margin-bottom: 30px;
-        }
-
-        .frame-579 {
-            margin-bottom: 15px;
-        }
-
-        .projetos-pendentes {
-            color: #000000;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .frame-580,
-        .frame-581,
-        .frame-5742 {
-            background: #ffffff;
-            border-radius: 10px;
-            width: 100%;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        /* Seção de propostas de projeto */
-        .frame-575 {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: stretch;
-            width: 100%;
-        }
-
-        .frame-578 {
-            margin-bottom: 15px;
+            background: #161616;
+            padding: 15px;
+            border-radius: 20px;
+            width: auto;
+            height: auto;
+            border: #3f3f3f solid 1px;
         }
 
         .propostas-de-projeto {
-            color: #000000;
+            color: #ffffff;
             text-align: center;
             font-family: Arial, sans-serif;
             font-size: 16px;
             font-weight: 700;
+        }
+
+            /* Seleção de proposta*/
+        .proposta{
+            background: rgb(255, 255, 255);
+            justify-content: center;
+            text-align: center;
+            align-content: center;
+            height: 100px;
+            width: 100%;
+            border: #000000 solid 1px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+            transform-origin: center;       
+        }
+        .proposta:hover{
+            justify-content: center;
+            text-align: center;
+            align-content: center;
+            border-radius: 10px;
+            transform: scale(1.03);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+
         }
 
         /* Containers das empresas de propostas */
@@ -394,40 +424,7 @@
             margin-bottom: 10px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+   
         /* Área de postagens */
 
 
@@ -440,14 +437,28 @@
             overflow-y: auto;
         }
 
-
-        .frame-589 {
+        /*Postagens do trilhas*/
+        .container-post-trilhas {
             display: flex;
             flex-direction: column;
             gap: 20px;
             align-items: center;
             width: 100%;
             max-width: 900px;
+            
+        }
+
+        .content-post-trilhas{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            width: auto;
+            max-width: auto;
+            border: #dadada solid 1px;
+            border-radius: 20px;
+            padding:5px 10px 20px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .frame-693,
@@ -461,6 +472,7 @@
             flex-direction: column;
             gap: 15px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border:  #000000 solid 1px;
         }
 
         .frame-580 {
@@ -486,14 +498,15 @@
             width: 100%;
         }
 
-        .frame-590 {
+        .post-trilhas {
             display: flex;
             flex-direction: row;
-            gap: 10px;
+            gap: 5px;
             align-items: center;
             justify-content: flex-start;
             width: 100%;
-            padding: 10px;
+            padding: 8px;
+            border-bottom: #dadada solid 1px;
         }
 
         .foto-de-perfil {
@@ -503,21 +516,21 @@
             align-items: center;
             justify-content: flex-start;
             flex-shrink: 0;
-            height: 29px;
+            height: 10px;
             position: relative;
         }
 
-        .frame-503 {
+        .img-projeto {
             border-radius: 100px;
-            width: 40px;
-            height: 40px;
-            background: #ddd;
+            width: 30px;
+            height: 30px;
             overflow: hidden;
             object-fit: cover;
+            border: #dadada solid 1px;
         }
 
-        .frame-577 {
-            padding: 10px;
+        .titulo-post-trilhas {
+            padding: 5px;
             display: flex;
             flex-direction: row;
             gap: 10px;
@@ -526,18 +539,14 @@
             flex: 1;
         }
 
-        .mais-um-projetinho-entregue,
-        .hoje-o-cliente-estava-exigente,
-        .algu-m-sabe-arrumar-esse-erro {
+        .texto-post-trilhas {
             color: #000000;
             font-family: "Roboto-Regular", Arial, sans-serif;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 400;
         }
 
-        .frame-583,
-        .frame-584,
-        .frame-587 {
+        .display-img-comentario {
             display: flex;
             flex-direction: row;
             gap: 11px;
@@ -546,9 +555,8 @@
             width: 100%;
         }
 
-        .frame-576 {
-            background: #e6e6e6;
-            border-radius: 20px;
+        .img-post-trilhas {
+            border-radius: 10px;
             flex-shrink: 0;
             width: 604px;
             height: 338px;
@@ -556,6 +564,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border: #dadada solid 1px;
         }
 
         .image-7,
@@ -573,12 +582,14 @@
             position: relative;
             display: flex;
             flex-direction: column;
+            border: #dadada solid 1px;
+            border-radius: 10px;
         }
 
         .comentarios-trlhas {
             background: #ffffff;
             border-radius: 20px 20px 0px 0px;
-            padding: 20px 10px 10px 10px;
+            padding: 10px 5px;
             display: flex;
             flex-direction: column;
             gap: 5px;
@@ -590,38 +601,35 @@
             flex: 1;
         }
 
-        .comentario {
+        .card-comentario {
             border-radius: 10px;
-            border: 1px solid #e6e6e6;
-            padding: 5px 10px;
+            border: 1px solid #dadada;
+            padding: 5px 5px;
             display: flex;
             flex-direction: row;
-            gap: 8px;
+            gap: 0px;
             align-items: center;
             justify-content: flex-start;
             width: 100%;
             flex-shrink: 0;
         }
 
-        .foto-de-perfil2 {
-            display: flex;
-            flex-direction: row;
-            gap: 5px;
-            align-items: center;
-            justify-content: flex-start;
-            flex-shrink: 0;
-        }
-
-        .frame-5032 {
+        .foto-perfil-comentario {
             background: #757575;
             border-radius: 100px;
             width: 20px;
             height: 20px;
             flex-shrink: 0;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-start;
+            flex-shrink: 0;
         }
 
-        .comentario2 {
-            padding: 5px 10px;
+        .comentario{
+            padding: 5px;
             display: flex;
             flex-direction: row;
             gap: 10px;
@@ -637,27 +645,46 @@
             font-weight: 400;
         }
 
-        .ver-mais {
+        .interações-post-trilhas {
             background: #161616;
-            border-radius: 0px 0px 20px 20px;
-            padding: 10px;
+            border-radius: 0px 0px 10px 10px;
             display: flex;
+            padding: 5px 10px;
             flex-direction: row;
-            gap: 10px;
+            gap: 0px;
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 35px;
+            height: 30px;
             flex-shrink: 0;
         }
-
-        .ver-outros-coment-rios {
+        .btn-interacoes{
             color: #ffffff;
             text-align: center;
             font-family: "Roboto-Regular", Arial, sans-serif;
             font-size: 12px;
-            font-weight: 400;
+            padding:5px 10px;
             cursor: pointer;
+            background-color: #161616;
+            border-right: #3f3f3f  solid 1px;
+            border-bottom: transparent solid 2px;
+            outline: none;
+            transition: transform 0.3s ease, border-bottom 0.25s ease;
+            transform-origin: center; 
+            display: inline-block;
+        }
+        .btn-interacoes:last-child {
+        border-right: none;
+        border-left: #3f3f3f  solid 1px;;
+        }
+        .btn-interacoes:hover{
+            border-radius: 0px;
+            transform: scale(1.08);
+        }
+
+        .box-post-trilhas{
+            margin: 0px;
+            padding: 0px;
         }
 
 
