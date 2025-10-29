@@ -1,0 +1,34 @@
+.explorar{
+    margin-top: 25px;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+}
+
+.bloco{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.caixa{
+    width: 250px;
+    height: 250px;
+    background-color: rgb(198, 198, 198);
+    border-radius: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.caixaG{
+    width: 250px;
+    height: 510px;
+    background-color: rgb(198, 198, 198);
+    border-radius: 20px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+
+}
+
