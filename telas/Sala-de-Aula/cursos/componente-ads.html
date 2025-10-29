@@ -3,27 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diário</title>
+    <title>Sala de Aula</title>
     <link rel="stylesheet" href="../css-Sala/estilo_componente.css">
+    
 </head>
 <body>
-
     <nav class="navegacao">
         <div class="menu">
             <div class="menu-1">
                 <img src="../imagens-Sala/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
             </div>
-
             <div class="menu-2">
                 <input type="text" placeholder="Pesquise aqui...">
             </div> 
-
             <div class="menu-3">
                 <img src="../imagens-sala/sininho.svg" alt="notificação" class="btn-notificao-nav">
                 <img src="../imagens-sala/configuracao.svg" alt="botão de configuração" class="btn-config">
                 <img src="../imagens-sala/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" width="30px" height="30px">
                 
-                <!-- Dropdown de Notificações -->
                 <div class="dropdown-notificacoes" id="dropdownNotif">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
@@ -37,7 +34,6 @@
                     </div>
                 </div>
 
-                <!-- Dropdown de Configurações -->
                 <div class="dropdown-configuracoes" id="dropdownConfig">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
@@ -53,12 +49,11 @@
                     </div>
                 </div>
 
-                <!-- Dropdown de Perfil -->
                 <div class="dropdown-perfil" id="dropdownPerfil">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
                             <img src="../imagens-sala/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
-                            <span>Olá, Rodrigo</span>
+                            <span id="nomeUsuarioPerfil">Olá, Rodrigo</span>
                         </div>
                         <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
@@ -82,19 +77,6 @@
         </ul>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     <main>
         <div class="sidebar" id="sidebar">
             <div class="sidebar-content">
@@ -106,7 +88,6 @@
                         <span class="expand-text" id="expandText">Expandir</span>
                     </div>
                 </div>
-
                 <nav class="nav-menu">
                     <div class="nav-item active" data-tela="visao">
                         <svg class="nav-icon" viewBox="0 0 24 24">
@@ -114,28 +95,24 @@
                         </svg>
                         <span class="nav-text visao-geral-text">Visão<br>Geral</span>
                     </div>
-
                     <div class="nav-item" data-tela="tarefa">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
                         </svg>
                         <span class="nav-text">Tarefas</span>
                     </div>
-
                     <div class="nav-item" data-tela="postagens">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19Z"/>
                         </svg>
                         <span class="nav-text">Postagens</span>
                     </div>
-
                     <div class="nav-item" data-tela="arquivo">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path d="M6,2A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z"/>
                         </svg>
                         <span class="nav-text">Arquivos</span>
                     </div>
-
                     <div class="nav-item" data-tela="membros">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path d="M12,5.5A3.5,3.5 0 0,1 15.5,9A3.5,3.5 0 0,1 12,12.5A3.5,3.5 0 0,1 8.5,9A3.5,3.5 0 0,1 12,5.5M5,8C5.56,8 6.08,8.15 6.53,8.42C6.38,9.85 6.8,11.27 7.66,12.38C7.16,13.34 6.16,14 5,14A3,3 0 0,1 2,11A3,3 0 0,1 5,8M19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14C17.84,14 16.84,13.34 16.34,12.38C17.2,11.27 17.62,9.85 17.47,8.42C17.92,8.15 18.44,8 19,8M5.5,18.25C5.5,16.18 8.41,14.5 12,14.5C15.59,14.5 18.5,16.18 18.5,18.25V20H5.5V18.25Z"/>
@@ -147,20 +124,19 @@
         </div>
 
         <div class="container-principal">
-            <!-- tela de visão geral-->
             <div class="conteudo-visao-geral" id="conteudoVisao">
-                <img src="../imagens-sala/Banner_Titulo_seção_Visao.svg" alt="" class="banner visao-geral" id="banner">
-
+                <img src="../imagens-sala/Banner_Titulo_seção_Visao.svg" alt="Banner" class="banner visao-geral" id="banner">
+                
                 <div class="vis-o-geral">
                     <div class="descri-o">
-                        <div class="card-componente">   
+                        <div class="card-componente">    
                             <div class="nome-logo"> 
                                 <div class="sigla-componente">
                                     <div class="se">SE</div>
                                 </div>
                                 <div class="separador"></div>
                                 <div class="nome-componente">
-                                    <div class="sistemas-embarados">Sistemas Embarados</div>
+                                    <div class="sistemas-embarados">Sistemas Embarcados</div>
                                 </div>
                             </div>
                         </div>
@@ -171,413 +147,1701 @@
                             <div class="texto-descri-o">
                                 <div class="texto">
                                     <div class="descri-o-do-seu-componente-sera-descrito-bem-aqui-mesmo">
-                                        Descrição do seu componente sera descrito bem aqui mesmo..
+                                        Disciplina voltada para o estudo e desenvolvimento de sistemas embarcados utilizando microcontroladores.
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="tarefa">
-                        <div class="tarefas-viss-o-geral">
-                            <div class="frame-geral-tarefa">
-                                <div class="frame-geral-tarefa-em-breve">
-                                    <div class="frame-202">
-                                        <div class="nome-da-atividade">Nome da Atividade</div>
-                                    </div>
-                                    <div class="frame-201">
-                                        <div class="prazo-de-entrega">Prazo de entrega 20 de Junho 2025 às 23:59</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="tarefa2">
-                            <div class="tarefa3">Tarefa</div>
+                            <div class="tarefa3">Tarefas</div>
                         </div>
-                        <div class="professor">
-                            <div class="dia-aula-vis-o-geral">
-                                <div class="professor2">
-                                    <div class="professor3">
-                                        <div class="oswaldo-luiz-paquier-bertoli">Oswaldo Luiz Paquier Bertoli</div>
-                                    </div>
-                                    <div class="foto-professor"></div>
-                                </div>
-                                <div class="professor4">
-                                    <div class="professor3">
-                                        <div class="oswaldo-luiz-paquier-bertoli">Oswaldo Luiz Paquier Bertoli</div>
-                                    </div>
-                                    <div class="foto-professor"></div>
-                                </div>
-                            </div>
-                            <div class="professor5">
-                                <div class="professor6">Professor</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="postagens">
-                        <div class="tarefas-viss-o-geral">
-                            <div class="postagem">
-                                <img class="postagens2" src="postagens1.svg" />
-                                <div class="contexto">
-                                    <div class="v-deo-auxiliar-para-realizar-tarefa">Vídeo auxiliar para realizar tarefa</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tarefa2">
-                            <div class="postagens3">Postagens</div>
-                        </div>
-                    </div>
-                    <div class="dia-aula">
-                        <div class="dia-aula-vis-o-geral">
-                            <div class="dias">
-                                <div class="d-ias"><div class="cabe-alho"><div class="cabe-alho2">Seg</div></div></div>
-                                <div class="d-ias2"><div class="cabe-alho"><div class="cabe-alho2">Ter</div></div></div>
-                                <div class="d-ias3"><div class="cabe-alho"><div class="cabe-alho2">Qui</div></div></div>
-                                <div class="d-ias4"><div class="cabe-alho"><div class="cabe-alho3">Qua</div></div></div>
-                                <div class="d-ias5"><div class="cabe-alho"><div class="cabe-alho3">Sex</div></div></div>
-                            </div>
-                        </div>
-                        <div class="dia-aula2">
-                            <div class="dias-de-aula">Dias de Aula</div>
+                        <div id="btnCriarContainer" style="padding: 15px;"></div>
+                        <div class="tarefas-viss-o-geral" id="tarefasVisaoGeral">
+                            <div class="mensagem-vazia">Carregando atividades...</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- TAREFAS -->
             <div class="conteudo-tarefas desativado" id="conteudoTarefas">
-                <img src="../imagens-sala/Banner_Titulo_seção-Tarefa.svg" alt="Banner de Tarefas" class="banner tarefas">
-                <div class="frame-691">
-                    <div class="transi-ao-tarefa">
-                        <div class="estado-tarefa">
-                            <div class="frame-203">
-                                <div class="estado-tarefa2">
-                                    <div class="pendente-transi-o">
-                                        <button class="pendente">Pendente</button>
-                                        <div class="selecionado"></div>
-                                        <div class="selecionado"><div class="frame-194"></div></div>
-                                    </div>
-                                    <div class="em-atraso-transi-o">
-                                        <button class="em-atraso">Em atraso</button>
-                                        <div class="selecionado2"><div class="frame-1942"></div></div>
-                                    </div>
-                                    <div class="conclu-da-transi-o">
-                                        <button class="conclu-da">Concluída</button>
-                                        <div class="selecionado2"><div class="frame-1942"></div></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sigla-componente"><div class="se">SE</div></div>
-                    </div>
-                    <div class="frame-617">
-                        <div class="data">
-                            <div class="_30-de-jun-quarta-feira">
-                                <span><span class="_30-de-jun-quarta-feira-span">30 de Jun.</span><span class="_30-de-jun-quarta-feira-span2">Quarta-Feira</span></span>
-                            </div>
-                        </div>
-                        <div class="card-tarefa">
-                            <div class="sigla-componente2"><div class="se">SE</div></div>
-                            <div class="estado-tarefa3">
-                                <div class="frame-tarefa-em-breve">
-                                    <div class="frame-202"><div class="nome-da-atividade">Nome da Atividade</div></div>
-                                    <div class="frame-201"><div class="prazo-de-entrega">Prazo de entrega às 23:59</div></div>
-                                </div>
-                            </div>
-                            <div class="nome-componente-rodap">
-                                <div class="frame-200"><div class="nome-do-componente">SISTEMAS EMBARCADOS</div></div>
-                            </div>
-                        </div>
-                        <div class="card-tarefa">
-                            <div class="sigla-componente2"><div class="se">SE</div></div>
-                            <div class="estado-tarefa3">
-                                <div class="frame-tarefa-em-breve">
-                                    <div class="frame-202"><div class="nome-da-atividade">Nome da Atividade</div></div>
-                                    <div class="frame-201"><div class="prazo-de-entrega">Prazo de entrega às 23:59</div></div>
-                                </div>
-                            </div>
-                            <div class="nome-componente-rodap">
-                                <div class="frame-200"><div class="nome-do-componente">SISTEMAS EMBARCADOS</div></div>
-                            </div>
-                        </div>
-                    </div>
+                <img src="../imagens-sala/Banner_Titulo_seção-Tarefa.svg" alt="Banner Tarefas" class="banner tarefas">
+                
+                <div class="filtros-tarefas">
+                    <button class="btn-filtro ativo" data-filtro="todas">Todas</button>
+                    <button class="btn-filtro" data-filtro="pendente">Pendentes</button>
+                    <button class="btn-filtro" data-filtro="atraso">Em Atraso</button>
+                    <button class="btn-filtro" data-filtro="concluida">Concluídas</button>
                 </div>
+
+                <div id="tarefasPorStatus"></div>
             </div>
 
-
-
-
-
-
-
-
-
-
-            <!-- POSTAGENS -->
-            <div class="conteudo-postagens desativado centraliza" id="conteudoPostagens">
-                <img src="../imagens-sala/Titulo_seção_Postagens.svg" alt="Banner de Postagens" class="banner BannerPostagens">
-                <div class="postagem">
-                    <div class="professor-postagem">
-                        <div class="professor">
-                            <div class="nome-professor">
-                                <div class="frame-334"><div class="oswaldo-luiz-parquier-bertoli">OSWALDO LUIZ PARQUIER BERTOLI</div></div>
-                                <div class="frame-335"><div class="_08-05-19-42">08/05 19:42</div></div>
-                            </div>
-                            <div class="foto-professor"></div>
-                        </div>
-                        <div class="postagem2">
-                            <div class="component"><div class="tcc">TCC</div></div>
-                            <div class="postagens-componente">
-                                <div class="frame-332"><div class="v-deo-aula-imagem-arquivo">Vídeo Aula/Imagem/Arquivo</div></div>
-                                <div class="frame-333"><div class="pequena-descri-o-sobre-o-assunto">Pequena descrição sobre o assunto</div></div>
-                            </div>
-                        </div>
-                        <div class="frame-619"></div>
-                    </div>
-                    <div class="comentarios">
-                        <div class="comentarios2">
-                            <div class="frame-339">
-                                <div class="frame-349">
-                                    <div class="frame-344">
-                                        <div class="frame-343">
-                                            <div class="frame-340"><div class="nome-aluno">Nome Aluno</div></div>
-                                            <div class="frame-342"><div class="_04-02-19-21">04/02 19:21</div></div>
-                                        </div>
-                                        <div class="frame-341"><div class="coment-rio-do-aluno">Comentário do Aluno</div></div>
-                                    </div>
-                                    <div class="frame-348"><div class="outros-coment-rios">Outros Comentários</div></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="responder-tcc">
-                            <div class="frame-346"></div>
-                            <div class="frame-347"><div class="responder">Responder</div></div>
-                        </div>
-                    </div>
-                    <div class="postagem-coteudo"></div>
-                </div>
+            <div class="conteudo-postagens desativado" id="conteudoPostagens">
+                <img src="../imagens-sala/Titulo_seção_Postagens.svg" alt="Banner Postagens" class="banner">
+                <div class="mensagem-vazia">Em desenvolvimento...</div>
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-            <!-- ARQUIVO -->
             <div class="conteudo-arquivo desativado" id="conteudoArquivo">
-                <img src="../imagens-sala/Titulo_seção_arquivos.svg" alt="Banner de Arquivos" class="banner tarefas">
-                <div class="frame-692">
-                    <div class="arquivo">
-                        <img class="arquivos" src="../imagens-sala/ArquivosIcon.svg" />
-                        <div class="texto-arquivo"><div class="exemplo-de-estrututa-o-de-c-digo">Exemplo de estrututação de código</div></div>
-                    </div>
-                    <div class="arquivo">
-                        <img class="arquivos2" src="../imagens-sala/ArquivosIcon.svg" />
-                        <div class="texto-arquivo"><div class="exemplo-de-estrututa-o-de-c-digo">Exemplo de estrututação de código</div></div>
-                    </div>
-                </div>
+                <img src="../imagens-sala/Titulo_seção_arquivos.svg" alt="Banner Arquivos" class="banner">
+                <div class="mensagem-vazia">Em desenvolvimento...</div>
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-            <!-- MEMBROS -->
-            <div class="conteudo-membros desativado centraliza" id="conteudoMembros">
-                <img src="../imagens-sala/Titulo_seção_Membros.svg" alt="banner de Membros" class="banner BannerMembros">
-                <div class="membros">
-                    <div class="membro">
-                        <img class="frame-613" src="../imagens-sala/foto_de_perfil.png" />
-                        <div class="frame-615"><div class="rodrigo-dos-santos-pereira-junior">Rodrigo dos Santos Pereira Junior</div></div>
-                        <div class="membro-perfl"><div class="ver-perfil">Ver Perfil</div></div>
-                    </div>
-                    <div class="membro">
-                        <img class="frame-613" src="../imagens-sala/foto_de_perfil.png" />
-                        <div class="frame-615"><div class="rodrigo-dos-santos-pereira-junior">Rodrigo dos Santos Pereira Junior</div></div>
-                        <div class="membro-perfl"><div class="ver-perfil">Ver Perfil</div></div>
-                    </div>
-                    <div class="membro">
-                        <img class="frame-613" src="../imagens-sala/foto_de_perfil.png" />
-                        <div class="frame-615"><div class="rodrigo-dos-santos-pereira-junior">Rodrigo dos Santos Pereira Junior</div></div>
-                        <div class="membro-perfl"><div class="ver-perfil">Ver Perfil</div></div>
-                    </div>
-                    <div class="membro">
-                        <img class="frame-613" src="../imagens-sala/foto_de_perfil.png" />
-                        <div class="frame-615"><div class="rodrigo-dos-santos-pereira-junior">Rodrigo dos Santos Pereira Junior</div></div>
-                        <div class="membro-perfl"><div class="ver-perfil">Ver Perfil</div></div>
-                    </div>
-                </div>
+            <div class="conteudo-membros desativado" id="conteudoMembros">
+                <img src="../imagens-sala/Titulo_seção_Membros.svg" alt="Banner Membros" class="banner">
+                <div class="mensagem-vazia">Em desenvolvimento...</div>
             </div>
         </div>
     </main>
 
+    <div class="modal-criar" id="modalCriar">
+        <div class="modal-content">
+            <h2>➕ Criar Nova Atividade</h2>
+            <form id="formCriarAtividade">
+                <div class="form-group">
+                    <label for="tituloAtividade">Título *</label>
+                    <input type="text" id="tituloAtividade" required>
+                </div>
+                <div class="form-group">
+                    <label for="descricaoAtividade">Descrição</label>
+                    <textarea id="descricaoAtividade"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="dataEntregaAtividade">Data de Entrega</label>
+                    <input type="datetime-local" id="dataEntregaAtividade">
+                </div>
+                <div class="form-group">
+                    <label for="arquivoAtividade">📎 Anexar Arquivo (opcional)</label>
+                    <input type="file" id="arquivoAtividade" accept=".pdf,.doc,.docx,.txt,.zip,.rar,.jpg,.jpeg,.png">
+                    <div class="arquivo-info" id="arquivoInfo">
+                        📄 <span class="arquivo-nome" id="arquivoNome"></span>
+                        <button type="button" class="btn-remover-arquivo" onclick="removerArquivo()">✕ Remover</button>
+                    </div>
+                </div>
+                <div class="modal-botoes">
+                    <button type="button" class="btn-modal btn-cancelar" onclick="fecharModal()">Cancelar</button>
+                    <button type="submit" class="btn-modal btn-salvar">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+    <div class="modal-detalhes" id="modalDetalhes">
+        <div class="detalhes-content">
+            <div class="detalhes-header"> 
+                <h2 id="detalheTitulo">Carregando...</h2>
+                <button class="btn-fechar-detalhes" onclick="fecharDetalhes(event)">✕</button> 
+                <button class="btn-entregar-modal" id="btnEntregarDetalhes" style="display: none;">
+                    📤 Entregar Atividade
+                </button>
+            </div>
+            <div class="detalhes-body" id="detalheBody">
+                <div style="text-align: center; padding: 40px;">
+                    <p>Carregando detalhes...</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elementos dos dropdowns
-            const dropdownNotif = document.getElementById('dropdownNotif');
-            const dropdownConfig = document.getElementById('dropdownConfig');
-            const dropdownPerfil = document.getElementById('dropdownPerfil');
-            const btnNotif = document.querySelector('.btn-notificao-nav');
-            const btnConfig = document.querySelector('.btn-config');
-            const btnPerfil = document.querySelector('.foto-de-perfil');
-            
-            // Funções para fechar dropdowns
-            function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
-            function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
-            function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
-            
-            // Event listeners para abrir dropdowns
-            btnNotif.addEventListener('click', function() {
-                fecharDropdownConfig();
-                fecharDropdownPerfil();
-                dropdownNotif.classList.toggle('ativo');
+// ===============================================
+// VARIÁVEIS GLOBAIS
+// ===============================================
+const userId = localStorage.getItem('userId') || '1';
+const userName = localStorage.getItem('userName') || 'Usuário';
+const userRole = localStorage.getItem('userRole') || 'professor';
+const turmaId = 1;
+
+let todasAtividades = [];
+let todasPostagens = [];
+let todosArquivos = [];
+let todosMembros = [];
+let filtroAtivo = 'todas';
+let arquivoSelecionado = null;
+
+console.log('🔥 Sistema carregado!');
+console.log('User:', userName, 'Role:', userRole);
+
+// ===============================================
+// INICIALIZAÇÃO
+// ===============================================
+document.addEventListener('DOMContentLoaded', function() {
+    inicializarDropdowns();
+    inicializarSidebar();
+    inicializarNavegacao();
+    inicializarFiltros();
+    inicializarModal();
+    inicializarFormularios();
+    carregarAtividades();
+    carregarPostagens();
+    carregarArquivos();
+    carregarMembros();
+    atualizarNomeUsuario();
+    
+    if (userRole === 'professor') {
+        adicionarBotaoCriar();
+    }
+});
+
+// ===============================================
+// DROPDOWNS
+// ===============================================
+function inicializarDropdowns() {
+    const dropdownNotif = document.getElementById('dropdownNotif');
+    const dropdownConfig = document.getElementById('dropdownConfig');
+    const dropdownPerfil = document.getElementById('dropdownPerfil');
+    const btnNotif = document.querySelector('.btn-notificao-nav');
+    const btnConfig = document.querySelector('.btn-config');
+    const btnPerfil = document.querySelector('.foto-de-perfil');
+    
+    if (!dropdownNotif || !dropdownConfig || !dropdownPerfil || !btnNotif || !btnConfig || !btnPerfil) {
+        console.error("Erro: Elementos do dropdown não encontrados.");
+        return;
+    }
+
+    const fecharDropdownNotif = () => dropdownNotif.classList.remove('ativo');
+    const fecharDropdownConfig = () => dropdownConfig.classList.remove('ativo');
+    const fecharDropdownPerfil = () => dropdownPerfil.classList.remove('ativo');
+    
+    btnNotif.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fecharDropdownConfig();
+        fecharDropdownPerfil();
+        dropdownNotif.classList.toggle('ativo');
+    });
+    
+    btnConfig.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fecharDropdownNotif();
+        fecharDropdownPerfil();
+        dropdownConfig.classList.toggle('ativo');
+    });
+    
+    btnPerfil.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fecharDropdownNotif();
+        fecharDropdownConfig();
+        dropdownPerfil.classList.toggle('ativo');
+    });
+    
+    document.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const action = this.getAttribute('data-action');
+            switch(action) {
+                case 'fechar-notif': fecharDropdownNotif(); break;
+                case 'fechar-config': fecharDropdownConfig(); break;
+                case 'fechar-perfil': fecharDropdownPerfil(); break;
+                case 'sair-da-conta':
+                    if (confirm('Tem certeza que deseja sair da conta?')) {
+                        localStorage.removeItem('userId');
+                        localStorage.removeItem('userName');
+                        localStorage.removeItem('userRole');
+                        window.location.href = '/home.html';
+                    }
+                    fecharDropdownPerfil();
+                    break;
+                default:
+                    alert('Funcionalidade em desenvolvimento');
+                    fecharDropdownNotif();
+                    fecharDropdownConfig();
+                    fecharDropdownPerfil();
+            }
+        });
+    });
+    
+    document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (
+            !dropdownNotif.contains(target) && target !== btnNotif &&
+            !dropdownConfig.contains(target) && target !== btnConfig &&
+            !dropdownPerfil.contains(target) && target !== btnPerfil
+        ) {
+            fecharDropdownNotif();
+            fecharDropdownConfig();
+            fecharDropdownPerfil();
+        }
+    });
+}
+
+// ===============================================
+// SIDEBAR
+// ===============================================
+function inicializarSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const expandButton = document.getElementById('expandButton');
+    const expandText = document.getElementById('expandText');
+    const visaoGeralText = document.querySelector('.visao-geral-text');
+    
+    if (!sidebar || !expandButton || !expandText || !visaoGeralText) return;
+
+    expandButton.addEventListener('click', () => {
+        sidebar.classList.toggle('expanded');
+        if (sidebar.classList.contains('expanded')) {
+            expandText.textContent = 'Recolher';
+            visaoGeralText.innerHTML = 'Visão Geral';
+        } else {
+            expandText.textContent = 'Expandir';
+            visaoGeralText.innerHTML = 'Visão<br>Geral';
+        }
+    });
+}
+
+// ===============================================
+// NAVEGAÇÃO
+// ===============================================
+function inicializarNavegacao() {
+    const telas = {
+        'visao': document.getElementById('conteudoVisao'),
+        'tarefa': document.getElementById('conteudoTarefas'),
+        'postagens': document.getElementById('conteudoPostagens'),
+        'arquivo': document.getElementById('conteudoArquivo'),
+        'membros': document.getElementById('conteudoMembros')
+    };
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+
+            const telaAlvo = this.getAttribute('data-tela');
+
+            Object.values(telas).forEach(tela => {
+                if (tela) tela.classList.add('desativado');
             });
+
+            const telaAtual = telas[telaAlvo];
+            if (telaAtual) {
+                telaAtual.classList.remove('desativado');
+            }
+
+            if (telaAlvo === 'tarefa') {
+                renderizarTarefas();
+            } else if (telaAlvo === 'postagens') {
+                renderizarPostagens();
+            } else if (telaAlvo === 'arquivo') {
+                renderizarArquivos();
+            } else if (telaAlvo === 'membros') {
+                renderizarMembros();
+            }
+        });
+    });
+}
+
+// ===============================================
+// FUNÇÕES AUXILIARES
+// ===============================================
+function atualizarNomeUsuario() {
+    const nomeElement = document.getElementById('nomeUsuarioPerfil');
+    if (nomeElement) nomeElement.textContent = `Olá, ${userName}`;
+}
+
+function adicionarBotaoCriar() {
+    const container = document.getElementById('btnCriarContainer');
+    if (container) {
+        container.innerHTML = `<button id="btnCriarAtividade" class="btn-criar-atividade">➕ Criar Atividade</button>`;
+        
+        const btnCriar = document.getElementById('btnCriarAtividade');
+        if (btnCriar) {
+            btnCriar.addEventListener('click', abrirModal);
+        }
+    }
+}
+
+function abrirModal() {
+    const modal = document.getElementById('modalCriar');
+    if (modal) modal.classList.add('ativo');
+    limparFormulario();
+}
+
+function fecharModal() {
+    const modal = document.getElementById('modalCriar');
+    if (modal) modal.classList.remove('ativo');
+    limparFormulario();
+}
+
+function limparFormulario() {
+    const form = document.getElementById('formCriarAtividade');
+    if (form) form.reset();
+    removerArquivo();
+}
+
+function removerArquivo() {
+    const input = document.getElementById('arquivoAtividade');
+    if (input) input.value = '';
+    
+    const info = document.getElementById('arquivoInfo');
+    const nome = document.getElementById('arquivoNome');
+    
+    if (info) info.classList.remove('ativo');
+    if (nome) nome.textContent = '';
+    
+    arquivoSelecionado = null;
+}
+
+function fecharDetalhes(event) {
+    if (event) {
+        event.stopPropagation();
+    }
+    const modal = document.getElementById('modalDetalhes');
+    if (modal) modal.classList.remove('ativo');
+}
+
+// ===============================================
+// INICIALIZAÇÃO DE MODAIS E FORMULÁRIOS
+// ===============================================
+function inicializarModal() {
+    const modalCriar = document.getElementById('modalCriar');
+    const modalDetalhes = document.getElementById('modalDetalhes');
+    
+    if (modalCriar) {
+        modalCriar.addEventListener('click', (e) => {
+            if (e.target === modalCriar) {
+                fecharModal();
+            }
+        });
+    }
+    
+    if (modalDetalhes) {
+        modalDetalhes.addEventListener('click', (e) => {
+            if (e.target === modalDetalhes) {
+                fecharDetalhes();
+            }
+        });
+        
+        // Botão X do modal de detalhes
+        const btnFecharX = modalDetalhes.querySelector('.btn-fechar-detalhes');
+        if (btnFecharX) {
+            btnFecharX.addEventListener('click', fecharDetalhes);
+        }
+    }
+}
+
+function inicializarFormularios() {
+    // Input de arquivo
+    const arquivoInput = document.getElementById('arquivoAtividade');
+    if (arquivoInput) {
+        arquivoInput.addEventListener('change', function() {
+            const info = document.getElementById('arquivoInfo');
+            const nome = document.getElementById('arquivoNome');
             
-            btnConfig.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownPerfil();
-                dropdownConfig.classList.toggle('ativo');
+            if (this.files && this.files.length > 0) {
+                const arquivo = this.files[0];
+                arquivoSelecionado = {
+                    nome: arquivo.name,
+                    tamanho: arquivo.size,
+                    tipo: arquivo.type
+                };
+                if (nome) nome.textContent = arquivo.name;
+                if (info) info.classList.add('ativo');
+            } else {
+                removerArquivo();
+            }
+        });
+    }
+    
+    // Botão remover arquivo no modal criar
+    const btnRemoverArq = document.querySelector('#arquivoInfo .btn-remover-arquivo');
+    if (btnRemoverArq) {
+        btnRemoverArq.addEventListener('click', removerArquivo);
+    }
+    
+    // Formulário de criação
+    const formCriar = document.getElementById('formCriarAtividade');
+    if (formCriar) {
+        formCriar.addEventListener('submit', function(e) {
+            e.preventDefault();
+            criarNovaAtividade();
+        });
+    }
+    
+    // Botões de cancelar
+    const btnCancelar = document.querySelector('#modalCriar .btn-cancelar');
+    if (btnCancelar) {
+        btnCancelar.addEventListener('click', fecharModal);
+    }
+}
+
+// ===============================================
+// GERENCIAMENTO DE ATIVIDADES
+// ===============================================
+function carregarAtividades() {
+    const atividadesSalvas = localStorage.getItem('atividades_turma_' + turmaId);
+    
+    if (atividadesSalvas) {
+        todasAtividades = JSON.parse(atividadesSalvas);
+    } else {
+        todasAtividades = [
+            { 
+                id: 1, 
+                titulo: "Relatório Inicial do Projeto", 
+                prazo: new Date(Date.now() + 86400000 * 2).toISOString(), 
+                descricao: "Entregar a primeira versão do documento de escopo e cronograma.", 
+                arquivo: { nome: "modelo-relatorio.docx" },
+                entregas: []
+            },
+            { 
+                id: 2, 
+                titulo: "Pesquisa sobre Microcontroladores", 
+                prazo: new Date(Date.now() - 86400000 * 1).toISOString(), 
+                descricao: "Pesquisar e resumir as diferenças entre PIC, AVR e ARM.", 
+                arquivo: { nome: "guia-pesquisa.pdf" },
+                entregas: []
+            },
+            { 
+                id: 3, 
+                titulo: "Exercício de Programação C", 
+                prazo: new Date(Date.now() - 86400000 * 5).toISOString(), 
+                descricao: "Implementar um contador binário em C.", 
+                arquivo: null,
+                entregas: [
+                    {
+                        alunoId: userId,
+                        alunoNome: userName,
+                        data: new Date(Date.now() - 86400000 * 6).toISOString(),
+                        comentario: "Atividade concluída conforme solicitado.",
+                        arquivo: { nome: "contador.c" }
+                    }
+                ]
+            },
+            { 
+                id: 4, 
+                titulo: "Apresentação Final do Módulo", 
+                prazo: new Date(Date.now() + 86400000 * 7).toISOString(), 
+                descricao: "Criar slides e ensaiar a apresentação sobre o projeto final.", 
+                arquivo: null,
+                entregas: []
+            },
+        ];
+        salvarAtividades();
+    }
+
+    // Visão geral adaptada por perfil
+    if (userRole === 'professor') {
+        // Professor vê atividades que precisam de atenção (prazo próximo ou com poucas entregas)
+        const atividadesDestaque = todasAtividades.filter(a => {
+            const statusProf = getStatusProfessor(a);
+            const hoje = new Date();
+            const dataPrazo = new Date(a.prazo);
+            const diasRestantes = Math.ceil((dataPrazo - hoje) / (1000 * 60 * 60 * 24));
+            
+            // Destaca se: prazo em até 3 dias OU menos de 50% entregaram
+            return diasRestantes <= 3 || statusProf.totalEntregas < 15;
+        });
+        renderizarTarefasVisaoGeral(atividadesDestaque.slice(0, 3));
+    } else {
+        // Aluno vê suas tarefas pendentes ou em atraso
+        const atividadesParaVisao = todasAtividades.filter(a => {
+            const status = getStatus(a.prazo, a);
+            return status === 'pendente' || status === 'atraso';
+        });
+        renderizarTarefasVisaoGeral(atividadesParaVisao);
+    }
+    
+    renderizarTarefas();
+}
+
+function salvarAtividades() {
+    localStorage.setItem('atividades_turma_' + turmaId, JSON.stringify(todasAtividades));
+}
+
+function criarNovaAtividade() {
+    const titulo = document.getElementById('tituloAtividade').value.trim();
+    const descricao = document.getElementById('descricaoAtividade').value.trim();
+    const prazo = document.getElementById('dataEntregaAtividade').value;
+    
+    if (!titulo) {
+        alert('Por favor, preencha o título da atividade.');
+        return;
+    }
+    
+    const novaAtividade = {
+        id: Date.now(),
+        titulo: titulo,
+        descricao: descricao || 'Sem descrição',
+        prazo: prazo ? new Date(prazo).toISOString() : new Date(Date.now() + 86400000 * 7).toISOString(),
+        arquivo: arquivoSelecionado ? { nome: arquivoSelecionado.nome } : null,
+        entregas: []
+    };
+    
+    todasAtividades.push(novaAtividade);
+    salvarAtividades();
+    
+    fecharModal();
+    carregarAtividades();
+    
+    alert('✅ Atividade criada com sucesso!');
+}
+
+function entregarAtividade(atividadeId) {
+    const atividade = todasAtividades.find(a => a.id === atividadeId);
+    if (!atividade) return;
+    
+    const modalHTML = `
+        <div id="modalEntrega" class="modal-criar ativo">
+            <div class="modal-content">
+                <h2>📤 Entregar Atividade</h2>
+                <form id="formEntregarAtividade">
+                    <div class="form-group">
+                        <label for="comentarioEntrega">Comentário sobre a entrega</label>
+                        <textarea id="comentarioEntrega" placeholder="Adicione observações sobre sua entrega..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="arquivoEntrega">📎 Anexar Arquivo (opcional)</label>
+                        <input type="file" id="arquivoEntrega" accept=".pdf,.doc,.docx,.txt,.zip,.rar,.jpg,.jpeg,.png,.c,.cpp,.py,.js">
+                        <div class="arquivo-info" id="arquivoInfoEntrega">
+                            📄 <span class="arquivo-nome" id="arquivoNomeEntrega"></span>
+                            <button type="button" class="btn-remover-arquivo" id="btnRemoverArqEntrega">✕ Remover</button>
+                        </div>
+                    </div>
+                    <div class="modal-botoes">
+                        <button type="button" class="btn-modal btn-cancelar" id="btnCancelarEntrega">Cancelar</button>
+                        <button type="submit" class="btn-modal btn-salvar">✅ Confirmar Entrega</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+    
+    const modalExistente = document.getElementById('modalEntrega');
+    if (modalExistente) modalExistente.remove();
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Event listeners do modal de entrega
+    const arquivoInput = document.getElementById('arquivoEntrega');
+    arquivoInput.addEventListener('change', function() {
+        const info = document.getElementById('arquivoInfoEntrega');
+        const nome = document.getElementById('arquivoNomeEntrega');
+        
+        if (this.files && this.files.length > 0) {
+            nome.textContent = this.files[0].name;
+            info.classList.add('ativo');
+        }
+    });
+    
+    document.getElementById('btnRemoverArqEntrega').addEventListener('click', function() {
+        arquivoInput.value = '';
+        document.getElementById('arquivoInfoEntrega').classList.remove('ativo');
+        document.getElementById('arquivoNomeEntrega').textContent = '';
+    });
+    
+    document.getElementById('btnCancelarEntrega').addEventListener('click', function() {
+        document.getElementById('modalEntrega').remove();
+    });
+    
+    const form = document.getElementById('formEntregarAtividade');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const comentario = document.getElementById('comentarioEntrega').value.trim();
+        const arquivoInput = document.getElementById('arquivoEntrega');
+        
+        const entrega = {
+            alunoId: userId,
+            alunoNome: userName,
+            data: new Date().toISOString(),
+            comentario: comentario || 'Sem comentário',
+            arquivo: arquivoInput.files.length > 0 ? { nome: arquivoInput.files[0].name } : null,
+            nota: null,
+            feedback: ''
+        };
+        
+        if (!atividade.entregas) {
+            atividade.entregas = [];
+        }
+        
+        const entregaExistente = atividade.entregas.findIndex(e => e.alunoId === userId);
+        if (entregaExistente !== -1) {
+            if (!confirm('Você já entregou esta atividade. Deseja reenviar?')) {
+                return;
+            }
+            // Preserva nota e feedback ao reenviar
+            const notaAnterior = atividade.entregas[entregaExistente].nota;
+            const feedbackAnterior = atividade.entregas[entregaExistente].feedback;
+            entrega.nota = notaAnterior;
+            entrega.feedback = feedbackAnterior;
+            atividade.entregas[entregaExistente] = entrega;
+        } else {
+            atividade.entregas.push(entrega);
+        }
+        
+        salvarAtividades();
+        carregarAtividades();
+        document.getElementById('modalEntrega').remove();
+        fecharDetalhes();
+        
+        alert('✅ Atividade entregue com sucesso!');
+    });
+}
+
+function salvarNota(atividadeId, alunoId, nota, feedback) {
+    const atividade = todasAtividades.find(a => a.id === atividadeId);
+    if (!atividade) return;
+    
+    const entrega = atividade.entregas.find(e => e.alunoId === alunoId);
+    if (!entrega) return;
+    
+    entrega.nota = nota;
+    entrega.feedback = feedback;
+    
+    salvarAtividades();
+    
+    alert(`✅ Nota ${nota}/10 salva com sucesso para ${entrega.alunoNome}!`);
+    
+    // Reabrir detalhes para atualizar visualização
+    abrirDetalhes(atividadeId);
+}
+
+function getStatus(prazo, atividadeCompleta) {
+    const hoje = new Date();
+    const dataPrazo = new Date(prazo);
+    
+    // Professor não tem status pessoal, retorna apenas se prazo expirou
+    if (userRole === 'professor') {
+        return dataPrazo < hoje ? 'expirada' : 'aberta';
+    }
+    
+    // Para alunos: verifica se tem entrega
+    const minhaEntrega = atividadeCompleta?.entregas?.find(e => e.alunoId === userId);
+    if (minhaEntrega) return 'concluida';
+    
+    if (dataPrazo < hoje) return 'atraso';
+    return 'pendente';
+}
+
+function getStatusProfessor(atividade) {
+    const totalEntregas = atividade.entregas?.length || 0;
+    const hoje = new Date();
+    const dataPrazo = new Date(atividade.prazo);
+    const prazoExpirou = dataPrazo < hoje;
+    
+    // Buscar total de alunos da turma
+    const totalAlunos = todosMembros.filter(m => 
+        m.tipo === 'aluno' || m.role === 'aluno' || (!m.tipo && !m.role)
+    ).length || 30; // Fallback para 30 se ainda não carregou
+    
+    return {
+        totalEntregas: totalEntregas,
+        totalAlunos: totalAlunos,
+        prazoExpirou: prazoExpirou,
+        statusTexto: prazoExpirou ? 'Prazo Encerrado' : 'Em Andamento'
+    };
+}
+
+function formatarData(isoString) {
+    const data = new Date(isoString);
+    return data.toLocaleDateString('pt-BR', { 
+        day: '2-digit', 
+        month: '2-digit', 
+        year: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+    });
+}
+
+// ===============================================
+// RENDERIZAÇÃO DE CARDS
+// ===============================================
+function criarCardAtividade(atividade) {
+    const isProfessor = userRole === 'professor';
+    
+    if (isProfessor) {
+        // Card para professor - mostra estatísticas de entrega
+        const statusProf = getStatusProfessor(atividade);
+        const dataFormatada = formatarData(atividade.prazo);
+        const porcentagem = statusProf.totalAlunos > 0 
+            ? Math.round((statusProf.totalEntregas / statusProf.totalAlunos) * 100) 
+            : 0;
+        
+        return `
+            <div class="card-atividade-dinamico" data-id="${atividade.id}">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h3>${atividade.titulo}</h3>
+                    <span class="badge-status ${statusProf.prazoExpirou ? 'badge-atraso' : 'badge-pendente'}">
+                        ${statusProf.statusTexto}
+                    </span>
+                </div>
+                <p class="prazo-entrega">
+                    Prazo: ${dataFormatada}
+                </p>
+                <p class="descricao-atividade">
+                    ${atividade.descricao.substring(0, 80)}${atividade.descricao.length > 80 ? '...' : ''}
+                </p>
+                <div style="margin-top: 15px; padding: 12px; background: #f5f5f5; border-radius: 6px; border-left: 4px solid #2196F3;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="font-weight: bold; color: #333;">📊 Entregas</span>
+                        <span style="font-weight: bold; color: #2196F3; font-size: 18px;">
+                            ${statusProf.totalEntregas}/${statusProf.totalAlunos}
+                        </span>
+                    </div>
+                    <div style="background: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">
+                        <div style="background: ${porcentagem === 100 ? '#4CAF50' : '#2196F3'}; height: 100%; width: ${porcentagem}%; transition: width 0.3s ease;"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 5px; font-size: 12px; color: #666;">
+                        <span>${porcentagem}% entregaram</span>
+                        <span>${statusProf.totalAlunos - statusProf.totalEntregas} faltam</span>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                    <button class="btn-ver-entregas" data-acao="ver-detalhes" data-id="${atividade.id}">
+                        📋 Gerenciar Entregas
+                    </button>
+                </div>
+            </div>
+        `;
+    } else {
+        // Card para aluno - mostra status pessoal
+        const status = getStatus(atividade.prazo, atividade);
+        const statusText = status === 'pendente' ? 'Pendente' : status === 'atraso' ? 'Em Atraso' : 'Concluída';
+        const dataFormatada = formatarData(atividade.prazo);
+        const minhaEntrega = atividade.entregas?.find(e => e.alunoId === userId);
+
+        return `
+            <div class="card-atividade-dinamico" data-id="${atividade.id}">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h3>${atividade.titulo}</h3>
+                    <span class="badge-status badge-${status}">${statusText}</span>
+                </div>
+                <p class="prazo-entrega">
+                    Prazo de Entrega: ${dataFormatada}
+                </p>
+                <p class="descricao-atividade">
+                    ${atividade.descricao.substring(0, 80)}${atividade.descricao.length > 80 ? '...' : ''}
+                </p>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                    ${minhaEntrega ? 
+                        `<span class="status-entregue">✅ Entregue</span>` :
+                        `<button class="btn-entregar" data-acao="entregar" data-id="${atividade.id}">📤 Entregar</button>`
+                    }
+                </div>
+            </div>
+        `;
+    }
+}
+
+function inicializarCardsAtividade() {
+    document.querySelectorAll('.card-atividade-dinamico').forEach(card => {
+        card.addEventListener('click', function(event) {
+            const target = event.target;
+            
+            const btnAcao = target.closest('[data-acao]');
+            if (btnAcao) {
+                event.stopPropagation();
+                const acao = btnAcao.getAttribute('data-acao');
+                const id = parseInt(btnAcao.getAttribute('data-id'));
+                
+                if (acao === 'ver-detalhes') {
+                    abrirDetalhes(id);
+                } else if (acao === 'entregar') {
+                    entregarAtividade(id);
+                }
+            } else {
+                const atividadeId = parseInt(this.getAttribute('data-id'));
+                if (atividadeId) {
+                    abrirDetalhes(atividadeId);
+                }
+            }
+        });
+    });
+}
+
+// ===============================================
+// RENDERIZAÇÃO DE TAREFAS
+// ===============================================
+function renderizarTarefasVisaoGeral(atividades) {
+    const container = document.getElementById('tarefasVisaoGeral');
+    if (!container) return;
+
+    if (atividades.length === 0) {
+        container.innerHTML = `<div class="mensagem-vazia">🎉 Nenhuma tarefa pendente para o momento!</div>`;
+        return;
+    }
+
+    container.innerHTML = atividades.slice(0, 3).map(criarCardAtividade).join('');
+    inicializarCardsAtividade();
+}
+
+function inicializarFiltros() {
+    document.querySelectorAll('.btn-filtro').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.btn-filtro').forEach(b => b.classList.remove('ativo'));
+            this.classList.add('ativo');
+            filtroAtivo = this.getAttribute('data-filtro') || 'todas';
+            renderizarTarefas();
+        });
+    });
+    
+    // Ajustar textos dos filtros para professor
+    if (userRole === 'professor') {
+        const filtros = document.querySelectorAll('.btn-filtro');
+        filtros.forEach(btn => {
+            const filtro = btn.getAttribute('data-filtro');
+            if (filtro === 'pendente') btn.textContent = 'Em Andamento';
+            if (filtro === 'atraso') btn.textContent = 'Prazo Encerrado';
+            if (filtro === 'concluida') btn.style.display = 'none'; // Ocultar para professor
+        });
+    }
+}
+
+function filtrarAtividades(filtro) {
+    if (filtro === 'todas') return todasAtividades;
+    
+    if (userRole === 'professor') {
+        // Filtros adaptados para professor
+        if (filtro === 'pendente') {
+            // Em andamento = prazo não expirou
+            return todasAtividades.filter(a => {
+                const statusProf = getStatusProfessor(a);
+                return !statusProf.prazoExpirou;
             });
-            
-            btnPerfil.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownConfig();
-                dropdownPerfil.classList.toggle('ativo');
+        }
+        if (filtro === 'atraso') {
+            // Prazo encerrado = prazo expirou
+            return todasAtividades.filter(a => {
+                const statusProf = getStatusProfessor(a);
+                return statusProf.prazoExpirou;
             });
-            
-            // Event listeners para ações dos dropdowns
-            document.querySelectorAll('[data-action]').forEach(function(btn) {
+        }
+        if (filtro === 'concluida') return []; // Não usado para professor
+    } else {
+        // Filtros para aluno
+        if (filtro === 'pendente') return todasAtividades.filter(a => getStatus(a.prazo, a) === 'pendente');
+        if (filtro === 'atraso') return todasAtividades.filter(a => getStatus(a.prazo, a) === 'atraso');
+        if (filtro === 'concluida') return todasAtividades.filter(a => getStatus(a.prazo, a) === 'concluida');
+    }
+    
+    return [];
+}
+
+function renderizarTarefas() {
+    const container = document.getElementById('tarefasPorStatus');
+    if (!container) return;
+
+    const atividadesFiltradas = filtrarAtividades(filtroAtivo);
+
+    if (atividadesFiltradas.length === 0) {
+        const filtroNome = document.querySelector(`.btn-filtro[data-filtro="${filtroAtivo}"]`)?.textContent || 'todas';
+        container.innerHTML = `<div class="mensagem-vazia">Nenhuma atividade na categoria: ${filtroNome}</div>`;
+        return;
+    }
+
+    if (userRole === 'professor') {
+        // Para professor: organiza por prazo (abertas e encerradas)
+        const abertas = [];
+        const encerradas = [];
+        
+        atividadesFiltradas.forEach(a => {
+            const statusProf = getStatusProfessor(a);
+            if (statusProf.prazoExpirou) {
+                encerradas.push(a);
+            } else {
+                abertas.push(a);
+            }
+        });
+
+        let html = '';
+        
+        if (abertas.length > 0) {
+            html += `<div class="secao-tarefas"><h2>🟢 Atividades em Andamento</h2>`;
+            html += abertas.map(criarCardAtividade).join('');
+            html += `</div>`;
+        }
+        
+        if (encerradas.length > 0) {
+            html += `<div class="secao-tarefas"><h2>🔴 Prazo Encerrado</h2>`;
+            html += encerradas.map(criarCardAtividade).join('');
+            html += `</div>`;
+        }
+
+        container.innerHTML = html;
+    } else {
+        // Para aluno: organiza por status pessoal
+        const grupos = {
+            'pendente': [], 
+            'atraso': [], 
+            'concluida': []
+        };
+        
+        atividadesFiltradas.forEach(a => {
+            grupos[getStatus(a.prazo, a)].push(a);
+        });
+
+        let html = '';
+        for (const status in grupos) {
+            if (grupos[status].length > 0) {
+                const statusTitulo = status === 'pendente' ? 'Pendentes' : status === 'atraso' ? 'Em Atraso' : 'Concluídas';
+                html += `<div class="secao-tarefas"><h2>${statusTitulo}</h2>`;
+                html += grupos[status].map(criarCardAtividade).join('');
+                html += `</div>`;
+            }
+        }
+
+        container.innerHTML = html;
+    }
+    
+    inicializarCardsAtividade();
+}
+
+// ===============================================
+// MODAL DE DETALHES
+// ===============================================
+function abrirDetalhes(id) {
+    const atividade = todasAtividades.find(a => a.id === id);
+    if (!atividade) return;
+
+    const modal = document.getElementById('modalDetalhes');
+    const titulo = document.getElementById('detalheTitulo');
+    const corpo = document.getElementById('detalheBody');
+    const btnEntregar = document.getElementById('btnEntregarDetalhes');
+    const isProfessor = userRole === 'professor';
+    const status = getStatus(atividade.prazo, atividade);
+    const minhaEntrega = atividade.entregas?.find(e => e.alunoId === userId);
+    
+    if (titulo) titulo.textContent = atividade.titulo;
+
+    if (isProfessor) {
+        btnEntregar.style.display = 'none';
+    } else if (minhaEntrega) {
+        btnEntregar.style.display = 'none';
+    } else {
+        btnEntregar.textContent = '📤 Entregar Atividade';
+        btnEntregar.style.display = 'block';
+        
+        const novoBtn = btnEntregar.cloneNode(true);
+        btnEntregar.parentNode.replaceChild(novoBtn, btnEntregar);
+        novoBtn.addEventListener('click', function() {
+            entregarAtividade(id);
+        });
+    }
+
+    let corpoHTML = `
+        <div class="secao-detalhes">
+            <h3>Descrição e Informações</h3>
+            <div class="info-item">
+                <span class="info-label">Descrição</span>
+                <span class="info-value">${atividade.descricao}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Prazo de Entrega</span>
+                <span class="info-value">${formatarData(atividade.prazo)}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Status</span>
+                <span class="info-value"><span class="badge-status badge-${status}">${status.charAt(0).toUpperCase() + status.slice(1)}</span></span>
+            </div>
+        </div>
+    `;
+    
+    if (atividade.arquivo) {
+        corpoHTML += `
+            <div class="secao-detalhes">
+                <h3>Arquivo Anexado</h3>
+                <div class="arquivo-anexado">
+                    <span class="arquivo-icon">📎</span>
+                    <div class="arquivo-info-detalhe">
+                        <span class="arquivo-nome-detalhe">${atividade.arquivo.nome}</span>
+                        <span class="arquivo-tipo">Tipo: ${atividade.arquivo.nome.split('.').pop().toUpperCase()}</span>
+                    </div>
+                    <button class="btn-download" data-acao="download" data-arquivo="${atividade.arquivo.nome}">
+                        📥 Download
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+    
+    if (isProfessor) {
+        const entregas = atividade.entregas || [];
+        corpoHTML += `
+            <div class="secao-detalhes">
+                <h3>Entregas dos Alunos (${entregas.length})</h3>
+                <div class="lista-entregas">
+        `;
+        
+        if (entregas.length === 0) {
+            corpoHTML += `<div class="nenhuma-entrega">Nenhuma entrega ainda.</div>`;
+        } else {
+            entregas.forEach(entrega => {
+                const temNota = entrega.nota !== undefined && entrega.nota !== null;
+                corpoHTML += `
+                    <div class="entrega-item">
+                        <div class="entrega-header">
+                            <span class="entrega-aluno">Aluno: ${entrega.alunoNome}</span>
+                            <span class="entrega-data">Entregue em: ${formatarData(entrega.data)}</span>
+                        </div>
+                        <div class="entrega-comentario">${entrega.comentario}</div>
+                        ${entrega.arquivo ? `
+                            <div style="margin-top: 10px; padding: 10px; background: #f0f0f0; border-radius: 6px;">
+                                📎 <strong>Arquivo:</strong> ${entrega.arquivo.nome}
+                            </div>
+                        ` : ''}
+                        <div style="margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 6px; border-left: 4px solid ${temNota ? '#4CAF50' : '#FFA726'};">
+                            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                                <div style="flex: 1; min-width: 150px;">
+                                    <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">
+                                        📝 Nota (0 a 10):
+                                    </label>
+                                    <input 
+                                        type="number" 
+                                        min="0" 
+                                        max="10" 
+                                        step="0.5" 
+                                        value="${entrega.nota || ''}" 
+                                        placeholder="0.0"
+                                        class="input-nota"
+                                        data-entrega-aluno="${entrega.alunoId}"
+                                        data-atividade-id="${atividade.id}"
+                                        style="width: 100%; padding: 8px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; font-weight: bold; text-align: center;"
+                                    >
+                                </div>
+                                <div style="flex: 2; min-width: 200px;">
+                                    <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">
+                                        💬 Feedback:
+                                    </label>
+                                    <textarea 
+                                        placeholder="Escreva um feedback para o aluno..."
+                                        class="textarea-feedback"
+                                        data-entrega-aluno="${entrega.alunoId}"
+                                        data-atividade-id="${atividade.id}"
+                                        style="width: 100%; padding: 8px; border: 2px solid #ddd; border-radius: 6px; font-size: 14px; min-height: 60px; resize: vertical; font-family: Arial, sans-serif;"
+                                    >${entrega.feedback || ''}</textarea>
+                                </div>
+                                <button 
+                                    class="btn-salvar-nota" 
+                                    data-entrega-aluno="${entrega.alunoId}"
+                                    data-atividade-id="${atividade.id}"
+                                    style="padding: 12px 24px; background: #4CAF50; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; white-space: nowrap;">
+                                    ✅ Salvar Avaliação
+                                </button>
+                            </div>
+                            ${temNota ? `
+                                <div style="margin-top: 10px; padding: 10px; background: #D4EDDA; border-radius: 6px; color: #155724;">
+                                    ✓ Avaliação salva: Nota ${entrega.nota}/10
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        
+        corpoHTML += `
+                </div>
+            </div>
+        `;
+    } else if (minhaEntrega) {
+        const temNota = minhaEntrega.nota !== undefined && minhaEntrega.nota !== null;
+        corpoHTML += `
+            <div class="secao-detalhes">
+                <h3>Sua Entrega</h3>
+                <div class="info-item" style="background: #D4EDDA;">
+                    <span class="info-label">Status da Entrega</span>
+                    <span class="info-value status-entregue">✅ Entregue em: ${formatarData(minhaEntrega.data)}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Comentário</span>
+                    <span class="info-value">${minhaEntrega.comentario}</span>
+                </div>
+                ${minhaEntrega.arquivo ? `
+                    <div class="info-item">
+                        <span class="info-label">Arquivo Enviado</span>
+                        <span class="info-value">📎 ${minhaEntrega.arquivo.nome}</span>
+                    </div>
+                ` : ''}
+                ${temNota ? `
+                    <div class="info-item" style="background: #E3F2FD; border-left: 4px solid #2196F3;">
+                        <span class="info-label">📊 Nota Recebida</span>
+                        <span class="info-value" style="font-size: 24px; font-weight: bold; color: #1976D2;">
+                            ${minhaEntrega.nota}/10
+                        </span>
+                    </div>
+                    ${minhaEntrega.feedback ? `
+                        <div class="info-item" style="background: #FFF9C4;">
+                            <span class="info-label">💬 Feedback do Professor</span>
+                            <span class="info-value">${minhaEntrega.feedback}</span>
+                        </div>
+                    ` : ''}
+                ` : `
+                    <div class="info-item" style="background: #FFF3E0;">
+                        <span class="info-label">📊 Avaliação</span>
+                        <span class="info-value" style="color: #F57C00;">⏳ Aguardando correção do professor</span>
+                    </div>
+                `}
+            </div>
+        `;
+    } else {
+        corpoHTML += `
+            <div class="secao-detalhes">
+                <h3>Sua Entrega</h3>
+                <div class="info-item" style="background: #F8D7DA;">
+                    <span class="info-label">Status da Entrega</span>
+                    <span class="info-value" style="color: #721C24;">❌ Pendente</span>
+                </div>
+                <button class="btn-entregar" data-acao="entregar-modal" data-id="${id}" style="width: 100%; margin-top: 15px;">
+                    📤 Entregar Atividade
+                </button>
+            </div>
+        `;
+    }
+
+    if (corpo) corpo.innerHTML = corpoHTML;
+    
+    // Adicionar event listeners para botões dentro do modal
+    setTimeout(() => {
+        const btnDownload = corpo.querySelector('[data-acao="download"]');
+        if (btnDownload) {
+            btnDownload.addEventListener('click', function() {
+                const arquivo = this.getAttribute('data-arquivo');
+                alert(`Download de ${arquivo} simulado!`);
+            });
+        }
+        
+        const btnEntregarModal = corpo.querySelector('[data-acao="entregar-modal"]');
+        if (btnEntregarModal) {
+            btnEntregarModal.addEventListener('click', function() {
+                const id = parseInt(this.getAttribute('data-id'));
+                entregarAtividade(id);
+            });
+        }
+        
+        // Event listeners para salvar notas (somente para professores)
+        if (isProfessor) {
+            const btnsSalvarNota = corpo.querySelectorAll('.btn-salvar-nota');
+            btnsSalvarNota.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const action = this.getAttribute('data-action');
-                    switch(action) {
-                        case 'fechar-notif': fecharDropdownNotif(); break;
-                        case 'fechar-config': fecharDropdownConfig(); break;
-                        case 'fechar-perfil': fecharDropdownPerfil(); break;
-                        case 'abrir-tema': alert('Funcionalidade de Tema será implementada'); fecharDropdownConfig(); break;
-                        case 'abrir-acessibilidade': alert('Funcionalidade de Acessibilidade será implementada'); fecharDropdownConfig(); break;
-                        case 'abrir-opcoes-avancadas': alert('Funcionalidade de Opções Avançadas será implementada'); fecharDropdownConfig(); break;
-                        case 'abrir-seu-perfil': alert('Redirecionando para Seu Perfil'); fecharDropdownPerfil(); break;
-                        case 'abrir-privacidade': alert('Abrindo configurações de Privacidade'); fecharDropdownPerfil(); break;
-                        case 'abrir-ajuda-recursos': alert('Abrindo Ajuda e Recursos'); fecharDropdownPerfil(); break;
-                        case 'sair-da-conta':
-                            if (confirm('Tem certeza que deseja sair da conta?')) {
-                                alert('Saindo da conta...');
-                                window.location.href = '/home.html';
-                            }
-                            fecharDropdownPerfil();
-                            break;
-                    }
-                });
-            });
-            
-            // Fechar dropdowns ao clicar fora
-            document.addEventListener('click', function(event) {
-                if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                    !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                    !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
-                    fecharDropdownNotif();
-                    fecharDropdownConfig();
-                    fecharDropdownPerfil();
-                }
-            });
-
-            // Toggle da sidebar
-            const sidebar = document.getElementById('sidebar');
-            const expandButton = document.getElementById('expandButton');
-            const expandText = document.getElementById('expandText');
-            const visaoGeralText = document.querySelector('.visao-geral-text');
-            
-            expandButton.addEventListener('click', function() {
-                sidebar.classList.toggle('expanded');
-                if (sidebar.classList.contains('expanded')) {
-                    expandText.textContent = 'Recolher';
-                    visaoGeralText.innerHTML = 'Visão Geral';
-                } else {
-                    expandText.textContent = 'Expandir';
-                    visaoGeralText.innerHTML = 'Visão<br>Geral';
-                }
-            });
-
-            // Navegação entre telas
-            const telas = {
-                'visao': document.getElementById('conteudoVisao'),
-                'tarefa': document.getElementById('conteudoTarefas'),
-                'postagens': document.getElementById('conteudoPostagens'),
-                'arquivo': document.getElementById('conteudoArquivo'),
-                'membros': document.getElementById('conteudoMembros')
-            };
-
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    // Remove active de todos
-                    document.querySelectorAll('.nav-item').forEach(navItem => navItem.classList.remove('active'));
-                    // Adiciona active ao clicado
-                    this.classList.add('active');
+                    const alunoId = this.getAttribute('data-entrega-aluno');
+                    const atividadeId = parseInt(this.getAttribute('data-atividade-id'));
                     
-                    // Mostra a tela correspondente
-                    const telaAtiva = this.getAttribute('data-tela');
-                    Object.keys(telas).forEach(key => {
-                        if (key === telaAtiva) {
-                            telas[key].classList.remove('desativado');
-                        } else {
-                            telas[key].classList.add('desativado');
+                    const inputNota = corpo.querySelector(`.input-nota[data-entrega-aluno="${alunoId}"][data-atividade-id="${atividadeId}"]`);
+                    const textareaFeedback = corpo.querySelector(`.textarea-feedback[data-entrega-aluno="${alunoId}"][data-atividade-id="${atividadeId}"]`);
+                    
+                    if (inputNota && textareaFeedback) {
+                        const nota = parseFloat(inputNota.value);
+                        const feedback = textareaFeedback.value.trim();
+                        
+                        if (isNaN(nota) || nota < 0 || nota > 10) {
+                            alert('Por favor, insira uma nota válida entre 0 e 10.');
+                            return;
                         }
-                    });
+                        
+                        salvarNota(atividadeId, alunoId, nota, feedback);
+                    }
                 });
             });
+        }
+    }, 0);
+    
+    if (modal) modal.classList.add('ativo');
+}
 
-            // Suporte a teclado
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    if (sidebar.classList.contains('expanded')) {
-                        sidebar.classList.remove('expanded');
-                        expandText.textContent = 'Expandir';
-                    }
-                    fecharDropdownNotif();
-                    fecharDropdownConfig();
-                    fecharDropdownPerfil();
+// ===============================================
+// SISTEMA DE POSTAGENS
+// ===============================================
+function carregarPostagens() {
+    const postagensSalvas = localStorage.getItem('postagens_turma_' + turmaId);
+    
+    if (postagensSalvas) {
+        todasPostagens = JSON.parse(postagensSalvas);
+    } else {
+        todasPostagens = [
+            {
+                id: 1,
+                titulo: "Bem-vindos ao curso!",
+                conteudo: "Sejam bem-vindos à disciplina de Sistemas Embarcados. Estou animado para trabalhar com vocês neste semestre!",
+                autor: "Prof. João Silva",
+                autorId: "prof1",
+                data: new Date(Date.now() - 86400000 * 5).toISOString(),
+                comentarios: []
+            }
+        ];
+        salvarPostagens();
+    }
+    
+    renderizarPostagens();
+}
+
+function salvarPostagens() {
+    localStorage.setItem('postagens_turma_' + turmaId, JSON.stringify(todasPostagens));
+}
+
+function renderizarPostagens() {
+    const container = document.getElementById('conteudoPostagens');
+    if (!container) return;
+    
+    let html = '';
+    
+    if (userRole === 'professor') {
+        html += `
+            <div style="padding: 20px;">
+                <button id="btnCriarPostagem" class="btn-criar-atividade">
+                    ✏️ Nova Postagem
+                </button>
+            </div>
+        `;
+    }
+    
+    html += '<div style="padding: 20px;">';
+    
+    if (todasPostagens.length === 0) {
+        html += '<div class="mensagem-vazia">Nenhuma postagem ainda.</div>';
+    } else {
+        const postagensOrdenadas = [...todasPostagens].sort((a, b) => 
+            new Date(b.data).getTime() - new Date(a.data).getTime()
+        );
+        
+        postagensOrdenadas.forEach(postagem => {
+            html += `
+                <div class="card-atividade-dinamico" style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                        <div>
+                            <h3 style="margin: 0 0 5px 0;">${postagem.titulo}</h3>
+                            <div style="font-size: 13px; color: #666;">
+                                <span>👤 ${postagem.autor}</span>
+                                <span style="margin-left: 15px;">📅 ${formatarData(postagem.data)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="padding: 15px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin: 15px 0;">
+                        <p style="margin: 0; line-height: 1.6; color: #333; white-space: pre-wrap;">${postagem.conteudo}</p>
+                    </div>
+                    <div style="display: flex; gap: 10px; color: #666; font-size: 14px;">
+                        <span>💬 ${postagem.comentarios?.length || 0} comentários</span>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    
+    html += '</div>';
+    
+    const content = container.querySelector('.mensagem-vazia')?.parentElement || container;
+    content.innerHTML = html;
+    
+    if (userRole === 'professor') {
+        const btnCriarPost = document.getElementById('btnCriarPostagem');
+        if (btnCriarPost) {
+            btnCriarPost.addEventListener('click', abrirModalPostagem);
+        }
+    }
+}
+
+function abrirModalPostagem() {
+    const modalHTML = `
+        <div id="modalPostagem" class="modal-criar ativo">
+            <div class="modal-content">
+                <h2>✏️ Nova Postagem</h2>
+                <form id="formCriarPostagem">
+                    <div class="form-group">
+                        <label for="tituloPostagem">Título *</label>
+                        <input type="text" id="tituloPostagem" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="conteudoPostagem">Conteúdo *</label>
+                        <textarea id="conteudoPostagem" required style="min-height: 150px;"></textarea>
+                    </div>
+                    <div class="modal-botoes">
+                        <button type="button" class="btn-modal btn-cancelar" id="btnCancelarPostagem">Cancelar</button>
+                        <button type="submit" class="btn-modal btn-salvar">📤 Publicar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    document.getElementById('btnCancelarPostagem').addEventListener('click', function() {
+        document.getElementById('modalPostagem').remove();
+    });
+    
+    document.getElementById('formCriarPostagem').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const titulo = document.getElementById('tituloPostagem').value.trim();
+        const conteudo = document.getElementById('conteudoPostagem').value.trim();
+        
+        if (!titulo || !conteudo) {
+            alert('Por favor, preencha todos os campos.');
+            return;
+        }
+        
+        const novaPostagem = {
+            id: Date.now(),
+            titulo: titulo,
+            conteudo: conteudo,
+            autor: userName,
+            autorId: userId,
+            data: new Date().toISOString(),
+            comentarios: []
+        };
+        
+        todasPostagens.push(novaPostagem);
+        salvarPostagens();
+        renderizarPostagens();
+        document.getElementById('modalPostagem').remove();
+        alert('✅ Postagem publicada com sucesso!');
+    });
+}
+
+// ===============================================
+// SISTEMA DE ARQUIVOS
+// ===============================================
+function carregarArquivos() {
+    const arquivosSalvos = localStorage.getItem('arquivos_turma_' + turmaId);
+    
+    if (arquivosSalvos) {
+        todosArquivos = JSON.parse(arquivosSalvos);
+    } else {
+        todosArquivos = [
+            {
+                id: 1,
+                nome: "Ementa_Sistemas_Embarcados.pdf",
+                tipo: "pdf",
+                tamanho: "2.3 MB",
+                dataUpload: new Date(Date.now() - 86400000 * 10).toISOString(),
+                autor: "Prof. João Silva"
+            },
+            {
+                id: 2,
+                nome: "Slides_Aula_01.pptx",
+                tipo: "pptx",
+                tamanho: "5.1 MB",
+                dataUpload: new Date(Date.now() - 86400000 * 8).toISOString(),
+                autor: "Prof. João Silva"
+            }
+        ];
+        salvarArquivos();
+    }
+    
+    renderizarArquivos();
+}
+
+function salvarArquivos() {
+    localStorage.setItem('arquivos_turma_' + turmaId, JSON.stringify(todosArquivos));
+}
+
+function renderizarArquivos() {
+    const container = document.getElementById('conteudoArquivo');
+    if (!container) return;
+    
+    let html = '';
+    
+    if (userRole === 'professor') {
+        html += `
+            <div style="padding: 20px;">
+                <button id="btnAdicionarArquivo" class="btn-criar-atividade">
+                    📎 Adicionar Arquivo
+                </button>
+            </div>
+        `;
+    }
+    
+    html += '<div style="padding: 20px;">';
+    
+    if (todosArquivos.length === 0) {
+        html += '<div class="mensagem-vazia">Nenhum arquivo disponível.</div>';
+    } else {
+        const arquivosOrdenados = [...todosArquivos].sort((a, b) => 
+            new Date(b.dataUpload).getTime() - new Date(a.dataUpload).getTime()
+        );
+        
+        arquivosOrdenados.forEach(arquivo => {
+            const icone = getIconeArquivo(arquivo.tipo);
+            html += `
+                <div class="card-atividade-dinamico" style="margin-bottom: 15px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="font-size: 48px;">${icone}</div>
+                        <div style="flex: 1;">
+                            <h3 style="margin: 0 0 5px 0;">${arquivo.nome}</h3>
+                            <div style="font-size: 13px; color: #666;">
+                                <span>📦 ${arquivo.tamanho}</span>
+                                <span style="margin-left: 15px;">📅 ${formatarData(arquivo.dataUpload)}</span>
+                                <span style="margin-left: 15px;">👤 ${arquivo.autor}</span>
+                            </div>
+                        </div>
+                        <button class="btn-download" data-arquivo-id="${arquivo.id}" style="white-space: nowrap;">
+                            📥 Baixar
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    
+    html += '</div>';
+    
+    const content = container.querySelector('.mensagem-vazia')?.parentElement || container;
+    content.innerHTML = html;
+    
+    // Event listeners
+    setTimeout(() => {
+        if (userRole === 'professor') {
+            const btnAddArquivo = document.getElementById('btnAdicionarArquivo');
+            if (btnAddArquivo) {
+                btnAddArquivo.addEventListener('click', abrirModalArquivo);
+            }
+        }
+        
+        document.querySelectorAll('.btn-download').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const arquivoId = parseInt(this.getAttribute('data-arquivo-id'));
+                const arquivo = todosArquivos.find(a => a.id === arquivoId);
+                if (arquivo) {
+                    alert(`📥 Download de "${arquivo.nome}" iniciado!`);
                 }
             });
         });
+    }, 0);
+}
+
+function getIconeArquivo(tipo) {
+    const icones = {
+        'pdf': '📄',
+        'doc': '📝',
+        'docx': '📝',
+        'ppt': '📊',
+        'pptx': '📊',
+        'xls': '📊',
+        'xlsx': '📊',
+        'zip': '📦',
+        'rar': '📦',
+        'jpg': '🖼️',
+        'jpeg': '🖼️',
+        'png': '🖼️',
+        'txt': '📃'
+    };
+    return icones[tipo.toLowerCase()] || '📎';
+}
+
+function abrirModalArquivo() {
+    const modalHTML = `
+        <div id="modalArquivo" class="modal-criar ativo">
+            <div class="modal-content">
+                <h2>📎 Adicionar Arquivo</h2>
+                <form id="formAdicionarArquivo">
+                    <div class="form-group">
+                        <label for="arquivoUpload">Selecione o arquivo *</label>
+                        <input type="file" id="arquivoUpload" required accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.rar,.jpg,.jpeg,.png,.txt">
+                        <div class="arquivo-info" id="arquivoInfoUpload">
+                            📄 <span class="arquivo-nome" id="arquivoNomeUpload"></span>
+                            <button type="button" class="btn-remover-arquivo" id="btnRemoverArqUpload">✕ Remover</button>
+                        </div>
+                    </div>
+                    <div class="modal-botoes">
+                        <button type="button" class="btn-modal btn-cancelar" id="btnCancelarArquivo">Cancelar</button>
+                        <button type="submit" class="btn-modal btn-salvar">✅ Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    const arquivoInput = document.getElementById('arquivoUpload');
+    arquivoInput.addEventListener('change', function() {
+        const info = document.getElementById('arquivoInfoUpload');
+        const nome = document.getElementById('arquivoNomeUpload');
+        
+        if (this.files && this.files.length > 0) {
+            nome.textContent = this.files[0].name;
+            info.classList.add('ativo');
+        }
+    });
+    
+    document.getElementById('btnRemoverArqUpload').addEventListener('click', function() {
+        arquivoInput.value = '';
+        document.getElementById('arquivoInfoUpload').classList.remove('ativo');
+        document.getElementById('arquivoNomeUpload').textContent = '';
+    });
+    
+    document.getElementById('btnCancelarArquivo').addEventListener('click', function() {
+        document.getElementById('modalArquivo').remove();
+    });
+    
+    document.getElementById('formAdicionarArquivo').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (!arquivoInput.files || arquivoInput.files.length === 0) {
+            alert('Por favor, selecione um arquivo.');
+            return;
+        }
+        
+        const arquivo = arquivoInput.files[0];
+        const tamanhoMB = (arquivo.size / (1024 * 1024)).toFixed(1);
+        const extensao = arquivo.name.split('.').pop();
+        
+        const novoArquivo = {
+            id: Date.now(),
+            nome: arquivo.name,
+            tipo: extensao,
+            tamanho: `${tamanhoMB} MB`,
+            dataUpload: new Date().toISOString(),
+            autor: userName
+        };
+        
+        todosArquivos.push(novoArquivo);
+        salvarArquivos();
+        renderizarArquivos();
+        document.getElementById('modalArquivo').remove();
+        alert('✅ Arquivo adicionado com sucesso!');
+    });
+}
+
+// ===============================================
+// SISTEMA DE MEMBROS
+// ===============================================
+async function carregarMembros() {
+    try {
+        // Buscar membros do banco de dados
+        const response = await fetch(`/api/turmas/${turmaId}/membros`);
+        
+        if (!response.ok) {
+            throw new Error('Erro ao carregar membros');
+        }
+        
+        const dados = await response.json();
+        todosMembros = dados.membros || [];
+        
+        // Salvar no localStorage como cache
+        localStorage.setItem('membros_turma_' + turmaId, JSON.stringify(todosMembros));
+        
+        renderizarMembros();
+    } catch (error) {
+        console.error('Erro ao carregar membros:', error);
+        
+        // Tentar carregar do cache em caso de erro
+        const membrosCached = localStorage.getItem('membros_turma_' + turmaId);
+        if (membrosCached) {
+            todosMembros = JSON.parse(membrosCached);
+            renderizarMembros();
+        } else {
+            // Dados de fallback apenas para demonstração
+            todosMembros = [
+                { id: 'prof1', nome: 'Prof. João Silva', email: 'joao.silva@escola.com', tipo: 'professor', avatar: '👨‍🏫' },
+                { id: '1', nome: 'Ana Carolina Santos', email: 'ana.santos@aluno.com', tipo: 'aluno', avatar: '👩‍🎓' }
+            ];
+            renderizarMembros();
+        }
+    }
+}
+
+function salvarMembros() {
+    localStorage.setItem('membros_turma_' + turmaId, JSON.stringify(todosMembros));
+}
+
+function renderizarMembros() {
+    const container = document.getElementById('conteudoMembros');
+    if (!container) return;
+    
+    // Separar por tipo e ordenar
+    const professores = todosMembros
+        .filter(m => m.tipo === 'professor' || m.role === 'professor')
+        .sort((a, b) => a.nome.localeCompare(b.nome));
+    
+    const alunos = todosMembros
+        .filter(m => m.tipo === 'aluno' || m.role === 'aluno' || (!m.tipo && !m.role))
+        .sort((a, b) => a.nome.localeCompare(b.nome));
+    
+    let html = '<div style="padding: 20px;">';
+    
+    // Seção Professores
+    if (professores.length > 0) {
+        html += `
+            <div class="secao-tarefas">
+                <h2>👨‍🏫 Professores (${professores.length})</h2>
+                <div style="display: grid; gap: 15px;">
+        `;
+        
+        professores.forEach(prof => {
+            html += criarCardMembro(prof, 'professor');
+        });
+        
+        html += `
+                </div>
+            </div>
+        `;
+    }
+    
+    // Seção Alunos
+    if (alunos.length > 0) {
+        html += `
+            <div class="secao-tarefas" style="margin-top: 30px;">
+                <h2>👥 Alunos (${alunos.length})</h2>
+                <div style="display: grid; gap: 15px;">
+        `;
+        
+        alunos.forEach(aluno => {
+            html += criarCardMembro(aluno, 'aluno');
+        });
+        
+        html += `
+                </div>
+            </div>
+        `;
+    }
+    
+    if (professores.length === 0 && alunos.length === 0) {
+        html += '<div class="mensagem-vazia">Nenhum membro encontrado nesta turma.</div>';
+    }
+    
+    html += '</div>';
+    
+    const content = container.querySelector('.mensagem-vazia')?.parentElement || container;
+    content.innerHTML = html;
+}
+
+function criarCardMembro(membro, tipoForcado = null) {
+    // Determinar tipo do membro
+    const tipo = tipoForcado || membro.tipo || membro.role || 'aluno';
+    
+    // Gerar avatar baseado no nome ou usar avatar fornecido
+    const avatar = membro.avatar || gerarAvatar(membro.nome, tipo);
+    
+    // Formatar email (caso não tenha)
+    const email = membro.email || `${membro.nome.toLowerCase().replace(/\s+/g, '.')}@escola.com`;
+    
+    return `
+        <div class="card-atividade-dinamico" style="padding: 15px;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="font-size: 48px;">${avatar}</div>
+                <div style="flex: 1;">
+                    <h3 style="margin: 0 0 5px 0;">${membro.nome}</h3>
+                    <div style="font-size: 14px; color: #666;">
+                        <div>📧 ${email}</div>
+                        ${membro.matricula ? `<div style="margin-top: 3px;">🎓 Matrícula: ${membro.matricula}</div>` : ''}
+                        <div style="margin-top: 5px;">
+                            <span class="badge-status ${tipo === 'professor' ? 'badge-concluida' : 'badge-pendente'}" style="font-size: 11px; padding: 3px 10px;">
+                                ${tipo === 'professor' ? '👨‍🏫 Professor' : '👨‍🎓 Aluno'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function gerarAvatar(nome, tipo) {
+    if (tipo === 'professor') {
+        // Alternar entre avatares de professor
+        const avataresProfessor = ['👨‍🏫', '👩‍🏫'];
+        const primeiroNome = nome.split(' ')[0].toLowerCase();
+        return primeiroNome.includes('a') || primeiroNome.includes('e') || primeiroNome.includes('i') 
+            ? avataresProfessor[1] 
+            : avataresProfessor[0];
+    } else {
+        // Alternar entre avatares de aluno
+        const avataresAluno = ['👨‍🎓', '👩‍🎓'];
+        const primeiroNome = nome.split(' ')[0].toLowerCase();
+        return primeiroNome.includes('a') || primeiroNome.includes('e') || primeiroNome.includes('i') 
+            ? avataresAluno[1] 
+            : avataresAluno[0];
+    }
+}
     </script>
 </body>
 </html>

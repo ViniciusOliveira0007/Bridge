@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  
+  output   = "../ts/generated/prisma"
 }
 
 datasource db {
@@ -11,7 +11,132 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ============================================
+// USUÁRIOS (Professor + Aluno no mesmo model)
+// ============================================
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  senha     String
+  role      String   @default("aluno") // "professor" ou "aluno"
+  createdAt DateTime @default(now())
+  
+  // Relações
+  posts              Post[]
+  atividadesCriadas  Atividade[]  @relation("ProfessorAtividades")
+  entregas           Entrega[]
+  turmasComoAluno    TurmaAluno[]
+  turmasCriadas      Turma[]      @relation("ProfessorTurmas")
+}
 
+// ============================================
+// CURSOS
+// ============================================
+model Curso {
+  id        Int      @id @default(autoincrement())
+  nome      String   // "Análise e Desenvolvimento de Sistemas"
+  sigla     String   // "ADS"
+  descricao String?
+  createdAt DateTime @default(now())
+  
+  // Relações
+  turmas Turma[]
+}
+
+// ============================================
+// TURMAS/GRUPOS
+// ============================================
+model Turma {
+  id           Int      @id @default(autoincrement())
+  nome         String   // "Sistemas Embarcados - 3º Semestre"
+  descricao    String?
+  cursoId      Int
+  professorId  Int
+  createdAt    DateTime @default(now())
+  
+  // Relações
+  curso       Curso          @relation(fields: [cursoId], references: [id])
+  professor   User           @relation("ProfessorTurmas", fields: [professorId], references: [id])
+  alunos      TurmaAluno[]
+  atividades  Atividade[]
+}
+
+// ============================================
+// RELAÇÃO ALUNO-TURMA (muitos para muitos)
+// ============================================
+model TurmaAluno {
+  id       Int      @id @default(autoincrement())
+  turmaId  Int
+  alunoId  Int
+  entryAt  DateTime @default(now())
+  
+  // Relações
+  turma Turma @relation(fields: [turmaId], references: [id])
+  aluno User  @relation(fields: [alunoId], references: [id])
+  
+  @@unique([turmaId, alunoId])
+}
+
+// ============================================
+// ATIVIDADES/TAREFAS
+// ============================================
+model Atividade {
+  id           Int       @id @default(autoincrement())
+  titulo       String
+  descricao    String?
+  dataEntrega  DateTime?
+  turmaId      Int
+  professorId  Int
+  createdAt    DateTime  @default(now())
+  
+  // Relações
+  turma     Turma     @relation(fields: [turmaId], references: [id])
+  professor User      @relation("ProfessorAtividades", fields: [professorId], references: [id])
+  entregas  Entrega[]
+  arquivos  Arquivo[] @relation("AtividadeArquivos")
+}
+
+// ============================================
+// ENTREGAS DOS ALUNOS
+// ============================================
+model Entrega {
+  id           Int       @id @default(autoincrement())
+  atividadeId  Int
+  alunoId      Int
+  comentario   String?
+  dataEntrega  DateTime  @default(now())
+  nota         Float?    // Nota atribuída pelo professor (opcional)
+  
+  // Relações
+  atividade Atividade @relation(fields: [atividadeId], references: [id])
+  aluno     User      @relation(fields: [alunoId], references: [id])
+  arquivos  Arquivo[] @relation("EntregaArquivos")
+  
+  @@unique([atividadeId, alunoId])
+}
+
+// ============================================
+// ARQUIVOS (Anexos de atividades e entregas)
+// ============================================
+model Arquivo {
+  id           Int       @id @default(autoincrement())
+  nomeOriginal String
+  nomeArquivo  String    // Nome salvo no servidor
+  tamanho      Int       // Tamanho em bytes
+  tipo         String    // MIME type
+  atividadeId  Int?      // Se for anexo da atividade
+  entregaId    Int?      // Se for anexo da entrega
+  createdAt    DateTime  @default(now())
+  
+  // Relações
+  atividade Atividade? @relation("AtividadeArquivos", fields: [atividadeId], references: [id])
+  entrega   Entrega?   @relation("EntregaArquivos", fields: [entregaId], references: [id])
+}
+
+// ============================================
+// POSTS (mantido do schema anterior)
+// ============================================
 model Post {
   id        Int      @id @default(autoincrement())
   title     String
@@ -19,14 +144,5 @@ model Post {
   published Boolean  @default(false)
   authorId  Int
   author    User     @relation(fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
-}
-
-model User {
-  id        Int   @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  senha     String
-  posts     Post[]
   createdAt DateTime @default(now())
 }

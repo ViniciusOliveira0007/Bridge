@@ -8,8 +8,14 @@ import rateLimit from 'express-rate-limit';
 // Importa o controlador de autenticação de login 
 import { validateLogin, login, resetPassword } from './controllers/authController';
 
-
-
+// Importa o controlador de atividades
+import { 
+  criarAtividade, 
+  listarAtividadesPorTurma, 
+  buscarAtividade,
+  entregarAtividade,
+  listarAtividadesAluno
+} from './controllers/atividadeController';
 
 const app = express();
 const prisma = new PrismaClient();
@@ -43,10 +49,6 @@ app.use(helmet({
 app.use(express.static('public'));
 app.use('/telas', express.static('telas'));
 
-
-
-
-
 // ========================================
 // ROTAS
 // ========================================
@@ -73,15 +75,41 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
+// ========================================
+// ROTAS DE AUTENTICAÇÃO
+// ========================================
+
 // Rota para validar email
 app.post('/api/validate-login', validateLogin);
 
 // Rota para login completo (email + senha)
 app.post('/api/login', login);
 
-
 // Rota para redefinir senha
 app.post('/api/reset-password', resetPassword);
+
+// ========================================
+// ROTAS DE ATIVIDADES
+// ========================================
+
+// Professor cria atividade
+app.post('/api/atividades', criarAtividade);
+
+// Lista atividades de uma turma
+app.get('/api/atividades/turma/:turmaId', listarAtividadesPorTurma);
+
+// Lista atividades do aluno
+app.get('/api/atividades/aluno/:alunoId', listarAtividadesAluno);
+
+// Busca atividade específica (IMPORTANTE: deve vir depois das rotas com parâmetros específicos)
+app.get('/api/atividades/:id', buscarAtividade);
+
+// Aluno entrega atividade
+app.post('/api/atividades/:id/entregar', entregarAtividade);
+
+// ========================================
+// ROTAS PLACEHOLDER
+// ========================================
 
 // Placeholder routes para suas funcionalidades
 app.get('/api/users', (req, res) => {
@@ -106,9 +134,8 @@ app.get('/api/tests', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Bridge Platform rodando em http://localhost:${PORT}`);
   console.log(`📊 API disponível em http://localhost:${PORT}/api/health`);
+  console.log(`📚 Rotas de atividades disponíveis!`);
 });
-
-
 
 // Graceful shutdown
 process.on('SIGINT', async () => {
