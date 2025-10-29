@@ -1,0 +1,69 @@
+                .cardPage {
+                  width: 550px;             
+                  height: 180px;            
+                  border: 3px solid black;
+                  border-radius: 15px;     
+                  overflow: hidden;
+                  font-family: Arial, sans-serif;
+                  background: #fff;
+                  position: relative;
+                }
+
+             
+
+                /* Faixa superior */
+                .topPage {
+                  background: linear-gradient(90deg, #111 70%, #222 100%);
+                  height: 72px;         
+                  position: relative;
+                }
+
+                /* Linha */
+                .dividerPage {
+                  position: absolute;
+                  top: 80px;                
+                  left: 0;
+                  width: 100%;
+                  height: 0;
+                  border-top: 3.5px solid black; 
+                  z-index: 1;
+                }
+
+                /* Foto */
+                .photoPage {
+                  position: absolute;
+                  top: 49px;                
+                  left: 40px;                 
+                  width: 90px;             
+                  height: 90px;               
+                  background: #bbb;
+                  border-radius: 50%;       
+                  border: 3.5px solid black; 
+                  background-clip: padding-box;
+                  z-index: 2;
+                }
+
+                /* Conteúdo */
+                .contentPage {
+                  display: flex;
+                  flex-direction: column;
+                  text-align: center;
+                  position: absolute;
+                  top: 90px;                
+                  left: 27%;
+                }
+
+                .namePage {                
+                  font-size: 20px;         
+                  font-weight: bold;
+                  margin-bottom: 3px;       
+                }
+
+                .infoPage {
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 15px;       
+                  width: 100%; 
+                  font-weight: bold;
+                  color: #666;
+                }

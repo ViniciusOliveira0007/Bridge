@@ -270,4 +270,107 @@
                                   color: white;
                                 }
 
-                        
+     
+                                
+ /* CARD SUGESTÕES DIREITA */        
+                        /* ==== ASIDE DE SUGESTÕES ==== */
+                          .sugestoes {
+                              position: fixed;
+                              right: 80px;
+                              top: 150px;
+                              width: 300px;
+                              background-color: #ffffff;
+                              border-radius: 25px;
+                              box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+                              padding: 20px 15px;
+                              display: flex;
+                              flex-direction: column;
+                              gap: 15px;
+                              height: fit-content;
+                              max-height: 80vh;
+                              overflow-y: auto;
+                              scrollbar-width: thin;
+                              scrollbar-color: #ccc transparent;
+                          }
+
+                          /* Barra de rolagem sutil (para Chrome) */
+                          .sugestoes::-webkit-scrollbar {
+                              width: 6px;
+                          }
+                          .sugestoes::-webkit-scrollbar-thumb {
+                              background-color: #ccc;
+                              border-radius: 20px;
+                          }
+
+                          /* Título do bloco */
+                          .sugestoes::before {
+                              content: "Sugestões para você";
+                              font-weight: bold;
+                              font-size: 15px;
+                              color: #222;
+                              margin-bottom: 5px;
+                              display: block;
+                              text-align: center;
+                          }
+
+                          /* ==== CARDS DE PERFIL DENTRO DO ASIDE ==== */
+                          .sugestao {
+                              display: flex;
+                              align-items: center;
+                              gap: 10px;
+                              background-color: #f8f8f8;
+                              border-radius: 15px;
+                              padding: 10px;
+                              transition: background-color 0.3s ease, transform 0.2s ease;
+                              cursor: pointer;
+                          }
+
+                          .sugestao:hover {
+                              background-color: #f0f0f0;
+                              transform: translateY(-2px);
+                          }
+
+                          /* Imagem do perfil */
+                          .sugestao img {
+                              width: 45px;
+                              height: 45px;
+                              border-radius: 50%;
+                              object-fit: cover;
+                              border: 2px solid #ddd;
+                          }
+
+                          /* Infos do perfil */
+                          .sugestao .info-sugestao {
+                              display: flex;
+                              flex-direction: column;
+                              justify-content: center;
+                              flex: 1;
+                          }
+
+                          .sugestao .info-sugestao .nome {
+                              font-weight: bold;
+                              font-size: 14px;
+                              color: #222;
+                          }
+
+                          .sugestao .info-sugestao .detalhe {
+                              font-size: 12px;
+                              color: #666;
+                          }
+
+                          /* Botão de seguir */
+                          .sugestao .btn-seguir {
+                              background-color: #161616;
+                              color: #fff;
+                              font-size: 12px;
+                              font-weight: bold;
+                              border: none;
+                              border-radius: 12px;
+                              padding: 6px 10px;
+                              cursor: pointer;
+                              transition: background-color 0.2s ease;
+                          }
+
+                          .sugestao .btn-seguir:hover {
+                              background-color: #000;
+                          }

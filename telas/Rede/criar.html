@@ -7,7 +7,7 @@
     <title>Rede</title>
     <link rel="stylesheet" href="./css-connect/estilos_connectHome.css">
     <link rel="stylesheet" href="./css-connect/nav_lateral.css">
-    <link rel="stylesheet" href="./css-connect/explorar.css">
+    <link rel="stylesheet" href="./css-connect/criar.css">
 </head>
 <body>
 
@@ -119,7 +119,7 @@
 
 
         <a href="explorar.html" class="link">
-            <div class="btn-navL selecionado">
+            <div class="btn-navL">
                 <div class="icon-area"> 
                     <span class="iconeSimples">map</span>               
                 </div>                               
@@ -131,8 +131,9 @@
             </div>
         </a>
 
-         <a href="criar.html" class="link">
-            <div class="btn-navL">
+
+        <a href="criar.html" class="link">
+            <div class="btn-navL selecionado">
                 <div class="icon-area"> 
                     <span class="iconeSimples">edit</span>               
                 </div>                               
@@ -142,7 +143,7 @@
                 </div>                 
                 <div class="text-area">Criar</div>
             </div>
-         </a>
+        </a>
 
             <div class="btn-navL">
                 <div class="icon-area"> 
@@ -202,49 +203,51 @@
 
         <section class="feed">
 
-            <div class="explorar">
-
-                    <div class="container">
-                        <div >
-                            <div class="bloco">
-                                <div class="caixa"></div>
-                                <div class="caixa"></div>
-                            </div>
-                            <div class="bloco">
-                                <div class="caixa"></div>
-                                <div class="caixa"></div>
-                            </div>
-                        </div>
-
-                        <div class="caixaG"></div>
+                    <div class="cardCriar">
+                        <img class="imgFiles" src="assetsConnect/files.png">
+                        <p class="selecionar" id="btn-selecionar">Selecionar do computador</p>
+                        <input type="file" id="file" style="display:none" accept="image/*">
+                        
+                        <input type="text" id="title" placeholder="Título do post" style="margin-top:20px; padding:10px; width:80%; border-radius:10px;">
+                        <textarea id="content" placeholder="Descrição..." style="margin-top:10px; width:80%; height:100px; border-radius:10px; padding:10px;"></textarea>
+                        
+                        <button class="selecionar" id="btn-publicar">Publicar</button>
                     </div>
 
-                    <div class="container">
-
-                         <div class="caixaG"></div>
-
-                        <div>
-                            <div class="bloco">
-                                <div class="caixa"></div>
-                                <div class="caixa"></div>                    
-                            </div>
-                            <div class="bloco">
-                                <div class="caixa"></div>
-                                <div class="caixa"></div>                    
-                            </div>
-                        </div>
-                    </div>
-
-            </div>
-
-
-           
-
+                    <script src="js/criar.js"></script>
 
 
         </section>
 
-       
+        <aside class="sugestoes">
+                <div class="sugestao">
+                    <img src="./assetsConnect/aluna1.jpg" alt="Ester Medeiros">
+                    <div class="info-sugestao">
+                        <div class="nome">Ester Medeiros</div>
+                        <div class="detalhe">Etec de Itanhaém</div>
+                    </div>
+                    <button class="btn-seguir">Seguir</button>
+                </div>
+
+                <div class="sugestao">
+                    <img src="./assetsConnect/Vinicius.jpg" alt="Vinicius Anunciação">
+                    <div class="info-sugestao">
+                        <div class="nome">Vinicius Anunciação</div>
+                        <div class="detalhe">Etec de Itanhaém</div>
+                    </div>
+                    <button class="btn-seguir">Seguir</button>
+                </div>
+
+                <div class="sugestao">
+                    <img src="./assetsConnect/Jander.png" alt="Jander Gerônimo">
+                    <div class="info-sugestao">
+                        <div class="nome">Jander Gerônimo</div>
+                        <div class="detalhe">Etec de Mongaguá</div>
+                    </div>
+                    <button class="btn-seguir">Seguir</button>
+                </div>
+        </aside>
+
     </main>
 
     <script>
