@@ -55,7 +55,7 @@
                             required
                         >
                         <!-- Mensagem de erro -->
-                        <p id="errorMessage" style="color: red; font-size: 14px; margin-top: 8px; display: none;"></p>
+                        <p id="errorMessage" style="color: red; font-size: 14px; margin-top: 8px; display: none; font-family: Arial, Helvetica, sans-serif;"></p>
                         <a href="#" class="help-link">Precisa de ajuda?</a>
                     </div>
                     
@@ -142,7 +142,7 @@
                     window.location.href = './confirmacao-de-senha.html';
                 } else {
                     // Se email não existir (status 404)
-                    errorMessage.textContent = data.message || 'Email não encontrado';
+                    errorMessage.textContent = data.message || 'Email inválido';
                     errorMessage.style.display = 'block';
                     
                     // Reabilita o botão

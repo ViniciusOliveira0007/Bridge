@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../../ts/generated/prisma';
 
 const prisma = new PrismaClient();
 
@@ -25,7 +25,7 @@ export const validateLogin = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ 
         success: false,
-        message: 'Email não encontrado' 
+        message: 'Email inválido' 
       });
     }
 
@@ -36,7 +36,8 @@ export const validateLogin = async (req: Request, res: Response) => {
       user: {
         id: user.id,
         email: user.email,
-        name: user.name
+        name: user.name,
+        role: user.role  // ← ADICIONADO
       }
     });
 
@@ -48,16 +49,6 @@ export const validateLogin = async (req: Request, res: Response) => {
     });
   }
 };
-
-
-
-
-
-
-
-
-
-
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -77,7 +68,7 @@ export const login = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ 
         success: false,
-        message: 'Email ou senha incorretos' 
+        message: 'Senha incorreta' 
       });
     }
 
@@ -94,7 +85,8 @@ export const login = async (req: Request, res: Response) => {
       user: {
         id: user.id,
         email: user.email,
-        name: user.name
+        name: user.name,
+        role: user.role  // ← ADICIONADO
       }
     });
 
@@ -106,20 +98,6 @@ export const login = async (req: Request, res: Response) => {
     });
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * Redefine a senha do usuário

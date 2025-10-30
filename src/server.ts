@@ -6,9 +6,20 @@ import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 
-// Controladores existentes
+// Controladores de autenticação
 import { validateLogin, login, resetPassword } from "./controllers/authController";
+
+// Controladores de posts
 import { criarPost, listarPosts } from "./controllers/postController";
+
+// Controladores de atividades
+import { 
+  criarAtividade, 
+  listarAtividadesPorTurma, 
+  buscarAtividade,
+  entregarAtividade,
+  listarAtividadesAluno
+} from "./controllers/atividadeController";
 
 const app = express();
 const prisma = new PrismaClient();
@@ -18,7 +29,7 @@ const PORT = process.env.PORT || 3000;
 // RATE LIMITING
 // ========================================
 const limiter = rateLimit({
-  windowMs: 30 * 60 * 1000, // 30 minutos
+  windowMs: 30 * 60 * 1000,
   max: 5000,
 });
 
@@ -47,26 +58,21 @@ app.use(
 // ========================================
 app.use(express.static("public"));
 app.use("/telas", express.static("telas"));
-
-// pasta onde as imagens enviadas serão salvas
 app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
 
 // ========================================
-// CONFIGURAÇÃO DO MULTER (UPLOAD DE IMAGENS)
+// CONFIGURAÇÃO DO MULTER
 // ========================================
-
-// Configuração de armazenamento
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "..", "uploads")); // salva na pasta /uploads
+    cb(null, path.join(__dirname, "..", "uploads"));
   },
   filename: (req, file, cb) => {
     const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, unique + path.extname(file.originalname)); // ex: 1698567801234-123456789.png
+    cb(null, unique + path.extname(file.originalname));
   },
 });
 
-// Filtro para aceitar apenas imagens
 const fileFilter = (req: express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
   if (!file.mimetype.startsWith("image/")) {
     cb(new Error("Apenas arquivos de imagem são permitidos"));
@@ -75,23 +81,19 @@ const fileFilter = (req: express.Request, file: Express.Multer.File, cb: multer.
   }
 };
 
-// Inicializa o multer
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 }, // limite: 5 MB
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
 
 // ========================================
 // ROTAS
 // ========================================
-
-// Página inicial
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public", "home.html"));
 });
 
-// Health Check
 app.get("/api/health", async (req, res) => {
   try {
     await prisma.$connect();
@@ -116,17 +118,22 @@ app.post("/api/login", login);
 app.post("/api/reset-password", resetPassword);
 
 // ========================================
-// ROTAS DE POSTS (COM UPLOAD DE IMAGEM)
+// ROTAS DE POSTS
 // ========================================
-
-// Cria post com imagem (campo 'image' do formulário)
 app.post("/api/posts", upload.single("image"), criarPost);
-
-// Lista posts
 app.get("/api/posts", listarPosts);
 
 // ========================================
-// PLACEHOLDERS (rotas futuras)
+// ROTAS DE ATIVIDADES
+// ========================================
+app.post("/api/atividades", criarAtividade);
+app.get("/api/atividades/turma/:turmaId", listarAtividadesPorTurma);
+app.get("/api/atividades/aluno/:alunoId", listarAtividadesAluno);
+app.get("/api/atividades/:id", buscarAtividade);
+app.post("/api/atividades/:id/entregar", entregarAtividade);
+
+// ========================================
+// PLACEHOLDERS
 // ========================================
 app.get("/api/users", (req, res) => res.json({ message: "Rota para usuários - em desenvolvimento" }));
 app.get("/api/teams", (req, res) => res.json({ message: "Rota para teams - em desenvolvimento" }));
