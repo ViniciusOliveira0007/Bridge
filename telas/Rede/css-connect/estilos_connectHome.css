@@ -511,26 +511,25 @@
                                         display: inline-block;
                                         font-size: 14px;
                                         }
-
-                                        .comentario-post {
+.comentario-post {
   max-width: 400px;
   margin-top: 8px;
   font-size: 15px;
   line-height: 1.4;
   word-break: break-word;
   text-align: left;
+
+  /* Limita por padrão */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Mostra só 2 linhas */
+  -webkit-box-orient: vertical;
+  transition: all 0.3s ease;
 }
 
-.ler-mais {
-  color: #007bff;
-  cursor: pointer;
-  font-weight: 600;
-  margin-top: 4px;
-  display: inline-block;
-  font-size: 14px;
-  transition: color 0.2s;
-}
-
-.ler-mais:hover {
-  color: #0056b3;
+/* Quando expandido, mostra tudo */
+.comentario-post.expandido {
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
 }
