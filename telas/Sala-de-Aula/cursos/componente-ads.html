@@ -1696,41 +1696,62 @@ function abrirModalArquivo() {
 // ===============================================
 async function carregarMembros() {
     try {
-        // Buscar membros do banco de dados
-        const response = await fetch(`/api/turmas/${turmaId}/membros`);
+        console.log('🔍 Carregando membros da turma', turmaId);
+        
+        // Buscar membros do banco de dados via API
+        const response = await fetch(`/api/turmas/${turmaId}/membros`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
         
         if (!response.ok) {
-            throw new Error('Erro ao carregar membros');
+            console.error('Erro na resposta da API:', response.status, response.statusText);
+            throw new Error(`Erro ao carregar membros: ${response.status}`);
         }
         
         const dados = await response.json();
-        todosMembros = dados.membros || [];
+        console.log('✅ Membros recebidos do banco:', dados);
         
-        // Salvar no localStorage como cache
-        localStorage.setItem('membros_turma_' + turmaId, JSON.stringify(todosMembros));
+        // Processar membros vindos do banco
+        if (dados.membros && Array.isArray(dados.membros)) {
+            todosMembros = dados.membros.map(membro => ({
+                id: membro.id || membro._id || membro.usuario_id,
+                nome: membro.nome || membro.name || 'Nome não disponível',
+                email: membro.email || `${(membro.nome || 'usuario').toLowerCase().replace(/\s+/g, '.')}@escola.com`,
+                tipo: membro.tipo || membro.role || membro.papel || 'aluno',
+                avatar: membro.avatar || null,
+                matricula: membro.matricula || null
+            }));
+            
+            console.log('✅ Membros processados:', todosMembros.length, 'membros');
+        } else {
+            console.warn('⚠️ Formato de dados inesperado, usando array vazio');
+            todosMembros = [];
+        }
         
         renderizarMembros();
-    } catch (error) {
-        console.error('Erro ao carregar membros:', error);
         
-        // Tentar carregar do cache em caso de erro
-        const membrosCached = localStorage.getItem('membros_turma_' + turmaId);
-        if (membrosCached) {
-            todosMembros = JSON.parse(membrosCached);
-            renderizarMembros();
-        } else {
-            // Dados de fallback apenas para demonstração
-            todosMembros = [
-                { id: 'prof1', nome: 'Prof. João Silva', email: 'joao.silva@escola.com', tipo: 'professor', avatar: '👨‍🏫' },
-                { id: '1', nome: 'Ana Carolina Santos', email: 'ana.santos@aluno.com', tipo: 'aluno', avatar: '👩‍🎓' }
-            ];
-            renderizarMembros();
+    } catch (error) {
+        console.error('❌ Erro ao carregar membros:', error);
+        
+        // Exibir mensagem de erro no UI
+        const container = document.getElementById('conteudoMembros');
+        if (container) {
+            container.innerHTML = `
+                <div style="padding: 20px;">
+                    <div class="mensagem-vazia">
+                        ⚠️ Erro ao carregar membros da turma.<br>
+                        <small>Detalhes: ${error.message}</small><br><br>
+                        <button onclick="carregarMembros()" class="btn-criar-atividade">
+                            🔄 Tentar Novamente
+                        </button>
+                    </div>
+                </div>
+            `;
         }
     }
-}
-
-function salvarMembros() {
-    localStorage.setItem('membros_turma_' + turmaId, JSON.stringify(todosMembros));
 }
 
 function renderizarMembros() {

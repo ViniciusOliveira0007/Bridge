@@ -21,6 +21,9 @@ import {
   listarAtividadesAluno
 } from "./controllers/atividadeController";
 
+// Controlador de turmas (NOVO)
+import { getMembros } from "./controllers/turmaController";
+
 const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
@@ -131,6 +134,11 @@ app.get("/api/atividades/turma/:turmaId", listarAtividadesPorTurma);
 app.get("/api/atividades/aluno/:alunoId", listarAtividadesAluno);
 app.get("/api/atividades/:id", buscarAtividade);
 app.post("/api/atividades/:id/entregar", entregarAtividade);
+
+// ========================================
+// ROTAS DE TURMAS (NOVO)
+// ========================================
+app.get("/api/turmas/:turmaId/membros", getMembros);
 
 // ========================================
 // PLACEHOLDERS
