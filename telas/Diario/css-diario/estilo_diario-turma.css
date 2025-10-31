@@ -1,68 +1,123 @@
 .bloco-tabela {
-            padding: 20px;
-            overflow-x: auto;
-        }
-        
-        .tabela {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 16px;
-            min-width: 800px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .tabela th, .tabela td {
-            padding: 16px 20px;
-            text-align: left;
-            border-bottom: 1px solid #ffefef;
-        }
-        
-        .titulo-guia {
-            background-color: #cb0b0b;
-            color: white;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-            position: sticky;
-            top: 0;
-        }
-        
-        .tabela tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        
-        .tabela tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .tabela tr:hover {
-            background-color: #f1f3f5;
-            
-        }
-        
-        .tabela td {
-            color: #333;
-            font-weight: 500;
-        }
-        
-        .tabela a {
-            color: #cb0b0b;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 4px;
-            background-color: rgba(203, 11, 11, 0.1);
-            display: inline-block;
-            
-        }
-        
-        .tabela a:hover {
-            background-color: #cb0b0b;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(203, 11, 11, 0.2);
-        }
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    min-width: 800px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabela th, .tabela td {
+    border: #dadada solid 1px;
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ffefef;
+}
+
+.titulo-guia {
+    background-color: #cb0b0b;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+}
+
+.tabela tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.tabela tr:last-child td {
+    border-bottom: none;
+}
+
+.tabela tr:hover {
+    background-color: #f1f3f5;
+    
+}
+
+.tabela td {
+    color: #333;
+    font-weight: 500;
+}
+
+.tabela a {
+    color: #cb0b0b;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: rgba(203, 11, 11, 0.1);
+    display: inline-block;
+    
+}
+
+.tabela a:hover {
+    background-color: #cb0b0b;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(203, 11, 11, 0.2);
+}
+
+
+.bloco-de-conteudo-turma{
+flex: 1;
+padding: 20px;
+background-color: #161616;
+min-height: calc(100vh - 100px);
+}
+
+.sub-guia-diario-turma{
+justify-content: center;
+align-content: center;
+height: 95%;
+display: flex;
+flex-direction: column;
+gap: 20px; 
+padding: 15px; 
+background-color: #161616;
+border-radius: 10px;
+margin-top: 20px;
+border: #3f3f3f solid 1px;
+}
+
+.btn-sub-guia-turma{
+color: #fff;
+font-weight: normal;
+text-decoration: none;
+background: none;
+border-bottom: #3f3f3f solid 1px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
+margin-bottom: 10px;
+text-align: left;
+padding: 10px;
+padding-left: 30px;
+transition: 0.1s ease;
+}
+
+.btn-sub-guia-turma:hover{
+padding: 15px;
+background-color: #3f3f3f;
+border-radius: 15px;
+padding-left: 40px;
+padding-top: 15px;
+padding-bottom: 15px;
+margin: 0 20px 0 20px;
+width: auto;
+height: auto;
+font-size: 18px;
+text-align: justify;
+color: #fff;
+transform: scale(1.02);
+}
