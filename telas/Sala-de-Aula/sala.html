@@ -5,9 +5,183 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sala de Aula</title>
     <link rel="stylesheet" href="./css-Sala/estilo_sala.css">
+    <style>
+        .btn-adicionar-sala {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-adicionar-sala:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.5);
+        }
+        
+        .btn-adicionar-sala:active {
+            transform: translateY(-1px);
+        }
+        
+        .modal-sala {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-sala.ativo {
+            display: flex;
+        }
+        
+        .modal-conteudo-sala {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-conteudo-sala h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+        
+        .form-group-sala {
+            margin-bottom: 20px;
+        }
+        
+        .form-group-sala label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .form-group-sala input,
+        .form-group-sala select,
+        .form-group-sala textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-group-sala input:focus,
+        .form-group-sala select:focus,
+        .form-group-sala textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group-sala textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .modal-botoes-sala {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .modal-botoes-sala button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-cancelar-sala {
+            background: #f5f5f5;
+            color: #666;
+        }
+        
+        .btn-cancelar-sala:hover {
+            background: #e0e0e0;
+        }
+        
+        .btn-criar-sala {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-criar-sala:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading-spinner.ativo {
+            display: block;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Navegação existente -->
     <nav class="navegacao">
         <div class="menu">
             <div class="menu-1">
@@ -23,7 +197,7 @@
                 <img src="./imagens-sala/configuracao.svg" alt="botão de configuração" class="btn-config">
                 <img src="./imagens-sala/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil">
                 
-                <!-- Dropdown de Notificações -->
+                <!-- Dropdowns existentes -->
                 <div class="dropdown-notificacoes" id="dropdownNotif">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
@@ -37,7 +211,6 @@
                     </div>
                 </div>
 
-                <!-- Dropdown de Configurações -->
                 <div class="dropdown-configuracoes" id="dropdownConfig">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
@@ -47,25 +220,22 @@
                         <button class="btn-fechar" data-action="fechar-config">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
-                        <button class="opcao-item" data-action="abrir-tema">Tema</button>
-                        <button class="opcao-item" data-action="abrir-acessibilidade">Acessibilidade</button>
-                        <button class="opcao-item" data-action="abrir-opcoes-avancadas">Opções avançadas</button>
+                        <button class="opcao-item" data-action="configuracoes">Configurações</button>
+                        <button class="opcao-item" data-action="ajuda">Ajuda</button>
                     </div>
                 </div>
 
-                <!-- Dropdown de Perfil -->
                 <div class="dropdown-perfil" id="dropdownPerfil">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
                             <img src="./imagens-sala/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
-                            <span>Olá, Rodrigo</span>
+                            <span id="nomeUsuarioPerfil">Olá, Usuário</span>
                         </div>
                         <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
-                        <button class="opcao-item" data-action="abrir-seu-perfil">Seu perfil</button>
-                        <button class="opcao-item" data-action="abrir-privacidade">Privacidade</button>
-                        <button class="opcao-item" data-action="abrir-ajuda-recursos">Ajuda e Recursos</button>
+                        <button class="opcao-item" data-action="perfil">Seu perfil</button>
+                        <button class="opcao-item" data-action="privacidade">Privacidade</button>
                         <button class="opcao-item sair-conta" data-action="sair-da-conta">Sair da Conta</button>
                     </div>
                 </div>
@@ -87,309 +257,298 @@
             <img src="./imagens-sala/Banner_Titulo_seção_Sala.svg" alt="" class="banner-componentes"> 
         </div>
         
+        <!-- Container dinâmico de cursos -->
         <div class="container-principal-cursos">
-            <!-- Coluna esquerda de cursos -->
-            <div class="coluna-esquerda-cursos">
-                <button class="botao-curso" data-curso="ads">
-                    <div class="conteudo-botao-curso">
-                        <div class="area-interna-curso">
-                            <div class="sigla-curso">
-                                <div class="texto-sigla">ADS</div>
-                            </div>
-                            <div class="area-nome-curso">
-                                <div class="texto-nome-curso">
-                                    ANÁLISE E DESENVOLVIMENTO DE SISTEMAS
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="descricao-deslizante">
-                        Curso focado em desenvolvimento de software e análise de sistemas
-                    </div>
-                </button>
-
-                <button class="botao-curso" data-curso="gti">
-                    <div class="conteudo-botao-curso">
-                        <div class="area-interna-curso">
-                            <div class="sigla-curso">
-                                <div class="texto-sigla">GTI</div>
-                            </div>
-                            <div class="area-nome-curso">
-                                <div class="texto-nome-curso">
-                                    GESTÃO DA TECNOLOGIA DA INFORMAÇÃO
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="descricao-deslizante">
-                        Curso voltado para gestão e administração de recursos de TI
-                    </div>
-                </button>
-
-                <button class="botao-curso" data-curso="redes">
-                    <div class="conteudo-botao-curso">
-                        <div class="area-interna-curso">
-                            <div class="sigla-curso">
-                                <div class="texto-sigla">RC</div>
-                            </div>
-                            <div class="area-nome-curso">
-                                <div class="texto-nome-curso">
-                                    REDES DE COMPUTADORES
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="descricao-deslizante">
-                        Especialização em infraestrutura e segurança de redes
-                    </div>
-                </button>
-
-                <button class="botao-curso" data-curso="si">
-                    <div class="conteudo-botao-curso">
-                        <div class="area-interna-curso">
-                            <div class="sigla-curso">
-                                <div class="texto-sigla">SI</div>
-                            </div>
-                            <div class="area-nome-curso">
-                                <div class="texto-nome-curso">
-                                    SISTEMAS PARA INTERNET
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="descricao-deslizante">
-                        Desenvolvimento de aplicações e sistemas web
-                    </div>
-                </button>
+            <div class="coluna-esquerda-cursos" id="colunaEsquerda">
+                <!-- Cursos serão carregados dinamicamente -->
             </div>
 
-            <!-- Coluna direita de cursos -->
-            <div class="coluna-direita-cursos">
-                <button class="botao-curso" data-curso="cc">
-                    <div class="conteudo-botao-curso">
-                        <div class="area-interna-curso">
-                            <div class="sigla-curso">
-                                <div class="texto-sigla">CC</div>
-                            </div>
-                            <div class="area-nome-curso">
-                                <div class="texto-nome-curso">
-                                    CIÊNCIA DA COMPUTAÇÃO
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="descricao-deslizante">
-                        Bacharelado completo em computação e programação
-                    </div>
-                </button>
-
-                <button class="botao-curso" data-curso="es">
-                    <div class="conteudo-botao-curso">
-                        <div class="area-interna-curso">
-                            <div class="sigla-curso">
-                                <div class="texto-sigla">ES</div>
-                            </div>
-                            <div class="area-nome-curso">
-                                <div class="texto-nome-curso">
-                                    ENGENHARIA DE SOFTWARE
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="descricao-deslizante">
-                        Engenharia focada em desenvolvimento de software robusto
-                    </div>
-                </button>
-
-                <button class="botao-curso" data-curso="seginfo">
-                    <div class="conteudo-botao-curso">
-                        <div class="area-interna-curso">
-                            <div class="sigla-curso">
-                                <div class="texto-sigla">SEG</div>
-                            </div>
-                            <div class="area-nome-curso">
-                                <div class="texto-nome-curso">
-                                    SEGURANÇA DA INFORMAÇÃO
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="descricao-deslizante">
-                        Especialização em proteção e segurança de dados
-                    </div>
-                </button>
-
-                <button class="botao-curso" data-curso="bd">
-                    <div class="conteudo-botao-curso">
-                        <div class="area-interna-curso">
-                            <div class="sigla-curso">
-                                <div class="texto-sigla">BD</div>
-                            </div>
-                            <div class="area-nome-curso">
-                                <div class="texto-nome-curso">
-                                    BANCO DE DADOS
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="descricao-deslizante">
-                        Gerenciamento e administração de bases de dados
-                    </div>
-                </button>
+            <div class="coluna-direita-cursos" id="colunaDireita">
+                <!-- Cursos serão carregados dinamicamente -->
             </div>
         </div>
     </main>
 
+    <!-- Botão Adicionar Sala (só aparece para professores) -->
+    <button class="btn-adicionar-sala" id="btnAdicionarSala" style="display: none;">
+        ➕ Adicionar Sala
+    </button>
+
+    <!-- Modal Adicionar Sala -->
+    <div class="modal-sala" id="modalAdicionarSala">
+        <div class="modal-conteudo-sala">
+            <h2>➕ Criar Nova Sala de Aula</h2>
+            
+            <form id="formAdicionarSala">
+                <div class="form-group-sala">
+                    <label for="nomeSala">Nome da Sala *</label>
+                    <input type="text" id="nomeSala" placeholder="Ex: Sistemas Embarcados - 3º Semestre" required>
+                </div>
+
+                <div class="form-group-sala">
+                    <label for="siglaSala">Sigla *</label>
+                    <input type="text" id="siglaSala" placeholder="Ex: ADS, GTI, RC" maxlength="4" required>
+                </div>
+
+                <div class="form-group-sala">
+                    <label for="cursoSala">Curso *</label>
+                    <select id="cursoSala" required>
+                        <option value="">Selecione um curso</option>
+                    </select>
+                </div>
+
+                <div class="form-group-sala">
+                    <label for="descricaoSala">Descrição</label>
+                    <textarea id="descricaoSala" placeholder="Descreva o conteúdo da sala..."></textarea>
+                </div>
+
+                <div class="loading-spinner" id="loadingCriarSala">
+                    <div class="spinner"></div>
+                    <p>Criando sala...</p>
+                </div>
+
+                <div class="modal-botoes-sala">
+                    <button type="button" class="btn-cancelar-sala" id="btnCancelarSala">Cancelar</button>
+                    <button type="submit" class="btn-criar-sala">✅ Criar Sala</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // Aguarda o DOM carregar completamente
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // Elementos dos dropdowns
-            const dropdownNotif = document.getElementById('dropdownNotif');
-            const dropdownConfig = document.getElementById('dropdownConfig');
-            const dropdownPerfil = document.getElementById('dropdownPerfil');
-            
-            // Botões que abrem os dropdowns
-            const btnNotif = document.querySelector('.btn-notificao-nav');
-            const btnConfig = document.querySelector('.btn-config');
-            const btnPerfil = document.querySelector('.foto-de-perfil');
-            
-            // Funções para fechar dropdowns
-            function fecharDropdownNotif() {
-                dropdownNotif.classList.remove('ativo');
-            }
-            
-            function fecharDropdownConfig() {
-                dropdownConfig.classList.remove('ativo');
-            }
-            
-            function fecharDropdownPerfil() {
-                dropdownPerfil.classList.remove('ativo');
-            }
-            
-            // Event listeners para abrir dropdowns
-            btnNotif.addEventListener('click', function() {
-                fecharDropdownConfig();
-                fecharDropdownPerfil();
-                dropdownNotif.classList.toggle('ativo');
-            });
-            
-            btnConfig.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownPerfil();
-                dropdownConfig.classList.toggle('ativo');
-            });
-            
-            btnPerfil.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownConfig();
-                dropdownPerfil.classList.toggle('ativo');
-            });
-            
-            // Event listeners para botões dentro dos dropdowns
-            document.querySelectorAll('[data-action]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const action = this.getAttribute('data-action');
-                    
-                    switch(action) {
-                        case 'fechar-notif':
-                            fecharDropdownNotif();
-                            break;
-                        case 'fechar-config':
-                            fecharDropdownConfig();
-                            break;
-                        case 'fechar-perfil':
-                            fecharDropdownPerfil();
-                            break;
-                        case 'abrir-tema':
-                            alert('Funcionalidade de Tema será implementada');
-                            fecharDropdownConfig();
-                            break;
-                        case 'abrir-acessibilidade':
-                            alert('Funcionalidade de Acessibilidade será implementada');
-                            fecharDropdownConfig();
-                            break;
-                        case 'abrir-opcoes-avancadas':
-                            alert('Funcionalidade de Opções Avançadas será implementada');
-                            fecharDropdownConfig();
-                            break;
-                        case 'abrir-seu-perfil':
-                            alert('Redirecionando para Seu Perfil');
-                            fecharDropdownPerfil();
-                            break;
-                        case 'abrir-privacidade':
-                            alert('Abrindo configurações de Privacidade');
-                            fecharDropdownPerfil();
-                            break;
-                        case 'abrir-ajuda-recursos':
-                            alert('Abrindo Ajuda e Recursos');
-                            fecharDropdownPerfil();
-                            break;
-                        case 'sair-da-conta':
-                            if (confirm('Tem certeza que deseja sair da conta?')) {
-                                alert('Saindo da conta...');
-                                window.location.href = '/home.html';
-                            }
-                            fecharDropdownPerfil();
-                            break;
-                    }
+        const userId = localStorage.getItem('userId') || '1';
+        const userName = localStorage.getItem('userName') || 'Usuário';
+        const userRole = localStorage.getItem('userRole') || 'aluno';
+
+        console.log('📊 Usuário:', userName, '| Role:', userRole);
+
+        // Atualizar nome do usuário
+        document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${userName}`;
+
+        // Mostrar botão de adicionar sala apenas para professores
+        if (userRole === 'professor') {
+            document.getElementById('btnAdicionarSala').style.display = 'flex';
+        }
+
+        // Carregar cursos disponíveis
+        async function carregarCursos() {
+            try {
+                const response = await fetch('/api/cursos');
+                if (!response.ok) throw new Error('Erro ao carregar cursos');
+                
+                const dados = await response.json();
+                const cursos = dados.cursos || dados;
+                
+                const selectCurso = document.getElementById('cursoSala');
+                selectCurso.innerHTML = '<option value="">Selecione um curso</option>';
+                
+                cursos.forEach(curso => {
+                    const option = document.createElement('option');
+                    option.value = curso.id;
+                    option.textContent = `${curso.nome} (${curso.sigla})`;
+                    selectCurso.appendChild(option);
                 });
-            });
+            } catch (error) {
+                console.error('Erro ao carregar cursos:', error);
+                // Cursos padrão de fallback
+                const selectCurso = document.getElementById('cursoSala');
+                selectCurso.innerHTML = `
+                    <option value="">Selecione um curso</option>
+                    <option value="1">Análise e Desenvolvimento de Sistemas (ADS)</option>
+                    <option value="2">Gestão da Tecnologia da Informação (GTI)</option>
+                    <option value="3">Redes de Computadores (RC)</option>
+                `;
+            }
+        }
+
+        // Carregar turmas/salas
+        async function carregarSalas() {
+            try {
+                console.log('🔄 Carregando salas...');
+                
+                const response = await fetch('/api/turmas');
+                if (!response.ok) throw new Error('Erro ao carregar salas');
+                
+                const dados = await response.json();
+                const turmas = dados.turmas || dados;
+                
+                console.log('✅ Salas carregadas:', turmas.length);
+                
+                renderizarSalas(turmas);
+            } catch (error) {
+                console.error('❌ Erro ao carregar salas:', error);
+                // Usar salas padrão
+                renderizarSalasPadrao();
+            }
+        }
+
+        function renderizarSalas(turmas) {
+            const colunaEsquerda = document.getElementById('colunaEsquerda');
+            const colunaDireita = document.getElementById('colunaDireita');
             
-            // Fechar dropdowns ao clicar fora
-            document.addEventListener('click', function(event) {
-                if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                    !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                    !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
-                    
-                    fecharDropdownNotif();
-                    fecharDropdownConfig();
-                    fecharDropdownPerfil();
+            colunaEsquerda.innerHTML = '';
+            colunaDireita.innerHTML = '';
+            
+            turmas.forEach((turma, index) => {
+                const card = criarCardSala(turma);
+                
+                // Alternar entre esquerda e direita
+                if (index % 2 === 0) {
+                    colunaEsquerda.innerHTML += card;
+                } else {
+                    colunaDireita.innerHTML += card;
                 }
             });
             
-            // Event listeners para os botões de cursos
-            document.querySelectorAll('.botao-curso').forEach(function(botao) {
+            // Adicionar event listeners
+            document.querySelectorAll('.botao-curso').forEach(botao => {
                 botao.addEventListener('click', function() {
-                    const curso = this.getAttribute('data-curso');
-                    
-                    switch(curso) {
-                        case 'ads':
-                            alert('Redirecionando para Análise e Desenvolvimento de Sistemas');
-                            window.location.href = './cursos/componente-ads.html';
-                            break;
-                        case 'gti':
-                            alert('Redirecionando para Gestão da Tecnologia da Informação');
-                            break;
-                        case 'redes':
-                            alert('Redirecionando para Redes de Computadores');
-                            break;
-                        case 'si':
-                            alert('Redirecionando para Sistemas para Internet');
-                            break;
-                        case 'cc':
-                            alert('Redirecionando para Ciência da Computação');
-                            break;
-                        case 'es':
-                            alert('Redirecionando para Engenharia de Software');
-                            break;
-                        case 'seginfo':
-                            alert('Redirecionando para Segurança da Informação');
-                            break;
-                        case 'bd':
-                            alert('Redirecionando para Banco de Dados');
-                            break;
-                    }
-                });
-                
-                // Acessibilidade via teclado
-                botao.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        this.click();
-                    }
+                    const turmaId = this.getAttribute('data-turma-id');
+                    window.location.href = `./cursos/componente-ads.html?turmaId=${turmaId}`;
                 });
             });
+        }
+
+        function criarCardSala(turma) {
+            const sigla = turma.curso?.sigla || turma.sigla || 'SALA';
+            const nome = turma.nome || 'Sala sem nome';
+            const descricao = turma.descricao || 'Sem descrição disponível';
+            
+            return `
+                <button class="botao-curso" data-turma-id="${turma.id}">
+                    <div class="conteudo-botao-curso">
+                        <div class="area-interna-curso">
+                            <div class="sigla-curso">
+                                <div class="texto-sigla">${sigla}</div>
+                            </div>
+                            <div class="area-nome-curso">
+                                <div class="texto-nome-curso">${nome}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="descricao-deslizante">${descricao}</div>
+                </button>
+            `;
+        }
+
+        function renderizarSalasPadrao() {
+            const salas = [
+                { id: 1, sigla: 'ADS', nome: 'ANÁLISE E DESENVOLVIMENTO DE SISTEMAS', descricao: 'Curso focado em desenvolvimento de software' },
+                { id: 2, sigla: 'GTI', nome: 'GESTÃO DA TECNOLOGIA DA INFORMAÇÃO', descricao: 'Gestão e administração de recursos de TI' },
+                { id: 3, sigla: 'RC', nome: 'REDES DE COMPUTADORES', descricao: 'Infraestrutura e segurança de redes' },
+                { id: 4, sigla: 'SI', nome: 'SISTEMAS PARA INTERNET', descricao: 'Desenvolvimento web' }
+            ];
+            
+            renderizarSalas(salas);
+        }
+
+        // Modal adicionar sala
+        const modal = document.getElementById('modalAdicionarSala');
+        const btnAdicionar = document.getElementById('btnAdicionarSala');
+        const btnCancelar = document.getElementById('btnCancelarSala');
+        const form = document.getElementById('formAdicionarSala');
+
+        btnAdicionar.addEventListener('click', () => {
+            modal.classList.add('ativo');
+            carregarCursos();
+        });
+
+        btnCancelar.addEventListener('click', () => {
+            modal.classList.remove('ativo');
+            form.reset();
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('ativo');
+                form.reset();
+            }
+        });
+
+        // Criar nova sala
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const loading = document.getElementById('loadingCriarSala');
+            loading.classList.add('ativo');
+            
+            const novaSala = {
+                nome: document.getElementById('nomeSala').value,
+                sigla: document.getElementById('siglaSala').value.toUpperCase(),
+                cursoId: parseInt(document.getElementById('cursoSala').value),
+                professorId: parseInt(userId),
+                descricao: document.getElementById('descricaoSala').value
+            };
+            
+            try {
+                const response = await fetch('/api/turmas', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(novaSala)
+                });
+                
+                if (!response.ok) throw new Error('Erro ao criar sala');
+                
+                const resultado = await response.json();
+                
+                alert('✅ Sala criada com sucesso!');
+                modal.classList.remove('ativo');
+                form.reset();
+                carregarSalas();
+                
+            } catch (error) {
+                console.error('Erro ao criar sala:', error);
+                alert('❌ Erro ao criar sala. Tente novamente.');
+            } finally {
+                loading.classList.remove('ativo');
+            }
+        });
+
+        // Dropdowns
+        const dropdownNotif = document.getElementById('dropdownNotif');
+        const dropdownConfig = document.getElementById('dropdownConfig');
+        const dropdownPerfil = document.getElementById('dropdownPerfil');
+        const btnNotif = document.querySelector('.btn-notificao-nav');
+        const btnConfig = document.querySelector('.btn-config');
+        const btnPerfil = document.querySelector('.foto-de-perfil');
+
+        btnNotif.addEventListener('click', () => {
+            dropdownConfig.classList.remove('ativo');
+            dropdownPerfil.classList.remove('ativo');
+            dropdownNotif.classList.toggle('ativo');
+        });
+
+        btnConfig.addEventListener('click', () => {
+            dropdownNotif.classList.remove('ativo');
+            dropdownPerfil.classList.remove('ativo');
+            dropdownConfig.classList.toggle('ativo');
+        });
+
+        btnPerfil.addEventListener('click', () => {
+            dropdownNotif.classList.remove('ativo');
+            dropdownConfig.classList.remove('ativo');
+            dropdownPerfil.classList.toggle('ativo');
+        });
+
+        document.querySelectorAll('[data-action]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                
+                if (action === 'fechar-notif') dropdownNotif.classList.remove('ativo');
+                if (action === 'fechar-config') dropdownConfig.classList.remove('ativo');
+                if (action === 'fechar-perfil') dropdownPerfil.classList.remove('ativo');
+                if (action === 'sair-da-conta') {
+                    if (confirm('Tem certeza que deseja sair?')) {
+                        localStorage.clear();
+                        window.location.href = '/home.html';
+                    }
+                }
+            });
+        });
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarSalas();
         });
     </script>
 </body>

@@ -1,0 +1,296 @@
+{
+  "dataBackup": "2025-10-30T20:18:54.915Z",
+  "atividades": [
+    {
+      "id": 1,
+      "titulo": "Relatório Inicial do Projeto",
+      "prazo": "2025-10-25T00:24:59.811Z",
+      "descricao": "Entregar a primeira versão do documento de escopo e cronograma.",
+      "entregue": false,
+      "arquivo": {
+        "nome": "modelo-relatorio.docx"
+      },
+      "entregas": [
+        {
+          "alunoId": "2",
+          "alunoNome": "Rodrigo Santos",
+          "data": "2025-10-23T22:19:59.077Z",
+          "comentario": "tarefa muito fácil",
+          "arquivo": {
+            "nome": "Rodrigo.txt"
+          },
+          "nota": 10,
+          "feedback": ""
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "titulo": "Pesquisa sobre Microcontroladores",
+      "prazo": "2025-10-22T00:24:59.811Z",
+      "descricao": "Pesquisar e resumir as diferenças entre PIC, AVR e ARM.",
+      "entregue": false,
+      "arquivo": {
+        "nome": "guia-pesquisa.pdf"
+      },
+      "entregas": [
+        {
+          "alunoId": "2",
+          "alunoNome": "Rodrigo Santos",
+          "data": "2025-10-23T22:20:41.869Z",
+          "comentario": "aqui",
+          "arquivo": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "titulo": "Exercício de Programação C",
+      "prazo": "2025-10-18T00:24:59.811Z",
+      "descricao": "Implementar um contador binário em C.",
+      "entregue": true,
+      "arquivo": null,
+      "entregas": [
+        {
+          "alunoId": "1",
+          "alunoNome": "Vinicius",
+          "data": "2025-10-17T00:24:59.811Z",
+          "comentario": "Atividade concluída conforme solicitado.",
+          "arquivo": {
+            "nome": "contador.c"
+          },
+          "nota": 10,
+          "feedback": "muito top"
+        },
+        {
+          "alunoId": "2",
+          "alunoNome": "Rodrigo Santos",
+          "data": "2025-10-23T22:21:17.725Z",
+          "comentario": "imagem",
+          "arquivo": {
+            "nome": "1.png"
+          },
+          "nota": 10,
+          "feedback": "ok"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "titulo": "Apresentação Final do Módulo",
+      "prazo": "2025-10-30T00:24:59.811Z",
+      "descricao": "Criar slides e ensaiar a apresentação sobre o projeto final.",
+      "entregue": false,
+      "arquivo": null,
+      "entregas": []
+    },
+    {
+      "id": 1761179135583,
+      "titulo": "dfdsfdsf",
+      "descricao": "dfdsgfdg",
+      "prazo": "2025-10-23T01:25:00.000Z",
+      "entregue": false,
+      "arquivo": null,
+      "entregas": [
+        {
+          "alunoId": "2",
+          "alunoNome": "Rodrigo Santos",
+          "data": "2025-10-23T22:20:30.892Z",
+          "comentario": "aqui",
+          "arquivo": null
+        }
+      ]
+    },
+    {
+      "id": 1761258605670,
+      "titulo": "sei lla",
+      "descricao": "oioioioioioi",
+      "prazo": "2025-10-26T02:32:00.000Z",
+      "arquivo": {
+        "nome": "8.png"
+      },
+      "entregas": [
+        {
+          "alunoId": "2",
+          "alunoNome": "Rodrigo Santos",
+          "data": "2025-10-23T22:31:43.269Z",
+          "comentario": "ficou supimpa",
+          "arquivo": {
+            "nome": "2.1.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1761505328230,
+      "titulo": "tarefa 8",
+      "descricao": "tarefa para entregar solo",
+      "prazo": "2025-11-06T21:07:00.000Z",
+      "arquivo": {
+        "nome": "7.1.png"
+      },
+      "entregas": []
+    },
+    {
+      "id": 1761778092060,
+      "titulo": "teste 10",
+      "descricao": "pega a programação",
+      "prazo": "2025-10-31T03:52:00.000Z",
+      "arquivo": {
+        "nome": "Diagrama TCC - Sala de Aula.jpg"
+      },
+      "entregas": [
+        {
+          "alunoId": "2",
+          "alunoNome": "Rodrigo Santos",
+          "data": "2025-10-29T22:49:32.996Z",
+          "comentario": "feito",
+          "arquivo": null,
+          "nota": 2,
+          "feedback": "tá um lixo"
+        }
+      ]
+    }
+  ],
+  "postagens": [
+    {
+      "id": 1,
+      "titulo": "Bem-vindos ao curso!",
+      "conteudo": "Sejam bem-vindos à disciplina de Sistemas Embarcados. Estou animado para trabalhar com vocês neste semestre!",
+      "autor": "Prof. João Silva",
+      "autorId": "prof1",
+      "data": "2025-10-19T22:40:35.053Z",
+      "comentarios": []
+    },
+    {
+      "id": 1761345813287,
+      "titulo": "teste",
+      "conteudo": "Testando postagem",
+      "autor": "Vinicius",
+      "autorId": "1",
+      "data": "2025-10-24T22:43:33.287Z",
+      "comentarios": []
+    },
+    {
+      "id": 1761505183312,
+      "titulo": "teste 2",
+      "conteudo": "sei lá",
+      "autor": "Vinicius",
+      "autorId": "1",
+      "data": "2025-10-26T18:59:43.312Z",
+      "comentarios": []
+    },
+    {
+      "id": 1761508995863,
+      "titulo": "teste3",
+      "conteudo": "testando imagem",
+      "autor": "Vinicius",
+      "autorId": "1",
+      "data": "2025-10-26T20:03:15.863Z",
+      "imagem": {
+        "nome": "2.1.png",
+        "url": "blob:http://localhost:3000/cd710e84-ffc1-4da5-9704-9b79d533b2d7"
+      },
+      "comentarios": []
+    }
+  ],
+  "arquivos": [
+    {
+      "id": 1,
+      "nome": "Ementa_Sistemas_Embarcados.pdf",
+      "tipo": "pdf",
+      "tamanho": "2.3 MB",
+      "dataUpload": "2025-10-14T22:40:35.056Z",
+      "autor": "Prof. João Silva"
+    },
+    {
+      "id": 2,
+      "nome": "Slides_Aula_01.pptx",
+      "tipo": "pptx",
+      "tamanho": "5.1 MB",
+      "dataUpload": "2025-10-16T22:40:35.056Z",
+      "autor": "Prof. João Silva"
+    },
+    {
+      "id": 1761345848822,
+      "nome": "2.1.png",
+      "tipo": "png",
+      "tamanho": "0.0 MB",
+      "dataUpload": "2025-10-24T22:44:08.822Z",
+      "autor": "Vinicius"
+    },
+    {
+      "id": 1761505217887,
+      "nome": "8.1.png",
+      "tipo": "png",
+      "tamanho": "0.0 MB",
+      "dataUpload": "2025-10-26T19:00:17.887Z",
+      "autor": "Vinicius"
+    }
+  ],
+  "membros": [
+    {
+      "id": "prof1",
+      "nome": "Prof. João Silva",
+      "email": "joao.silva@escola.com",
+      "tipo": "professor",
+      "avatar": "👨‍🏫"
+    },
+    {
+      "id": "1",
+      "nome": "Ana Carolina Santos",
+      "email": "ana.santos@aluno.com",
+      "tipo": "aluno",
+      "avatar": "👩‍🎓"
+    },
+    {
+      "id": "2",
+      "nome": "Bruno Henrique Lima",
+      "email": "bruno.lima@aluno.com",
+      "tipo": "aluno",
+      "avatar": "👨‍🎓"
+    },
+    {
+      "id": "3",
+      "nome": "Carlos Eduardo Souza",
+      "email": "carlos.souza@aluno.com",
+      "tipo": "aluno",
+      "avatar": "👨‍🎓"
+    },
+    {
+      "id": "4",
+      "nome": "Daniela Ferreira Costa",
+      "email": "daniela.costa@aluno.com",
+      "tipo": "aluno",
+      "avatar": "👩‍🎓"
+    },
+    {
+      "id": "5",
+      "nome": "Eduardo Alves Pereira",
+      "email": "eduardo.pereira@aluno.com",
+      "tipo": "aluno",
+      "avatar": "👨‍🎓"
+    },
+    {
+      "id": "6",
+      "nome": "Fernanda Silva Oliveira",
+      "email": "fernanda.oliveira@aluno.com",
+      "tipo": "aluno",
+      "avatar": "👩‍🎓"
+    },
+    {
+      "id": "7",
+      "nome": "Gabriel Rodrigues Martins",
+      "email": "gabriel.martins@aluno.com",
+      "tipo": "aluno",
+      "avatar": "👨‍🎓"
+    },
+    {
+      "id": "8",
+      "nome": "Helena Costa Ribeiro",
+      "email": "helena.ribeiro@aluno.com",
+      "tipo": "aluno",
+      "avatar": "👩‍🎓"
+    }
+  ]
+}

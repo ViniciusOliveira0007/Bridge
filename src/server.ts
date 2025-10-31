@@ -1,5 +1,6 @@
 import multer from "multer";
 import path from "path";
+import * as fs from 'fs';
 import { PrismaClient } from "@prisma/client";
 import express from "express";
 import cors from "cors";
@@ -21,9 +22,21 @@ import {
   listarAtividadesAluno
 } from "./controllers/atividadeController";
 
+// Controlador de turmas
+import { getMembros, getTurmas, createTurma, getCursos } from "./controllers/turmaController";
+
 const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
+
+// ========================================
+// CRIAR PASTA UPLOADS
+// ========================================
+const uploadsDir = path.join(__dirname, '..', 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log('📁 Pasta uploads criada');
+}
 
 // ========================================
 // RATE LIMITING
@@ -46,6 +59,7 @@ app.use(
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrcAttr: ["'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'"],
         imgSrc: ["'self'", "data:", "https:", "http://localhost:3000", "blob:"],
       },
@@ -131,6 +145,14 @@ app.get("/api/atividades/turma/:turmaId", listarAtividadesPorTurma);
 app.get("/api/atividades/aluno/:alunoId", listarAtividadesAluno);
 app.get("/api/atividades/:id", buscarAtividade);
 app.post("/api/atividades/:id/entregar", entregarAtividade);
+
+// ========================================
+// ROTAS DE TURMAS E CURSOS
+// ========================================
+app.get("/api/turmas", getTurmas);
+app.post("/api/turmas", createTurma);
+app.get("/api/turmas/:turmaId/membros", getMembros);
+app.get("/api/cursos", getCursos);
 
 // ========================================
 // PLACEHOLDERS

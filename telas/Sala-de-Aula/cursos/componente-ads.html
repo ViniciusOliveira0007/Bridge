@@ -343,8 +343,25 @@ function inicializarDropdowns() {
                     }
                     fecharDropdownPerfil();
                     break;
+                case 'perfil':
+                    fecharDropdownPerfil();
+                    // Redirecionar para página de perfil quando estiver pronta
+                    console.log('📝 Abrir perfil do usuário');
+                    break;
+                case 'configuracoes':
+                    fecharDropdownConfig();
+                    console.log('⚙️ Abrir configurações');
+                    break;
+                case 'notificacoes':
+                    fecharDropdownNotif();
+                    console.log('🔔 Ver todas as notificações');
+                    break;
+                case 'ajuda':
+                    fecharDropdownConfig();
+                    console.log('❓ Abrir central de ajuda');
+                    break;
                 default:
-                    alert('Funcionalidade em desenvolvimento');
+                    console.log('Funcionalidade:', action);
                     fecharDropdownNotif();
                     fecharDropdownConfig();
                     fecharDropdownPerfil();
@@ -445,15 +462,43 @@ function adicionarBotaoCriar() {
         
         const btnCriar = document.getElementById('btnCriarAtividade');
         if (btnCriar) {
-            btnCriar.addEventListener('click', abrirModal);
+            btnCriar.addEventListener('click', () => abrirModal());
         }
     }
 }
 
-function abrirModal() {
+function abrirModal(atividadeId = null) {
     const modal = document.getElementById('modalCriar');
-    if (modal) modal.classList.add('ativo');
-    limparFormulario();
+    if (!modal) return;
+    
+    const titulo = document.getElementById('tituloModal');
+    const btnSalvar = modal.querySelector('.btn-salvar');
+    
+    if (atividadeId) {
+        // Modo edição
+        const atividade = todasAtividades.find(a => a.id === atividadeId);
+        if (!atividade) return;
+        
+        if (titulo) titulo.textContent = '✏️ Editar Atividade';
+        if (btnSalvar) btnSalvar.textContent = '💾 Salvar Alterações';
+        
+        document.getElementById('tituloAtividade').value = atividade.titulo;
+        document.getElementById('descricaoAtividade').value = atividade.descricao;
+        
+        const prazoDate = new Date(atividade.prazo);
+        const prazoFormatado = prazoDate.toISOString().slice(0, 16);
+        document.getElementById('dataEntregaAtividade').value = prazoFormatado;
+        
+        modal.dataset.editandoId = atividadeId;
+    } else {
+        // Modo criação
+        if (titulo) titulo.textContent = '➕ Criar Nova Atividade';
+        if (btnSalvar) btnSalvar.textContent = '✅ Criar Atividade';
+        limparFormulario();
+        delete modal.dataset.editandoId;
+    }
+    
+    modal.classList.add('ativo');
 }
 
 function fecharModal() {
@@ -511,7 +556,6 @@ function inicializarModal() {
             }
         });
         
-        // Botão X do modal de detalhes
         const btnFecharX = modalDetalhes.querySelector('.btn-fechar-detalhes');
         if (btnFecharX) {
             btnFecharX.addEventListener('click', fecharDetalhes);
@@ -520,7 +564,6 @@ function inicializarModal() {
 }
 
 function inicializarFormularios() {
-    // Input de arquivo
     const arquivoInput = document.getElementById('arquivoAtividade');
     if (arquivoInput) {
         arquivoInput.addEventListener('change', function() {
@@ -542,22 +585,26 @@ function inicializarFormularios() {
         });
     }
     
-    // Botão remover arquivo no modal criar
     const btnRemoverArq = document.querySelector('#arquivoInfo .btn-remover-arquivo');
     if (btnRemoverArq) {
         btnRemoverArq.addEventListener('click', removerArquivo);
     }
     
-    // Formulário de criação
     const formCriar = document.getElementById('formCriarAtividade');
     if (formCriar) {
         formCriar.addEventListener('submit', function(e) {
             e.preventDefault();
-            criarNovaAtividade();
+            const modal = document.getElementById('modalCriar');
+            const editandoId = modal.dataset.editandoId;
+            
+            if (editandoId) {
+                editarAtividade(parseInt(editandoId));
+            } else {
+                criarNovaAtividade();
+            }
         });
     }
     
-    // Botões de cancelar
     const btnCancelar = document.querySelector('#modalCriar .btn-cancelar');
     if (btnCancelar) {
         btnCancelar.addEventListener('click', fecharModal);
@@ -580,7 +627,8 @@ function carregarAtividades() {
                 prazo: new Date(Date.now() + 86400000 * 2).toISOString(), 
                 descricao: "Entregar a primeira versão do documento de escopo e cronograma.", 
                 arquivo: { nome: "modelo-relatorio.docx" },
-                entregas: []
+                entregas: [],
+                criadoEm: new Date(Date.now() - 86400000 * 10).toISOString()
             },
             { 
                 id: 2, 
@@ -588,7 +636,8 @@ function carregarAtividades() {
                 prazo: new Date(Date.now() - 86400000 * 1).toISOString(), 
                 descricao: "Pesquisar e resumir as diferenças entre PIC, AVR e ARM.", 
                 arquivo: { nome: "guia-pesquisa.pdf" },
-                entregas: []
+                entregas: [],
+                criadoEm: new Date(Date.now() - 86400000 * 8).toISOString()
             },
             { 
                 id: 3, 
@@ -604,7 +653,8 @@ function carregarAtividades() {
                         comentario: "Atividade concluída conforme solicitado.",
                         arquivo: { nome: "contador.c" }
                     }
-                ]
+                ],
+                criadoEm: new Date(Date.now() - 86400000 * 6).toISOString()
             },
             { 
                 id: 4, 
@@ -612,27 +662,31 @@ function carregarAtividades() {
                 prazo: new Date(Date.now() + 86400000 * 7).toISOString(), 
                 descricao: "Criar slides e ensaiar a apresentação sobre o projeto final.", 
                 arquivo: null,
-                entregas: []
+                entregas: [],
+                criadoEm: new Date(Date.now() - 86400000 * 3).toISOString()
             },
         ];
         salvarAtividades();
     }
 
-    // Visão geral adaptada por perfil
+    // Ordenar por data de criação (mais recentes primeiro)
+    todasAtividades.sort((a, b) => {
+        const dataA = new Date(a.criadoEm || a.prazo).getTime();
+        const dataB = new Date(b.criadoEm || b.prazo).getTime();
+        return dataB - dataA;
+    });
+
     if (userRole === 'professor') {
-        // Professor vê atividades que precisam de atenção (prazo próximo ou com poucas entregas)
         const atividadesDestaque = todasAtividades.filter(a => {
             const statusProf = getStatusProfessor(a);
             const hoje = new Date();
             const dataPrazo = new Date(a.prazo);
             const diasRestantes = Math.ceil((dataPrazo - hoje) / (1000 * 60 * 60 * 24));
             
-            // Destaca se: prazo em até 3 dias OU menos de 50% entregaram
             return diasRestantes <= 3 || statusProf.totalEntregas < 15;
         });
         renderizarTarefasVisaoGeral(atividadesDestaque.slice(0, 3));
     } else {
-        // Aluno vê suas tarefas pendentes ou em atraso
         const atividadesParaVisao = todasAtividades.filter(a => {
             const status = getStatus(a.prazo, a);
             return status === 'pendente' || status === 'atraso';
@@ -663,16 +717,81 @@ function criarNovaAtividade() {
         descricao: descricao || 'Sem descrição',
         prazo: prazo ? new Date(prazo).toISOString() : new Date(Date.now() + 86400000 * 7).toISOString(),
         arquivo: arquivoSelecionado ? { nome: arquivoSelecionado.nome } : null,
-        entregas: []
+        entregas: [],
+        criadoEm: new Date().toISOString()
     };
     
-    todasAtividades.push(novaAtividade);
+    todasAtividades.unshift(novaAtividade);
     salvarAtividades();
     
     fecharModal();
     carregarAtividades();
     
     alert('✅ Atividade criada com sucesso!');
+}
+
+function editarAtividade(atividadeId) {
+    const atividade = todasAtividades.find(a => a.id === atividadeId);
+    if (!atividade) return;
+    
+    const titulo = document.getElementById('tituloAtividade').value.trim();
+    const descricao = document.getElementById('descricaoAtividade').value.trim();
+    const prazo = document.getElementById('dataEntregaAtividade').value;
+    
+    if (!titulo) {
+        alert('Por favor, preencha o título da atividade.');
+        return;
+    }
+    
+    atividade.titulo = titulo;
+    atividade.descricao = descricao || 'Sem descrição';
+    atividade.prazo = prazo ? new Date(prazo).toISOString() : atividade.prazo;
+    
+    if (arquivoSelecionado) {
+        atividade.arquivo = { nome: arquivoSelecionado.nome };
+    }
+    
+    salvarAtividades();
+    fecharModal();
+    carregarAtividades();
+    
+    alert('✅ Atividade atualizada com sucesso!');
+}
+
+function excluirAtividade(atividadeId) {
+    if (!confirm('Tem certeza que deseja excluir esta atividade? Esta ação não pode ser desfeita.')) {
+        return;
+    }
+    
+    const index = todasAtividades.findIndex(a => a.id === atividadeId);
+    if (index !== -1) {
+        todasAtividades.splice(index, 1);
+        salvarAtividades();
+        carregarAtividades();
+        fecharDetalhes();
+        alert('✅ Atividade excluída com sucesso!');
+    }
+}
+
+function adiarAtividade(atividadeId) {
+    const atividade = todasAtividades.find(a => a.id === atividadeId);
+    if (!atividade) return;
+    
+    const diasAdiar = prompt('Quantos dias deseja adiar o prazo?', '7');
+    if (!diasAdiar || isNaN(diasAdiar)) return;
+    
+    const dias = parseInt(diasAdiar);
+    const novoPrazo = new Date(atividade.prazo);
+    novoPrazo.setDate(novoPrazo.getDate() + dias);
+    
+    atividade.prazo = novoPrazo.toISOString();
+    
+    salvarAtividades();
+    carregarAtividades();
+    
+    alert(`✅ Prazo adiado em ${dias} dias! Novo prazo: ${formatarData(atividade.prazo)}`);
+    
+    abrirDetalhes(atividadeId);
 }
 
 function entregarAtividade(atividadeId) {
@@ -710,7 +829,6 @@ function entregarAtividade(atividadeId) {
     
     document.body.insertAdjacentHTML('beforeend', modalHTML);
     
-    // Event listeners do modal de entrega
     const arquivoInput = document.getElementById('arquivoEntrega');
     arquivoInput.addEventListener('change', function() {
         const info = document.getElementById('arquivoInfoEntrega');
@@ -758,7 +876,6 @@ function entregarAtividade(atividadeId) {
             if (!confirm('Você já entregou esta atividade. Deseja reenviar?')) {
                 return;
             }
-            // Preserva nota e feedback ao reenviar
             const notaAnterior = atividade.entregas[entregaExistente].nota;
             const feedbackAnterior = atividade.entregas[entregaExistente].feedback;
             entrega.nota = notaAnterior;
@@ -791,7 +908,6 @@ function salvarNota(atividadeId, alunoId, nota, feedback) {
     
     alert(`✅ Nota ${nota}/10 salva com sucesso para ${entrega.alunoNome}!`);
     
-    // Reabrir detalhes para atualizar visualização
     abrirDetalhes(atividadeId);
 }
 
@@ -799,12 +915,10 @@ function getStatus(prazo, atividadeCompleta) {
     const hoje = new Date();
     const dataPrazo = new Date(prazo);
     
-    // Professor não tem status pessoal, retorna apenas se prazo expirou
     if (userRole === 'professor') {
         return dataPrazo < hoje ? 'expirada' : 'aberta';
     }
     
-    // Para alunos: verifica se tem entrega
     const minhaEntrega = atividadeCompleta?.entregas?.find(e => e.alunoId === userId);
     if (minhaEntrega) return 'concluida';
     
@@ -818,10 +932,9 @@ function getStatusProfessor(atividade) {
     const dataPrazo = new Date(atividade.prazo);
     const prazoExpirou = dataPrazo < hoje;
     
-    // Buscar total de alunos da turma
     const totalAlunos = todosMembros.filter(m => 
         m.tipo === 'aluno' || m.role === 'aluno' || (!m.tipo && !m.role)
-    ).length || 30; // Fallback para 30 se ainda não carregou
+    ).length || 30;
     
     return {
         totalEntregas: totalEntregas,
@@ -849,7 +962,6 @@ function criarCardAtividade(atividade) {
     const isProfessor = userRole === 'professor';
     
     if (isProfessor) {
-        // Card para professor - mostra estatísticas de entrega
         const statusProf = getStatusProfessor(atividade);
         const dataFormatada = formatarData(atividade.prazo);
         const porcentagem = statusProf.totalAlunos > 0 
@@ -860,9 +972,17 @@ function criarCardAtividade(atividade) {
             <div class="card-atividade-dinamico" data-id="${atividade.id}">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                     <h3>${atividade.titulo}</h3>
-                    <span class="badge-status ${statusProf.prazoExpirou ? 'badge-atraso' : 'badge-pendente'}">
-                        ${statusProf.statusTexto}
-                    </span>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <span class="badge-status ${statusProf.prazoExpirou ? 'badge-atraso' : 'badge-pendente'}">
+                            ${statusProf.statusTexto}
+                        </span>
+                        <button class="btn-editar-card" data-acao="editar" data-id="${atividade.id}" title="Editar atividade">
+                            ✏️
+                        </button>
+                        <button class="btn-excluir-card" data-acao="excluir" data-id="${atividade.id}" title="Excluir atividade">
+                            🗑️
+                        </button>
+                    </div>
                 </div>
                 <p class="prazo-entrega">
                     Prazo: ${dataFormatada}
@@ -885,7 +1005,10 @@ function criarCardAtividade(atividade) {
                         <span>${statusProf.totalAlunos - statusProf.totalEntregas} faltam</span>
                     </div>
                 </div>
-                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                <div style="display: flex; justify-content: space-between; gap: 10px; margin-top: 10px;">
+                    <button class="btn-adiar" data-acao="adiar" data-id="${atividade.id}">
+                        ⏰ Adiar Prazo
+                    </button>
                     <button class="btn-ver-entregas" data-acao="ver-detalhes" data-id="${atividade.id}">
                         📋 Gerenciar Entregas
                     </button>
@@ -893,7 +1016,6 @@ function criarCardAtividade(atividade) {
             </div>
         `;
     } else {
-        // Card para aluno - mostra status pessoal
         const status = getStatus(atividade.prazo, atividade);
         const statusText = status === 'pendente' ? 'Pendente' : status === 'atraso' ? 'Em Atraso' : 'Concluída';
         const dataFormatada = formatarData(atividade.prazo);
@@ -937,6 +1059,12 @@ function inicializarCardsAtividade() {
                     abrirDetalhes(id);
                 } else if (acao === 'entregar') {
                     entregarAtividade(id);
+                } else if (acao === 'editar') {
+                    abrirModal(id);
+                } else if (acao === 'excluir') {
+                    excluirAtividade(id);
+                } else if (acao === 'adiar') {
+                    adiarAtividade(id);
                 }
             } else {
                 const atividadeId = parseInt(this.getAttribute('data-id'));
@@ -974,14 +1102,13 @@ function inicializarFiltros() {
         });
     });
     
-    // Ajustar textos dos filtros para professor
     if (userRole === 'professor') {
         const filtros = document.querySelectorAll('.btn-filtro');
         filtros.forEach(btn => {
             const filtro = btn.getAttribute('data-filtro');
             if (filtro === 'pendente') btn.textContent = 'Em Andamento';
             if (filtro === 'atraso') btn.textContent = 'Prazo Encerrado';
-            if (filtro === 'concluida') btn.style.display = 'none'; // Ocultar para professor
+            if (filtro === 'concluida') btn.style.display = 'none';
         });
     }
 }
@@ -990,24 +1117,20 @@ function filtrarAtividades(filtro) {
     if (filtro === 'todas') return todasAtividades;
     
     if (userRole === 'professor') {
-        // Filtros adaptados para professor
         if (filtro === 'pendente') {
-            // Em andamento = prazo não expirou
             return todasAtividades.filter(a => {
                 const statusProf = getStatusProfessor(a);
                 return !statusProf.prazoExpirou;
             });
         }
         if (filtro === 'atraso') {
-            // Prazo encerrado = prazo expirou
             return todasAtividades.filter(a => {
                 const statusProf = getStatusProfessor(a);
                 return statusProf.prazoExpirou;
             });
         }
-        if (filtro === 'concluida') return []; // Não usado para professor
+        if (filtro === 'concluida') return [];
     } else {
-        // Filtros para aluno
         if (filtro === 'pendente') return todasAtividades.filter(a => getStatus(a.prazo, a) === 'pendente');
         if (filtro === 'atraso') return todasAtividades.filter(a => getStatus(a.prazo, a) === 'atraso');
         if (filtro === 'concluida') return todasAtividades.filter(a => getStatus(a.prazo, a) === 'concluida');
@@ -1029,7 +1152,6 @@ function renderizarTarefas() {
     }
 
     if (userRole === 'professor') {
-        // Para professor: organiza por prazo (abertas e encerradas)
         const abertas = [];
         const encerradas = [];
         
@@ -1058,7 +1180,6 @@ function renderizarTarefas() {
 
         container.innerHTML = html;
     } else {
-        // Para aluno: organiza por status pessoal
         const grupos = {
             'pendente': [], 
             'atraso': [], 
@@ -1154,6 +1275,23 @@ function abrirDetalhes(id) {
     }
     
     if (isProfessor) {
+        corpoHTML += `
+            <div class="secao-detalhes">
+                <h3>Ações do Professor</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn-editar-detalhes" data-acao="editar-detalhes" data-id="${id}" style="background: #2196F3; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                        ✏️ Editar Atividade
+                    </button>
+                    <button class="btn-adiar-detalhes" data-acao="adiar-detalhes" data-id="${id}" style="background: #FF9800; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                        ⏰ Adiar Prazo
+                    </button>
+                    <button class="btn-excluir-detalhes" data-acao="excluir-detalhes" data-id="${id}" style="background: #F44336; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                        🗑️ Excluir Atividade
+                    </button>
+                </div>
+            </div>
+        `;
+        
         const entregas = atividade.entregas || [];
         corpoHTML += `
             <div class="secao-detalhes">
@@ -1289,7 +1427,6 @@ function abrirDetalhes(id) {
 
     if (corpo) corpo.innerHTML = corpoHTML;
     
-    // Adicionar event listeners para botões dentro do modal
     setTimeout(() => {
         const btnDownload = corpo.querySelector('[data-acao="download"]');
         if (btnDownload) {
@@ -1307,8 +1444,32 @@ function abrirDetalhes(id) {
             });
         }
         
-        // Event listeners para salvar notas (somente para professores)
         if (isProfessor) {
+            const btnEditarDetalhes = corpo.querySelector('[data-acao="editar-detalhes"]');
+            if (btnEditarDetalhes) {
+                btnEditarDetalhes.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    fecharDetalhes();
+                    abrirModal(id);
+                });
+            }
+            
+            const btnAdiarDetalhes = corpo.querySelector('[data-acao="adiar-detalhes"]');
+            if (btnAdiarDetalhes) {
+                btnAdiarDetalhes.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    adiarAtividade(id);
+                });
+            }
+            
+            const btnExcluirDetalhes = corpo.querySelector('[data-acao="excluir-detalhes"]');
+            if (btnExcluirDetalhes) {
+                btnExcluirDetalhes.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    excluirAtividade(id);
+                });
+            }
+            
             const btnsSalvarNota = corpo.querySelectorAll('.btn-salvar-nota');
             btnsSalvarNota.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1576,7 +1737,6 @@ function renderizarArquivos() {
     const content = container.querySelector('.mensagem-vazia')?.parentElement || container;
     content.innerHTML = html;
     
-    // Event listeners
     setTimeout(() => {
         if (userRole === 'professor') {
             const btnAddArquivo = document.getElementById('btnAdicionarArquivo');
@@ -1698,7 +1858,6 @@ async function carregarMembros() {
     try {
         console.log('🔍 Carregando membros da turma', turmaId);
         
-        // Buscar membros do banco de dados via API
         const response = await fetch(`/api/turmas/${turmaId}/membros`, {
             method: 'GET',
             headers: {
@@ -1707,14 +1866,13 @@ async function carregarMembros() {
         });
         
         if (!response.ok) {
-            console.error('Erro na resposta da API:', response.status, response.statusText);
-            throw new Error(`Erro ao carregar membros: ${response.status}`);
+            console.warn('⚠️ API não disponível, usando dados locais temporários');
+            throw new Error(`API não disponível: ${response.status}`);
         }
         
         const dados = await response.json();
         console.log('✅ Membros recebidos do banco:', dados);
         
-        // Processar membros vindos do banco
         if (dados.membros && Array.isArray(dados.membros)) {
             todosMembros = dados.membros.map(membro => ({
                 id: membro.id || membro._id || membro.usuario_id,
@@ -1734,23 +1892,41 @@ async function carregarMembros() {
         renderizarMembros();
         
     } catch (error) {
-        console.error('❌ Erro ao carregar membros:', error);
+        console.warn('❌ Erro ao carregar membros da API, usando dados temporários:', error);
         
-        // Exibir mensagem de erro no UI
-        const container = document.getElementById('conteudoMembros');
-        if (container) {
-            container.innerHTML = `
-                <div style="padding: 20px;">
-                    <div class="mensagem-vazia">
-                        ⚠️ Erro ao carregar membros da turma.<br>
-                        <small>Detalhes: ${error.message}</small><br><br>
-                        <button onclick="carregarMembros()" class="btn-criar-atividade">
-                            🔄 Tentar Novamente
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
+        // FALLBACK: Dados temporários enquanto a API não está pronta
+        todosMembros = [
+            {
+                id: 1,
+                nome: 'Prof. João Silva',
+                email: 'professor@escola.com',
+                tipo: 'professor',
+                role: 'professor',
+                avatar: null,
+                matricula: null
+            },
+            {
+                id: 2,
+                nome: 'Ana Carolina Santos',
+                email: 'ana.santos@aluno.com',
+                tipo: 'aluno',
+                role: 'aluno',
+                avatar: null,
+                matricula: '20241001'
+            },
+            {
+                id: 3,
+                nome: 'Carlos Eduardo Silva',
+                email: 'carlos.silva@aluno.com',
+                tipo: 'aluno',
+                role: 'aluno',
+                avatar: null,
+                matricula: '20241002'
+            }
+        ];
+        
+        console.log('✅ Usando dados temporários:', todosMembros.length, 'membros');
+        renderizarMembros();
     }
 }
 
@@ -1758,7 +1934,6 @@ function renderizarMembros() {
     const container = document.getElementById('conteudoMembros');
     if (!container) return;
     
-    // Separar por tipo e ordenar
     const professores = todosMembros
         .filter(m => m.tipo === 'professor' || m.role === 'professor')
         .sort((a, b) => a.nome.localeCompare(b.nome));
@@ -1769,7 +1944,6 @@ function renderizarMembros() {
     
     let html = '<div style="padding: 20px;">';
     
-    // Seção Professores
     if (professores.length > 0) {
         html += `
             <div class="secao-tarefas">
@@ -1787,7 +1961,6 @@ function renderizarMembros() {
         `;
     }
     
-    // Seção Alunos
     if (alunos.length > 0) {
         html += `
             <div class="secao-tarefas" style="margin-top: 30px;">
@@ -1816,13 +1989,8 @@ function renderizarMembros() {
 }
 
 function criarCardMembro(membro, tipoForcado = null) {
-    // Determinar tipo do membro
     const tipo = tipoForcado || membro.tipo || membro.role || 'aluno';
-    
-    // Gerar avatar baseado no nome ou usar avatar fornecido
     const avatar = membro.avatar || gerarAvatar(membro.nome, tipo);
-    
-    // Formatar email (caso não tenha)
     const email = membro.email || `${membro.nome.toLowerCase().replace(/\s+/g, '.')}@escola.com`;
     
     return `
@@ -1848,14 +2016,12 @@ function criarCardMembro(membro, tipoForcado = null) {
 
 function gerarAvatar(nome, tipo) {
     if (tipo === 'professor') {
-        // Alternar entre avatares de professor
         const avataresProfessor = ['👨‍🏫', '👩‍🏫'];
         const primeiroNome = nome.split(' ')[0].toLowerCase();
         return primeiroNome.includes('a') || primeiroNome.includes('e') || primeiroNome.includes('i') 
             ? avataresProfessor[1] 
             : avataresProfessor[0];
     } else {
-        // Alternar entre avatares de aluno
         const avataresAluno = ['👨‍🎓', '👩‍🎓'];
         const primeiroNome = nome.split(' ')[0].toLowerCase();
         return primeiroNome.includes('a') || primeiroNome.includes('e') || primeiroNome.includes('i') 
@@ -1864,5 +2030,9 @@ function gerarAvatar(nome, tipo) {
     }
 }
     </script>
+
+    
+
+
 </body>
 </html>
