@@ -32,7 +32,7 @@
                 <div class="nome-da-guia">
                     
                     <ul>
-                        <li class="btn-nav"><a href="redes.html" class="selecionado">Conecta</a></li>
+                        <li class="btn-nav"><a href="redes.html" class="selecionado">Redes</a></li>
                         <li><a href="../Sala-de-Aula/sala.html">Sala de Aula</a></li>
                         <li><a href="trilhas.html">Trilhas</a></li>
                         <li><a href="diario.html">Diário</a></li>
@@ -172,9 +172,9 @@
 
 
 
+<script src="js/perfil.js"></script>
 
      <section class="feed">
-        
                 <div class="cardPage">
                     <div class="topPage"></div>
                     <div class="dividerPage"></div>
@@ -185,12 +185,14 @@
                             <div>Etec de Itanhaém</div>
                             <div>Aluno</div>
                         </div>
-                        <div class="edit"><p>Editar</p><span class="iconeSimples">edit</span></div>
                     </div>
+                                            <div class="edit"><p>Editar</p><span class="iconeSimples">edit</span></div>
+
                 </div>
 
+               
                 <div class="containerDados">
-                    <p>Publicações: 17</p>
+                    <p>Publicações: 1</p>
                     <p>Seguidores: 237</p>
                     <p>Seguindo: 128</p>
                 </div>
@@ -202,42 +204,98 @@
 
 
 
+      <div class="containerBlocos">
+            <div class="containerBtn">
+                <div class="btnContainer selecionado" data-target="grupo1">
+                <span class="iconeSimples material-icons">photo_camera</span>
+                <div class="underlineBtn"></div>
+                </div>
+                <div class="btnContainer" data-target="grupo2">
+                <span class="iconeSimples material-icons">star</span>
+                <div class="underlineBtn"></div>
+                </div>
+                <div class="btnContainer" data-target="grupo3">
+                <span class="iconeSimples material-icons">keep</span>
+                <div class="underlineBtn"></div>
+                </div>
+            </div>
 
+   <div class="container">
+    <!-- GRUPO 1 -->
+    <div class="grupoCards ativo" id="grupo1">
+        <div class="agrupamento">
+            <div class="blocos">
+                <div class="bloco">
+                <div class="caixa"></div>
+                <div class="caixa"></div>
+                </div>
+                <div class="bloco">
+                <div class="caixa"></div>
+                <div class="caixa"></div>
+                </div>
+            </div>
+            <div class="caixaG"></div>
+        </div> 
+        
+    </div>
 
+    <!-- GRUPO 2 -->
+    <div class="grupoCards" id="grupo2">
+        <div class="agrupamento">
+            <div class="blocos">
+                <div class="bloco">
+                    <img class="caixa" src="./assetsConnect/post.jpg" alt="">
+                    <img class="caixa" src="./assetsConnect/post1ds.jpg" alt="">
+                </div>
+                <div class="bloco">
+                    <img class="caixa" src="./assetsConnect/post5ds.jpg" alt="">
+                    <img class="caixa" src="./assetsConnect/post4adm.jpg" alt="">
+                </div>
+            </div>
+                <img class="caixaG" src="./assetsConnect/postM.jpg" alt="">
+    </div>
 
-                 <div class="container">
-                        <div >
-                            <div class="bloco">
-                                <div class="caixa"></div>
-                                <div class="caixa"></div>
-                            </div>
-                            <div class="bloco">
-                                <div class="caixa"></div>
-                                <div class="caixa"></div>
-                            </div>
-                        </div>
+    <!-- GRUPO 3 -->
+    <div class="grupoCards" id="grupo3">
+        <div class="agrupamento">
+            <div class="blocos">
+                <div class="bloco">
+                <div class="caixa"></div>
+                <div class="caixa"></div>
+                </div>
+                <div class="bloco">
+                <div class="caixa"></div>
+                <div class="caixa"></div>
+                </div>
+            </div>
+            <div class="caixaG"></div>
+        </div> 
+</div>
 
-                        <div class="caixaG"></div>
-                    </div>
-              
+<script>
+  const btns = document.querySelectorAll('.btnContainer');
+  const grupos = document.querySelectorAll('.grupoCards');
 
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('selecionado'));
+      grupos.forEach(g => g.classList.remove('ativo'));
+
+      btn.classList.add('selecionado');
+      const target = btn.getAttribute('data-target');
+      document.getElementById(target).classList.add('ativo');
+    });
+  });
+</script>
   </section>
 
 
 
 
- <aside class="sugestoes">
-    <div class="sugestao"></div>
-   
-  </aside>
-
-
-
-
-
-
-
-
+                <aside class="sugestoes">
+                    <div class="sugestao"></div>
+                
+                </aside>
 
 
     </main>
