@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  
 }
 
 datasource db {
@@ -20,6 +19,7 @@ model User {
   name      String?
   senha     String
   role      String   @default("aluno") // "professor" ou "aluno"
+  perfilUrl String?  // ← NOVO CAMPO para foto de perfil
   createdAt DateTime @default(now())
   
   // Relações

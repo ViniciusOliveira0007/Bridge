@@ -1,5 +1,6 @@
 import multer from "multer";
 import path from "path";
+import * as fs from 'fs';
 import { PrismaClient } from "@prisma/client";
 import express from "express";
 import cors from "cors";
@@ -21,9 +22,28 @@ import {
   listarAtividadesAluno
 } from "./controllers/atividadeController";
 
+// Controlador de turmas
+import { getMembros, getTurmas, createTurma, getCursos } from "./controllers/turmaController";
+
+// Controlador de perfil (NOVO)
+import { 
+  atualizarFotoPerfil, 
+  buscarUsuario, 
+  removerFotoPerfil 
+} from "./controllers/perfilController";
+
 const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
+
+// ========================================
+// CRIAR PASTA UPLOADS
+// ========================================
+const uploadsDir = path.join(__dirname, '..', 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log('📁 Pasta uploads criada');
+}
 
 // ========================================
 // RATE LIMITING
@@ -46,6 +66,7 @@ app.use(
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrcAttr: ["'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'"],
         imgSrc: ["'self'", "data:", "https:", "http://localhost:3000", "blob:"],
       },
@@ -61,9 +82,9 @@ app.use("/telas", express.static("telas"));
 app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
 
 // ========================================
-// CONFIGURAÇÃO DO MULTER
+// CONFIGURAÇÃO DO MULTER PARA POSTS
 // ========================================
-const storage = multer.diskStorage({
+const storagePost = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "..", "uploads"));
   },
@@ -73,7 +94,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const fileFilter = (req: express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+const fileFilterPost = (req: express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
   if (!file.mimetype.startsWith("image/")) {
     cb(new Error("Apenas arquivos de imagem são permitidos"));
   } else {
@@ -81,10 +102,37 @@ const fileFilter = (req: express.Request, file: Express.Multer.File, cb: multer.
   }
 };
 
-const upload = multer({
-  storage,
-  fileFilter,
+const uploadPost = multer({
+  storage: storagePost,
+  fileFilter: fileFilterPost,
   limits: { fileSize: 5 * 1024 * 1024 },
+});
+
+// ========================================
+// CONFIGURAÇÃO DO MULTER PARA PERFIL (NOVO)
+// ========================================
+const storagePerfil = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "..", "uploads"));
+  },
+  filename: (req, file, cb) => {
+    const unique = `perfil-${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    cb(null, unique + path.extname(file.originalname));
+  },
+});
+
+const fileFilterPerfil = (req: express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+  if (!file.mimetype.startsWith("image/")) {
+    cb(new Error("Apenas imagens são permitidas para foto de perfil"));
+  } else {
+    cb(null, true);
+  }
+};
+
+const uploadPerfil = multer({
+  storage: storagePerfil,
+  fileFilter: fileFilterPerfil,
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB para perfil
 });
 
 // ========================================
@@ -118,9 +166,16 @@ app.post("/api/login", login);
 app.post("/api/reset-password", resetPassword);
 
 // ========================================
+// ROTAS DE USUÁRIO/PERFIL (NOVO)
+// ========================================
+app.get("/api/users/:userId", buscarUsuario);
+app.post("/api/users/:userId/perfil", uploadPerfil.single("perfil"), atualizarFotoPerfil);
+app.delete("/api/users/:userId/perfil", removerFotoPerfil);
+
+// ========================================
 // ROTAS DE POSTS
 // ========================================
-app.post("/api/posts", upload.single("image"), criarPost);
+app.post("/api/posts", uploadPost.single("image"), criarPost);
 app.get("/api/posts", listarPosts);
 
 // ========================================
@@ -131,6 +186,14 @@ app.get("/api/atividades/turma/:turmaId", listarAtividadesPorTurma);
 app.get("/api/atividades/aluno/:alunoId", listarAtividadesAluno);
 app.get("/api/atividades/:id", buscarAtividade);
 app.post("/api/atividades/:id/entregar", entregarAtividade);
+
+// ========================================
+// ROTAS DE TURMAS E CURSOS
+// ========================================
+app.get("/api/turmas", getTurmas);
+app.post("/api/turmas", createTurma);
+app.get("/api/turmas/:turmaId/membros", getMembros);
+app.get("/api/cursos", getCursos);
 
 // ========================================
 // PLACEHOLDERS

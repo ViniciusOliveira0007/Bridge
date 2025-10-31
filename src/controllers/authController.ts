@@ -1,14 +1,12 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '../../ts/generated/prisma';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 export const validateLogin = async (req: Request, res: Response) => {
   try {
-    // Pega o email do body
     const { email } = req.body;
 
-    // Verifica se o email foi enviado
     if (!email) {
       return res.status(400).json({ 
         success: false,
@@ -16,12 +14,17 @@ export const validateLogin = async (req: Request, res: Response) => {
       });
     }
 
-    // Busca o usuário no banco pelo email
     const user = await prisma.user.findUnique({
-      where: { email }
+      where: { email },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        perfilUrl: true // ← NOVO
+      }
     });
 
-    // Se não encontrou o usuário
     if (!user) {
       return res.status(404).json({ 
         success: false,
@@ -29,16 +32,10 @@ export const validateLogin = async (req: Request, res: Response) => {
       });
     }
 
-    // Email existe! 
     return res.status(200).json({ 
       success: true,
       message: 'Email válido',
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role  // ← ADICIONADO
-      }
+      user: user
     });
 
   } catch (error) {
@@ -62,7 +59,15 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const user = await prisma.user.findUnique({
-      where: { email: email.toLowerCase().trim() }
+      where: { email: email.toLowerCase().trim() },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        senha: true,
+        role: true,
+        perfilUrl: true // ← NOVO
+      }
     });
 
     if (!user) {
@@ -79,15 +84,13 @@ export const login = async (req: Request, res: Response) => {
       });
     }
 
+    // Remove a senha antes de enviar
+    const { senha: _, ...userSemSenha } = user;
+
     return res.status(200).json({ 
       success: true,
       message: 'Login realizado com sucesso',
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role  // ← ADICIONADO
-      }
+      user: userSemSenha
     });
 
   } catch (error) {
@@ -99,15 +102,10 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Redefine a senha do usuário
- * @route POST /api/reset-password
- */
 export const resetPassword = async (req: Request, res: Response) => {
   try {
     const { email, novaSenha } = req.body;
 
-    // Validação 1: Verifica se email e nova senha foram enviados
     if (!email || !novaSenha) {
       return res.status(400).json({ 
         success: false,
@@ -115,7 +113,6 @@ export const resetPassword = async (req: Request, res: Response) => {
       });
     }
 
-    // Validação 2: Verifica requisitos da senha
     const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
     if (!senhaRegex.test(novaSenha)) {
       return res.status(400).json({ 
@@ -124,7 +121,6 @@ export const resetPassword = async (req: Request, res: Response) => {
       });
     }
 
-    // Busca o usuário
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase().trim() }
     });
@@ -136,7 +132,6 @@ export const resetPassword = async (req: Request, res: Response) => {
       });
     }
 
-    // Atualiza a senha
     await prisma.user.update({
       where: { id: user.id },
       data: { senha: novaSenha }

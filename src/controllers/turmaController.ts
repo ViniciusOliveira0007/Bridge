@@ -1,19 +1,14 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client'; // ← CORRIGIR AQUI
 
 const prisma = new PrismaClient();
 
-// ============================================
-// GET /api/turmas/:turmaId/membros
-// Retorna todos os membros (professor + alunos) de uma turma
-// ============================================
 export const getMembros = async (req: Request, res: Response) => {
     try {
         const { turmaId } = req.params;
         
         console.log('🔍 Buscando membros da turma:', turmaId);
         
-        // Validar turmaId
         const turmaIdNum = parseInt(turmaId);
         if (isNaN(turmaIdNum)) {
             return res.status(400).json({ 
@@ -21,7 +16,6 @@ export const getMembros = async (req: Request, res: Response) => {
             });
         }
         
-        // Buscar a turma com professor e alunos
         const turma = await prisma.turma.findUnique({
             where: {
                 id: turmaIdNum
@@ -59,10 +53,8 @@ export const getMembros = async (req: Request, res: Response) => {
         
         console.log('✅ Turma encontrada:', turma.nome);
         
-        // Montar array de membros
         const membros = [];
         
-        // Adicionar o professor
         if (turma.professor) {
             membros.push({
                 id: turma.professor.id,
@@ -75,7 +67,6 @@ export const getMembros = async (req: Request, res: Response) => {
             });
         }
         
-        // Adicionar os alunos
         turma.alunos.forEach(turmaAluno => {
             membros.push({
                 id: turmaAluno.aluno.id,
@@ -88,7 +79,7 @@ export const getMembros = async (req: Request, res: Response) => {
             });
         });
         
-        console.log(`✅ ${membros.length} membros encontrados (1 professor + ${turma.alunos.length} alunos)`);
+        console.log(`✅ ${membros.length} membros encontrados`);
         
         res.json({
             sucesso: true,
@@ -107,5 +98,98 @@ export const getMembros = async (req: Request, res: Response) => {
             erro: 'Erro ao buscar membros da turma',
             detalhes: error instanceof Error ? error.message : 'Erro desconhecido'
         });
+    }
+};
+
+// Adicione ao turmaController.ts
+
+// GET /api/turmas - Listar todas as turmas
+export const getTurmas = async (req: Request, res: Response) => {
+    try {
+        const turmas = await prisma.turma.findMany({
+            include: {
+                curso: true,
+                professor: {
+                    select: {
+                        id: true,
+                        name: true
+                    }
+                },
+                _count: {
+                    select: {
+                        alunos: true,
+                        atividades: true
+                    }
+                }
+            },
+            orderBy: {
+                createdAt: 'desc'
+            }
+        });
+
+        res.json({
+            sucesso: true,
+            turmas: turmas
+        });
+    } catch (error) {
+        console.error('Erro ao listar turmas:', error);
+        res.status(500).json({ erro: 'Erro ao listar turmas' });
+    }
+};
+
+// POST /api/turmas - Criar nova turma
+export const createTurma = async (req: Request, res: Response) => {
+    try {
+        const { nome, sigla, cursoId, professorId, descricao } = req.body;
+
+        if (!nome || !cursoId || !professorId) {
+            return res.status(400).json({
+                erro: 'Nome, cursoId e professorId são obrigatórios'
+            });
+        }
+
+        const novaTurma = await prisma.turma.create({
+            data: {
+                nome,
+                descricao,
+                cursoId,
+                professorId
+            },
+            include: {
+                curso: true,
+                professor: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        });
+
+        res.status(201).json({
+            sucesso: true,
+            turma: novaTurma
+        });
+    } catch (error) {
+        console.error('Erro ao criar turma:', error);
+        res.status(500).json({ erro: 'Erro ao criar turma' });
+    }
+};
+
+// GET /api/cursos - Listar todos os cursos
+export const getCursos = async (req: Request, res: Response) => {
+    try {
+        const cursos = await prisma.curso.findMany({
+            orderBy: {
+                nome: 'asc'
+            }
+        });
+
+        res.json({
+            sucesso: true,
+            cursos: cursos
+        });
+    } catch (error) {
+        console.error('Erro ao listar cursos:', error);
+        res.status(500).json({ erro: 'Erro ao listar cursos' });
     }
 };

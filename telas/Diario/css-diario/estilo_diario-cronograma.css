@@ -1,4 +1,3 @@
-
 .frame-478 {
   display: flex;
   flex-direction: column;
@@ -148,7 +147,7 @@
   padding: 16px 20px;
   text-align: left;
   border-bottom: 1px solid #ffefef;
-  
+  border: #dadada solid 1px;
 }
 
 .titulo-guia {
@@ -202,4 +201,57 @@
 .bloco-cronograma {
   justify-content: center;
   display: flex;
+}
+
+.bloco-de-conteudo-cronograma{
+  flex: 1;
+  padding: 20px;
+  background-color: #161616;
+  min-height: calc(100vh - 100px);
+}
+
+.sub-guia-cronograma{
+  justify-content: center;
+  align-content: center;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+  padding: 15px; 
+  background-color: #161616;
+  border-radius: 10px;
+  margin-top: 20px;
+  border: #3f3f3f solid 1px;
+}
+
+.btn-sub-guia-cronograma{
+  color: #fff;
+  font-weight: normal;
+  text-decoration: none;
+  background: none;
+  border-bottom: #3f3f3f solid 1px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: left;
+  padding: 10px;
+  padding-left: 30px;
+  transition: 0.1s ease;
+}
+
+.btn-sub-guia-cronograma:hover{
+  padding: 15px;
+  background-color: #3f3f3f;
+  border-radius: 15px;
+  padding-left: 40px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin: 0 20px 0 20px;
+  width: auto;
+  height: auto;
+  font-size: 18px;
+  text-align: justify;
+  color: #fff;
+  transform: scale(1.02);
 }
