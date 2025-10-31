@@ -247,11 +247,26 @@
 
     <script>
 // ===============================================
-// VARIÁVEIS GLOBAIS
+// SCRIPT COMPLETO PARA componente-ads.html
+// Substitua TODO o conteúdo do <script> pelo código abaixo
 // ===============================================
-const userId = localStorage.getItem('userId') || '1';
-const userName = localStorage.getItem('userName') || 'Usuário';
-const userRole = localStorage.getItem('userRole') || 'professor';
+
+const API_URL = 'http://localhost:3000/api';
+
+// ===============================================
+// VERIFICAR LOGIN
+// ===============================================
+const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+
+if (!usuarioLogado || !usuarioLogado.id) {
+    alert('Você precisa fazer login primeiro!');
+    window.location.href = '/home.html';
+    throw new Error('Usuário não logado');
+}
+
+const userId = usuarioLogado.id;
+const userName = usuarioLogado.name || 'Usuário';
+const userRole = usuarioLogado.role || 'aluno';
 const turmaId = 1;
 
 let todasAtividades = [];
@@ -264,6 +279,329 @@ let arquivoSelecionado = null;
 console.log('🔥 Sistema carregado!');
 console.log('User:', userName, 'Role:', userRole);
 
+// ===============================================
+// CARREGAR FOTO DE PERFIL
+// ===============================================
+async function carregarFotoPerfilComponente() {
+    try {
+        const fotoPerfilNav = document.querySelector('.foto-de-perfil');
+        const fotoPerfilMini = document.querySelector('.perfil-mini');
+        const URL_PADRAO = '../imagens-sala/foto_de_perfil.png';
+        
+        if (!fotoPerfilNav || !fotoPerfilMini) {
+            console.warn('⚠️ Elementos de foto de perfil não encontrados');
+            return;
+        }
+        
+        console.log('🔄 Carregando foto de perfil do usuário:', userId);
+        
+        const response = await fetch(`${API_URL}/users/${userId}`);
+        const data = await response.json();
+        
+        if (data.success && data.user) {
+            const fotoUrl = data.user.perfilUrl 
+                ? `http://localhost:3000${data.user.perfilUrl}` 
+                : URL_PADRAO;
+            
+            fotoPerfilNav.src = fotoUrl;
+            fotoPerfilMini.src = fotoUrl;
+            
+            // Atualizar nome do usuário
+            const nomeElement = document.getElementById('nomeUsuarioPerfil');
+            if (nomeElement) {
+                nomeElement.textContent = `Olá, ${data.user.name || userName}`;
+            }
+            
+            console.log('✅ Foto de perfil carregada:', fotoUrl);
+            
+            // Atualizar localStorage com dados mais recentes
+            localStorage.setItem('usuarioLogado', JSON.stringify(data.user));
+        }
+    } catch (error) {
+        console.error('❌ Erro ao carregar foto de perfil:', error);
+        const fotoPerfilNav = document.querySelector('.foto-de-perfil');
+        const fotoPerfilMini = document.querySelector('.perfil-mini');
+        const URL_PADRAO = '../imagens-sala/foto_de_perfil.png';
+        
+        if (fotoPerfilNav) fotoPerfilNav.src = URL_PADRAO;
+        if (fotoPerfilMini) fotoPerfilMini.src = URL_PADRAO;
+    }
+}
+
+// ===============================================
+// INICIALIZAÇÃO
+// ===============================================
+document.addEventListener('DOMContentLoaded', function() {
+    carregarFotoPerfilComponente();
+    inicializarDropdowns();
+    inicializarSidebar();
+    inicializarNavegacao();
+    inicializarFiltros();
+    inicializarModal();
+    inicializarFormularios();
+    carregarAtividades();
+    carregarPostagens();
+    carregarArquivos();
+    carregarMembros();
+    atualizarNomeUsuario();
+    
+    if (userRole === 'professor') {
+        adicionarBotaoCriar();
+    }
+});
+
+// ===============================================
+// DROPDOWNS
+// ===============================================
+function inicializarDropdowns() {
+    const dropdownNotif = document.getElementById('dropdownNotif');
+    const dropdownConfig = document.getElementById('dropdownConfig');
+    const dropdownPerfil = document.getElementById('dropdownPerfil');
+    const btnNotif = document.querySelector('.btn-notificao-nav');
+    const btnConfig = document.querySelector('.btn-config');
+    const btnPerfil = document.querySelector('.foto-de-perfil');
+    
+    if (!dropdownNotif || !dropdownConfig || !dropdownPerfil || !btnNotif || !btnConfig || !btnPerfil) {
+        console.error("Erro: Elementos do dropdown não encontrados.");
+        return;
+    }
+
+    const fecharDropdownNotif = () => dropdownNotif.classList.remove('ativo');
+    const fecharDropdownConfig = () => dropdownConfig.classList.remove('ativo');
+    const fecharDropdownPerfil = () => dropdownPerfil.classList.remove('ativo');
+    
+    btnNotif.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fecharDropdownConfig();
+        fecharDropdownPerfil();
+        dropdownNotif.classList.toggle('ativo');
+    });
+    
+    btnConfig.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fecharDropdownNotif();
+        fecharDropdownPerfil();
+        dropdownConfig.classList.toggle('ativo');
+    });
+    
+    btnPerfil.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fecharDropdownNotif();
+        fecharDropdownConfig();
+        dropdownPerfil.classList.toggle('ativo');
+    });
+    
+    document.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const action = this.getAttribute('data-action');
+            switch(action) {
+                case 'fechar-notif': fecharDropdownNotif(); break;
+                case 'fechar-config': fecharDropdownConfig(); break;
+                case 'fechar-perfil': fecharDropdownPerfil(); break;
+                case 'sair-da-conta':
+                    if (confirm('Tem certeza que deseja sair da conta?')) {
+                        localStorage.removeItem('usuarioLogado');
+                        localStorage.removeItem('userId');
+                        localStorage.removeItem('userName');
+                        localStorage.removeItem('userRole');
+                        window.location.href = '/home.html';
+                    }
+                    fecharDropdownPerfil();
+                    break;
+                case 'perfil':
+                case 'abrir-seu-perfil':
+                    fecharDropdownPerfil();
+                    window.location.href = '/telas/Diario/diario.html';
+                    break;
+                case 'configuracoes':
+                case 'abrir-tema':
+                case 'abrir-acessibilidade':
+                case 'abrir-opcoes-avancadas':
+                    fecharDropdownConfig();
+                    console.log('⚙️ Funcionalidade em desenvolvimento:', action);
+                    break;
+                case 'ajuda':
+                case 'abrir-ajuda-recursos':
+                    fecharDropdownConfig();
+                    fecharDropdownPerfil();
+                    console.log('❓ Central de ajuda em desenvolvimento');
+                    break;
+                case 'abrir-privacidade':
+                    fecharDropdownPerfil();
+                    console.log('🔒 Configurações de privacidade em desenvolvimento');
+                    break;
+                default:
+                    console.log('Funcionalidade:', action);
+                    fecharDropdownNotif();
+                    fecharDropdownConfig();
+                    fecharDropdownPerfil();
+            }
+        });
+    });
+    
+    document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (
+            !dropdownNotif.contains(target) && target !== btnNotif &&
+            !dropdownConfig.contains(target) && target !== btnConfig &&
+            !dropdownPerfil.contains(target) && target !== btnPerfil
+        ) {
+            fecharDropdownNotif();
+            fecharDropdownConfig();
+            fecharDropdownPerfil();
+        }
+    });
+}
+
+// ===============================================
+// SIDEBAR
+// ===============================================
+function inicializarSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const expandButton = document.getElementById('expandButton');
+    const expandText = document.getElementById('expandText');
+    const visaoGeralText = document.querySelector('.visao-geral-text');
+    
+    if (!sidebar || !expandButton || !expandText || !visaoGeralText) return;
+
+    expandButton.addEventListener('click', () => {
+        sidebar.classList.toggle('expanded');
+        if (sidebar.classList.contains('expanded')) {
+            expandText.textContent = 'Recolher';
+            visaoGeralText.innerHTML = 'Visão Geral';
+        } else {
+            expandText.textContent = 'Expandir';
+            visaoGeralText.innerHTML = 'Visão<br>Geral';
+        }
+    });
+}
+
+// ===============================================
+// NAVEGAÇÃO
+// ===============================================
+function inicializarNavegacao() {
+    const telas = {
+        'visao': document.getElementById('conteudoVisao'),
+        'tarefa': document.getElementById('conteudoTarefas'),
+        'postagens': document.getElementById('conteudoPostagens'),
+        'arquivo': document.getElementById('conteudoArquivo'),
+        'membros': document.getElementById('conteudoMembros')
+    };
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+
+            const telaAlvo = this.getAttribute('data-tela');
+
+            Object.values(telas).forEach(tela => {
+                if (tela) tela.classList.add('desativado');
+            });
+
+            const telaAtual = telas[telaAlvo];
+            if (telaAtual) {
+                telaAtual.classList.remove('desativado');
+            }
+
+            if (telaAlvo === 'tarefa') {
+                renderizarTarefas();
+            } else if (telaAlvo === 'postagens') {
+                renderizarPostagens();
+            } else if (telaAlvo === 'arquivo') {
+                renderizarArquivos();
+            } else if (telaAlvo === 'membros') {
+                renderizarMembros();
+            }
+        });
+    });
+}
+
+// ===============================================
+// FUNÇÕES AUXILIARES
+// ===============================================
+function atualizarNomeUsuario() {
+    const nomeElement = document.getElementById('nomeUsuarioPerfil');
+    if (nomeElement) nomeElement.textContent = `Olá, ${userName}`;
+}
+
+function adicionarBotaoCriar() {
+    const container = document.getElementById('btnCriarContainer');
+    if (container) {
+        container.innerHTML = `<button id="btnCriarAtividade" class="btn-criar-atividade">➕ Criar Atividade</button>`;
+        
+        const btnCriar = document.getElementById('btnCriarAtividade');
+        if (btnCriar) {
+            btnCriar.addEventListener('click', () => abrirModal());
+        }
+    }
+}
+
+function abrirModal(atividadeId = null) {
+    const modal = document.getElementById('modalCriar');
+    if (!modal) return;
+    
+    const titulo = document.getElementById('tituloModal');
+    const btnSalvar = modal.querySelector('.btn-salvar');
+    
+    if (atividadeId) {
+        const atividade = todasAtividades.find(a => a.id === atividadeId);
+        if (!atividade) return;
+        
+        if (titulo) titulo.textContent = '✏️ Editar Atividade';
+        if (btnSalvar) btnSalvar.textContent = '💾 Salvar Alterações';
+        
+        document.getElementById('tituloAtividade').value = atividade.titulo;
+        document.getElementById('descricaoAtividade').value = atividade.descricao;
+        
+        const prazoDate = new Date(atividade.prazo);
+        const prazoFormatado = prazoDate.toISOString().slice(0, 16);
+        document.getElementById('dataEntregaAtividade').value = prazoFormatado;
+        
+        modal.dataset.editandoId = atividadeId;
+    } else {
+        if (titulo) titulo.textContent = '➕ Criar Nova Atividade';
+        if (btnSalvar) btnSalvar.textContent = '✅ Criar Atividade';
+        limparFormulario();
+        delete modal.dataset.editandoId;
+    }
+    
+    modal.classList.add('ativo');
+}
+
+function fecharModal() {
+    const modal = document.getElementById('modalCriar');
+    if (modal) modal.classList.remove('ativo');
+    limparFormulario();
+}
+
+function limparFormulario() {
+    const form = document.getElementById('formCriarAtividade');
+    if (form) form.reset();
+    removerArquivo();
+}
+
+function removerArquivo() {
+    const input = document.getElementById('arquivoAtividade');
+    if (input) input.value = '';
+    
+    const info = document.getElementById('arquivoInfo');
+    const nome = document.getElementById('arquivoNome');
+    
+    if (info) info.classList.remove('ativo');
+    if (nome) nome.textContent = '';
+    
+    arquivoSelecionado = null;
+}
+
+function fecharDetalhes(event) {
+    if (event) {
+        event.stopPropagation();
+    }
+    const modal = document.getElementById('modalDetalhes');
+    if (modal) modal.classList.remove('ativo');
+}
 // ===============================================
 // INICIALIZAÇÃO
 // ===============================================

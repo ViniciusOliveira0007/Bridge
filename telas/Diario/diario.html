@@ -5,8 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diário</title>
     <link rel="stylesheet" href="./css-diario/estilos_diario.css">
+    <style>
+        #inputMudaFoto {
+            display: none;
+        }
+        .foto-de-perfil, .perfil-mini, .foto-de-perfil-diario {
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        /* Loading overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .loading-overlay.ativo {
+            display: flex;
+        }
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
 
     <nav class="navegacao">
         <div class="menu">
@@ -21,9 +63,8 @@
             <div class="menu-3">
                 <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav">
                 <img src="./imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config">
-                <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil">
+                <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" id="fotoPerfilNav"> 
                 
-                <!-- Dropdown de Notificações -->
                 <div class="dropdown-notificacoes" id="dropdownNotif">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
@@ -37,7 +78,6 @@
                     </div>
                 </div>
 
-                <!-- Dropdown de Configurações -->
                 <div class="dropdown-configuracoes" id="dropdownConfig">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
@@ -53,12 +93,11 @@
                     </div>
                 </div>
 
-                <!-- Dropdown de Perfil -->
                 <div class="dropdown-perfil" id="dropdownPerfil">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
-                            <span>Olá, Rodrigo</span>
+                            <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini" id="fotoPerfilMini">
+                            <span id="nomeUsuarioPerfil">Olá, Usuário</span>
                         </div>
                         <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
@@ -83,46 +122,45 @@
     </div>
 
     <main class="conteudo-principal">
-
-        <!--Barra Lateral de guia de funções diário-->
         <div class="fixed">
-        <div class="bloco-de-conteudo">
-            <div class="bloco-interno">
-                <div class="img-saudacao">
-                    <img src="./imagens-diario/foto-de-perfis/foto-perfil-diario.jpeg" alt="Foto de perfil" class="foto-de-perfil-diario">
-                    <h2 class="saudacao">Bem-vindo Rodrigo!</h2>
+            <div class="bloco-de-conteudo">
+                <div class="bloco-interno">
+                    <div class="img-saudacao">
+                        <img src="./imagens-diario/foto-de-perfis/foto-perfil-diario.jpeg" alt="Foto de perfil" class="foto-de-perfil-diario" id="fotoPerfilDiario">
+                        <h2 class="saudacao" id="saudacao">Bem-vindo!</h2>
+                    </div>
+                </div>
+                <div class="bloco-info">
+                    <h3 class="titulo-bloco">Informações do aluno</h3>
+                    <div class="texto-e-info">
+                        <p class="info-aluno"><strong>RM:</strong> <span id="rmAluno">-</span></p>
+                        <p class="info-aluno"><strong>Nome:</strong> <span id="nomeCompleto">-</span></p>
+                        <p class="info-aluno"><strong>Email:</strong> <span id="emailAluno">-</span></p>
+                    </div>
+                    <div class="btn-info">
+                        <button class="btn-muda-foto" id="btnAlterarFoto">Alterar foto</button>
+                        <input type="file" id="inputMudaFoto" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="bloco-de-detalhe">
+                    <h4>Habilitação:</h4>
+                    <p id="habilitacao">Técnico de desenvolvimento de sistemas</p>
+                </div>
+
+                <div class="bloco-de-detalhe">
+                    <h4>Situação Matricula:</h4>
+                    <p id="situacao">Cursando</p>
+                </div>
+
+                <div class="sub-guia-diario">
+                    <a class="btn-sub-guia" href="diario-aulas.html">Aula e Faltas</a>
+                    <a class="btn-sub-guia" href="diario-cronograma.html">Cronograma</a>
+                    <a class="btn-sub-guia" href="diario-boletim.html">Boletim</a>
+                    <a class="btn-sub-guia" href="diario-turma.html">Turma</a>
+                    <a class="btn-sub-guia" href="diario-professor.html">Professores</a>
                 </div>
             </div>
-            <div class="bloco-info">
-                <h3 class="titulo-bloco">Informações do aluno</h3>
-                <div class="texto-e-info">
-                    <p class="info-aluno"><strong>RM:</strong> 9999</p>
-                    <p class="info-aluno"><strong>Nome:</strong> Rodrigo dos Santos Pereira Junior</p>
-                    <p class="info-aluno"><strong>RA-Sed:</strong> 9999999-X/SP</p>
-                </div>
-                <div class="btn-info">
-                    <button class="btn-muda-foto">Alterar foto</button>
-                </div>
-            </div>
-
-            <div class="bloco-de-detalhe">
-                <h4>Habilitação:</h4>
-                <p>Técnico de desenvolvimento de sistemas</p>
-            </div>
-
-            <div class="bloco-de-detalhe">
-                <h4>Situação Matricula:</h4>
-                <p>Cursando</p>
-            </div>
-
-            <div class="sub-guia-diario">
-                <a class="btn-sub-guia" href="diario-aulas.html">Aula e Faltas</a>
-                <a class="btn-sub-guia" href="diario-cronograma.html">Cronograma</a>
-                <a class="btn-sub-guia" href="diario-boletim.html">Boletim</a>
-                <a class="btn-sub-guia" href="diario-turma.html">Turma</a>
-                <a class="btn-sub-guia" href="diario-professor.html">Professores</a>
-            </div>
-        </div>
         </div>
 
         <div class="bloco-de-conteudo2">
@@ -149,8 +187,139 @@
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elementos dos dropdowns
+        const API_URL = 'http://localhost:3000/api';
+        
+        document.addEventListener('DOMContentLoaded', async function() {
+            
+            // ============================================
+            // 1. VERIFICAR LOGIN E CARREGAR DADOS
+            // ============================================
+            const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+            
+            if (!usuarioLogado || !usuarioLogado.id) {
+                alert('Você precisa fazer login primeiro!');
+                window.location.href = '/home.html';
+                return;
+            }
+
+            // Elementos de imagem
+            const fotoPerfilNav = document.getElementById('fotoPerfilNav');
+            const fotoPerfilMini = document.getElementById('fotoPerfilMini');
+            const fotoPerfilDiario = document.getElementById('fotoPerfilDiario');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const URL_PADRAO = './imagens-diario/foto_de_perfil.png';
+
+            // ============================================
+            // 2. CARREGAR DADOS DO USUÁRIO
+            // ============================================
+            async function carregarDadosUsuario() {
+                try {
+                    loadingOverlay.classList.add('ativo');
+                    
+                    const response = await fetch(`${API_URL}/users/${usuarioLogado.id}`);
+                    const data = await response.json();
+                    
+                    if (data.success && data.user) {
+                        const user = data.user;
+                        
+                        // Atualizar informações na tela
+                        document.getElementById('saudacao').textContent = `Bem-vindo ${user.name || 'Usuário'}!`;
+                        document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${user.name || 'Usuário'}`;
+                        document.getElementById('nomeCompleto').textContent = user.name || '-';
+                        document.getElementById('emailAluno').textContent = user.email || '-';
+                        document.getElementById('rmAluno').textContent = user.id || '-';
+                        
+                        // Atualizar fotos de perfil
+                        const fotoUrl = user.perfilUrl ? `http://localhost:3000${user.perfilUrl}` : URL_PADRAO;
+                        fotoPerfilNav.src = fotoUrl;
+                        fotoPerfilMini.src = fotoUrl;
+                        fotoPerfilDiario.src = fotoUrl;
+                        
+                        // Atualizar localStorage
+                        localStorage.setItem('usuarioLogado', JSON.stringify(user));
+                    }
+                } catch (error) {
+                    console.error('Erro ao carregar dados do usuário:', error);
+                    alert('Erro ao carregar seus dados. Tente novamente.');
+                } finally {
+                    loadingOverlay.classList.remove('ativo');
+                }
+            }
+
+            // Carregar dados inicialmente
+            await carregarDadosUsuario();
+
+            // ============================================
+            // 3. UPLOAD DE FOTO DE PERFIL
+            // ============================================
+            const btnAlterarFoto = document.getElementById('btnAlterarFoto');
+            const inputMudaFoto = document.getElementById('inputMudaFoto');
+
+            btnAlterarFoto.addEventListener('click', function() {
+                inputMudaFoto.click();
+            });
+
+            inputMudaFoto.addEventListener('change', async function(event) {
+                const arquivo = event.target.files[0];
+                
+                if (!arquivo) return;
+
+                // Validação de tamanho (2MB)
+                if (arquivo.size > 2 * 1024 * 1024) {
+                    alert('A imagem deve ter no máximo 2MB');
+                    inputMudaFoto.value = '';
+                    return;
+                }
+
+                // Validação de tipo
+                if (!arquivo.type.startsWith('image/')) {
+                    alert('Por favor, selecione apenas imagens');
+                    inputMudaFoto.value = '';
+                    return;
+                }
+
+                try {
+                    loadingOverlay.classList.add('ativo');
+
+                    // Criar FormData para envio
+                    const formData = new FormData();
+                    formData.append('perfil', arquivo);
+
+                    // Enviar para o backend
+                    const response = await fetch(`${API_URL}/users/${usuarioLogado.id}/perfil`, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success && data.user) {
+                        // Atualizar as imagens com a nova URL
+                        const novaFotoUrl = `http://localhost:3000${data.user.perfilUrl}`;
+                        fotoPerfilNav.src = novaFotoUrl;
+                        fotoPerfilMini.src = novaFotoUrl;
+                        fotoPerfilDiario.src = novaFotoUrl;
+
+                        // Atualizar localStorage
+                        localStorage.setItem('usuarioLogado', JSON.stringify(data.user));
+
+                        alert('✅ Foto de perfil atualizada com sucesso!');
+                    } else {
+                        throw new Error(data.message || 'Erro ao atualizar foto');
+                    }
+
+                } catch (error) {
+                    console.error('Erro ao fazer upload:', error);
+                    alert('❌ Erro ao atualizar foto de perfil. Tente novamente.');
+                } finally {
+                    loadingOverlay.classList.remove('ativo');
+                    inputMudaFoto.value = '';
+                }
+            });
+
+            // ============================================
+            // 4. LÓGICA DOS DROPDOWNS
+            // ============================================
             const dropdownNotif = document.getElementById('dropdownNotif');
             const dropdownConfig = document.getElementById('dropdownConfig');
             const dropdownPerfil = document.getElementById('dropdownPerfil');
@@ -158,12 +327,10 @@
             const btnConfig = document.querySelector('.btn-config');
             const btnPerfil = document.querySelector('.foto-de-perfil');
             
-            // Funções para fechar dropdowns
             function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
             function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
             function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
             
-            // Event listeners para abrir dropdowns
             btnNotif.addEventListener('click', function() {
                 fecharDropdownConfig();
                 fecharDropdownPerfil();
@@ -181,8 +348,10 @@
                 fecharDropdownConfig();
                 dropdownPerfil.classList.toggle('ativo');
             });
-            
-            // Event listeners para ações dos dropdowns
+
+            // ============================================
+            // 5. AÇÕES DOS BOTÕES
+            // ============================================
             document.querySelectorAll('[data-action]').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     const action = this.getAttribute('data-action');
@@ -190,35 +359,16 @@
                         case 'fechar-notif': fecharDropdownNotif(); break;
                         case 'fechar-config': fecharDropdownConfig(); break;
                         case 'fechar-perfil': fecharDropdownPerfil(); break;
-                        case 'abrir-tema': 
-                            alert('Funcionalidade de Tema será implementada'); 
-                            fecharDropdownConfig(); 
-                            break;
-                        case 'abrir-acessibilidade': 
-                            alert('Funcionalidade de Acessibilidade será implementada'); 
-                            fecharDropdownConfig(); 
-                            break;
-                        case 'abrir-opcoes-avancadas': 
-                            alert('Funcionalidade de Opções Avançadas será implementada'); 
-                            fecharDropdownConfig(); 
-                            break;
-                        case 'abrir-seu-perfil': 
-                            alert('Redirecionando para Seu Perfil'); 
-                            fecharDropdownPerfil(); 
-                            break;
-                        case 'abrir-privacidade': 
-                            alert('Abrindo configurações de Privacidade'); 
-                            fecharDropdownPerfil(); 
-                            break;
-                        case 'abrir-ajuda-recursos': 
-                            alert('Abrindo Ajuda e Recursos'); 
-                            fecharDropdownPerfil(); 
-                            break;
                         case 'sair-da-conta':
                             if (confirm('Tem certeza que deseja sair da conta?')) {
-                                alert('Saindo da conta...');
+                                localStorage.removeItem('usuarioLogado');
                                 window.location.href = '/home.html';
                             }
+                            fecharDropdownPerfil();
+                            break;
+                        default:
+                            alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
+                            fecharDropdownConfig(); 
                             fecharDropdownPerfil();
                             break;
                     }

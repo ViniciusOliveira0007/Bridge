@@ -5,6 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trilhas</title>
     <link rel="stylesheet" href="./estilos_trilhas/estilo_trilhas.css">
+    <style>
+        .foto-de-perfil, .perfil-mini {
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .area-input-comentario {
+            display: none;
+            align-items: center;
+            padding: 10px 0;
+            gap: 10px;
+        }
+        .area-input-comentario.ativo {
+            display: flex;
+        }
+        .area-input-comentario input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+        }
+        .foto-perfil-comentario {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ddd; 
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .foto-perfil-comentario img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-comentario {
+            display: flex;
+            margin-bottom: 8px;
+            align-items: flex-start;
+        }
+        .card-comentario .comentario {
+            background-color: #f0f2f5;
+            padding: 8px 12px;
+            border-radius: 18px;
+            margin-left: 8px;
+            max-width: 80%;
+            word-wrap: break-word;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 <body>
 
@@ -13,15 +61,13 @@
             <div class="menu-1">
                 <img src="./imagens_trilhas/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
             </div>
-
             <div class="menu-2">
                 <input type="text" placeholder="Pesquise aqui...">
             </div> 
-
             <div class="menu-3">
                 <img src="./imagens_trilhas/sininho.svg" alt="notificação" class="btn-notificao-nav">
                 <img src="./imagens_trilhas/configuracao.svg" alt="botão de configuração" class="btn-config">
-                <img src="./imagens_trilhas/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil">
+                <img src="./imagens_trilhas/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" id="fotoPerfilNav">
                 
                 <div class="dropdown-notificacoes" id="dropdownNotif">
                     <div class="dropdown-header">
@@ -54,8 +100,8 @@
                 <div class="dropdown-perfil" id="dropdownPerfil">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="./imagens_trilhas/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
-                            <span>Olá, Rodrigo</span>
+                            <img src="./imagens_trilhas/foto_de_perfil.png" alt="Perfil" class="perfil-mini" id="fotoPerfilMini">
+                            <span id="nomeUsuarioPerfil">Olá, Usuário</span>
                         </div>
                         <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
@@ -80,273 +126,219 @@
     </div>
 
     <main class="conteudo-principal"> 
-
         <div class="empresas">
-
             <div class="secao-projeto-pendentes">
-
                 <h3 class="projetos-pendentes">Projetos Pendentes</h3>
-
                 <a href="./telas-trilhas/pendentes_trilhas.html">
                     <div class="pendente">
                         <img src="./imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google">
                     </div>
                 </a>
-
                 <div class="pendente">
                     <img src="./imagens_trilhas/microsft-pendente.svg" alt="Projeto Pendente Microsoft">
                 </div>
-
                 <a href="./telas-trilhas/pendentes_trilhas.html">
                     <div class="pendente">
                         <img src="./imagens_trilhas/google-pendente.svg" alt="Outro Projeto Pendente Google">
                     </div>
                 </a>
-
             </div>
 
             <div class="secao-proposta-projeto">
-
-                    <h3 class="propostas-de-projeto">Propostas de Projeto</h3>
-
-                    <a href="./telas-trilhas/propostas_trilhas.html">
-                        <div class="proposta">
-                            <img src="./imagens_trilhas/microsft-pendente.svg" alt="Proposta Microsoft">
-                        </div>
-                    </a>
-                    
+                <h3 class="propostas-de-projeto">Propostas de Projeto</h3>
+                <a href="./telas-trilhas/propostas_trilhas.html">
                     <div class="proposta">
-                        <img src="./imagens_trilhas/google-pendente.svg" alt="Proposta Google">
+                        <img src="./imagens_trilhas/microsft-pendente.svg" alt="Proposta Microsoft">
                     </div>
-                    
-                    <a href="./telas-trilhas/propostas_trilhas.html">
-                        <div class="proposta">
-                            <img src="./imagens_trilhas/microsft-pendente.svg" alt="Outra Proposta Microsoft">
-                        </div>
-                    </a>
-
+                </a>
+                <div class="proposta">
+                    <img src="./imagens_trilhas/google-pendente.svg" alt="Proposta Google">
+                </div>
             </div>
         </div>
 
         <div class="postagens-de-trilhas">
-
             <div class="container-post-trilhas">
-
                 <div class="box-post-trilhas">
-
                     <div class="content-post-trilhas">
-
                         <div class="post-trilhas">
-
                             <div class="foto-de-perfil">
-
-                                <img class="img-projeto" src="./imagens_trilhas/foto perfil c.svg" />
-
+                                <img class="img-projeto" src="./imagens_trilhas/foto perfil c.svg" alt="Imagem do Projeto"/>
                             </div>
-
                             <div class="titulo-post-trilhas">
-
                                 <h4 class="texto-post-trilhas">Mais um projetinho entregue.</h4>
-
                             </div>
                         </div>
-
+                        
                         <div class="display-img-comentario">
-
                             <div class="img-post-trilhas">
-
                                 <img class="image-7" src="./imagens_trilhas/Excel.svg" />
-
                             </div>
-
+                            
                             <div class="todos-comentarios">
-
-                                <div class="comentarios-trlhas">
-
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
+                                <div class="comentarios-trlhas" id="comentariosPost1"></div>
                                 
-                                </div>
                                 <div class="interações-post-trilhas">
-                                            <div class="btn-interacoes">Comentar</div>     
-
-                                            <div class="btn-interacoes">Compartilhar</div>
-                                        </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="box-post-trilhas">
-
-                    <div class="content-post-trilhas">
-
-                        <div class="post-trilhas">
-
-                            <div class="foto-de-perfil">
-
-                                <img class="img-projeto" src="./imagens_trilhas/foto perfil c.svg" />
-
-                            </div>
-
-                            <div class="titulo-post-trilhas">
-
-                                <h4 class="texto-post-trilhas">Mais um projetinho entregue.</h4>
-
-                            </div>
-                        </div>
-
-                        <div class="display-img-comentario">
-
-                            <div class="img-post-trilhas">
-
-                                <img class="image-7" src="./imagens_trilhas/Excel.svg" />
-
-                            </div>
-
-                            <div class="todos-comentarios">
-
-                                <div class="comentarios-trlhas">
-
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                    <div class="card-comentario">
-
-                                        <div class="foto-perfil-comentario"></div>
-
-                                        <div class="comentario"><div class="ficou-realmente-bom">Ficou realmente bom</div></div>
-
-                                    </div>
-                                
+                                    <div class="btn-interacoes" id="btnToggleComentario">Comentar</div>
+                                    <div class="btn-interacoes">Compartilhar</div>
                                 </div>
-                                <div class="interações-post-trilhas">
-                                            <div class="btn-interacoes">Comentar</div>     
 
-                                            <div class="btn-interacoes">Compartilhar</div>
-                                        </div>
+                                <div class="area-input-comentario" id="areaInputComentario">
+                                    <div class="foto-perfil-comentario">
+                                        <img src="./imagens_trilhas/foto_de_perfil.png" alt="Sua foto" id="fotoComentario">
+                                    </div>
+                                    <input type="text" placeholder="Escreva um comentário..." id="inputComentario">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elementos dos dropdowns
+        const API_URL = 'http://localhost:3000/api';
+        const STORAGE_KEY = 'trilhasCommentsPost1';
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            
+            // ============================================
+            // 1. VERIFICAR LOGIN E CARREGAR DADOS
+            // ============================================
+            const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+            
+            if (!usuarioLogado || !usuarioLogado.id) {
+                alert('Você precisa fazer login primeiro!');
+                window.location.href = '/home.html';
+                return;
+            }
+
+            const URL_PADRAO = './imagens_trilhas/foto_de_perfil.png';
+            const fotoPerfilNav = document.getElementById('fotoPerfilNav');
+            const fotoPerfilMini = document.getElementById('fotoPerfilMini');
+            const fotoComentario = document.getElementById('fotoComentario');
+
+            console.log('👤 Usuário logado:', usuarioLogado);
+
+            // ============================================
+            // 2. CARREGAR FOTO DE PERFIL DO BACKEND
+            // ============================================
+            async function carregarFotoPerfil() {
+                try {
+                    const response = await fetch(`${API_URL}/users/${usuarioLogado.id}`);
+                    const data = await response.json();
+                    
+                    if (data.success && data.user) {
+                        const fotoUrl = data.user.perfilUrl 
+                            ? `http://localhost:3000${data.user.perfilUrl}` 
+                            : URL_PADRAO;
+                        
+                        fotoPerfilNav.src = fotoUrl;
+                        fotoPerfilMini.src = fotoUrl;
+                        fotoComentario.src = fotoUrl;
+                        
+                        // Atualizar nome do usuário
+                        document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${data.user.name || 'Usuário'}`;
+                        
+                        console.log('✅ Foto de perfil carregada:', fotoUrl);
+                    }
+                } catch (error) {
+                    console.error('❌ Erro ao carregar foto de perfil:', error);
+                    // Usar foto padrão em caso de erro
+                    fotoPerfilNav.src = URL_PADRAO;
+                    fotoPerfilMini.src = URL_PADRAO;
+                    fotoComentario.src = URL_PADRAO;
+                }
+            }
+
+            await carregarFotoPerfil();
+
+            // ============================================
+            // 3. LÓGICA DE COMENTÁRIOS
+            // ============================================
+            const inputComentario = document.getElementById('inputComentario');
+            const btnToggleComentario = document.getElementById('btnToggleComentario');
+            const areaInputComentario = document.getElementById('areaInputComentario');
+            const containerComentarios = document.getElementById('comentariosPost1');
+
+            function criarNovoComentario(texto, urlFoto) {
+                const novoComentario = document.createElement('div');
+                novoComentario.classList.add('card-comentario');
+                novoComentario.innerHTML = `
+                    <div class="foto-perfil-comentario">
+                        <img src="${urlFoto}" alt="Sua foto">
+                    </div>
+                    <div class="comentario">
+                        <div class="ficou-realmente-bom">${texto}</div>
+                    </div>
+                `;
+                return novoComentario;
+            }
+
+            function carregarComentariosSalvos() {
+                const comentariosSalvosJSON = localStorage.getItem(STORAGE_KEY);
+                const comentariosSalvos = comentariosSalvosJSON ? JSON.parse(comentariosSalvosJSON) : [];
+
+                for (let i = comentariosSalvos.length - 1; i >= 0; i--) {
+                    const texto = comentariosSalvos[i];
+                    const fotoUrl = fotoComentario.src;
+                    const novoComentarioElemento = criarNovoComentario(texto, fotoUrl);
+                    containerComentarios.prepend(novoComentarioElemento);
+                }
+            }
+
+            function enviarComentario() {
+                const texto = inputComentario.value.trim();
+
+                if (texto) {
+                    const fotoUrl = fotoComentario.src;
+                    const novoComentarioElemento = criarNovoComentario(texto, fotoUrl);
+                    containerComentarios.prepend(novoComentarioElemento);
+                    
+                    const comentariosSalvosJSON = localStorage.getItem(STORAGE_KEY);
+                    const comentariosSalvos = comentariosSalvosJSON ? JSON.parse(comentariosSalvosJSON) : [];
+                    comentariosSalvos.push(texto);
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(comentariosSalvos));
+                    
+                    inputComentario.value = '';
+                    console.log(`Comentário enviado: "${texto}"`);
+                }
+            }
+
+            carregarComentariosSalvos();
+
+            btnToggleComentario.addEventListener('click', function() {
+                if (areaInputComentario.classList.contains('ativo') && inputComentario.value.trim().length > 0) {
+                    enviarComentario();
+                } else {
+                    areaInputComentario.classList.toggle('ativo');
+                    if (areaInputComentario.classList.contains('ativo')) {
+                        inputComentario.focus();
+                    }
+                }
+            });
+
+            inputComentario.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    enviarComentario();
+                }
+            });
+
+            // ============================================
+            // 4. DROPDOWNS
+            // ============================================
             const dropdownNotif = document.getElementById('dropdownNotif');
             const dropdownConfig = document.getElementById('dropdownConfig');
             const dropdownPerfil = document.getElementById('dropdownPerfil');
             const btnNotif = document.querySelector('.btn-notificao-nav');
             const btnConfig = document.querySelector('.btn-config');
-            const btnPerfil = document.querySelector('.foto-de-perfil');
             
-            // Funções para fechar dropdowns
             function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
             function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
             function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
             
-            // Event listeners para abrir dropdowns
             btnNotif.addEventListener('click', function() {
                 fecharDropdownConfig();
                 fecharDropdownPerfil();
@@ -359,13 +351,12 @@
                 dropdownConfig.classList.toggle('ativo');
             });
             
-            btnPerfil.addEventListener('click', function() {
+            fotoPerfilNav.addEventListener('click', function() {
                 fecharDropdownNotif();
                 fecharDropdownConfig();
                 dropdownPerfil.classList.toggle('ativo');
             });
-            
-            // Event listeners para ações dos dropdowns
+
             document.querySelectorAll('[data-action]').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     const action = this.getAttribute('data-action');
@@ -373,46 +364,28 @@
                         case 'fechar-notif': fecharDropdownNotif(); break;
                         case 'fechar-config': fecharDropdownConfig(); break;
                         case 'fechar-perfil': fecharDropdownPerfil(); break;
-                        case 'abrir-tema': 
-                            alert('Funcionalidade de Tema será implementada'); 
-                            fecharDropdownConfig(); 
-                            break;
-                        case 'abrir-acessibilidade': 
-                            alert('Funcionalidade de Acessibilidade será implementada'); 
-                            fecharDropdownConfig(); 
-                            break;
-                        case 'abrir-opcoes-avancadas': 
-                            alert('Funcionalidade de Opções Avançadas será implementada'); 
-                            fecharDropdownConfig(); 
-                            break;
-                        case 'abrir-seu-perfil': 
-                            alert('Redirecionando para Seu Perfil'); 
-                            fecharDropdownPerfil(); 
-                            break;
-                        case 'abrir-privacidade': 
-                            alert('Abrindo configurações de Privacidade'); 
-                            fecharDropdownPerfil(); 
-                            break;
-                        case 'abrir-ajuda-recursos': 
-                            alert('Abrindo Ajuda e Recursos'); 
-                            fecharDropdownPerfil(); 
-                            break;
                         case 'sair-da-conta':
                             if (confirm('Tem certeza que deseja sair da conta?')) {
-                                alert('Saindo da conta...');
+                                localStorage.removeItem('usuarioLogado');
                                 window.location.href = '/home.html';
                             }
+                            fecharDropdownPerfil();
+                            break;
+                        default:
+                            alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
+                            fecharDropdownConfig(); 
                             fecharDropdownPerfil();
                             break;
                     }
                 });
             });
             
-            // Fechar dropdowns ao clicar fora
             document.addEventListener('click', function(event) {
-                if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                    !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                    !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
+                const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
+                                       !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
+                                       !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
+                
+                if (isClickOutside) {
                     fecharDropdownNotif();
                     fecharDropdownConfig();
                     fecharDropdownPerfil();

@@ -203,15 +203,30 @@
                 
                 const data = await response.json();
                 
+                console.log('📥 Resposta do login:', data); // Debug
+                
                 // Se login bem-sucedido (status 200)
                 if (response.ok && data.success) {
-                    // Salva dados do usuário
+                    console.log('✅ Login bem-sucedido!');
+                    console.log('👤 Dados do usuário:', data.user);
+                    
+                    // ✅ CORREÇÃO: Salva o objeto COMPLETO como usuarioLogado
+                    localStorage.setItem('usuarioLogado', JSON.stringify(data.user));
+                    
+                    // Também mantém as chaves individuais para compatibilidade
                     localStorage.setItem('userId', data.user.id);
                     localStorage.setItem('userName', data.user.name);
                     localStorage.setItem('userRole', data.user.role);
+                    localStorage.setItem('userEmail', data.user.email);
                     
-                    // Redireciona para a sala de aula
-                    window.location.href = '/telas/Sala-de-Aula/sala.html';
+                    console.log('💾 Dados salvos no localStorage');
+                    
+                    // Pequeno delay para garantir que salvou
+                    setTimeout(() => {
+                        // Redireciona para a sala de aula
+                        window.location.href = '/telas/Sala-de-Aula/sala.html';
+                    }, 100);
+                    
                 } else {
                     // Se senha incorreta (status 401 ou 404)
                     errorMessage.textContent = data.message || 'Senha incorreta';
@@ -227,7 +242,7 @@
                 }
                         
             } catch (error) {
-                console.error('Erro ao fazer login:', error);
+                console.error('❌ Erro ao fazer login:', error);
                 errorMessage.textContent = 'Erro ao conectar com o servidor';
                 errorMessage.style.display = 'block';
                 

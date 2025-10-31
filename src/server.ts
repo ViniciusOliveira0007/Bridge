@@ -25,6 +25,13 @@ import {
 // Controlador de turmas
 import { getMembros, getTurmas, createTurma, getCursos } from "./controllers/turmaController";
 
+// Controlador de perfil (NOVO)
+import { 
+  atualizarFotoPerfil, 
+  buscarUsuario, 
+  removerFotoPerfil 
+} from "./controllers/perfilController";
+
 const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
@@ -75,9 +82,9 @@ app.use("/telas", express.static("telas"));
 app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
 
 // ========================================
-// CONFIGURAÇÃO DO MULTER
+// CONFIGURAÇÃO DO MULTER PARA POSTS
 // ========================================
-const storage = multer.diskStorage({
+const storagePost = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "..", "uploads"));
   },
@@ -87,7 +94,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const fileFilter = (req: express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+const fileFilterPost = (req: express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
   if (!file.mimetype.startsWith("image/")) {
     cb(new Error("Apenas arquivos de imagem são permitidos"));
   } else {
@@ -95,10 +102,37 @@ const fileFilter = (req: express.Request, file: Express.Multer.File, cb: multer.
   }
 };
 
-const upload = multer({
-  storage,
-  fileFilter,
+const uploadPost = multer({
+  storage: storagePost,
+  fileFilter: fileFilterPost,
   limits: { fileSize: 5 * 1024 * 1024 },
+});
+
+// ========================================
+// CONFIGURAÇÃO DO MULTER PARA PERFIL (NOVO)
+// ========================================
+const storagePerfil = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "..", "uploads"));
+  },
+  filename: (req, file, cb) => {
+    const unique = `perfil-${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    cb(null, unique + path.extname(file.originalname));
+  },
+});
+
+const fileFilterPerfil = (req: express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+  if (!file.mimetype.startsWith("image/")) {
+    cb(new Error("Apenas imagens são permitidas para foto de perfil"));
+  } else {
+    cb(null, true);
+  }
+};
+
+const uploadPerfil = multer({
+  storage: storagePerfil,
+  fileFilter: fileFilterPerfil,
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB para perfil
 });
 
 // ========================================
@@ -132,9 +166,16 @@ app.post("/api/login", login);
 app.post("/api/reset-password", resetPassword);
 
 // ========================================
+// ROTAS DE USUÁRIO/PERFIL (NOVO)
+// ========================================
+app.get("/api/users/:userId", buscarUsuario);
+app.post("/api/users/:userId/perfil", uploadPerfil.single("perfil"), atualizarFotoPerfil);
+app.delete("/api/users/:userId/perfil", removerFotoPerfil);
+
+// ========================================
 // ROTAS DE POSTS
 // ========================================
-app.post("/api/posts", upload.single("image"), criarPost);
+app.post("/api/posts", uploadPost.single("image"), criarPost);
 app.get("/api/posts", listarPosts);
 
 // ========================================

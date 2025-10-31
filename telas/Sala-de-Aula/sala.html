@@ -316,9 +316,83 @@
     </div>
 
     <script>
-        const userId = localStorage.getItem('userId') || '1';
-        const userName = localStorage.getItem('userName') || 'Usuário';
-        const userRole = localStorage.getItem('userRole') || 'aluno';
+        // ===============================================
+// ADICIONE ESTE SCRIPT NO INÍCIO DO <script> DA sala.html
+// SUBSTITUA AS LINHAS:
+// const userId = localStorage.getItem('userId') || '1';
+// const userName = localStorage.getItem('userName') || 'Usuário';
+// const userRole = localStorage.getItem('userRole') || 'aluno';
+// ===============================================
+
+const API_URL = 'http://localhost:3000/api';
+
+// Verificar login
+const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+
+if (!usuarioLogado || !usuarioLogado.id) {
+    alert('Você precisa fazer login primeiro!');
+    window.location.href = '/home.html';
+    throw new Error('Usuário não logado');
+}
+
+const userId = usuarioLogado.id;
+const userName = usuarioLogado.name || 'Usuário';
+const userRole = usuarioLogado.role || 'aluno';
+
+console.log('📊 Usuário:', userName, '| Role:', userRole);
+
+// ===============================================
+// CARREGAR FOTO DE PERFIL
+// ===============================================
+async function carregarFotoPerfilSala() {
+    try {
+        const fotoPerfilNav = document.querySelector('.foto-de-perfil');
+        const fotoPerfilMini = document.querySelector('.perfil-mini');
+        const URL_PADRAO = './imagens-sala/foto_de_perfil.png';
+        
+        if (!fotoPerfilNav || !fotoPerfilMini) {
+            console.warn('⚠️ Elementos de foto de perfil não encontrados');
+            return;
+        }
+        
+        console.log('🔄 Carregando foto de perfil do usuário:', userId);
+        
+        const response = await fetch(`${API_URL}/users/${userId}`);
+        const data = await response.json();
+        
+        if (data.success && data.user) {
+            const fotoUrl = data.user.perfilUrl 
+                ? `http://localhost:3000${data.user.perfilUrl}` 
+                : URL_PADRAO;
+            
+            fotoPerfilNav.src = fotoUrl;
+            fotoPerfilMini.src = fotoUrl;
+            
+            // Atualizar nome do usuário
+            const nomeElement = document.getElementById('nomeUsuarioPerfil');
+            if (nomeElement) {
+                nomeElement.textContent = `Olá, ${data.user.name || userName}`;
+            }
+            
+            console.log('✅ Foto de perfil carregada:', fotoUrl);
+        }
+    } catch (error) {
+        console.error('❌ Erro ao carregar foto de perfil:', error);
+        // Usar foto padrão em caso de erro
+        const fotoPerfilNav = document.querySelector('.foto-de-perfil');
+        const fotoPerfilMini = document.querySelector('.perfil-mini');
+        const URL_PADRAO = './imagens-sala/foto_de_perfil.png';
+        
+        if (fotoPerfilNav) fotoPerfilNav.src = URL_PADRAO;
+        if (fotoPerfilMini) fotoPerfilMini.src = URL_PADRAO;
+    }
+}
+
+// CHAMAR A FUNÇÃO ASSIM QUE A PÁGINA CARREGAR
+document.addEventListener('DOMContentLoaded', async () => {
+    await carregarFotoPerfilSala();
+    carregarSalas(); // Função original da sala.html
+});
 
         console.log('📊 Usuário:', userName, '| Role:', userRole);
 
@@ -521,7 +595,7 @@
         btnConfig.addEventListener('click', () => {
             dropdownNotif.classList.remove('ativo');
             dropdownPerfil.classList.remove('ativo');
-            dropdownConfig.classList.toggle('ativo');
+            dropdownConfig.classList.toggle('ativo');   
         });
 
         btnPerfil.addEventListener('click', () => {
