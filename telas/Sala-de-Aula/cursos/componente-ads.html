@@ -602,275 +602,6 @@ function fecharDetalhes(event) {
     const modal = document.getElementById('modalDetalhes');
     if (modal) modal.classList.remove('ativo');
 }
-// ===============================================
-// INICIALIZAÇÃO
-// ===============================================
-document.addEventListener('DOMContentLoaded', function() {
-    inicializarDropdowns();
-    inicializarSidebar();
-    inicializarNavegacao();
-    inicializarFiltros();
-    inicializarModal();
-    inicializarFormularios();
-    carregarAtividades();
-    carregarPostagens();
-    carregarArquivos();
-    carregarMembros();
-    atualizarNomeUsuario();
-    
-    if (userRole === 'professor') {
-        adicionarBotaoCriar();
-    }
-});
-
-// ===============================================
-// DROPDOWNS
-// ===============================================
-function inicializarDropdowns() {
-    const dropdownNotif = document.getElementById('dropdownNotif');
-    const dropdownConfig = document.getElementById('dropdownConfig');
-    const dropdownPerfil = document.getElementById('dropdownPerfil');
-    const btnNotif = document.querySelector('.btn-notificao-nav');
-    const btnConfig = document.querySelector('.btn-config');
-    const btnPerfil = document.querySelector('.foto-de-perfil');
-    
-    if (!dropdownNotif || !dropdownConfig || !dropdownPerfil || !btnNotif || !btnConfig || !btnPerfil) {
-        console.error("Erro: Elementos do dropdown não encontrados.");
-        return;
-    }
-
-    const fecharDropdownNotif = () => dropdownNotif.classList.remove('ativo');
-    const fecharDropdownConfig = () => dropdownConfig.classList.remove('ativo');
-    const fecharDropdownPerfil = () => dropdownPerfil.classList.remove('ativo');
-    
-    btnNotif.addEventListener('click', (e) => {
-        e.stopPropagation();
-        fecharDropdownConfig();
-        fecharDropdownPerfil();
-        dropdownNotif.classList.toggle('ativo');
-    });
-    
-    btnConfig.addEventListener('click', (e) => {
-        e.stopPropagation();
-        fecharDropdownNotif();
-        fecharDropdownPerfil();
-        dropdownConfig.classList.toggle('ativo');
-    });
-    
-    btnPerfil.addEventListener('click', (e) => {
-        e.stopPropagation();
-        fecharDropdownNotif();
-        fecharDropdownConfig();
-        dropdownPerfil.classList.toggle('ativo');
-    });
-    
-    document.querySelectorAll('[data-action]').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const action = this.getAttribute('data-action');
-            switch(action) {
-                case 'fechar-notif': fecharDropdownNotif(); break;
-                case 'fechar-config': fecharDropdownConfig(); break;
-                case 'fechar-perfil': fecharDropdownPerfil(); break;
-                case 'sair-da-conta':
-                    if (confirm('Tem certeza que deseja sair da conta?')) {
-                        localStorage.removeItem('userId');
-                        localStorage.removeItem('userName');
-                        localStorage.removeItem('userRole');
-                        window.location.href = '/home.html';
-                    }
-                    fecharDropdownPerfil();
-                    break;
-                case 'perfil':
-                    fecharDropdownPerfil();
-                    // Redirecionar para página de perfil quando estiver pronta
-                    console.log('📝 Abrir perfil do usuário');
-                    break;
-                case 'configuracoes':
-                    fecharDropdownConfig();
-                    console.log('⚙️ Abrir configurações');
-                    break;
-                case 'notificacoes':
-                    fecharDropdownNotif();
-                    console.log('🔔 Ver todas as notificações');
-                    break;
-                case 'ajuda':
-                    fecharDropdownConfig();
-                    console.log('❓ Abrir central de ajuda');
-                    break;
-                default:
-                    console.log('Funcionalidade:', action);
-                    fecharDropdownNotif();
-                    fecharDropdownConfig();
-                    fecharDropdownPerfil();
-            }
-        });
-    });
-    
-    document.addEventListener('click', (event) => {
-        const target = event.target;
-        if (
-            !dropdownNotif.contains(target) && target !== btnNotif &&
-            !dropdownConfig.contains(target) && target !== btnConfig &&
-            !dropdownPerfil.contains(target) && target !== btnPerfil
-        ) {
-            fecharDropdownNotif();
-            fecharDropdownConfig();
-            fecharDropdownPerfil();
-        }
-    });
-}
-
-// ===============================================
-// SIDEBAR
-// ===============================================
-function inicializarSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const expandButton = document.getElementById('expandButton');
-    const expandText = document.getElementById('expandText');
-    const visaoGeralText = document.querySelector('.visao-geral-text');
-    
-    if (!sidebar || !expandButton || !expandText || !visaoGeralText) return;
-
-    expandButton.addEventListener('click', () => {
-        sidebar.classList.toggle('expanded');
-        if (sidebar.classList.contains('expanded')) {
-            expandText.textContent = 'Recolher';
-            visaoGeralText.innerHTML = 'Visão Geral';
-        } else {
-            expandText.textContent = 'Expandir';
-            visaoGeralText.innerHTML = 'Visão<br>Geral';
-        }
-    });
-}
-
-// ===============================================
-// NAVEGAÇÃO
-// ===============================================
-function inicializarNavegacao() {
-    const telas = {
-        'visao': document.getElementById('conteudoVisao'),
-        'tarefa': document.getElementById('conteudoTarefas'),
-        'postagens': document.getElementById('conteudoPostagens'),
-        'arquivo': document.getElementById('conteudoArquivo'),
-        'membros': document.getElementById('conteudoMembros')
-    };
-
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', function() {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            this.classList.add('active');
-
-            const telaAlvo = this.getAttribute('data-tela');
-
-            Object.values(telas).forEach(tela => {
-                if (tela) tela.classList.add('desativado');
-            });
-
-            const telaAtual = telas[telaAlvo];
-            if (telaAtual) {
-                telaAtual.classList.remove('desativado');
-            }
-
-            if (telaAlvo === 'tarefa') {
-                renderizarTarefas();
-            } else if (telaAlvo === 'postagens') {
-                renderizarPostagens();
-            } else if (telaAlvo === 'arquivo') {
-                renderizarArquivos();
-            } else if (telaAlvo === 'membros') {
-                renderizarMembros();
-            }
-        });
-    });
-}
-
-// ===============================================
-// FUNÇÕES AUXILIARES
-// ===============================================
-function atualizarNomeUsuario() {
-    const nomeElement = document.getElementById('nomeUsuarioPerfil');
-    if (nomeElement) nomeElement.textContent = `Olá, ${userName}`;
-}
-
-function adicionarBotaoCriar() {
-    const container = document.getElementById('btnCriarContainer');
-    if (container) {
-        container.innerHTML = `<button id="btnCriarAtividade" class="btn-criar-atividade">➕ Criar Atividade</button>`;
-        
-        const btnCriar = document.getElementById('btnCriarAtividade');
-        if (btnCriar) {
-            btnCriar.addEventListener('click', () => abrirModal());
-        }
-    }
-}
-
-function abrirModal(atividadeId = null) {
-    const modal = document.getElementById('modalCriar');
-    if (!modal) return;
-    
-    const titulo = document.getElementById('tituloModal');
-    const btnSalvar = modal.querySelector('.btn-salvar');
-    
-    if (atividadeId) {
-        // Modo edição
-        const atividade = todasAtividades.find(a => a.id === atividadeId);
-        if (!atividade) return;
-        
-        if (titulo) titulo.textContent = '✏️ Editar Atividade';
-        if (btnSalvar) btnSalvar.textContent = '💾 Salvar Alterações';
-        
-        document.getElementById('tituloAtividade').value = atividade.titulo;
-        document.getElementById('descricaoAtividade').value = atividade.descricao;
-        
-        const prazoDate = new Date(atividade.prazo);
-        const prazoFormatado = prazoDate.toISOString().slice(0, 16);
-        document.getElementById('dataEntregaAtividade').value = prazoFormatado;
-        
-        modal.dataset.editandoId = atividadeId;
-    } else {
-        // Modo criação
-        if (titulo) titulo.textContent = '➕ Criar Nova Atividade';
-        if (btnSalvar) btnSalvar.textContent = '✅ Criar Atividade';
-        limparFormulario();
-        delete modal.dataset.editandoId;
-    }
-    
-    modal.classList.add('ativo');
-}
-
-function fecharModal() {
-    const modal = document.getElementById('modalCriar');
-    if (modal) modal.classList.remove('ativo');
-    limparFormulario();
-}
-
-function limparFormulario() {
-    const form = document.getElementById('formCriarAtividade');
-    if (form) form.reset();
-    removerArquivo();
-}
-
-function removerArquivo() {
-    const input = document.getElementById('arquivoAtividade');
-    if (input) input.value = '';
-    
-    const info = document.getElementById('arquivoInfo');
-    const nome = document.getElementById('arquivoNome');
-    
-    if (info) info.classList.remove('ativo');
-    if (nome) nome.textContent = '';
-    
-    arquivoSelecionado = null;
-}
-
-function fecharDetalhes(event) {
-    if (event) {
-        event.stopPropagation();
-    }
-    const modal = document.getElementById('modalDetalhes');
-    if (modal) modal.classList.remove('ativo');
-}
 
 // ===============================================
 // INICIALIZAÇÃO DE MODAIS E FORMULÁRIOS
@@ -1007,7 +738,6 @@ function carregarAtividades() {
         salvarAtividades();
     }
 
-    // Ordenar por data de criação (mais recentes primeiro)
     todasAtividades.sort((a, b) => {
         const dataA = new Date(a.criadoEm || a.prazo).getTime();
         const dataB = new Date(b.criadoEm || b.prazo).getTime();
@@ -1354,6 +1084,7 @@ function criarCardAtividade(atividade) {
             </div>
         `;
     } else {
+        // CARD PARA ALUNO (SEM BOTÕES DE EDITAR/EXCLUIR)
         const status = getStatus(atividade.prazo, atividade);
         const statusText = status === 'pendente' ? 'Pendente' : status === 'atraso' ? 'Em Atraso' : 'Concluída';
         const dataFormatada = formatarData(atividade.prazo);
@@ -1361,20 +1092,23 @@ function criarCardAtividade(atividade) {
 
         return `
             <div class="card-atividade-dinamico" data-id="${atividade.id}">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <h3>${atividade.titulo}</h3>
-                    <span class="badge-status badge-${status}">${statusText}</span>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                    <h3 style="margin: 0; flex: 1;">${atividade.titulo}</h3>
+                    <span class="badge-status badge-${status}" style="margin-left: 10px;">${statusText}</span>
                 </div>
-                <p class="prazo-entrega">
+                <p class="prazo-entrega" style="margin: 8px 0;">
                     Prazo de Entrega: ${dataFormatada}
                 </p>
-                <p class="descricao-atividade">
+                <p class="descricao-atividade" style="margin: 8px 0;">
                     ${atividade.descricao.substring(0, 80)}${atividade.descricao.length > 80 ? '...' : ''}
                 </p>
-                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 15px;">
+                    <button class="btn-ver-detalhes" data-acao="ver-detalhes" data-id="${atividade.id}" style="flex: 1; padding: 10px; background: #2196F3; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                        📋 Ver Detalhes
+                    </button>
                     ${minhaEntrega ? 
-                        `<span class="status-entregue">✅ Entregue</span>` :
-                        `<button class="btn-entregar" data-acao="entregar" data-id="${atividade.id}">📤 Entregar</button>`
+                        `<span class="status-entregue" style="padding: 10px 20px; background: #D4EDDA; color: #155724; border-radius: 6px; font-weight: bold; white-space: nowrap;">✅ Entregue</span>` :
+                        `<button class="btn-entregar" data-acao="entregar" data-id="${atividade.id}" style="padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; white-space: nowrap;">📤 Entregar</button>`
                     }
                 </div>
             </div>
@@ -1561,11 +1295,19 @@ function abrirDetalhes(id) {
     
     if (titulo) titulo.textContent = atividade.titulo;
 
+    // Configurar botão "Entregar" e botão de fechar (X)
+    const btnFecharX = modal.querySelector('.btn-fechar-detalhes');
+    
     if (isProfessor) {
         btnEntregar.style.display = 'none';
+        if (btnFecharX) btnFecharX.style.display = 'block'; // Mostrar X para professor
     } else if (minhaEntrega) {
         btnEntregar.style.display = 'none';
+        if (btnFecharX) btnFecharX.style.display = 'block'; // Mostrar X se já entregou
     } else {
+        // Aluno que ainda NÃO entregou - ESCONDER o X
+        if (btnFecharX) btnFecharX.style.display = 'none';
+        
         btnEntregar.textContent = '📤 Entregar Atividade';
         btnEntregar.style.display = 'block';
         
@@ -1853,7 +1595,16 @@ function carregarPostagens() {
                 autor: "Prof. João Silva",
                 autorId: "prof1",
                 data: new Date(Date.now() - 86400000 * 5).toISOString(),
-                comentarios: []
+                comentarios: [
+                    {
+                        id: 1,
+                        texto: "Obrigado professor! Estamos animados também!",
+                        autor: "Ana Carolina Santos",
+                        autorId: "2",
+                        avatar: null,
+                        data: new Date(Date.now() - 86400000 * 4).toISOString()
+                    }
+                ]
             }
         ];
         salvarPostagens();
@@ -1892,8 +1643,70 @@ function renderizarPostagens() {
         );
         
         postagensOrdenadas.forEach(postagem => {
+            const comentarios = postagem.comentarios || [];
+            const comentariosHTML = comentarios.map(comentario => {
+                const podeEditar = comentario.autorId == userId;
+                const podeApagar = comentario.autorId == userId || userRole === 'professor';
+                const isEditando = false;
+                
+                return `
+                <div id="comentario-${comentario.id}" style="background: #f0f2f5; padding: 10px; border-radius: 8px; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                        <div style="width: 32px; height: 32px; border-radius: 50%; overflow: hidden; background: #ddd;">
+                            <img src="${comentario.avatar || '../imagens-sala/foto_de_perfil.png'}" 
+                                 style="width: 100%; height: 100%; object-fit: cover;"
+                                 onerror="this.src='../imagens-sala/foto_de_perfil.png'">
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="font-weight: bold; font-size: 14px; color: #333;">${comentario.autor}</div>
+                            <div style="font-size: 12px; color: #666;">${formatarData(comentario.data)}</div>
+                        </div>
+                        ${podeEditar || podeApagar ? `
+                            <div style="display: flex; gap: 8px;">
+                                ${podeEditar ? `
+                                    <button 
+                                        onclick="editarComentario(${postagem.id}, ${comentario.id})"
+                                        style="padding: 4px 8px; background: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;"
+                                        title="Editar comentário">
+                                        ✏️
+                                    </button>
+                                ` : ''}
+                                ${podeApagar ? `
+                                    <button 
+                                        onclick="apagarComentario(${postagem.id}, ${comentario.id})"
+                                        style="padding: 4px 8px; background: #F44336; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;"
+                                        title="Apagar comentário">
+                                        🗑️
+                                    </button>
+                                ` : ''}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div id="texto-comentario-${comentario.id}" style="padding-left: 42px; color: #333;">${comentario.texto}</div>
+                    <div id="form-editar-${comentario.id}" style="display: none; padding-left: 42px; margin-top: 8px;">
+                        <textarea 
+                            id="textarea-editar-${comentario.id}"
+                            style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 6px; resize: vertical; min-height: 60px; font-family: inherit; font-size: 14px;"
+                        >${comentario.texto}</textarea>
+                        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px;">
+                            <button 
+                                onclick="cancelarEdicaoComentario(${comentario.id})"
+                                style="padding: 6px 12px; background: #f5f5f5; color: #666; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold;">
+                                Cancelar
+                            </button>
+                            <button 
+                                onclick="salvarEdicaoComentario(${postagem.id}, ${comentario.id})"
+                                style="padding: 6px 12px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold;">
+                                ✅ Salvar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }).join('');
+            
             html += `
-                <div class="card-atividade-dinamico" style="margin-bottom: 20px;">
+                <div class="card-atividade-dinamico" style="margin-bottom: 20px;" id="postagem-${postagem.id}">
                     <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
                         <div>
                             <h3 style="margin: 0 0 5px 0;">${postagem.titulo}</h3>
@@ -1906,8 +1719,49 @@ function renderizarPostagens() {
                     <div style="padding: 15px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin: 15px 0;">
                         <p style="margin: 0; line-height: 1.6; color: #333; white-space: pre-wrap;">${postagem.conteudo}</p>
                     </div>
-                    <div style="display: flex; gap: 10px; color: #666; font-size: 14px;">
-                        <span>💬 ${postagem.comentarios?.length || 0} comentários</span>
+                    
+                    <!-- Comentários -->
+                    <div style="margin-top: 15px;">
+                        <div style="display: flex; align-items: center; gap: 10px; color: #666; font-size: 14px; margin-bottom: 10px; cursor: pointer;" onclick="toggleComentarios(${postagem.id})">
+                            <span id="count-comentarios-${postagem.id}">💬 ${comentarios.length} comentário${comentarios.length !== 1 ? 's' : ''}</span>
+                            <span id="toggle-icon-${postagem.id}">▼</span>
+                        </div>
+                        
+                        <div id="secao-comentarios-${postagem.id}" style="display: none; margin-top: 15px;">
+                            <!-- Lista de Comentários -->
+                            <div id="lista-comentarios-${postagem.id}" style="margin-bottom: 15px; max-height: 400px; overflow-y: auto;">
+                                ${comentariosHTML || '<div style="color: #999; font-style: italic; padding: 10px;">Nenhum comentário ainda. Seja o primeiro a comentar!</div>'}
+                            </div>
+                            
+                            <!-- Formulário de Adicionar Comentário -->
+                            <div style="display: flex; gap: 10px; align-items: start; padding: 15px; background: #f9f9f9; border-radius: 8px; border: 2px solid #e0e0e0;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: #ddd; flex-shrink: 0;">
+                                    <img id="avatar-comentario-${postagem.id}" 
+                                         src="../imagens-sala/foto_de_perfil.png" 
+                                         style="width: 100%; height: 100%; object-fit: cover;"
+                                         onerror="this.src='../imagens-sala/foto_de_perfil.png'">
+                                </div>
+                                <div style="flex: 1;">
+                                    <textarea 
+                                        id="input-comentario-${postagem.id}" 
+                                        placeholder="Escreva um comentário..."
+                                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; resize: vertical; min-height: 60px; font-family: inherit; font-size: 14px;"
+                                    ></textarea>
+                                    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px;">
+                                        <button 
+                                            onclick="cancelarComentario(${postagem.id})"
+                                            style="padding: 8px 16px; background: #f5f5f5; color: #666; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                                            Cancelar
+                                        </button>
+                                        <button 
+                                            onclick="adicionarComentario(${postagem.id})"
+                                            style="padding: 8px 16px; background: #2196F3; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                                            💬 Comentar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
@@ -1919,12 +1773,112 @@ function renderizarPostagens() {
     const content = container.querySelector('.mensagem-vazia')?.parentElement || container;
     content.innerHTML = html;
     
+    // Carregar avatares dos usuários
+    setTimeout(async () => {
+        try {
+            const response = await fetch(`${API_URL}/users/${userId}`);
+            const data = await response.json();
+            
+            if (data.success && data.user && data.user.perfilUrl) {
+                const avatarUrl = `http://localhost:3000${data.user.perfilUrl}`;
+                
+                todasPostagens.forEach(postagem => {
+                    const avatarImg = document.getElementById(`avatar-comentario-${postagem.id}`);
+                    if (avatarImg) {
+                        avatarImg.src = avatarUrl;
+                    }
+                });
+            }
+        } catch (error) {
+            console.warn('⚠️ Não foi possível carregar avatar do usuário');
+        }
+    }, 0);
+    
     if (userRole === 'professor') {
         const btnCriarPost = document.getElementById('btnCriarPostagem');
         if (btnCriarPost) {
             btnCriarPost.addEventListener('click', abrirModalPostagem);
         }
     }
+}
+
+// Função para toggle (mostrar/ocultar) comentários
+function toggleComentarios(postagemId) {
+    const secao = document.getElementById(`secao-comentarios-${postagemId}`);
+    const icon = document.getElementById(`toggle-icon-${postagemId}`);
+    
+    if (secao.style.display === 'none') {
+        secao.style.display = 'block';
+        icon.textContent = '▲';
+    } else {
+        secao.style.display = 'none';
+        icon.textContent = '▼';
+    }
+}
+
+// Função para adicionar comentário
+async function adicionarComentario(postagemId) {
+    const textarea = document.getElementById(`input-comentario-${postagemId}`);
+    const texto = textarea.value.trim();
+    
+    if (!texto) {
+        alert('Por favor, escreva um comentário antes de enviar.');
+        return;
+    }
+    
+    // Buscar avatar do usuário
+    let avatarUrl = '../imagens-sala/foto_de_perfil.png';
+    try {
+        const response = await fetch(`${API_URL}/users/${userId}`);
+        const data = await response.json();
+        
+        if (data.success && data.user && data.user.perfilUrl) {
+            avatarUrl = `http://localhost:3000${data.user.perfilUrl}`;
+        }
+    } catch (error) {
+        console.warn('⚠️ Usando avatar padrão');
+    }
+    
+    const postagem = todasPostagens.find(p => p.id === postagemId);
+    if (!postagem) return;
+    
+    const novoComentario = {
+        id: Date.now(),
+        texto: texto,
+        autor: userName,
+        autorId: userId,
+        avatar: avatarUrl,
+        data: new Date().toISOString()
+    };
+    
+    if (!postagem.comentarios) {
+        postagem.comentarios = [];
+    }
+    
+    postagem.comentarios.push(novoComentario);
+    salvarPostagens();
+    
+    // Limpar textarea
+    textarea.value = '';
+    
+    // Re-renderizar postagens
+    renderizarPostagens();
+    
+    // Reabrir a seção de comentários
+    setTimeout(() => {
+        const secao = document.getElementById(`secao-comentarios-${postagemId}`);
+        const icon = document.getElementById(`toggle-icon-${postagemId}`);
+        if (secao && icon) {
+            secao.style.display = 'block';
+            icon.textContent = '▲';
+        }
+    }, 100);
+}
+
+// Função para cancelar comentário
+function cancelarComentario(postagemId) {
+    const textarea = document.getElementById(`input-comentario-${postagemId}`);
+    textarea.value = '';
 }
 
 function abrirModalPostagem() {
@@ -2190,13 +2144,13 @@ function abrirModalArquivo() {
 }
 
 // ===============================================
-// SISTEMA DE MEMBROS
+// SISTEMA DE MEMBROS (COM IMAGENS)
 // ===============================================
 async function carregarMembros() {
     try {
         console.log('🔍 Carregando membros da turma', turmaId);
         
-        const response = await fetch(`/api/turmas/${turmaId}/membros`, {
+        const response = await fetch(`${API_URL}/turmas/${turmaId}/membros`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -2212,15 +2166,36 @@ async function carregarMembros() {
         console.log('✅ Membros recebidos do banco:', dados);
         
         if (dados.membros && Array.isArray(dados.membros)) {
-            todosMembros = dados.membros.map(membro => ({
-                id: membro.id || membro._id || membro.usuario_id,
-                nome: membro.nome || membro.name || 'Nome não disponível',
-                email: membro.email || `${(membro.nome || 'usuario').toLowerCase().replace(/\s+/g, '.')}@escola.com`,
-                tipo: membro.tipo || membro.role || membro.papel || 'aluno',
-                avatar: membro.avatar || null,
-                matricula: membro.matricula || null
+            // Buscar dados completos de cada usuário para obter a foto de perfil
+            const membrosComFoto = await Promise.all(dados.membros.map(async (membro) => {
+                try {
+                    const userResponse = await fetch(`${API_URL}/users/${membro.id}`);
+                    const userData = await userResponse.json();
+                    
+                    return {
+                        id: membro.id || membro._id || membro.usuario_id,
+                        nome: membro.nome || membro.name || 'Nome não disponível',
+                        email: membro.email || `${(membro.nome || 'usuario').toLowerCase().replace(/\s+/g, '.')}@escola.com`,
+                        tipo: membro.tipo || membro.role || membro.papel || 'aluno',
+                        avatar: userData.success && userData.user.perfilUrl 
+                            ? `http://localhost:3000${userData.user.perfilUrl}` 
+                            : null,
+                        matricula: membro.matricula || null
+                    };
+                } catch (err) {
+                    console.warn(`⚠️ Não foi possível carregar foto do usuário ${membro.id}`);
+                    return {
+                        id: membro.id || membro._id || membro.usuario_id,
+                        nome: membro.nome || membro.name || 'Nome não disponível',
+                        email: membro.email || `${(membro.nome || 'usuario').toLowerCase().replace(/\s+/g, '.')}@escola.com`,
+                        tipo: membro.tipo || membro.role || membro.papel || 'aluno',
+                        avatar: null,
+                        matricula: membro.matricula || null
+                    };
+                }
             }));
             
+            todosMembros = membrosComFoto;
             console.log('✅ Membros processados:', todosMembros.length, 'membros');
         } else {
             console.warn('⚠️ Formato de dados inesperado, usando array vazio');
@@ -2232,7 +2207,7 @@ async function carregarMembros() {
     } catch (error) {
         console.warn('❌ Erro ao carregar membros da API, usando dados temporários:', error);
         
-        // FALLBACK: Dados temporários enquanto a API não está pronta
+        // FALLBACK: Dados temporários
         todosMembros = [
             {
                 id: 1,
@@ -2328,13 +2303,19 @@ function renderizarMembros() {
 
 function criarCardMembro(membro, tipoForcado = null) {
     const tipo = tipoForcado || membro.tipo || membro.role || 'aluno';
-    const avatar = membro.avatar || gerarAvatar(membro.nome, tipo);
     const email = membro.email || `${membro.nome.toLowerCase().replace(/\s+/g, '.')}@escola.com`;
+    
+    // URL da foto padrão
+    const fotoDefault = '../imagens-sala/foto_de_perfil.png';
+    const fotoUrl = membro.avatar || fotoDefault;
     
     return `
         <div class="card-atividade-dinamico" style="padding: 15px;">
             <div style="display: flex; align-items: center; gap: 15px;">
-                <div style="font-size: 48px;">${avatar}</div>
+                <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; background: #f0f0f0; flex-shrink: 0;">
+                    <img src="${fotoUrl}" alt="${membro.nome}" style="width: 100%; height: 100%; object-fit: cover;" 
+                         onerror="this.src='${fotoDefault}'">
+                </div>
                 <div style="flex: 1;">
                     <h3 style="margin: 0 0 5px 0;">${membro.nome}</h3>
                     <div style="font-size: 14px; color: #666;">
@@ -2350,22 +2331,6 @@ function criarCardMembro(membro, tipoForcado = null) {
             </div>
         </div>
     `;
-}
-
-function gerarAvatar(nome, tipo) {
-    if (tipo === 'professor') {
-        const avataresProfessor = ['👨‍🏫', '👩‍🏫'];
-        const primeiroNome = nome.split(' ')[0].toLowerCase();
-        return primeiroNome.includes('a') || primeiroNome.includes('e') || primeiroNome.includes('i') 
-            ? avataresProfessor[1] 
-            : avataresProfessor[0];
-    } else {
-        const avataresAluno = ['👨‍🎓', '👩‍🎓'];
-        const primeiroNome = nome.split(' ')[0].toLowerCase();
-        return primeiroNome.includes('a') || primeiroNome.includes('e') || primeiroNome.includes('i') 
-            ? avataresAluno[1] 
-            : avataresAluno[0];
-    }
 }
     </script>
 
