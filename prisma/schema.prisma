@@ -50,7 +50,10 @@ model Curso {
 model Turma {
   id           Int      @id @default(autoincrement())
   nome         String   // "Sistemas Embarcados - 3º Semestre"
+  sigla        String   @default("TEMP")  // ✅ Valor padrão temporário // ✅ NOVO: "SE", "ADS", "GTI" 
   descricao    String?
+  cor          String   @default("#FF6B6B")  // ✅ NOVO: Cor de fundo
+  corTexto     String   @default("#FFFFFF")  // ✅ NOVO: Cor do texto
   cursoId      Int
   professorId  Int
   createdAt    DateTime @default(now())

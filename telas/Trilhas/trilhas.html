@@ -198,200 +198,203 @@
     </main>
 
     <script>
-        const API_URL = 'http://localhost:3000/api';
-        const STORAGE_KEY = 'trilhasCommentsPost1';
+      const API_URL = 'http://localhost:3000/api';
+const STORAGE_KEY = 'trilhasCommentsPost1';
 
-        document.addEventListener('DOMContentLoaded', async function() {
-            
-            // ============================================
-            // 1. VERIFICAR LOGIN E CARREGAR DADOS
-            // ============================================
-            const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
-            
-            if (!usuarioLogado || !usuarioLogado.id) {
-                alert('Você precisa fazer login primeiro!');
-                window.location.href = '/home.html';
-                return;
-            }
+document.addEventListener('DOMContentLoaded', async function() {
+    
+    // ============================================
+    // 1. VERIFICAR LOGIN E CARREGAR DADOS
+    // ============================================
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    
+    if (!usuarioLogado || !usuarioLogado.id) {
+        alert('Você precisa fazer login primeiro!');
+        window.location.href = '/home.html';
+        return;
+    }
 
-            const URL_PADRAO = './imagens_trilhas/foto_de_perfil.png';
-            const fotoPerfilNav = document.getElementById('fotoPerfilNav');
-            const fotoPerfilMini = document.getElementById('fotoPerfilMini');
-            const fotoComentario = document.getElementById('fotoComentario');
+    const URL_PADRAO = './imagens_trilhas/foto_de_perfil.png';
+    const fotoPerfilNav = document.getElementById('fotoPerfilNav');
+    const fotoPerfilMini = document.getElementById('fotoPerfilMini');
+    const fotoComentario = document.getElementById('fotoComentario');
 
-            console.log('👤 Usuário logado:', usuarioLogado);
+    console.log('👤 Usuário logado:', usuarioLogado);
 
-            // ============================================
-            // 2. CARREGAR FOTO DE PERFIL DO BACKEND
-            // ============================================
-            async function carregarFotoPerfil() {
-                try {
-                    const response = await fetch(`${API_URL}/users/${usuarioLogado.id}`);
-                    const data = await response.json();
-                    
-                    if (data.success && data.user) {
-                        const fotoUrl = data.user.perfilUrl 
-                            ? `http://localhost:3000${data.user.perfilUrl}` 
-                            : URL_PADRAO;
-                        
-                        fotoPerfilNav.src = fotoUrl;
-                        fotoPerfilMini.src = fotoUrl;
-                        fotoComentario.src = fotoUrl;
-                        
-                        // Atualizar nome do usuário
-                        document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${data.user.name || 'Usuário'}`;
-                        
-                        console.log('✅ Foto de perfil carregada:', fotoUrl);
-                    }
-                } catch (error) {
-                    console.error('❌ Erro ao carregar foto de perfil:', error);
-                    // Usar foto padrão em caso de erro
-                    fotoPerfilNav.src = URL_PADRAO;
-                    fotoPerfilMini.src = URL_PADRAO;
-                    fotoComentario.src = URL_PADRAO;
-                }
-            }
+    // Usar foto do localStorage ou padrão
+    let fotoUsuarioAtual = usuarioLogado.perfilUrl 
+        ? `http://localhost:3000${usuarioLogado.perfilUrl}` 
+        : URL_PADRAO;
 
-            await carregarFotoPerfil();
+    // Definir fotos
+    fotoPerfilNav.src = fotoUsuarioAtual;
+    fotoPerfilMini.src = fotoUsuarioAtual;
+    fotoComentario.src = fotoUsuarioAtual;
 
-            // ============================================
-            // 3. LÓGICA DE COMENTÁRIOS
-            // ============================================
-            const inputComentario = document.getElementById('inputComentario');
-            const btnToggleComentario = document.getElementById('btnToggleComentario');
-            const areaInputComentario = document.getElementById('areaInputComentario');
-            const containerComentarios = document.getElementById('comentariosPost1');
+    // Atualizar nome
+    const nomeUsuario = usuarioLogado.name || 'Usuário';
+    document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${nomeUsuario}`;
 
-            function criarNovoComentario(texto, urlFoto) {
-                const novoComentario = document.createElement('div');
-                novoComentario.classList.add('card-comentario');
-                novoComentario.innerHTML = `
-                    <div class="foto-perfil-comentario">
-                        <img src="${urlFoto}" alt="Sua foto">
-                    </div>
-                    <div class="comentario">
-                        <div class="ficou-realmente-bom">${texto}</div>
-                    </div>
-                `;
-                return novoComentario;
-            }
+    console.log('✅ Dados carregados do localStorage');
 
-            function carregarComentariosSalvos() {
-                const comentariosSalvosJSON = localStorage.getItem(STORAGE_KEY);
-                const comentariosSalvos = comentariosSalvosJSON ? JSON.parse(comentariosSalvosJSON) : [];
+    // ============================================
+    // 3. LÓGICA DE COMENTÁRIOS
+    // ============================================
+    const inputComentario = document.getElementById('inputComentario');
+    const btnToggleComentario = document.getElementById('btnToggleComentario');
+    const areaInputComentario = document.getElementById('areaInputComentario');
+    const containerComentarios = document.getElementById('comentariosPost1');
 
-                for (let i = comentariosSalvos.length - 1; i >= 0; i--) {
-                    const texto = comentariosSalvos[i];
-                    const fotoUrl = fotoComentario.src;
-                    const novoComentarioElemento = criarNovoComentario(texto, fotoUrl);
-                    containerComentarios.prepend(novoComentarioElemento);
-                }
-            }
+    function criarNovoComentario(texto, urlFoto, nomeUsuario) {
+        const novoComentario = document.createElement('div');
+        novoComentario.classList.add('card-comentario');
+        novoComentario.innerHTML = `
+            <div class="foto-perfil-comentario">
+                <img src="${urlFoto}" alt="Foto de ${nomeUsuario}">
+            </div>
+            <div class="comentario">
+                <div class="ficou-realmente-bom">${texto}</div>
+            </div>
+        `;
+        return novoComentario;
+    }
 
-            function enviarComentario() {
-                const texto = inputComentario.value.trim();
+    function carregarComentariosSalvos() {
+        const comentariosSalvosJSON = localStorage.getItem(STORAGE_KEY);
+        const comentariosSalvos = comentariosSalvosJSON ? JSON.parse(comentariosSalvosJSON) : [];
 
-                if (texto) {
-                    const fotoUrl = fotoComentario.src;
-                    const novoComentarioElemento = criarNovoComentario(texto, fotoUrl);
-                    containerComentarios.prepend(novoComentarioElemento);
-                    
-                    const comentariosSalvosJSON = localStorage.getItem(STORAGE_KEY);
-                    const comentariosSalvos = comentariosSalvosJSON ? JSON.parse(comentariosSalvosJSON) : [];
-                    comentariosSalvos.push(texto);
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(comentariosSalvos));
-                    
-                    inputComentario.value = '';
-                    console.log(`Comentário enviado: "${texto}"`);
-                }
-            }
-
-            carregarComentariosSalvos();
-
-            btnToggleComentario.addEventListener('click', function() {
-                if (areaInputComentario.classList.contains('ativo') && inputComentario.value.trim().length > 0) {
-                    enviarComentario();
-                } else {
-                    areaInputComentario.classList.toggle('ativo');
-                    if (areaInputComentario.classList.contains('ativo')) {
-                        inputComentario.focus();
-                    }
-                }
-            });
-
-            inputComentario.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    enviarComentario();
-                }
-            });
-
-            // ============================================
-            // 4. DROPDOWNS
-            // ============================================
-            const dropdownNotif = document.getElementById('dropdownNotif');
-            const dropdownConfig = document.getElementById('dropdownConfig');
-            const dropdownPerfil = document.getElementById('dropdownPerfil');
-            const btnNotif = document.querySelector('.btn-notificao-nav');
-            const btnConfig = document.querySelector('.btn-config');
-            
-            function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
-            function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
-            function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
-            
-            btnNotif.addEventListener('click', function() {
-                fecharDropdownConfig();
-                fecharDropdownPerfil();
-                dropdownNotif.classList.toggle('ativo');
-            });
-            
-            btnConfig.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownPerfil();
-                dropdownConfig.classList.toggle('ativo');
-            });
-            
-            fotoPerfilNav.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownConfig();
-                dropdownPerfil.classList.toggle('ativo');
-            });
-
-            document.querySelectorAll('[data-action]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const action = this.getAttribute('data-action');
-                    switch(action) {
-                        case 'fechar-notif': fecharDropdownNotif(); break;
-                        case 'fechar-config': fecharDropdownConfig(); break;
-                        case 'fechar-perfil': fecharDropdownPerfil(); break;
-                        case 'sair-da-conta':
-                            if (confirm('Tem certeza que deseja sair da conta?')) {
-                                localStorage.removeItem('usuarioLogado');
-                                window.location.href = '/home.html';
-                            }
-                            fecharDropdownPerfil();
-                            break;
-                        default:
-                            alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
-                            fecharDropdownConfig(); 
-                            fecharDropdownPerfil();
-                            break;
-                    }
-                });
-            });
-            
-            document.addEventListener('click', function(event) {
-                const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                                       !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                                       !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
+        comentariosSalvos.forEach(comentarioObj => {
+            // Verificar se é objeto novo ou string antiga
+            if (typeof comentarioObj === 'string') {
+                // Comentário antigo (só texto)
+                const novoComentarioElemento = criarNovoComentario(comentarioObj, URL_PADRAO, 'Usuário');
+                containerComentarios.appendChild(novoComentarioElemento);
+            } else {
+                // Comentário novo (objeto completo)
+                const texto = comentarioObj.texto;
+                const fotoUrl = comentarioObj.foto || URL_PADRAO;
+                const nome = comentarioObj.nome || 'Usuário';
                 
-                if (isClickOutside) {
-                    fecharDropdownNotif();
-                    fecharDropdownConfig();
-                    fecharDropdownPerfil();
-                }
-            });
+                const novoComentarioElemento = criarNovoComentario(texto, fotoUrl, nome);
+                containerComentarios.appendChild(novoComentarioElemento);
+            }
         });
+    }
+
+    function enviarComentario() {
+        const texto = inputComentario.value.trim();
+
+        if (texto) {
+            const comentarioObj = {
+                texto: texto,
+                foto: fotoUsuarioAtual,
+                nome: nomeUsuario,
+                data: new Date().toISOString()
+            };
+            
+            const novoComentarioElemento = criarNovoComentario(
+                comentarioObj.texto, 
+                comentarioObj.foto,
+                comentarioObj.nome
+            );
+            containerComentarios.appendChild(novoComentarioElemento);
+            
+            const comentariosSalvosJSON = localStorage.getItem(STORAGE_KEY);
+            const comentariosSalvos = comentariosSalvosJSON ? JSON.parse(comentariosSalvosJSON) : [];
+            comentariosSalvos.push(comentarioObj);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(comentariosSalvos));
+            
+            inputComentario.value = '';
+            console.log(`💬 Comentário enviado:`, comentarioObj);
+        }
+    }
+
+    carregarComentariosSalvos();
+
+    btnToggleComentario.addEventListener('click', function() {
+        if (areaInputComentario.classList.contains('ativo') && inputComentario.value.trim().length > 0) {
+            enviarComentario();
+        } else {
+            areaInputComentario.classList.toggle('ativo');
+            if (areaInputComentario.classList.contains('ativo')) {
+                inputComentario.focus();
+            }
+        }
+    });
+
+    inputComentario.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            enviarComentario();
+        }
+    });
+
+    // ============================================
+    // 4. DROPDOWNS
+    // ============================================
+    const dropdownNotif = document.getElementById('dropdownNotif');
+    const dropdownConfig = document.getElementById('dropdownConfig');
+    const dropdownPerfil = document.getElementById('dropdownPerfil');
+    const btnNotif = document.querySelector('.btn-notificao-nav');
+    const btnConfig = document.querySelector('.btn-config');
+    
+    function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
+    function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
+    function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
+    
+    btnNotif.addEventListener('click', function() {
+        fecharDropdownConfig();
+        fecharDropdownPerfil();
+        dropdownNotif.classList.toggle('ativo');
+    });
+    
+    btnConfig.addEventListener('click', function() {
+        fecharDropdownNotif();
+        fecharDropdownPerfil();
+        dropdownConfig.classList.toggle('ativo');
+    });
+    
+    fotoPerfilNav.addEventListener('click', function() {
+        fecharDropdownNotif();
+        fecharDropdownConfig();
+        dropdownPerfil.classList.toggle('ativo');
+    });
+
+    document.querySelectorAll('[data-action]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            switch(action) {
+                case 'fechar-notif': fecharDropdownNotif(); break;
+                case 'fechar-config': fecharDropdownConfig(); break;
+                case 'fechar-perfil': fecharDropdownPerfil(); break;
+                case 'sair-da-conta':
+                    if (confirm('Tem certeza que deseja sair da conta?')) {
+                        localStorage.removeItem('usuarioLogado');
+                        window.location.href = '/home.html';
+                    }
+                    fecharDropdownPerfil();
+                    break;
+                default:
+                    alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
+                    fecharDropdownConfig(); 
+                    fecharDropdownPerfil();
+                    break;
+            }
+        });
+    });
+    
+    document.addEventListener('click', function(event) {
+        const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
+                               !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
+                               !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
+        
+        if (isClickOutside) {
+            fecharDropdownNotif();
+            fecharDropdownConfig();
+            fecharDropdownPerfil();
+        }
+    });
+});
     </script>
 </body>
 </html>

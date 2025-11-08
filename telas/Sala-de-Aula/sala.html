@@ -6,6 +6,7 @@
     <title>Sala de Aula</title>
     <link rel="stylesheet" href="./css-Sala/estilo_sala.css">
     <style>
+        /* Estilos do botão e modal mantidos */
         .btn-adicionar-sala {
             position: fixed;
             bottom: 30px;
@@ -21,18 +22,11 @@
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
             transition: all 0.3s ease;
             z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         
         .btn-adicionar-sala:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(102, 126, 234, 0.5);
-        }
-        
-        .btn-adicionar-sala:active {
-            transform: translateY(-1px);
         }
         
         .modal-sala {
@@ -59,19 +53,15 @@
             border-radius: 20px;
             width: 90%;
             max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             animation: slideIn 0.3s ease;
         }
         
         @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
         .modal-conteudo-sala h2 {
@@ -103,6 +93,7 @@
             font-size: 15px;
             transition: border 0.3s;
             font-family: inherit;
+            box-sizing: border-box;
         }
         
         .form-group-sala input:focus,
@@ -115,6 +106,80 @@
         .form-group-sala textarea {
             min-height: 100px;
             resize: vertical;
+        }
+        
+        /* Grade de cores */
+        .grade-cores {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        .opcao-cor {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .opcao-cor:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .opcao-cor.selecionada {
+            border-color: #000;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+            transform: scale(1.1);
+        }
+        
+        .opcao-cor.usada {
+            opacity: 0.3;
+            cursor: not-allowed;
+            position: relative;
+        }
+        
+        .opcao-cor.usada::after {
+            content: '✓';
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .opcao-cor input {
+            display: none;
+        }
+        
+        .preview-card {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+        }
+        
+        .preview-card h4 {
+            margin-top: 0;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .preview-sigla {
+            display: inline-block;
+            padding: 20px 30px;
+            border-radius: 12px;
+            font-size: 32px;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
         
         .modal-botoes-sala {
@@ -180,24 +245,20 @@
     </style>
 </head>
 <body>
-
-    <!-- Navegação existente -->
+    <!-- Navegação mantida igual -->
     <nav class="navegacao">
         <div class="menu">
             <div class="menu-1">
-                <img src="./imagens-Sala/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
+                <img src="./imagens-Sala/lotus.svg" alt="Logo" class="projeto" width="30px" height="30px">
             </div>
-
             <div class="menu-2">
                 <input type="text" placeholder="Pesquise aqui...">
-            </div> 
-
+            </div>
             <div class="menu-3">
                 <img src="./imagens-sala/sininho.svg" alt="notificação" class="btn-notificao-nav">
-                <img src="./imagens-sala/configuracao.svg" alt="botão de configuração" class="btn-config">
-                <img src="./imagens-sala/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil">
+                <img src="./imagens-sala/configuracao.svg" alt="configuração" class="btn-config">
+                <img src="./imagens-sala/foto_de_perfil.png" alt="perfil" class="foto-de-perfil">
                 
-                <!-- Dropdowns existentes -->
                 <div class="dropdown-notificacoes" id="dropdownNotif">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
@@ -220,8 +281,8 @@
                         <button class="btn-fechar" data-action="fechar-config">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
-                        <button class="opcao-item" data-action="configuracoes">Configurações</button>
-                        <button class="opcao-item" data-action="ajuda">Ajuda</button>
+                        <button class="opcao-item">Configurações</button>
+                        <button class="opcao-item">Ajuda</button>
                     </div>
                 </div>
 
@@ -234,8 +295,8 @@
                         <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
-                        <button class="opcao-item" data-action="perfil">Seu perfil</button>
-                        <button class="opcao-item" data-action="privacidade">Privacidade</button>
+                        <button class="opcao-item">Seu perfil</button>
+                        <button class="opcao-item">Privacidade</button>
                         <button class="opcao-item sair-conta" data-action="sair-da-conta">Sair da Conta</button>
                     </div>
                 </div>
@@ -254,22 +315,15 @@
 
     <main>
         <div class="conteudo-principal">
-            <img src="./imagens-sala/Banner_Titulo_seção_Sala.svg" alt="" class="banner-componentes"> 
+            <img src="./imagens-sala/Banner_Titulo_seção_Sala.svg" alt="Banner" class="banner-componentes">
         </div>
         
-        <!-- Container dinâmico de cursos -->
         <div class="container-principal-cursos">
-            <div class="coluna-esquerda-cursos" id="colunaEsquerda">
-                <!-- Cursos serão carregados dinamicamente -->
-            </div>
-
-            <div class="coluna-direita-cursos" id="colunaDireita">
-                <!-- Cursos serão carregados dinamicamente -->
-            </div>
+            <div class="coluna-esquerda-cursos" id="colunaEsquerda"></div>
+            <div class="coluna-direita-cursos" id="colunaDireita"></div>
         </div>
     </main>
 
-    <!-- Botão Adicionar Sala (só aparece para professores) -->
     <button class="btn-adicionar-sala" id="btnAdicionarSala" style="display: none;">
         ➕ Adicionar Sala
     </button>
@@ -286,8 +340,8 @@
                 </div>
 
                 <div class="form-group-sala">
-                    <label for="siglaSala">Sigla *</label>
-                    <input type="text" id="siglaSala" placeholder="Ex: ADS, GTI, RC" maxlength="4" required>
+                    <label for="siglaSala">Sigla * (máx. 4 caracteres)</label>
+                    <input type="text" id="siglaSala" placeholder="Ex: ADS, GTI, RC" maxlength="4" required style="text-transform: uppercase;">
                 </div>
 
                 <div class="form-group-sala">
@@ -295,6 +349,17 @@
                     <select id="cursoSala" required>
                         <option value="">Selecione um curso</option>
                     </select>
+                </div>
+
+                <div class="form-group-sala">
+                    <label>Escolha a Cor da Sala *</label>
+                    <div class="grade-cores" id="gradeCores"></div>
+                    <input type="hidden" id="corSelecionada" required>
+                </div>
+
+                <div class="preview-card">
+                    <h4>👁️ Pré-visualização</h4>
+                    <span class="preview-sigla" id="previewSigla">SALA</span>
                 </div>
 
                 <div class="form-group-sala">
@@ -316,183 +381,163 @@
     </div>
 
     <script>
-        // ===============================================
-// ADICIONE ESTE SCRIPT NO INÍCIO DO <script> DA sala.html
-// SUBSTITUA AS LINHAS:
-// const userId = localStorage.getItem('userId') || '1';
-// const userName = localStorage.getItem('userName') || 'Usuário';
-// const userRole = localStorage.getItem('userRole') || 'aluno';
-// ===============================================
+        const API_URL = 'http://localhost:3000/api';
 
-const API_URL = 'http://localhost:3000/api';
+        // Paleta de cores com alto contraste
+        const CORES_DISPONIVEIS = [
+            { bg: '#FF6B6B', text: '#FFFFFF', nome: 'Vermelho' },
+            { bg: '#4ECDC4', text: '#FFFFFF', nome: 'Turquesa' },
+            { bg: '#45B7D1', text: '#FFFFFF', nome: 'Azul Claro' },
+            { bg: '#FFA07A', text: '#FFFFFF', nome: 'Laranja' },
+            { bg: '#98D8C8', text: '#2C3E50', nome: 'Verde Menta' },
+            { bg: '#6C5CE7', text: '#FFFFFF', nome: 'Roxo' },
+            { bg: '#FDCB6E', text: '#2C3E50', nome: 'Amarelo' },
+            { bg: '#E17055', text: '#FFFFFF', nome: 'Coral' },
+            { bg: '#00B894', text: '#FFFFFF', nome: 'Verde' },
+            { bg: '#0984E3', text: '#FFFFFF', nome: 'Azul' },
+            { bg: '#FD79A8', text: '#FFFFFF', nome: 'Rosa' },
+            { bg: '#A29BFE', text: '#FFFFFF', nome: 'Lilás' }
+        ];
 
-// Verificar login
-const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+        let coresUsadas = [];
+        let corSelecionada = null;
 
-if (!usuarioLogado || !usuarioLogado.id) {
-    alert('Você precisa fazer login primeiro!');
-    window.location.href = '/home.html';
-    throw new Error('Usuário não logado');
-}
-
-const userId = usuarioLogado.id;
-const userName = usuarioLogado.name || 'Usuário';
-const userRole = usuarioLogado.role || 'aluno';
-
-console.log('📊 Usuário:', userName, '| Role:', userRole);
-
-// ===============================================
-// CARREGAR FOTO DE PERFIL
-// ===============================================
-async function carregarFotoPerfilSala() {
-    try {
-        const fotoPerfilNav = document.querySelector('.foto-de-perfil');
-        const fotoPerfilMini = document.querySelector('.perfil-mini');
-        const URL_PADRAO = './imagens-sala/foto_de_perfil.png';
-        
-        if (!fotoPerfilNav || !fotoPerfilMini) {
-            console.warn('⚠️ Elementos de foto de perfil não encontrados');
-            return;
+        // Verificar login
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+        if (!usuarioLogado || !usuarioLogado.id) {
+            alert('Você precisa fazer login primeiro!');
+            window.location.href = '/home.html';
         }
-        
-        console.log('🔄 Carregando foto de perfil do usuário:', userId);
-        
-        const response = await fetch(`${API_URL}/users/${userId}`);
-        const data = await response.json();
-        
-        if (data.success && data.user) {
-            const fotoUrl = data.user.perfilUrl 
-                ? `http://localhost:3000${data.user.perfilUrl}` 
-                : URL_PADRAO;
-            
-            fotoPerfilNav.src = fotoUrl;
-            fotoPerfilMini.src = fotoUrl;
-            
-            // Atualizar nome do usuário
-            const nomeElement = document.getElementById('nomeUsuarioPerfil');
-            if (nomeElement) {
-                nomeElement.textContent = `Olá, ${data.user.name || userName}`;
-            }
-            
-            console.log('✅ Foto de perfil carregada:', fotoUrl);
-        }
-    } catch (error) {
-        console.error('❌ Erro ao carregar foto de perfil:', error);
-        // Usar foto padrão em caso de erro
-        const fotoPerfilNav = document.querySelector('.foto-de-perfil');
-        const fotoPerfilMini = document.querySelector('.perfil-mini');
-        const URL_PADRAO = './imagens-sala/foto_de_perfil.png';
-        
-        if (fotoPerfilNav) fotoPerfilNav.src = URL_PADRAO;
-        if (fotoPerfilMini) fotoPerfilMini.src = URL_PADRAO;
-    }
-}
 
-// CHAMAR A FUNÇÃO ASSIM QUE A PÁGINA CARREGAR
-document.addEventListener('DOMContentLoaded', async () => {
-    await carregarFotoPerfilSala();
-    carregarSalas(); // Função original da sala.html
-});
+        const userId = usuarioLogado.id;
+        const userName = usuarioLogado.name || 'Usuário';
+        const userRole = usuarioLogado.role || 'aluno';
 
-        console.log('📊 Usuário:', userName, '| Role:', userRole);
-
-        // Atualizar nome do usuário
         document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${userName}`;
 
-        // Mostrar botão de adicionar sala apenas para professores
         if (userRole === 'professor') {
-            document.getElementById('btnAdicionarSala').style.display = 'flex';
+            document.getElementById('btnAdicionarSala').style.display = 'block';
         }
 
-        // Carregar cursos disponíveis
+        // Renderizar grade de cores
+        function renderizarGradeCores() {
+            const gradeCores = document.getElementById('gradeCores');
+            gradeCores.innerHTML = '';
+
+            CORES_DISPONIVEIS.forEach((cor, index) => {
+                const estaUsada = coresUsadas.includes(cor.bg);
+                const opcao = document.createElement('div');
+                opcao.className = `opcao-cor ${estaUsada ? 'usada' : ''}`;
+                opcao.style.backgroundColor = cor.bg;
+                opcao.style.color = cor.text;
+                opcao.dataset.corBg = cor.bg;
+                opcao.dataset.corText = cor.text;
+                
+                if (!estaUsada) {
+                    opcao.addEventListener('click', () => selecionarCor(cor.bg, cor.text, opcao));
+                }
+                
+                gradeCores.appendChild(opcao);
+            });
+        }
+
+        function selecionarCor(bg, text, elemento) {
+            document.querySelectorAll('.opcao-cor').forEach(el => el.classList.remove('selecionada'));
+            elemento.classList.add('selecionada');
+            
+            corSelecionada = { bg, text };
+            document.getElementById('corSelecionada').value = bg;
+            
+            atualizarPreview();
+        }
+
+        function atualizarPreview() {
+            const sigla = document.getElementById('siglaSala').value.toUpperCase() || 'SALA';
+            const preview = document.getElementById('previewSigla');
+            
+            if (corSelecionada) {
+                preview.style.backgroundColor = corSelecionada.bg;
+                preview.style.color = corSelecionada.text;
+            }
+            
+            preview.textContent = sigla;
+        }
+
+        document.getElementById('siglaSala').addEventListener('input', atualizarPreview);
+
         async function carregarCursos() {
             try {
-                const response = await fetch('/api/cursos');
+                const response = await fetch(`${API_URL}/cursos`);
                 if (!response.ok) throw new Error('Erro ao carregar cursos');
                 
                 const dados = await response.json();
                 const cursos = dados.cursos || dados;
                 
-                const selectCurso = document.getElementById('cursoSala');
-                selectCurso.innerHTML = '<option value="">Selecione um curso</option>';
+                const select = document.getElementById('cursoSala');
+                select.innerHTML = '<option value="">Selecione um curso</option>';
                 
                 cursos.forEach(curso => {
                     const option = document.createElement('option');
                     option.value = curso.id;
                     option.textContent = `${curso.nome} (${curso.sigla})`;
-                    selectCurso.appendChild(option);
+                    select.appendChild(option);
                 });
             } catch (error) {
                 console.error('Erro ao carregar cursos:', error);
-                // Cursos padrão de fallback
-                const selectCurso = document.getElementById('cursoSala');
-                selectCurso.innerHTML = `
-                    <option value="">Selecione um curso</option>
-                    <option value="1">Análise e Desenvolvimento de Sistemas (ADS)</option>
-                    <option value="2">Gestão da Tecnologia da Informação (GTI)</option>
-                    <option value="3">Redes de Computadores (RC)</option>
-                `;
             }
         }
 
-        // Carregar turmas/salas
         async function carregarSalas() {
             try {
-                console.log('🔄 Carregando salas...');
-                
-                const response = await fetch('/api/turmas');
-                if (!response.ok) throw new Error('Erro ao carregar salas');
+                const response = await fetch(`${API_URL}/turmas`);
+                if (!response.ok) throw new Error('Erro');
                 
                 const dados = await response.json();
                 const turmas = dados.turmas || dados;
                 
-                console.log('✅ Salas carregadas:', turmas.length);
-                
+                coresUsadas = turmas.map(t => t.cor).filter(Boolean);
                 renderizarSalas(turmas);
             } catch (error) {
-                console.error('❌ Erro ao carregar salas:', error);
-                // Usar salas padrão
+                console.error('Erro ao carregar salas:', error);
                 renderizarSalasPadrao();
             }
         }
 
         function renderizarSalas(turmas) {
-            const colunaEsquerda = document.getElementById('colunaEsquerda');
-            const colunaDireita = document.getElementById('colunaDireita');
+            const colE = document.getElementById('colunaEsquerda');
+            const colD = document.getElementById('colunaDireita');
             
-            colunaEsquerda.innerHTML = '';
-            colunaDireita.innerHTML = '';
+            colE.innerHTML = '';
+            colD.innerHTML = '';
             
-            turmas.forEach((turma, index) => {
+            turmas.forEach((turma, i) => {
                 const card = criarCardSala(turma);
-                
-                // Alternar entre esquerda e direita
-                if (index % 2 === 0) {
-                    colunaEsquerda.innerHTML += card;
-                } else {
-                    colunaDireita.innerHTML += card;
-                }
+                (i % 2 === 0 ? colE : colD).innerHTML += card;
             });
             
-            // Adicionar event listeners
-            document.querySelectorAll('.botao-curso').forEach(botao => {
-                botao.addEventListener('click', function() {
-                    const turmaId = this.getAttribute('data-turma-id');
-                    window.location.href = `./cursos/componente-ads.html?turmaId=${turmaId}`;
+            document.querySelectorAll('.botao-curso').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-turma-id');
+                    window.location.href = `./cursos/componente-ads.html?turmaId=${id}`;
                 });
             });
         }
 
+        // ✅ FUNÇÃO CORRIGIDA - USA AS CORES SALVAS NO BANCO DE DADOS
         function criarCardSala(turma) {
-            const sigla = turma.curso?.sigla || turma.sigla || 'SALA';
+            const sigla = turma.sigla || turma.curso?.sigla || 'SALA';
             const nome = turma.nome || 'Sala sem nome';
-            const descricao = turma.descricao || 'Sem descrição disponível';
+            const desc = turma.descricao || 'Sem descrição';
+            
+            // ✅ CORREÇÃO: Usa diretamente as cores salvas no banco
+            const corFundo = turma.cor || '#FF6B6B';
+            const corTexto = turma.corTexto || '#FFFFFF';
             
             return `
                 <button class="botao-curso" data-turma-id="${turma.id}">
                     <div class="conteudo-botao-curso">
                         <div class="area-interna-curso">
-                            <div class="sigla-curso">
+                            <div class="sigla-curso" style="background-color: ${corFundo}; color: ${corTexto};">
                                 <div class="texto-sigla">${sigla}</div>
                             </div>
                             <div class="area-nome-curso">
@@ -500,36 +545,35 @@ document.addEventListener('DOMContentLoaded', async () => {
                             </div>
                         </div>
                     </div>
-                    <div class="descricao-deslizante">${descricao}</div>
+                    <div class="descricao-deslizante">${desc}</div>
                 </button>
             `;
         }
 
         function renderizarSalasPadrao() {
             const salas = [
-                { id: 1, sigla: 'ADS', nome: 'ANÁLISE E DESENVOLVIMENTO DE SISTEMAS', descricao: 'Curso focado em desenvolvimento de software' },
-                { id: 2, sigla: 'GTI', nome: 'GESTÃO DA TECNOLOGIA DA INFORMAÇÃO', descricao: 'Gestão e administração de recursos de TI' },
-                { id: 3, sigla: 'RC', nome: 'REDES DE COMPUTADORES', descricao: 'Infraestrutura e segurança de redes' },
-                { id: 4, sigla: 'SI', nome: 'SISTEMAS PARA INTERNET', descricao: 'Desenvolvimento web' }
+                { id: 1, sigla: 'ADS', nome: 'ANÁLISE E DESENVOLVIMENTO DE SISTEMAS', descricao: 'Desenvolvimento de software', cor: '#FF6B6B', corTexto: '#FFFFFF' },
+                { id: 2, sigla: 'GTI', nome: 'GESTÃO DA TECNOLOGIA DA INFORMAÇÃO', descricao: 'Gestão de TI', cor: '#4ECDC4', corTexto: '#FFFFFF' }
             ];
-            
             renderizarSalas(salas);
         }
 
-        // Modal adicionar sala
+        // Modal
         const modal = document.getElementById('modalAdicionarSala');
-        const btnAdicionar = document.getElementById('btnAdicionarSala');
-        const btnCancelar = document.getElementById('btnCancelarSala');
+        const btnAdd = document.getElementById('btnAdicionarSala');
+        const btnCancel = document.getElementById('btnCancelarSala');
         const form = document.getElementById('formAdicionarSala');
 
-        btnAdicionar.addEventListener('click', () => {
+        btnAdd.addEventListener('click', () => {
             modal.classList.add('ativo');
             carregarCursos();
+            renderizarGradeCores();
         });
 
-        btnCancelar.addEventListener('click', () => {
+        btnCancel.addEventListener('click', () => {
             modal.classList.remove('ativo');
             form.reset();
+            corSelecionada = null;
         });
 
         modal.addEventListener('click', (e) => {
@@ -539,9 +583,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
 
-        // Criar nova sala
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            if (!corSelecionada) {
+                alert('⚠️ Escolha uma cor para a sala!');
+                return;
+            }
             
             const loading = document.getElementById('loadingCriarSala');
             loading.classList.add('ativo');
@@ -551,11 +599,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 sigla: document.getElementById('siglaSala').value.toUpperCase(),
                 cursoId: parseInt(document.getElementById('cursoSala').value),
                 professorId: parseInt(userId),
-                descricao: document.getElementById('descricaoSala').value
+                descricao: document.getElementById('descricaoSala').value,
+                cor: corSelecionada.bg,
+                corTexto: corSelecionada.text
             };
             
             try {
-                const response = await fetch('/api/turmas', {
+                const response = await fetch(`${API_URL}/turmas`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(novaSala)
@@ -563,16 +613,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 
                 if (!response.ok) throw new Error('Erro ao criar sala');
                 
-                const resultado = await response.json();
-                
                 alert('✅ Sala criada com sucesso!');
                 modal.classList.remove('ativo');
                 form.reset();
+                corSelecionada = null;
                 carregarSalas();
-                
             } catch (error) {
-                console.error('Erro ao criar sala:', error);
-                alert('❌ Erro ao criar sala. Tente novamente.');
+                console.error('Erro:', error);
+                alert('❌ Erro ao criar sala.');
             } finally {
                 loading.classList.remove('ativo');
             }
@@ -582,23 +630,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         const dropdownNotif = document.getElementById('dropdownNotif');
         const dropdownConfig = document.getElementById('dropdownConfig');
         const dropdownPerfil = document.getElementById('dropdownPerfil');
-        const btnNotif = document.querySelector('.btn-notificao-nav');
-        const btnConfig = document.querySelector('.btn-config');
-        const btnPerfil = document.querySelector('.foto-de-perfil');
 
-        btnNotif.addEventListener('click', () => {
+        document.querySelector('.btn-notificao-nav').addEventListener('click', () => {
             dropdownConfig.classList.remove('ativo');
             dropdownPerfil.classList.remove('ativo');
             dropdownNotif.classList.toggle('ativo');
         });
 
-        btnConfig.addEventListener('click', () => {
+        document.querySelector('.btn-config').addEventListener('click', () => {
             dropdownNotif.classList.remove('ativo');
             dropdownPerfil.classList.remove('ativo');
-            dropdownConfig.classList.toggle('ativo');   
+            dropdownConfig.classList.toggle('ativo');
         });
 
-        btnPerfil.addEventListener('click', () => {
+        document.querySelector('.foto-de-perfil').addEventListener('click', () => {
             dropdownNotif.classList.remove('ativo');
             dropdownConfig.classList.remove('ativo');
             dropdownPerfil.classList.toggle('ativo');
@@ -607,12 +652,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelectorAll('[data-action]').forEach(btn => {
             btn.addEventListener('click', function() {
                 const action = this.getAttribute('data-action');
-                
-                if (action === 'fechar-notif') dropdownNotif.classList.remove('ativo');
-                if (action === 'fechar-config') dropdownConfig.classList.remove('ativo');
-                if (action === 'fechar-perfil') dropdownPerfil.classList.remove('ativo');
                 if (action === 'sair-da-conta') {
-                    if (confirm('Tem certeza que deseja sair?')) {
+                    if (confirm('Sair?')) {
                         localStorage.clear();
                         window.location.href = '/home.html';
                     }
@@ -621,9 +662,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         // Inicializar
-        document.addEventListener('DOMContentLoaded', () => {
-            carregarSalas();
-        });
+        carregarSalas();
     </script>
 </body>
 </html>

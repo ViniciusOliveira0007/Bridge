@@ -1,5 +1,5 @@
 node_modules/
-js/
+
 /ts/generated/prisma
 /uploads
 prisma/*.db
