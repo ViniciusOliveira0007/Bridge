@@ -436,8 +436,8 @@ nav a:hover, .nome-da-guia a:hover {
 .btn-trilhas-perfil:hover{
     padding: 0;
     padding-top: 10px;
-    padding-bottom: 10px;
     font-size: 16px;
+    padding-bottom: 10px;
     transform: scale(1.02);
     margin-left: 25px;
     border-radius: 10px;
@@ -568,239 +568,182 @@ nav a:hover, .nome-da-guia a:hover {
     box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
 }
 
-.postagens-de-trilhas {
+.seu-perfil{
     flex: 1;
     padding: 20px;
     display: flex;
     justify-content: right;
+    margin-right: 240px;
     align-items: flex-start;
     overflow-y: auto;
-    margin-right: 200px;
 }
 
-/*Postagens do trilhas*/
-.container-post-trilhas {
+.container-seu-perfil{
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
     width: 100%;
     max-width: 900px;
-    
 }
-
-.content-post-trilhas{
+.content-trilhas-perfil{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.box-seu-perfil{
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
-    justify-content: center;
-    width: auto;
-    max-width: auto;
+    width: 100%;
+    height: auto;
     border: #dadada solid 1px;
     border-radius: 20px;
     padding:10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    margin: 10px 0;
 }
-.box-trilhas{
+.info-perfil-trilhas{
     display: flex;
-    background: #161616;
-    flex-direction: column;
-    gap: 20px;
     align-items: center;
-    justify-content: center;
-    width: auto;
-    max-width: auto;
+    flex-wrap: wrap;
+    background: #161616;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    margin: 5px;
     border-radius: 20px;
-    padding:10px;
 }
-
-
-.post-trilhas {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    padding: 8px;
-    border-bottom: #3f3f3f solid 1px;
-}
-
-.foto-de-perfil {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    align-items: center;
-    justify-content: flex-start;
-    flex-shrink: 0;
-    height: 10px;
-    position: relative;
-}
-
-.img-projeto {
-    border-radius: 100px;
-    width: 30px;
-    height: 30px;
-    overflow: hidden;
-    object-fit: cover;
-    border: #3f3f3f solid 1px;
-    background-color: #ffffff;
-}
-
-.titulo-post-trilhas {
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: flex-start;
-    flex: 1;
-}
-
-.texto-post-trilhas {
-    color: #ffffff;
-    font-family: "Roboto-Regular", Arial, sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.display-img-comentario {
-    display: flex;
-    flex-direction: row;
-    gap: 11px;
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-}
-
-.img-post-trilhas {
-    border-radius: 20px;
-    flex-shrink: 0;
-    width: 604px;
-    height: 338px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: #3f3f3f solid 1px;
-}
-
-.todos-comentarios {
-    flex-shrink: 0;
-    width: 277px;
-    height: 338px;
-    position: relative;
+.info-perfil-trilhas desc-perfil{
     display: flex;
     flex-direction: column;
-    border-radius: 20px 20px 10px 10px;
 }
-
-.comentarios-trlhas {
-    background: #3f3f3f;
-    border-radius: 20px 20px 0px 0px;
-    padding: 10px 5px;
+.img-perfil-trilhas{
+    border-radius: 50px;
+    border: #3f3f3f solid 2px;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+.botoes-perfil-trilhas{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+.btn-trilhas{
+    justify-content: center;
+    display: flex;
     gap: 5px;
     align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    height: 303px;
-    overflow-y: auto;
-    flex: 1;
-}
-
-.card-comentario {
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    flex-shrink: 0;
-}
-
-.foto-perfil-comentario {
-    background: #161616;
-    border-radius: 100px;
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: flex-start;
-    flex-shrink: 0;
-}
-
-.comentario{
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: flex-start;
-    flex: 1;
-}
-
-.ficou-realmente-bom {
-    color: #ffffff;
-    font-family: "Roboto-Regular", Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-}
-
-.interações-post-trilhas {
-    background: #161616;
-    border-radius: 0px 0px 10px 10px;
-    display: flex;
-    flex-direction: row;
-    gap: 2px;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 28px;
-    flex-shrink: 0;;
-}
-.btn-interacoes{
-    color: #ffffff;
-    font-weight: bold;
+    align-self: center;
+    align-content: center;  
     text-align: center;
-    font-family: "Roboto-Regular", Arial, sans-serif;
-    padding: 5px;
-    font-size: 12px;
-    cursor: pointer;
-    outline: none;
-    transition: transform 0.3s ease, border-bottom 0.25s ease;
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+    background-color: none;
+    padding: 5px 10px;
+    border: #3f3f3f solid 2px;
+    border-radius: 10px;
+    width: auto;
+    height: 30px;
+    transform-origin: center;
+    font-weight: bold; 
+    transition: 0.3s ease;
+}
+.btn-trilhas img{
+    width: 15px;
+    height: 15px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+.btn-trilhas:hover{
+    transform: scale(1.02);
+    border-radius: 10px;
+    background-color: #3f3f3f;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
+}
+.info-usuario-trilhas{
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    gap: 10px;
+    align-items: center;
+    justify-content: center
+}
+.estrutura-perfil{
+    width: 55%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+.nm-usuario{
+    color: #ffffff;
+    text-align: left;
+    font-size: 16px;
     width: 100%;
-    transform-origin: center; 
-    display: inline-block;
+    padding-bottom:  2px;
 }
-.btn-interacoes:hover{
-    border-radius: 0px;
+.especializacao-perfil{
+    color: #ffffff;
+    text-align: left;
+    font-size: 14px;
+    width: 100%;
 }
-#btnRecusar{
-    background-color: #d32f2f;
-    border-radius: 0 0 10px 0;
+.email-usuario{
+    color: #ffffff;
+    text-align: left;
+    font-size: 14px;
+    font-weight: normal;
 }
-#btnRecusar:hover{
-    background-color: #921414;
+.conteudo-perfil-trilhas{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    padding: 5px 10px;
+    padding-bottom: 10px;
+    border-bottom: #3f3f3f solid 2px;
 }
-#btnAceitar{
-    background: #17bb4d;
-    border-radius: 0 0 0 10px;
+.desc-perfil{
+    background-color: #3f3f3f;
+    width: 100%;
+    justify-content: center;
+    border-radius: 20px;
+    transition: 0.3s ease;
+    margin-top: 10px;
 }
-#btnAceitar:hover{
-    background: #0f943b;
+.desc-seu-perfil{
+    color: #ffffff;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px;
 }
-.box-post-trilhas{
-    margin: 0px;
-    padding: 0px;
+.content-desc-seu-perfil{
+    color: #ffffff;
+    font-size: 14px;
+    padding:20px;
+    background: #16161660;
+    border-radius: 30px;
+    margin: 0px 10px 10px 10px;
+    transition: 0.3s ease;
+    height: 180px;
 }
-
+.content-desc-seu-perfil:hover{
+    padding: 20px;
+    background: #161616;
+    border-radius: 20px;
+    opacity: 100%;
+}
 
 /* Responsividade */
 @media (max-width: 768px) {
