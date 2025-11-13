@@ -55,15 +55,15 @@ async function carregarPosts() {
       `;
 
       // ⚙️ Evento "Ler mais"
-      const lerMaisBtn = item.querySelector(".ler-mais");
-      if (lerMaisBtn) {
-        lerMaisBtn.addEventListener("click", () => {
-          const p = item.querySelector(".comentario-post");
-          p.classList.add("expandido"); // remove o limite visual
-          p.textContent = contentText;  // mostra o texto completo
-          lerMaisBtn.remove();          // remove o botão
-        });
-      }
+     const lerMaisBtn = item.querySelector(".ler-mais");
+if (lerMaisBtn) {
+  lerMaisBtn.addEventListener("click", () => {
+    const p = item.querySelector(".comentario-post");
+    p.classList.add("expandido"); // remove o limite visual
+    p.textContent = contentText;  // mostra o texto completo
+    lerMaisBtn.remove();          // remove o botão
+  });
+}
 
       feed.appendChild(item);
     });
