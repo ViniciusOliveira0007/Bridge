@@ -80,7 +80,7 @@ export const login = async (req: Request, res: Response) => {
     if (user.senha !== senha) {
       return res.status(401).json({ 
         success: false,
-        message: 'Email ou senha incorretos' 
+        message: 'Senha incorreta' 
       });
     }
 

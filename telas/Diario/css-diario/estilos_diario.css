@@ -107,6 +107,7 @@ nav {
     border: 2px solid #ffffff;
     cursor: pointer;
     transition: opacity 0.2s ease;
+    border-radius: 50px;
 }
 
 .foto-de-perfil:hover {

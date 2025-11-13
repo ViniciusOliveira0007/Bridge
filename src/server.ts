@@ -19,11 +19,24 @@ import {
   listarAtividadesPorTurma, 
   buscarAtividade,
   entregarAtividade,
-  listarAtividadesAluno
+  listarAtividadesAluno,
+  
 } from "./controllers/atividadeController";
 
-// Controlador de turmas
-import { getMembros, getTurmas, createTurma, getCursos } from "./controllers/turmaController";
+// Controlador de turmas (AGORA COMPLETO)
+import { 
+  getTurmas,
+  getTurma,             // <-- ADICIONADO
+  createTurma,
+  updateTurma,          // <-- ADICIONADO
+  deleteTurma,          // <-- ADICIONADO
+  getMembros,
+  addAlunoTurma,        // <-- ADICIONADO
+  removeAlunoTurma,     // <-- ADICIONADO
+  getCursos,
+  getTurmasDoAluno,     // <-- ADICIONADO
+  getTurmasDoProfessor  // <-- ADICIONADO
+} from "./controllers/turmaController";
 
 // Controlador de perfil (NOVO)
 import { 
@@ -188,12 +201,26 @@ app.get("/api/atividades/:id", buscarAtividade);
 app.post("/api/atividades/:id/entregar", entregarAtividade);
 
 // ========================================
-// ROTAS DE TURMAS E CURSOS
+// ROTAS DE TURMAS E CURSOS (BLOCO CORRIGIDO E COMPLETO)
 // ========================================
+// --- Cursos ---
+app.get("/api/cursos", getCursos);
+
+// --- Turmas (Operações CRUD) ---
 app.get("/api/turmas", getTurmas);
 app.post("/api/turmas", createTurma);
+app.get("/api/turmas/:turmaId", getTurma);          // <-- ADICIONADO (Esta era a causa do 404)
+app.put("/api/turmas/:turmaId", updateTurma);      // <-- ADICIONADO
+app.delete("/api/turmas/:turmaId", deleteTurma);  // <-- ADICIONADO
+
+// --- Membros da Turma (Alunos) ---
 app.get("/api/turmas/:turmaId/membros", getMembros);
-app.get("/api/cursos", getCursos);
+app.post("/api/turmas/:turmaId/membros", addAlunoTurma);  // <-- ADICIONADO
+app.delete("/api/turmas/:turmaId/membros/:alunoId", removeAlunoTurma); // <-- ADICIONADO
+
+// --- Turmas Específicas de Usuários ---
+app.get("/api/turmas/aluno/:alunoId", getTurmasDoAluno); // <-- ADICIONADO
+app.get("/api/turmas/professor/:professorId", getTurmasDoProfessor); // <-- ADICIONADO
 
 // ========================================
 // PLACEHOLDERS

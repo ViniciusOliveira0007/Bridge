@@ -5,244 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sala de Aula</title>
     <link rel="stylesheet" href="./css-Sala/estilo_sala.css">
-    <style>
-        /* Estilos do botão e modal mantidos */
-        .btn-adicionar-sala {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 18px 30px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .btn-adicionar-sala:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.5);
-        }
-        
-        .modal-sala {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-sala.ativo {
-            display: flex;
-        }
-        
-        .modal-conteudo-sala {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: slideIn 0.3s ease;
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        .modal-conteudo-sala h2 {
-            margin-top: 0;
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 25px;
-        }
-        
-        .form-group-sala {
-            margin-bottom: 20px;
-        }
-        
-        .form-group-sala label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        
-        .form-group-sala input,
-        .form-group-sala select,
-        .form-group-sala textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 15px;
-            transition: border 0.3s;
-            font-family: inherit;
-            box-sizing: border-box;
-        }
-        
-        .form-group-sala input:focus,
-        .form-group-sala select:focus,
-        .form-group-sala textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        
-        .form-group-sala textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        /* Grade de cores */
-        .grade-cores {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 12px;
-            margin-top: 10px;
-        }
-        
-        .opcao-cor {
-            position: relative;
-            aspect-ratio: 1;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 20px;
-        }
-        
-        .opcao-cor:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        
-        .opcao-cor.selecionada {
-            border-color: #000;
-            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
-            transform: scale(1.1);
-        }
-        
-        .opcao-cor.usada {
-            opacity: 0.3;
-            cursor: not-allowed;
-            position: relative;
-        }
-        
-        .opcao-cor.usada::after {
-            content: '✓';
-            position: absolute;
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        .opcao-cor input {
-            display: none;
-        }
-        
-        .preview-card {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 12px;
-            background: #f8f9fa;
-            border: 2px dashed #ddd;
-        }
-        
-        .preview-card h4 {
-            margin-top: 0;
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-        
-        .preview-sigla {
-            display: inline-block;
-            padding: 20px 30px;
-            border-radius: 12px;
-            font-size: 32px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .modal-botoes-sala {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        
-        .modal-botoes-sala button {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .btn-cancelar-sala {
-            background: #f5f5f5;
-            color: #666;
-        }
-        
-        .btn-cancelar-sala:hover {
-            background: #e0e0e0;
-        }
-        
-        .btn-criar-sala {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        .btn-criar-sala:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .loading-spinner {
-            display: none;
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .loading-spinner.ativo {
-            display: block;
-        }
-        
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+    
 </head>
 <body>
     <!-- Navegação mantida igual -->
@@ -412,11 +175,81 @@
         const userId = usuarioLogado.id;
         const userName = usuarioLogado.name || 'Usuário';
         const userRole = usuarioLogado.role || 'aluno';
+        const userPerfilUrl = usuarioLogado.perfilUrl;
 
+        // Atualizar nome do usuário
         document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${userName}`;
 
+        // ✅ ATUALIZAR FOTO DE PERFIL DO LOCALSTORAGE (IMEDIATO)
+        if (userPerfilUrl) {
+            const urlFoto = userPerfilUrl.startsWith('http') 
+                ? userPerfilUrl 
+                : `http://localhost:3000${userPerfilUrl}`;
+            
+            // Atualizar todas as imagens de perfil
+            document.querySelectorAll('.foto-de-perfil').forEach(img => {
+                img.src = urlFoto;
+                img.onerror = () => img.src = './imagens-sala/foto_de_perfil.png';
+            });
+            
+            const fotoPerfilDropdown = document.querySelector('.perfil-mini');
+            if (fotoPerfilDropdown) {
+                fotoPerfilDropdown.src = urlFoto;
+                fotoPerfilDropdown.onerror = () => fotoPerfilDropdown.src = './imagens-sala/foto_de_perfil.png';
+            }
+        }
+
+        // Mostrar botão de adicionar sala para professores
         if (userRole === 'professor') {
             document.getElementById('btnAdicionarSala').style.display = 'block';
+        }
+
+        // ✅ CARREGAR DADOS ATUALIZADOS DO USUÁRIO DA API
+        async function carregarDadosUsuario() {
+            try {
+                const response = await fetch(`${API_URL}/users/${userId}`);
+                if (!response.ok) throw new Error('Erro ao carregar usuário');
+                
+                const dados = await response.json();
+                const usuario = dados.user || dados;
+                
+                // Atualizar localStorage com dados atualizados
+                const usuarioAtualizado = {
+                    ...usuarioLogado,
+                    name: usuario.name,
+                    perfilUrl: usuario.perfilUrl
+                };
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
+                
+                // Atualizar nome
+                document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${usuario.name || 'Usuário'}`;
+                
+                // Atualizar foto de perfil
+                if (usuario.perfilUrl) {
+                    const urlFoto = usuario.perfilUrl.startsWith('http') 
+                        ? usuario.perfilUrl 
+                        : `http://localhost:3000${usuario.perfilUrl}`;
+                    
+                    const fotosPerfilNav = document.querySelectorAll('.foto-de-perfil');
+                    const fotoPerfilDropdown = document.querySelector('.perfil-mini');
+                    
+                    fotosPerfilNav.forEach(img => {
+                        img.src = urlFoto;
+                        img.onerror = () => {
+                            img.src = './imagens-sala/foto_de_perfil.png';
+                        };
+                    });
+                    
+                    if (fotoPerfilDropdown) {
+                        fotoPerfilDropdown.src = urlFoto;
+                        fotoPerfilDropdown.onerror = () => {
+                            fotoPerfilDropdown.src = './imagens-sala/foto_de_perfil.png';
+                        };
+                    }
+                }
+            } catch (error) {
+                console.error('Erro ao carregar dados do usuário:', error);
+            }
         }
 
         // Renderizar grade de cores
@@ -523,13 +356,11 @@
             });
         }
 
-        // ✅ FUNÇÃO CORRIGIDA - USA AS CORES SALVAS NO BANCO DE DADOS
         function criarCardSala(turma) {
             const sigla = turma.sigla || turma.curso?.sigla || 'SALA';
             const nome = turma.nome || 'Sala sem nome';
             const desc = turma.descricao || 'Sem descrição';
             
-            // ✅ CORREÇÃO: Usa diretamente as cores salvas no banco
             const corFundo = turma.cor || '#FF6B6B';
             const corTexto = turma.corTexto || '#FFFFFF';
             
@@ -661,7 +492,8 @@
             });
         });
 
-        // Inicializar
+        // ✅ INICIALIZAR - Carregar dados do usuário primeiro, depois as salas
+        carregarDadosUsuario();
         carregarSalas();
     </script>
 </body>

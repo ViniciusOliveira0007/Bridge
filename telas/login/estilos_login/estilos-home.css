@@ -24,7 +24,7 @@
 .layout-fixo {
   display: flex;
   flex-direction: row;
-  gap: 1100px;
+  gap: 800px;
   align-items: flex-start;
   justify-content: flex-start;
   flex-shrink: 0;
