@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trilhas</title>
-    <link rel="stylesheet" href="estilos_trilhas/estilo_trilhas.css">
+    <title>Perfil Trilhas</title>
+    <link rel="stylesheet" href="../estilos_trilhas/estilo_perfil_trilhas.css">
     <style>
         .foto-de-perfil, .perfil-mini {
             border-radius: 50%;
@@ -14,7 +14,7 @@
             display: none;
             align-items: center;
             padding: 10px 0;
-            gap: 5px;
+            gap: 10px;
         }
         .area-input-comentario.ativo {
             display: flex;
@@ -40,14 +40,15 @@
         }
         .card-comentario {
             display: flex;
+            margin-bottom: 8px;
             align-items: flex-start;
         }
         .card-comentario .comentario {
-            background-color: #161616;
+            background-color: #f0f2f5;
             padding: 8px 12px;
-            border-radius: 10px;
+            border-radius: 18px;
             margin-left: 8px;
-            max-width: 85%;
+            max-width: 80%;
             word-wrap: break-word;
             font-size: 0.9em;
         }
@@ -58,20 +59,20 @@
     <nav class="navegacao">
         <div class="menu">
             <div class="menu-1">
-                <img src="./imagens_trilhas/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
+                <img src="../imagens_trilhas/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
             </div>
             <div class="menu-2">
                 <input type="text" placeholder="Pesquise aqui...">
             </div> 
             <div class="menu-3">
-                <img src="./imagens_trilhas/sininho.svg" alt="notificação" class="btn-notificao-nav">
-                <img src="./imagens_trilhas/configuracao.svg" alt="botão de configuração" class="btn-config">
-                <img src="./imagens_trilhas/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" id="fotoPerfilNav">
+                <img src="../imagens_trilhas/sininho.svg" alt="notificação" class="btn-notificao-nav">
+                <img src="../imagens_trilhas/configuracao.svg" alt="botão de configuração" class="btn-config">
+                <img src="../imagens_trilhas/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" id="fotoPerfilNav">
                 
                 <div class="dropdown-notificacoes" id="dropdownNotif">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="./imagens_trilhas/sino-black.svg" alt="Notificação">
+                            <img src="../imagens_trilhas/sino-black.svg" alt="Notificação">
                             <span>Notificações</span>
                         </div>
                         <button class="btn-fechar" data-action="fechar-notif">&times;</button>
@@ -84,7 +85,7 @@
                 <div class="dropdown-configuracoes" id="dropdownConfig">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="./imagens_trilhas/configuracao-black.svg" alt="Configuração">
+                            <img src="../imagens_trilhas/configuracao-black.svg" alt="Configuração">
                             <span>Configurações</span>
                         </div>
                         <button class="btn-fechar" data-action="fechar-config">&times;</button>
@@ -99,7 +100,7 @@
                 <div class="dropdown-perfil" id="dropdownPerfil">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="./imagens_trilhas/foto_de_perfil.png" alt="Perfil" class="perfil-mini" id="fotoPerfilMini">
+                            <img src="../imagens_trilhas/foto_de_perfil.png" alt="Perfil" class="perfil-mini" id="fotoPerfilMini">
                             <span id="nomeUsuarioPerfil">Olá, Usuário</span>
                         </div>
                         <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
@@ -128,20 +129,20 @@
         <div class="empresas">
             <div class="perfil-trilhas">
                 <div class="box-perfil">
-                   <img src="./imagens_trilhas/foto_de_perfil.png" alt="sua foto de perfil" class="img-perfil">
+                   <img src="../imagens_trilhas/foto_de_perfil.png" alt="sua foto de perfil" class="img-perfil">
                     <div class="botoes-perfil">
-                        <a href="./telas-trilhas/perfil_trilhas.html" class="btn-trilhas-perfil">Seu perfil <img src="./imagens_trilhas/seu-perfil-trilhas.svg" alt="seu perfil"></a>    
-                        <a href="" class="btn-trilhas-perfil">Portifólio <img src="./imagens_trilhas/portifolio-perfil-trilhas.svg" alt="portifolio"></a>    
-                        <a href="" class="btn-trilhas-perfil">Seus Projetos<img src="./imagens_trilhas/seus-projetos.svg" alt="seus projetos"></a>    
-                        <a href="" class="btn-trilhas-perfil">Propostas<img src="./imagens_trilhas/projetos-aceitos-trilhas.svg" alt="projetos aceitos"></a>    
+                        <a href="../trilhas.html" class="btn-trilhas-perfil">Explorar <img src="../imagens_trilhas/home-icon-trilhas.svg" alt="Explorar"></a>    
+                        <a href="" class="btn-trilhas-perfil">Portifólio <img src="../imagens_trilhas/portifolio-perfil-trilhas.svg" alt="portifolio"></a>    
+                        <a href="" class="btn-trilhas-perfil">Seus Projetos<img src="../imagens_trilhas/seus-projetos.svg" alt="seus projetos"></a>    
+                        <a href="" class="btn-trilhas-perfil">Propostas<img src="../imagens_trilhas/projetos-aceitos-trilhas.svg" alt="projetos aceitos"></a>    
                     </div>
                 </div>
             </div>
             <div class="secao-propostas">
                 <h3 class="h3-proposta">Sugestões de Propostas</h3>
-                <a href="/telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="../telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="./imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
                                 oiii
@@ -149,9 +150,9 @@
                         </div>
                     </div>
                 </a>
-                <a href="/telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="../telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="./imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
                                 oiii
@@ -161,7 +162,7 @@
                 </a>
                 <a href="./telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="./imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
                                 Tabela Excel, contabilidade e gerenciamento
@@ -173,64 +174,36 @@
                 <a href="" class="btn-trilhas-proposta">Filtrar Propostas</a> 
             </div>
         </div>
-        <div class="postagens-de-trilhas">
-            <div class="container-post-trilhas">
-                <div class="box-post-trilhas">
-                    <div class="content-post-trilhas">
-                        <div class="box-trilhas">
-                            <div class="post-trilhas">
-                                <img class="img-projeto" src="./imagens_trilhas/google.svg" alt="Imagem do Projeto"/>
-                            <div class="titulo-post-trilhas">
-                                <h4 class="texto-post-trilhas">Quer um desafio? Que tal você usar conhecimento para realizar esse projeto?</h4>
-                            </div>
-                        </div>
-                        
-                        <div class="display-img-comentario">
-                            <div class="img-post-trilhas">
-                                <img class="image-7" src="./imagens_trilhas/img-ia-post-trilhas.webp" />
-                            </div>
-                            
-                            <div class="todos-comentarios">
-                                <div class="comentarios-trlhas" id="comentariosPost1"></div>
-                                
-                               <div class="interações-post-trilhas">
-                                    <div class="btn-interacoes" id="btnAceitar">Aceitar</div>
-                                    <div class="btn-interacoes" id="btnRecusar">Recusar</div>
+        <div class="seu-perfil">
+            <div class="container-seu-perfil">
+                <div class="box-seu-perfil">
+                    <div class="content-trilhas-perfil">
+                        <div class="info-perfil-trilhas">
+                            <div class="conteudo-perfil-trilhas">
+                                <img src="../imagens_trilhas/foto_de_perfil.png" alt="" class="img-perfil-trilhas">
+                                <div class="estrutura-perfil">
+                                    <h4 class="nm-usuario">Rodrigo Santos</h4>
+                                    <p class="especializacao-perfil">Técnico em Desenvolvimento de Sistemas</p>
                                 </div>
-
-                                <div class="area-input-comentario" id="areaInputComentario">
-                                    <div class="foto-perfil-comentario">
-                                        <img src="./imagens_trilhas/foto_de_perfil.png" alt="Sua foto" id="fotoComentario">
+                                <div class="botoes-perfil-trilhas">
+                                    <a href="" class="btn-trilhas">Habilidades <img src="../imagens_trilhas/habilidades-trilhas.svg" alt="habilidades"></a>
+                                    <a href="" class="btn-trilhas">Adicionar Currículo <img src="../imagens_trilhas/portifolio-perfil-trilhas.svg" alt="curriculo"></a>
+                                    <a href="" class="btn-trilhas">Editar Perfil <img src="../imagens_trilhas/edit-icon-perfil.svg" alt="editar perfil"></a>
+                                    <!--<a href="" class="btn-trilhas">Seus Projetos</a>
+                                    <a href="" class="btn-trilhas">Nível</a>-->
+                                </div>
+                            </div>
+                                <div class="desc-perfil">
+                                    <h5 class="desc-seu-perfil">Sobre mim</h5>
+                                    <div>
+                                        <p class="content-desc-seu-perfil">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, est reiciendis. Quisquam illum unde quae eveniet corrupti harum et eaque praesentium alias est, recusandae, sint at, asperiores impedit dolorum vitae.
+                                            Ipsam quidem, repudiandae optio veritatis tenetur provident. Ipsum perferendis rerum vel magnam accusantium numquam ab, odit eligendi soluta dicta asperiores natus non fugiat corrupti accusamus nisi, maiores beatae optio! Voluptatum.
+                                            Odio, sequi sed, aliquid est ipsa magni harum aut esse nemo obcaecati amet sint nobis minus omnis labore doloremque dicta quas possimus in molestiae enim! Debitis impedit iure inventore qui!
+                                            Ut nulla voluptatum veniam reiciendis fugiat. Ipsam optio facere corrupti odio eaque laboriosam sint obcaecati! Animi, laboriosam omnis. Vitae numquam autem ullam. Molestiae numquam quo reiciendis asperiores ut voluptates ad!
+                                        </p>
                                     </div>
-                                    <input type="text" placeholder="Escreva um comentário..." id="inputComentario">
                                 </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="content-post-trilhas">
-                        <div class="box-trilhas">
-                            <div class="post-trilhas">
-                                <img class="img-projeto" src="./imagens_trilhas/microsft-pendente.svg" alt="Imagem do Projeto"/>
-                            <div class="titulo-post-trilhas">
-                                <h4 class="texto-post-trilhas">Projetos em abertos relacionados a sua área.</h4>
-                            </div>
-                        </div>
-                        
-                        <div class="display-img-comentario">
-                            <div class="img-post-trilhas">
-                                <img class="image-7" src="./imagens_trilhas/img-csharp.png" />
-                            </div>
-                            
-                            <div class="todos-comentarios">
-                                <div class="comentarios-trlhas"></div>
-                                
-                                <div class="interações-post-trilhas">
-                                    <div class="btn-interacoes" id="btnAceitar">Aceitar</div>
-                                    <div class="btn-interacoes" id="btnRecusar">Recusar</div>
-                                </div>
-                            </div>
-                        </div>
                         </div>
                     </div>
                 </div>
@@ -296,10 +269,9 @@
             await carregarFotoPerfil();
 
             // ============================================
-            // 3. LÓGICA DE ESTADO PROPOSTA
+            // 3. LÓGICA DE COMENTÁRIOS
             // ============================================
-           
-
+            
             // ============================================
             // 4. DROPDOWNS
             // ============================================
