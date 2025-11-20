@@ -7,4 +7,4 @@ prisma/*.db-journal
 *.sqlite
 *.sqlite3uploads/ 
 
-/dev.db
+#/dev.db
