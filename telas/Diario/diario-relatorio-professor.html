@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diário - Relatório de Presenças</title>
+    <link rel="stylesheet" href="./css-diario/estilos_diario.css">
+    <link rel="stylesheet" href="./css-diario/estilo_diario-aulas.css">
+</head>
+<body>
+    <nav class="navegacao">
+        <div class="menu">
+            <div class="menu-1">
+                <img src="./imagens-diario/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
+            </div>
+            <div class="menu-2">
+                <input type="text" placeholder="Pesquise aqui...">
+            </div> 
+            <div class="menu-3">
+                <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav">
+                <img src="./imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config">
+                <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" id="fotoPerfil">
+            </div>
+        </div>
+    </nav>
+    
+    <div class="nome-da-guia">
+        <ul>
+            <li><a href="../Rede/connect.html">Redes</a></li>
+            <li><a href="../Sala-de-Aula/sala.html">Sala de Aula</a></li>
+            <li><a href="../Trilhas/trilhas.html">Trilhas</a></li>
+            <li><a href="diario.html">Diário</a></li>
+        </ul>
+    </div>
+
+    <main class="conteudo-principal">
+        <div class="bloco-de-conteudo-aulas">
+            <div class="sub-guia-aulas">
+                <a class="btn-sub-guia-aulas" href="diario.html">Início</a>
+                <a class="btn-sub-guia-aulas" href="diario-aulas-professor.html">Registrar Presença</a>
+                <a class="btn-sub-guia-aulas" href="diario-relatorio-professor.html">Relatórios</a>
+            </div>
+        </div>
+
+        <div class="bloco-de-conteudo2">
+            <div style="padding: 20px; background: #f5f5f5; border-radius: 10px; margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 10px; font-weight: bold;">
+                    Selecione a Turma:
+                </label>
+                <select id="selectTurma" style="width: 100%; padding: 12px; font-size: 16px; border: 2px solid #ccc; border-radius: 8px; background: white; cursor: pointer;">
+                    <option value="">Carregando turmas...</option>
+                </select>
+            </div>
+
+            <div id="areaRelatorio" style="display: none;">
+                <div class="frame-476">
+                    <div class="bloco-tabela">
+                        <div class="titulo-tabela-aulas">
+                            <div class="aulas-faltas">RELATÓRIO DE PRESENÇAS</div>
+                        </div>
+                        <table class="tabela">
+                            <thead>
+                                <tr>
+                                    <th class="titulo-guia">ALUNO</th>
+                                    <th class="titulo-guia">Total de Aulas</th>
+                                    <th class="titulo-guia">Presenças</th>
+                                    <th class="titulo-guia">Faltas</th>
+                                    <th class="titulo-guia">Frequência (%)</th>
+                                    <th class="titulo-guia">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="corpoTabelaRelatorio">
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 40px;">
+                                        Selecione uma turma para ver o relatório
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="media-geral" id="infoTurma">
+                            Informações da Turma
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        const userData = JSON.parse(localStorage.getItem('user') || '{}');
+        const professorId = userData.id;
+
+        // Carrega turmas do professor
+        async function carregarTurmas() {
+            try {
+                const response = await fetch(`${API_URL}/turmas/professor/${professorId}`);
+                const data = await response.json();
+
+                const select = document.getElementById('selectTurma');
+                
+                if (data.turmas && data.turmas.length > 0) {
+                    select.innerHTML = '<option value="">Selecione uma turma...</option>';
+                    data.turmas.forEach(turma => {
+                        const option = document.createElement('option');
+                        option.value = turma.id;
+                        option.textContent = `${turma.nome} - ${turma.curso.nome}`;
+                        select.appendChild(option);
+                    });
+                } else {
+                    select.innerHTML = '<option value="">Nenhuma turma encontrada</option>';
+                }
+            } catch (error) {
+                console.error('Erro ao carregar turmas:', error);
+            }
+        }
+
+        // Quando selecionar uma turma
+        document.getElementById('selectTurma').addEventListener('change', async (e) => {
+            const turmaId = e.target.value;
+            
+            if (!turmaId) {
+                document.getElementById('areaRelatorio').style.display = 'none';
+                return;
+            }
+
+            await carregarRelatorio(turmaId);
+        });
+
+        // Carrega relatório da turma
+        async function carregarRelatorio(turmaId) {
+            try {
+                const response = await fetch(`${API_URL}/presencas/turma/${turmaId}?professorId=${professorId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    renderizarRelatorio(data);
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar relatório:', error);
+                document.getElementById('corpoTabelaRelatorio').innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 40px; color: #d32f2f;">
+                            Erro ao carregar relatório
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Renderiza o relatório
+        function renderizarRelatorio(data) {
+            const tbody = document.getElementById('corpoTabelaRelatorio');
+            
+            if (data.estatisticasPorAluno.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 40px;">
+                            Nenhum aluno matriculado nesta turma
+                        </td>
+                    </tr>
+                `;
+                document.getElementById('areaRelatorio').style.display = 'block';
+                return;
+            }
+
+            tbody.innerHTML = data.estatisticasPorAluno.map(stat => {
+                const statusColor = stat.status === 'REGULAR' ? '#4caf50' : '#f44336';
+                const freqColor = stat.frequencia >= 75 ? '#4caf50' : '#f44336';
+
+                return `
+                    <tr>
+                        <td>
+                            <strong>${stat.aluno.name}</strong><br>
+                            <small style="color: #666;">${stat.aluno.email}</small>
+                        </td>
+                        <td>${stat.totalAulas}</td>
+                        <td style="color: #4caf50; font-weight: bold;">${stat.presentes}</td>
+                        <td style="color: ${stat.faltas > 0 ? '#f44336' : '#666'}; font-weight: ${stat.faltas > 0 ? 'bold' : 'normal'};">
+                            ${stat.faltas}
+                        </td>
+                        <td style="color: ${freqColor}; font-weight: bold;">
+                            ${stat.frequencia.toFixed(2)}%
+                        </td>
+                        <td style="color: ${statusColor}; font-weight: bold;">
+                            ${stat.status}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Atualiza informações da turma
+            const mediaFrequencia = data.estatisticasPorAluno.length > 0
+                ? (data.estatisticasPorAluno.reduce((acc, stat) => acc + stat.frequencia, 0) / data.estatisticasPorAluno.length).toFixed(2)
+                : 0;
+
+            const alunosIrregulares = data.estatisticasPorAluno.filter(s => s.status === 'IRREGULAR').length;
+
+            document.getElementById('infoTurma').innerHTML = `
+                <strong>${data.turma.nome}</strong> | 
+                Curso: ${data.turma.curso} | 
+                Aulas registradas: ${data.totalAulas} | 
+                Alunos: ${data.estatisticasPorAluno.length} | 
+                Frequência média: <span style="color: ${mediaFrequencia >= 75 ? '#4caf50' : '#f44336'}; font-weight: bold;">${mediaFrequencia}%</span> |
+                <span style="color: ${alunosIrregulares > 0 ? '#f44336' : '#4caf50'};">
+                    ${alunosIrregulares} aluno(s) irregular(es)
+                </span>
+            `;
+
+            document.getElementById('areaRelatorio').style.display = 'block';
+        }
+
+        // Carrega turmas ao iniciar
+        if (professorId) {
+            carregarTurmas();
+        } else {
+            alert('Usuário não autenticado');
+            window.location.href = '../login.html';
+        }
+    </script>
+</body>
+</html>

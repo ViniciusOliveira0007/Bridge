@@ -21,7 +21,8 @@ export const validateLogin = async (req: Request, res: Response) => {
         email: true,
         name: true,
         role: true,
-        perfilUrl: true // ← NOVO
+        perfilUrl: true,
+        telefone: true
       }
     });
 
@@ -66,7 +67,8 @@ export const login = async (req: Request, res: Response) => {
         name: true,
         senha: true,
         role: true,
-        perfilUrl: true // ← NOVO
+        perfilUrl: true,
+        telefone: true // ✅ CORRIGIDO: Agora retorna o telefone
       }
     });
 
@@ -86,6 +88,13 @@ export const login = async (req: Request, res: Response) => {
 
     // Remove a senha antes de enviar
     const { senha: _, ...userSemSenha } = user;
+
+    // ✅ Debug: Mostra se o telefone está sendo retornado
+    console.log('👤 Usuário autenticado:', {
+      id: userSemSenha.id,
+      name: userSemSenha.name,
+      telefone: userSemSenha.telefone || 'SEM TELEFONE' // ← Vai ajudar no debug
+    });
 
     return res.status(200).json({ 
       success: true,

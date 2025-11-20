@@ -20,30 +20,44 @@ import {
   buscarAtividade,
   entregarAtividade,
   listarAtividadesAluno,
-  
 } from "./controllers/atividadeController";
 
-// Controlador de turmas (AGORA COMPLETO)
+// Controlador de turmas
 import { 
   getTurmas,
-  getTurma,             // <-- ADICIONADO
+  getTurma,
   createTurma,
-  updateTurma,          // <-- ADICIONADO
-  deleteTurma,          // <-- ADICIONADO
+  updateTurma,
+  deleteTurma,
   getMembros,
-  addAlunoTurma,        // <-- ADICIONADO
-  removeAlunoTurma,     // <-- ADICIONADO
+  addAlunoTurma,
+  removeAlunoTurma,
   getCursos,
-  getTurmasDoAluno,     // <-- ADICIONADO
-  getTurmasDoProfessor  // <-- ADICIONADO
+  getTurmasDoAluno,
+  getTurmasDoProfessor
 } from "./controllers/turmaController";
 
-// Controlador de perfil (NOVO)
+// Controlador de perfil
 import { 
   atualizarFotoPerfil, 
   buscarUsuario, 
   removerFotoPerfil 
 } from "./controllers/perfilController";
+
+// Controlador de SMS
+import { 
+  enviarCodigoSMS, 
+  verificarCodigoSMS 
+} from "./controllers/smsController";
+
+// ✅ NOVO: Controlador de Presenças
+import { 
+  registrarPresenca, 
+  estatisticasPresencaAluno,
+  presencasPorTurma,
+  presencaPorData,
+  atualizarPresenca
+} from "./controllers/presencaController";
 
 const app = express();
 const prisma = new PrismaClient();
@@ -122,7 +136,7 @@ const uploadPost = multer({
 });
 
 // ========================================
-// CONFIGURAÇÃO DO MULTER PARA PERFIL (NOVO)
+// CONFIGURAÇÃO DO MULTER PARA PERFIL
 // ========================================
 const storagePerfil = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -179,11 +193,52 @@ app.post("/api/login", login);
 app.post("/api/reset-password", resetPassword);
 
 // ========================================
-// ROTAS DE USUÁRIO/PERFIL (NOVO)
+// ROTAS DE VERIFICAÇÃO SMS
+// ========================================
+app.post("/api/enviar-codigo-sms", enviarCodigoSMS);
+app.post("/api/verificar-codigo-sms", verificarCodigoSMS);
+
+// ========================================
+// ROTAS DE USUÁRIO/PERFIL
 // ========================================
 app.get("/api/users/:userId", buscarUsuario);
 app.post("/api/users/:userId/perfil", uploadPerfil.single("perfil"), atualizarFotoPerfil);
 app.delete("/api/users/:userId/perfil", removerFotoPerfil);
+
+// Rota para atualizar telefone do usuário
+app.put("/api/users/:userId/telefone", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { telefone } = req.body;
+    
+    if (!telefone) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Telefone é obrigatório' 
+      });
+    }
+    
+    const user = await prisma.user.update({
+      where: { id: parseInt(userId) },
+      data: { telefone },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        telefone: true,
+        role: true
+      }
+    });
+    
+    res.json({ success: true, user });
+  } catch (error) {
+    console.error('Erro ao atualizar telefone:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Erro ao atualizar telefone' 
+    });
+  }
+});
 
 // ========================================
 // ROTAS DE POSTS
@@ -201,7 +256,7 @@ app.get("/api/atividades/:id", buscarAtividade);
 app.post("/api/atividades/:id/entregar", entregarAtividade);
 
 // ========================================
-// ROTAS DE TURMAS E CURSOS (BLOCO CORRIGIDO E COMPLETO)
+// ROTAS DE TURMAS E CURSOS
 // ========================================
 // --- Cursos ---
 app.get("/api/cursos", getCursos);
@@ -209,18 +264,27 @@ app.get("/api/cursos", getCursos);
 // --- Turmas (Operações CRUD) ---
 app.get("/api/turmas", getTurmas);
 app.post("/api/turmas", createTurma);
-app.get("/api/turmas/:turmaId", getTurma);          // <-- ADICIONADO (Esta era a causa do 404)
-app.put("/api/turmas/:turmaId", updateTurma);      // <-- ADICIONADO
-app.delete("/api/turmas/:turmaId", deleteTurma);  // <-- ADICIONADO
+app.get("/api/turmas/:turmaId", getTurma);
+app.put("/api/turmas/:turmaId", updateTurma);
+app.delete("/api/turmas/:turmaId", deleteTurma);
 
 // --- Membros da Turma (Alunos) ---
 app.get("/api/turmas/:turmaId/membros", getMembros);
-app.post("/api/turmas/:turmaId/membros", addAlunoTurma);  // <-- ADICIONADO
-app.delete("/api/turmas/:turmaId/membros/:alunoId", removeAlunoTurma); // <-- ADICIONADO
+app.post("/api/turmas/:turmaId/membros", addAlunoTurma);
+app.delete("/api/turmas/:turmaId/membros/:alunoId", removeAlunoTurma);
 
 // --- Turmas Específicas de Usuários ---
-app.get("/api/turmas/aluno/:alunoId", getTurmasDoAluno); // <-- ADICIONADO
-app.get("/api/turmas/professor/:professorId", getTurmasDoProfessor); // <-- ADICIONADO
+app.get("/api/turmas/aluno/:alunoId", getTurmasDoAluno);
+app.get("/api/turmas/professor/:professorId", getTurmasDoProfessor);
+
+// ========================================
+// ✅ ROTAS DE PRESENÇA (NOVO)
+// ========================================
+app.post("/api/presencas/registrar", registrarPresenca);
+app.get("/api/presencas/aluno/:alunoId", estatisticasPresencaAluno);
+app.get("/api/presencas/turma/:turmaId", presencasPorTurma);
+app.get("/api/presencas/turma/:turmaId/data/:data", presencaPorData);
+app.put("/api/presencas/:presencaId", atualizarPresenca);
 
 // ========================================
 // PLACEHOLDERS
@@ -236,6 +300,8 @@ app.get("/api/tests", (req, res) => res.json({ message: "Rota para testes - em d
 app.listen(PORT, () => {
   console.log(`🚀 Bridge Platform rodando em http://localhost:${PORT}`);
   console.log(`📊 API disponível em http://localhost:${PORT}/api/health`);
+  console.log(`📱 SMS verification habilitado`);
+  console.log(`✅ Sistema de Presenças ativo`);
 });
 
 // ========================================

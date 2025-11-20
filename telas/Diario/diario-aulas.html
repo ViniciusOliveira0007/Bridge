@@ -22,9 +22,9 @@
             <div class="menu-3">
                 <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav">
                 <img src="./imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config">
-                <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil">
+                <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" id="fotoPerfil">
                 
-                <!-- Dropdown de Notificações -->
+                <!-- Dropdowns -->
                 <div class="dropdown-notificacoes" id="dropdownNotif">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
@@ -38,7 +38,6 @@
                     </div>
                 </div>
 
-                <!-- Dropdown de Configurações -->
                 <div class="dropdown-configuracoes" id="dropdownConfig">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
@@ -54,12 +53,11 @@
                     </div>
                 </div>
 
-                <!-- Dropdown de Perfil -->
                 <div class="dropdown-perfil" id="dropdownPerfil">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
                             <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
-                            <span>Olá, Rodrigo</span>
+                            <span id="nomeUsuarioPerfil">Olá, Usuário</span>
                         </div>
                         <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
@@ -84,7 +82,6 @@
     </div>
 
     <main class="conteudo-principal">
-        <!--Barra lateral-->
         <div class="bloco-de-conteudo-aulas">
             <div class="sub-guia-aulas">
                 <a class="btn-sub-guia-aulas" href="diario.html">Início</a>
@@ -102,179 +99,181 @@
                     <div class="titulo-tabela-aulas">
                         <div class="aulas-faltas">AULAS E FALTAS</div>
                     </div>
-                    <table class="tabela">
-                        <tr >
-                            <th class="titulo-guia">COMPONENTE CURRICULAR</th>
-                            <th class="titulo-guia">Carga Horária</th>
-                            <th class="titulo-guia">Aulas Dadas</th>
-                            <th class="titulo-guia">Faltas</th>
-                            <th class="titulo-guia">Faltas Permitidas</th>
-                            <th class="titulo-guia">Freq. Atual</th>
-                            <th class="titulo-guia">Freq. Total</th>
-                            <th class="titulo-guia">Média Geral (%)</th>
-                        </tr>
-                        <tr>
-                            <td>ANÁLISE E PROJETO DE SISTEMAS</td>
-                            <td>50</td>
-                            <td>32,5</td>
-                            <td>10</td>
-                            <td>12,5%</td>
-                            <td>69,23%</td>
-                            <td>80</td>
-                            <td>CURSANDO</td>
-                        </tr>
-                        <tr>
-                            <td>BANCO DE DADOS II</td>
-                            <td>50</td>
-                            <td>35</td>
-                            <td>2,5</td>
-                            <td>12,5%</td>
-                            <td>92,86%</td>
-                            <td>95</td>
-                            <td>CURSANDO</td>
-                        </tr>
-                        <tr>
-                            <td>DESENVOLVIMENTO DE SISTEMAS I</td>
-                            <td>50</td>
-                            <td>32,5</td>
-                            <td>2,5</td>
-                            <td>12,5%</td>
-                            <td>92,31%</td>
-                            <td>95</td>
-                            <td>CURSANDO</td>
-                        </tr>
-                        <tr>
-                            <td>PLANEJAMENTO DO TRABALHO DE CONCLUSÃO DE CURSO (TCC)</td>
-                            <td>50</td>
-                            <td>35</td>
-                            <td>7,5</td>
-                            <td>12,5%</td>
-                            <td>78,57%</td>
-                            <td>85</td>
-                            <td>CURSANDO</td>
-                        </tr>
-                        <tr>
-                            <td>PROGRAMAÇÃO DE APLICATIVOS MOBILE I</td>
-                            <td>50</td>
-                            <td>50</td>
-                            <td>10,5</td>
-                            <td>25%</td>
-                            <td>73,08%</td>
-                            <td>82,5</td>
-                            <td>CURSANDO</td>
-                        </tr>
-                        <tr>
-                            <td>PROGRAMAÇÃO WEB II</td>
-                            <td>100</td>
-                            <td>60</td>
-                            <td>10</td>
-                            <td>25%</td>
-                            <td>83,33%</td>
-                            <td>90</td>
-                            <td>CURSANDO</td>
-                        </tr>
-                        <tr>
-                            <td>SISTEMAS EMBARCADOS</td>
-                            <td>50</td>
-                            <td>32,5</td>
-                            <td>5</td>
-                            <td>12,5%</td>
-                            <td>84,62%</td>
-                            <td>90</td>
-                            <td>CURSANDO</td>
-                        </tr>
+                    <table class="tabela" id="tabelaPresencas">
+                        <thead>
+                            <tr>
+                                <th class="titulo-guia">COMPONENTE CURRICULAR</th>
+                                <th class="titulo-guia">Carga Horária</th>
+                                <th class="titulo-guia">Aulas Dadas</th>
+                                <th class="titulo-guia">Faltas</th>
+                                <th class="titulo-guia">Faltas Permitidas</th>
+                                <th class="titulo-guia">Freq. Atual</th>
+                                <th class="titulo-guia">Freq. Mínima</th>
+                                <th class="titulo-guia">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoTabelaPresencas">
+                            <tr>
+                                <td colspan="8" style="text-align: center; padding: 40px;">
+                                    Carregando informações...
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
-                    <div class="media-geral">Média Geral</div>
+                    <div class="media-geral" id="mediaGeral">Frequência Média: Calculando...</div>
                 </div>        
             </div>
         </div>
     </main>
 
+    <script src="./Foto-usuario-adaptativa.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elementos dos dropdowns
-            const dropdownNotif = document.getElementById('dropdownNotif');
-            const dropdownConfig = document.getElementById('dropdownConfig');
-            const dropdownPerfil = document.getElementById('dropdownPerfil');
-            const btnNotif = document.querySelector('.btn-notificao-nav');
-            const btnConfig = document.querySelector('.btn-config');
-            const btnPerfil = document.querySelector('.foto-de-perfil');
+        const API_URL = 'http://localhost:3000/api';
+        
+        // ✅ CORRIGIDO: Tenta pegar de ambas as chaves
+        let userData = JSON.parse(localStorage.getItem('user') || 'null');
+        
+        if (!userData) {
+            userData = JSON.parse(localStorage.getItem('usuarioLogado') || '{}');
+        }
+        
+        // Se ainda não tiver, tenta construir manualmente
+        if (!userData.id) {
+            const userId = localStorage.getItem('userId');
+            const userName = localStorage.getItem('userName');
+            const userEmail = localStorage.getItem('userEmail');
+            const userRole = localStorage.getItem('userRole');
             
-            // Funções para fechar dropdowns
-            function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
-            function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
-            function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
+            if (userId) {
+                userData = {
+                    id: parseInt(userId),
+                    name: userName,
+                    email: userEmail,
+                    role: userRole
+                };
+                // Salva no formato correto
+                localStorage.setItem('user', JSON.stringify(userData));
+            }
+        }
+        
+        const userId = userData.id;
+        const userName = userData.name;
+
+        console.log('👤 Dados do usuário carregados:', userData);
+
+        // Atualiza nome no perfil
+        if (userName) {
+            document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${userName.split(' ')[0]}`;
+        }
+        
+        // Atualiza foto de perfil se existir
+        const fotoPerfil = document.getElementById('fotoPerfil');
+        const userPerfilUrl = userData.perfilUrl || localStorage.getItem('userPerfilUrl');
+        if (userPerfilUrl && fotoPerfil) {
+            fotoPerfil.src = `http://localhost:3000${userPerfilUrl}`;
+        }
+
+        // Função para carregar presenças do aluno
+        async function carregarPresencas() {
+            try {
+                const response = await fetch(`${API_URL}/presencas/aluno/${userId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    renderizarTabela(data.estatisticas);
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar presenças:', error);
+                document.getElementById('corpoTabelaPresencas').innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 40px; color: #d32f2f;">
+                            Erro ao carregar informações de presença
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Função para renderizar a tabela
+        function renderizarTabela(estatisticas) {
+            const tbody = document.getElementById('corpoTabelaPresencas');
             
-            // Event listeners para abrir dropdowns
-            btnNotif.addEventListener('click', function() {
-                fecharDropdownConfig();
-                fecharDropdownPerfil();
-                dropdownNotif.classList.toggle('ativo');
-            });
+            if (estatisticas.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 40px;">
+                            Você ainda não está matriculado em nenhuma turma
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            let totalFrequencia = 0;
+            let countTurmas = 0;
+
+            tbody.innerHTML = estatisticas.map(stat => {
+                totalFrequencia += stat.frequenciaAtual;
+                countTurmas++;
+
+                const statusClass = stat.status === 'REGULAR' ? 'status-regular' : 'status-irregular';
+                const statusColor = stat.status === 'REGULAR' ? '#4caf50' : '#f44336';
+
+                return `
+                    <tr>
+                        <td>
+                            <strong>${stat.turma.nome}</strong><br>
+                            <small style="color: #666;">${stat.turma.curso}</small>
+                        </td>
+                        <td>${stat.cargaHoraria}h</td>
+                        <td>${stat.aulasDadas}</td>
+                        <td style="color: ${stat.faltas > stat.faltasPermitidas ? '#f44336' : '#333'}; font-weight: ${stat.faltas > stat.faltasPermitidas ? 'bold' : 'normal'};">
+                            ${stat.faltas}
+                        </td>
+                        <td>${stat.faltasPermitidas}</td>
+                        <td style="font-weight: bold; color: ${stat.frequenciaAtual >= 75 ? '#4caf50' : '#f44336'};">
+                            ${stat.frequenciaAtual.toFixed(2)}%
+                        </td>
+                        <td>${stat.frequenciaMinima}%</td>
+                        <td style="color: ${statusColor}; font-weight: bold;">
+                            ${stat.status}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Calcula média geral
+            const mediaGeral = countTurmas > 0 ? (totalFrequencia / countTurmas).toFixed(2) : 0;
+            const mediaColor = mediaGeral >= 75 ? '#4caf50' : '#f44336';
             
-            btnConfig.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownPerfil();
-                dropdownConfig.classList.toggle('ativo');
-            });
-            
-            btnPerfil.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownConfig();
-                dropdownPerfil.classList.toggle('ativo');
-            });
-            
-            // Event listeners para ações dos dropdowns
-            document.querySelectorAll('[data-action]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const action = this.getAttribute('data-action');
-                    switch(action) {
-                        case 'fechar-notif': fecharDropdownNotif(); break;
-                        case 'fechar-config': fecharDropdownConfig(); break;
-                        case 'fechar-perfil': fecharDropdownPerfil(); break;
-                        case 'abrir-tema': 
-                            alert('Funcionalidade de Tema será implementada'); 
-                            fecharDropdownConfig(); 
-                            break;
-                        case 'abrir-acessibilidade': 
-                            alert('Funcionalidade de Acessibilidade será implementada'); 
-                            fecharDropdownConfig(); 
-                            break;
-                        case 'abrir-opcoes-avancadas': 
-                            alert('Funcionalidade de Opções Avançadas será implementada'); 
-                            fecharDropdownConfig(); 
-                            break;
-                        case 'abrir-seu-perfil': 
-                            alert('Redirecionando para Seu Perfil'); 
-                            fecharDropdownPerfil(); 
-                            break;
-                        case 'abrir-privacidade': 
-                            alert('Abrindo configurações de Privacidade'); 
-                            fecharDropdownPerfil(); 
-                            break;
-                        case 'abrir-ajuda-recursos': 
-                            alert('Abrindo Ajuda e Recursos'); 
-                            fecharDropdownPerfil(); 
-                            break;
-                        case 'sair-da-conta':
-                            if (confirm('Tem certeza que deseja sair da conta?')) {
-                                alert('Saindo da conta...');
-                                window.location.href = '/home.html';
-                            }
-                            fecharDropdownPerfil();
-                            break;
-                    }
-                });
-            });
-            
-            // Fechar dropdowns ao clicar fora
-            document.addEventListener('click', function(event) {
-                if (!dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                    !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                    !dropdownPerfil.contains(event.target) && event.target !== btnPerfil) {
-                    fecharDropdownNotif();
-                    fecharDropdownConfig();
-                    fecharDropdownPerfil();
+            document.getElementById('mediaGeral').innerHTML = `
+                Frequência Média Geral: <span style="font-weight: bold; color: ${mediaColor};">${mediaGeral}%</span>
+            `;
+        }
+
+        // Carrega as presenças quando a página carregar
+        if (userId) {
+            carregarPresencas();
+        } else {
+            document.getElementById('corpoTabelaPresencas').innerHTML = `
+                <tr>
+                    <td colspan="8" style="text-align: center; padding: 40px; color: #d32f2f;">
+                        Usuário não autenticado. Por favor, faça login novamente.
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Gerenciamento de dropdowns
+        document.querySelectorAll('[data-action]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const action = e.target.getAttribute('data-action');
+                
+                if (action === 'sair-da-conta') {
+                    localStorage.removeItem('user');
+                    window.location.href = '../login.html';
                 }
             });
         });

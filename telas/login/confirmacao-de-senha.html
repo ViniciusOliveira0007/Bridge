@@ -154,7 +154,6 @@
             alert('Sessão expirada. Por favor, insira seu email novamente.');
             window.location.href = './tela-senha.html';
         } else {
-            // Mostra o email do usuário
             userEmailDisplay.textContent = userEmail;
         }
 
@@ -163,7 +162,6 @@
             const type = passwordInput.type === 'password' ? 'text' : 'password';
             passwordInput.type = type;
             
-            // Alterna os ícones
             if (type === 'text') {
                 eyeOff.style.display = 'none';
                 eyeOn.style.display = 'block';
@@ -203,29 +201,85 @@
                 
                 const data = await response.json();
                 
-                console.log('📥 Resposta do login:', data); // Debug
+                console.log('🔥 Resposta do login:', data);
                 
                 // Se login bem-sucedido (status 200)
                 if (response.ok && data.success) {
                     console.log('✅ Login bem-sucedido!');
                     console.log('👤 Dados do usuário:', data.user);
                     
-                    // ✅ CORREÇÃO: Salva o objeto COMPLETO como usuarioLogado
-                    localStorage.setItem('usuarioLogado', JSON.stringify(data.user));
-                    
-                    // Também mantém as chaves individuais para compatibilidade
+                    // ✅ PADRONIZADO: Salva com as chaves corretas
+                    localStorage.setItem('user', JSON.stringify(data.user)); // Para a API de presenças
+                    localStorage.setItem('usuarioLogado', JSON.stringify(data.user)); // Mantém compatibilidade
                     localStorage.setItem('userId', data.user.id);
                     localStorage.setItem('userName', data.user.name);
                     localStorage.setItem('userRole', data.user.role);
                     localStorage.setItem('userEmail', data.user.email);
                     
-                    console.log('💾 Dados salvos no localStorage');
+                    // Salva telefone e foto de perfil se existirem
+                    if (data.user.telefone) {
+                        localStorage.setItem('userTelefone', data.user.telefone);
+                    }
                     
-                    // Pequeno delay para garantir que salvou
-                    setTimeout(() => {
-                        // Redireciona para a sala de aula
-                        window.location.href = '/telas/Sala-de-Aula/sala.html';
-                    }, 100);
+                    if (data.user.perfilUrl) {
+                        localStorage.setItem('userPerfilUrl', data.user.perfilUrl);
+                    }
+                    
+                    console.log('💾 Dados salvos no localStorage');
+                    console.log('📋 Chaves salvas:', Object.keys(localStorage));
+                    
+                    // Verifica se usuário tem telefone cadastrado
+                    if (data.user.telefone) {
+                        console.log('📱 Telefone encontrado, enviando SMS...');
+                        submitBtn.textContent = 'Enviando código...';
+                        
+                        try {
+                            // Envia código SMS
+                            const smsResponse = await fetch('http://localhost:3000/api/enviar-codigo-sms', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    userId: data.user.id,
+                                    telefone: data.user.telefone
+                                })
+                            });
+                            
+                            const smsData = await smsResponse.json();
+                            
+                            if (smsResponse.ok && smsData.success) {
+                                console.log('✅ SMS enviado com sucesso!');
+                                
+                                // Redireciona para tela de verificação SMS
+                                setTimeout(() => {
+                                    window.location.href = './verificacao-sms.html';
+                                }, 100);
+                            } else {
+                                console.warn('⚠️ Falha ao enviar SMS:', smsData.message);
+                                // Se falhar o SMS, vai direto para sala
+                                alert('Não foi possível enviar o código SMS. Você será redirecionado.');
+                                setTimeout(() => {
+                                    window.location.href = '/telas/Sala-de-Aula/sala.html';
+                                }, 100);
+                            }
+                            
+                        } catch (smsError) {
+                            console.error('❌ Erro ao enviar SMS:', smsError);
+                            // Se der erro no SMS, vai direto para sala
+                            alert('Erro ao enviar SMS. Você será redirecionado.');
+                            setTimeout(() => {
+                                window.location.href = '/telas/Sala-de-Aula/sala.html';
+                            }, 100);
+                        }
+                        
+                    } else {
+                        // Se não tiver telefone cadastrado, vai direto para sala
+                        console.log('⚠️ Usuário sem telefone cadastrado, pulando SMS');
+                        setTimeout(() => {
+                            window.location.href = '/telas/Sala-de-Aula/sala.html';
+                        }, 100);
+                    }
                     
                 } else {
                     // Se senha incorreta (status 401 ou 404)

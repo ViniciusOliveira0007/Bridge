@@ -19,7 +19,8 @@ model User {
   name      String?
   senha     String
   role      String   @default("aluno") // "professor" ou "aluno"
-  perfilUrl String?  // ← NOVO CAMPO para foto de perfil
+  perfilUrl String?  // Foto de perfil
+  telefone  String?  // ✅ NOVO: Telefone para SMS
   createdAt DateTime @default(now())
   
   // Relações
@@ -28,6 +29,28 @@ model User {
   entregas           Entrega[]
   turmasComoAluno    TurmaAluno[]
   turmasCriadas      Turma[]      @relation("ProfessorTurmas")
+  codigosVerificacao CodigoVerificacao[] // ✅ NOVO
+
+
+  presencasComoAluno     Presenca[] @relation("AlunoPresencas")
+  presencasComoProfessor Presenca[] @relation("ProfessorPresencas")
+}
+
+// ============================================
+// VERIFICAÇÃO SMS (NOVO)
+// ============================================
+model CodigoVerificacao {
+  id        Int      @id @default(autoincrement())
+  telefone  String
+  codigo    String
+  expiraEm  DateTime
+  usado     Boolean  @default(false)
+  userId    Int?
+  criadoEm  DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([telefone, codigo])
 }
 
 // ============================================
@@ -50,10 +73,10 @@ model Curso {
 model Turma {
   id           Int      @id @default(autoincrement())
   nome         String   // "Sistemas Embarcados - 3º Semestre"
-  sigla        String   @default("TEMP")  // ✅ Valor padrão temporário // ✅ NOVO: "SE", "ADS", "GTI" 
+  sigla        String   @default("TEMP")  // "SE", "ADS", "GTI"
   descricao    String?
-  cor          String   @default("#FF6B6B")  // ✅ NOVO: Cor de fundo
-  corTexto     String   @default("#FFFFFF")  // ✅ NOVO: Cor do texto
+  cor          String   @default("#FF6B6B")  
+  corTexto     String   @default("#FFFFFF")  
   cursoId      Int
   professorId  Int
   createdAt    DateTime @default(now())
@@ -63,6 +86,7 @@ model Turma {
   professor   User           @relation("ProfessorTurmas", fields: [professorId], references: [id])
   alunos      TurmaAluno[]
   atividades  Atividade[]
+   presencas Presenca[]
 }
 
 // ============================================
@@ -138,7 +162,7 @@ model Arquivo {
 }
 
 // ============================================
-// POSTS (mantido do schema anterior)
+// POSTS (rede social)
 // ============================================
 model Post {
   id        Int      @id @default(autoincrement())
@@ -150,4 +174,28 @@ model Post {
   author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
+
+
+
+// ============================================
+// PRESENÇAS
+// ============================================
+model Presenca {
+  id          Int      @id @default(autoincrement())
+  turmaId     Int
+  alunoId     Int
+  professorId Int
+  data        DateTime
+  presente    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  
+  // Relações
+  turma     Turma @relation(fields: [turmaId], references: [id], onDelete: Cascade)
+  aluno     User  @relation("AlunoPresencas", fields: [alunoId], references: [id], onDelete: Cascade)
+  professor User  @relation("ProfessorPresencas", fields: [professorId], references: [id])
+  
+  @@unique([turmaId, alunoId, data])
+  @@index([alunoId, turmaId])
+  @@index([turmaId, data])
 }

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diário - Aluno</title>
+    <link rel="stylesheet" href="./css-diario/estilos_diario.css">
+</head>
+<body>
+    <nav class="navegacao">
+        <div class="menu">
+            <div class="menu-1">
+                <img src="./imagens-diario/lotus.svg" alt="Logo" class="projeto" width="30px" height="30px">
+            </div>
+            <div class="menu-2">
+                <input type="text" placeholder="Pesquise aqui...">
+            </div>
+            <div class="menu-3">
+                <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav">
+                <img src="./imagens-diario/configuracao.svg" alt="configuração" class="btn-config">
+                <img src="./imagens-diario/foto_de_perfil.png" alt="perfil" class="foto-de-perfil" id="fotoPerfil">
+            </div>
+        </div>
+    </nav>
+    
+    <div class="nome-da-guia">
+        <ul>
+            <li><a href="../Rede/connect.html">Redes</a></li>
+            <li><a href="../Sala-de-Aula/sala.html">Sala de Aula</a></li>
+            <li><a href="../Trilhas/trilhas.html">Trilhas</a></li>
+            <li><a href="diario.html">Diário</a></li>
+        </ul>
+    </div>
+
+    <main class="conteudo-principal">
+        <div class="bloco-de-conteudo">
+            <div class="bloco-interno">
+                <div class="img-saudacao">
+                    <img src="./imagens-diario/foto_de_perfil.png" alt="Foto" class="foto-de-perfil-diario" id="fotoPerfilDiario">
+                    <h2 class="saudacao" id="saudacao">Bem-vindo!</h2>
+                </div>
+            </div>
+            
+            <div class="bloco-info">
+                <h3 class="titulo-bloco">Informações do Aluno</h3>
+                <div class="texto-e-info">
+                    <p class="info-aluno"><strong>RM:</strong> <span id="rmAluno">-</span></p>
+                    <p class="info-aluno"><strong>Nome:</strong> <span id="nomeCompleto">-</span></p>
+                    <p class="info-aluno"><strong>Email:</strong> <span id="emailAluno">-</span></p>
+                </div>
+            </div>
+
+            <div class="bloco-de-detalhe">
+                <h4>Habilitação:</h4>
+                <p id="habilitacao">Técnico de desenvolvimento de sistemas</p>
+            </div>
+
+            <div class="bloco-de-detalhe">
+                <h4>Situação Matricula:</h4>
+                <p id="situacao">Cursando</p>
+            </div>
+
+            <div class="sub-guia-diario">
+                <a class="btn-sub-guia" href="diario-aulas.html">Aula e Faltas</a>
+                <a class="btn-sub-guia" href="diario-cronograma.html">Cronograma</a>
+                <a class="btn-sub-guia" href="diario-boletim.html">Boletim</a>
+                <a class="btn-sub-guia" href="diario-turma.html">Turma</a>
+                <a class="btn-sub-guia" href="diario-professor.html">Professores</a>
+            </div>
+        </div>
+
+        <div class="bloco-de-conteudo2">
+            <div class="bloco-interno-maior">
+                <div class="Informacoes">
+                    <h3 class="titulo-box">Comunicado</h3>
+                    <div class="Informacoes-para-aluno"></div>
+                </div>
+
+                <div class="Informacoes">
+                    <h3 class="titulo-box">Pendências</h3>
+                    <div class="Informacoes-para-aluno">
+                        <p>Entregar Documento: RG</p>
+                        <p>Entregar Comprovante de Residência</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Informacoes-not">
+                <h3 class="titulo-box">Notificações</h3>
+                <div class="Informacoes-para-aluno-not"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        
+        // Pega dados do usuário
+        let userData = JSON.parse(localStorage.getItem('user') || 'null');
+        if (!userData) {
+            userData = JSON.parse(localStorage.getItem('usuarioLogado') || '{}');
+        }
+
+        console.log('👤 Dados do aluno:', userData);
+
+        // Atualiza informações na tela
+        if (userData && userData.id) {
+            document.getElementById('saudacao').textContent = `Bem-vindo ${userData.name || 'Aluno'}!`;
+            document.getElementById('rmAluno').textContent = userData.id;
+            document.getElementById('nomeCompleto').textContent = userData.name || '-';
+            document.getElementById('emailAluno').textContent = userData.email || '-';
+            
+            // Atualiza foto se existir
+            if (userData.perfilUrl) {
+                const fotoUrl = `http://localhost:3000${userData.perfilUrl}`;
+                document.getElementById('fotoPerfil').src = fotoUrl;
+                document.getElementById('fotoPerfilDiario').src = fotoUrl;
+            }
+        } else {
+            alert('Erro ao carregar dados. Faça login novamente.');
+            window.location.href = '/telas/Login/tela-senha.html';
+        }
+    </script>
+</body>
+</html>
