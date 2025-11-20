@@ -2,9 +2,12 @@ node_modules/
 
 /ts/generated/prisma
 /uploads
-prisma/*.db
-prisma/*.db-journal
-*.sqlite
-*.sqlite3uploads/ 
+
+
+
+#prisma/*.db
+#prisma/*.db-journal
+#*.sqlite
+#*.sqlite3uploads/ 
 
 #/dev.db
