@@ -367,7 +367,6 @@ nav a:hover, .nome-da-guia a:hover {
     display: block;
     margin-top: 10px;
     background-color: none;
-    border: #3f3f3f solid 1px;
     justify-content: center;
     align-items: center;
     align-content: center;
@@ -415,9 +414,9 @@ nav a:hover, .nome-da-guia a:hover {
     color: #ffffff;
     font-size: 14px;
     text-decoration: none;
-    background-color: none;
+    background: #3f3f3f40;
     padding: 5px;
-    border: #3f3f3f solid 2px;
+    border: #3f3f3f90 solid 2px;
     border-radius: 10px;
     width: 100%;
     transform-origin: center;
@@ -454,7 +453,7 @@ nav a:hover, .nome-da-guia a:hover {
 .proposta{
     justify-content: center;
     text-align: center;
-    background: #3f3f3f;
+    background: #3f3f3f30;
     align-content: center;
     height: 60px;
     width: 60px;
@@ -471,14 +470,14 @@ nav a:hover, .nome-da-guia a:hover {
     flex-direction: row;
     align-items: center;
     background-color: none;
-    border: #3f3f3f solid 2px;
+    border: #3f3f3f30 solid 2px;
     border-radius: 20px;
     padding: 5px;
     transition: 0.3s ease;
 }
 .box-propostas-projeto:hover{
     background-color: #3f3f3f;
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 10px 5px 10px 5px ;
     box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
 }
@@ -494,7 +493,7 @@ nav a:hover, .nome-da-guia a:hover {
     height: 60px;
     padding-left: 10px ;
     padding-right: 10px ;
-    background: #3f3f3f;
+    background: #3f3f3f30;
     border: #161616 solid 2px;
     border-left: none;
     justify-content: center;
@@ -523,13 +522,12 @@ nav a:hover, .nome-da-guia a:hover {
     gap: 10px;
     align-items: stretch;
     width: 100%;
-    margin-top: 10px;
     margin-bottom: 10px;
-    background: #161616;
+    background: #3f3f3f10   ;
     padding: 15px;
-    border-radius: 40px;
-    height: 370px;
-    border: #3f3f3f solid 1px;
+    border-radius:  0 0 20px 20px;
+    height: 330px;
+    border: #3f3f3f30 solid 2px;
 }
 
 .h3-proposta {
@@ -538,8 +536,9 @@ nav a:hover, .nome-da-guia a:hover {
     font-family: Arial, sans-serif;
     font-size: 16px;
     font-weight: 700;
-    border-bottom: #3f3f3f solid 1px;
-    padding-bottom: 5px;
+    padding: 10px;
+    background: #3f3f3f30;
+    border-radius: 20px 20px 0 0;
 }
 .btn-trilhas-proposta{
     justify-content: center;
@@ -550,9 +549,9 @@ nav a:hover, .nome-da-guia a:hover {
     color: #ffffff;
     font-size: 14px;
     text-decoration: none;
-    background-color: none;
+    background: #3f3f3f60;
     padding: 5px 20px;
-    border: #3f3f3f solid 2px;
+    border: #3f3f3f90 solid 2px;
     border-radius: 10px;
     width: 100%;
     transform-origin: center;
@@ -625,7 +624,6 @@ nav a:hover, .nome-da-guia a:hover {
     justify-content: flex-start;
     width: 100%;
     padding: 8px;
-    border-bottom: #3f3f3f solid 1px;
 }
 
 .foto-de-perfil {
@@ -698,7 +696,7 @@ nav a:hover, .nome-da-guia a:hover {
 }
 
 .comentarios-trlhas {
-    background: #3f3f3f;
+    background: #3f3f3f30;
     border-radius: 20px 20px 0px 0px;
     padding: 10px 5px;
     display: flex;

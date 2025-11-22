@@ -367,7 +367,6 @@ nav a:hover, .nome-da-guia a:hover {
     display: block;
     margin-top: 10px;
     background-color: none;
-    border: #3f3f3f solid 1px;
     justify-content: center;
     align-items: center;
     align-content: center;
@@ -415,9 +414,9 @@ nav a:hover, .nome-da-guia a:hover {
     color: #ffffff;
     font-size: 14px;
     text-decoration: none;
-    background-color: none;
+    background: #3f3f3f40;
     padding: 5px;
-    border: #3f3f3f solid 2px;
+    border: #3f3f3f90 solid 2px;
     border-radius: 10px;
     width: 100%;
     transform-origin: center;
@@ -454,7 +453,7 @@ nav a:hover, .nome-da-guia a:hover {
 .proposta{
     justify-content: center;
     text-align: center;
-    background: #3f3f3f;
+    background: #3f3f3f30;
     align-content: center;
     height: 60px;
     width: 60px;
@@ -471,14 +470,14 @@ nav a:hover, .nome-da-guia a:hover {
     flex-direction: row;
     align-items: center;
     background-color: none;
-    border: #3f3f3f solid 2px;
+    border: #3f3f3f30 solid 2px;
     border-radius: 20px;
     padding: 5px;
     transition: 0.3s ease;
 }
 .box-propostas-projeto:hover{
     background-color: #3f3f3f;
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 10px 5px 10px 5px ;
     box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
 }
@@ -494,7 +493,7 @@ nav a:hover, .nome-da-guia a:hover {
     height: 60px;
     padding-left: 10px ;
     padding-right: 10px ;
-    background: #3f3f3f;
+    background: #3f3f3f30;
     border: #161616 solid 2px;
     border-left: none;
     justify-content: center;
@@ -523,13 +522,12 @@ nav a:hover, .nome-da-guia a:hover {
     gap: 10px;
     align-items: stretch;
     width: 100%;
-    margin-top: 10px;
     margin-bottom: 10px;
-    background: #161616;
+    background: #3f3f3f10;
     padding: 15px;
-    border-radius: 40px;
-    height: 370px;
-    border: #3f3f3f solid 1px;
+    border-radius:  0 0 20px 20px;
+    height: 330px;
+    border: #3f3f3f30 solid 2px;
 }
 
 .h3-proposta {
@@ -538,8 +536,9 @@ nav a:hover, .nome-da-guia a:hover {
     font-family: Arial, sans-serif;
     font-size: 16px;
     font-weight: 700;
-    border-bottom: #3f3f3f solid 1px;
-    padding-bottom: 5px;
+    padding: 10px;
+    background: #3f3f3f30;
+    border-radius: 20px 20px 0 0;
 }
 .btn-trilhas-proposta{
     justify-content: center;
@@ -550,9 +549,9 @@ nav a:hover, .nome-da-guia a:hover {
     color: #ffffff;
     font-size: 14px;
     text-decoration: none;
-    background-color: none;
+    background: #3f3f3f60;
     padding: 5px 20px;
-    border: #3f3f3f solid 2px;
+    border: #3f3f3f90 solid 2px;
     border-radius: 10px;
     width: 100%;
     transform-origin: center;
@@ -629,7 +628,7 @@ nav a:hover, .nome-da-guia a:hover {
 .botoes-perfil-trilhas{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     width: 100%;
     gap: 10px;
@@ -645,9 +644,9 @@ nav a:hover, .nome-da-guia a:hover {
     color: #ffffff;
     font-size: 14px;
     text-decoration: none;
-    background-color: none;
+    background: #3f3f3f60;
     padding: 5px 10px;
-    border: #3f3f3f solid 2px;
+    border: #3f3f3f90 solid 2px;
     border-radius: 10px;
     width: auto;
     height: 30px;
@@ -711,12 +710,11 @@ nav a:hover, .nome-da-guia a:hover {
     width: 100%;
     padding: 5px 10px;
     padding-bottom: 10px;
-    border-bottom: #3f3f3f solid 2px;
 }
 .desc-perfil{
-    background-color: #3f3f3f;
     width: 100%;
     justify-content: center;
+    background: #3f3f3f30;
     border-radius: 20px;
     transition: 0.3s ease;
     margin-top: 10px;
@@ -724,26 +722,304 @@ nav a:hover, .nome-da-guia a:hover {
 .desc-seu-perfil{
     color: #ffffff;
     justify-content: center;
-    text-align: center;
+    text-align: left;
     font-size: 16px;
-    padding: 5px;
+    padding: 15px 0 0 15px ;
 }
 .content-desc-seu-perfil{
     color: #ffffff;
     font-size: 14px;
-    padding:20px;
-    background: #16161660;
+    padding:10px;
     border-radius: 30px;
     margin: 0px 10px 10px 10px;
     transition: 0.3s ease;
     height: 180px;
 }
-.content-desc-seu-perfil:hover{
-    padding: 20px;
-    background: #161616;
-    border-radius: 20px;
-    opacity: 100%;
+.suas-formacoes-perfil{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    width: 100%;
 }
+.h3-suas-formacoes{
+    color: #ffffff;
+    justify-content: center;
+    text-align: left;
+    font-size: 16px;
+    padding: 15px 0 0 15px ;
+}
+.content-formacoes{
+    width: 100%;
+    justify-content: center;
+    background: #3f3f3f30;
+    border-radius: 20px;
+    transition: 0.3s ease;
+    margin-top: 10px;
+}
+.suas-formacoes{
+    width: 100%;
+    padding: 10px 20px;
+}
+.habilidades-perfil{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    width: 100%;
+}
+.secao-suas-formacoes{
+    width: 100%;
+    height: auto;
+    justify-content: left;
+    margin-bottom: 20px;
+    grid-template-columns: 1fr;
+    display: grid;
+    gap: 10px;
+}
+.card-formacao{
+    display: flex;
+    flex-direction: row;
+    background: #16161660;
+    padding: 10px;
+    width: 100%;
+    height: 100px;
+    border-radius: 15px;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.card-formacao:hover{
+    background: #161616;
+    transform: scale(1.02);
+    border: #3f3f3f solid 1px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1)
+}
+.img-sua-formacao{
+    display: flex;
+    flex-direction: column;
+    background: #3f3f3f20;
+    padding: 5px;
+    width: 75px;
+    height: 75px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.img-sua-formacao:hover{
+    background: #3f3f3f50;
+}
+.img-formacao{
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+}
+.box-formacao{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.nome-local-formacao{
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+}
+.nm-data{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    background: #3f3f3f30;
+    width: 100%;
+    border-radius: 10px;
+    padding: 0 0 0 10px;
+}
+.nome-especializacao{
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px;
+    width:100%;
+    text-align: left;
+    align-content: center;
+}
+.data-especializacao{
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px;
+    width: auto;
+    text-align: right;
+    align-content: center;
+    background: #3f3f3f80;
+    border-radius: 20px 10px 10px 20px;
+    padding: 10px;
+    padding-left: 15px;
+}
+.content-add-formacao{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.content-habilidades{
+    width: 100%;
+    justify-content: center;
+    background: #3f3f3f30;
+    border-radius: 20px;
+    transition: 0.3s ease;
+    margin-top: 10px;
+}
+.h3-habilidades{
+    color: #ffffff;
+    justify-content: center;
+    text-align: left;
+    font-size: 16px;
+    padding: 15px 0 0 15px ;
+}
+.suas-habilidades{
+    width: 100%;
+    padding: 10px 20px;
+}
+.secao-suas-habilidades{
+    width: 100%;
+    height: auto;
+    justify-content: left;
+    margin-bottom: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
+    gap: 10px;
+}
+.card-habilidade{
+    display: flex;
+    flex-direction: row;
+    background: #16161660;
+    padding: 10px;
+    width: 100%;
+    height: 60px;
+    border-radius: 15px;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.card-habilidade:hover{
+    background: #161616;
+    transform: scale(1.05);
+    border: #3f3f3f solid 1px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
+}
+.nome-habilidade{
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.nivel-habilidade{
+    color: #ffffff;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+.xp-nivel{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+    padding-right: 15px;
+}
+.xp-necessario{
+    color: #ffffff;
+    font-size: 10px;
+}
+.img-sua-habilidade{
+    display: flex;
+    flex-direction: column;
+    background: #3f3f3f20;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    transition:0.5s ease-in-out;
+}
+.img-sua-habilidade:hover{
+    background: #3f3f3f50;
+    box-shadow: 0 1px 5px rgba(255, 255, 255, 0.1)
+}
+.img-habilidade{
+    width: 25px;
+    height: 25px;
+    align-items: center;
+    justify-content: center;
+}
+.box-nm-nivel{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+.nome-nivel{
+    display: flex;
+    flex-direction: row;
+}
+
+
+/* SEÇÃO DE LOGICA DO CSS DA BARRA DE PROGRESSO */
+
+.linha-progresso-habilidade{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    background: #3f3f3f;
+    height: 5px;
+    border-radius: 10px;
+    justify-content: left;
+}
+.progresso-linha-habilidade{
+    background: #15D3B1;
+    height: 5px;
+    border-radius: 10px;
+    transition:  width 0.5s ease-in-out;
+    width: 0;
+}
+
+
+/* FIM CSS DA BARRA */
+
+.espaco-nome-habilidade{
+    width: 130px;
+    height: auto;
+}
+.content-add-habilidade{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.texto-habilidade{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    color: #ffffff;font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.texto-habilidade img{
+    width: auto;
+    height: auto;
+}
+
 
 /* Responsividade */
 @media (max-width: 768px) {
