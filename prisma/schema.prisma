@@ -70,19 +70,42 @@ model Empresa {
 // PROJETOS DA EMPRESA (Explorar)
 // ============================================
 model ProjetoEmpresa {
-  id          Int      @id @default(autoincrement())
-  empresaId   Int
-  nome        String
-  descricao   String?
-  estado      String   @default("Aberto") // "Aberto", "Em Andamento", "Finalizado"
-  imagemUrl   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               Int       @id @default(autoincrement())
+  empresaId        Int
+  nome             String
+  descricao        String?
+  estado           String    @default("Aberto") // "Aberto", "Em Andamento", "Finalizado", "Cancelado"
+  categoria        String?   // "Desenvolvimento", "Design", "Marketing", "Dados"
+  prioridade       String    @default("Media") // "Baixa", "Media", "Alta", "Urgente"
+  prazo            DateTime?
+  vagasTotal       Int       @default(1)
+  vagasPreenchidas Int       @default(0)
+  imagemUrl        String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
   
-  empresa      Empresa        @relation(fields: [empresaId], references: [id], onDelete: Cascade)
-  candidaturas Candidatura[]
+  empresa                Empresa             @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  candidaturas           Candidatura[]
+  habilidadesRequeridas  ProjetoHabilidade[]
   
   @@index([empresaId, estado])
+  @@index([categoria])
+  @@index([estado, prioridade])
+}
+
+// ============================================
+// HABILIDADES REQUERIDAS NO PROJETO
+// ============================================
+model ProjetoHabilidade {
+  id           Int @id @default(autoincrement())
+  projetoId    Int
+  habilidadeId Int
+  nivelMinimo  Int @default(1)
+  
+  projeto    ProjetoEmpresa @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  habilidade Habilidade     @relation(fields: [habilidadeId], references: [id], onDelete: Cascade)
+  
+  @@unique([projetoId, habilidadeId])
 }
 
 // ============================================
@@ -135,6 +158,7 @@ model Habilidade {
   usuariosHabilidades UsuarioHabilidade[]
   propostas           PropostaHabilidade[]
   projetosUsuario     ProjetoUsuarioHabilidade[]
+  projetosEmpresa     ProjetoHabilidade[]
 }
 
 // ============================================
