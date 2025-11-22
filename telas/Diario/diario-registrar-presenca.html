@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diário - Registrar Presença</title>
+    <link rel="stylesheet" href="./css-diario/estilos_diario.css">
+    <link rel="stylesheet" href="./css-diario/estilo_diario-aulas.css">
+    <style>
+        /* Estilos adicionais mantendo o padrão */
+        .secao-selecao {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dadada;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #cb0b0b;
+            box-shadow: 0 0 0 3px rgba(203, 11, 11, 0.1);
+        }
+
+        .btn-carregar {
+            background: #cb0b0b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-carregar:hover {
+            background: #7e0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(203, 11, 11, 0.3);
+        }
+
+        .btn-carregar:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .info-turma-selecionada {
+            background: #cb0b0b;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .info-turma-selecionada.visible {
+            display: block;
+        }
+
+        .info-turma-selecionada h3 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+        }
+
+        .info-turma-selecionada p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .resumo-presencas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .resumo-presencas.visible {
+            display: grid;
+        }
+
+        .resumo-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+        }
+
+        .resumo-card.presentes {
+            border-color: #4caf50;
+        }
+
+        .resumo-card.ausentes {
+            border-color: #f44336;
+        }
+
+        .resumo-card.total {
+            border-color: #cb0b0b;
+        }
+
+        .resumo-card .numero {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .resumo-card.presentes .numero {
+            color: #4caf50;
+        }
+
+        .resumo-card.ausentes .numero {
+            color: #f44336;
+        }
+
+        .resumo-card.total .numero {
+            color: #cb0b0b;
+        }
+
+        .resumo-card .label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .acoes-rapidas {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .acoes-rapidas.visible {
+            display: flex;
+        }
+
+        .btn-acao {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .btn-todos-presentes {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-todos-presentes:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .btn-todos-ausentes {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-todos-ausentes:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+        }
+
+        .bloco-lista-alunos {
+            display: none;
+        }
+
+        .bloco-lista-alunos.visible {
+            display: block;
+        }
+
+        .titulo-lista-alunos {
+            background: #7e0000;
+            color: #fff;
+            font-size: 18px;
+            font-family: "Roboto-Bold", sans-serif;
+            font-weight: bold;
+            border-radius: 10px 10px 0px 0px;
+            padding: 12px 20px;
+            text-align: center;
+        }
+
+        .lista-alunos {
+            background: white;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+        }
+
+        .aluno-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #dadada;
+            transition: all 0.3s ease;
+        }
+
+        .aluno-item:last-child {
+            border-bottom: none;
+        }
+
+        .aluno-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .aluno-item.presente {
+            background: #f1f8f4;
+            border-left: 5px solid #4caf50;
+        }
+
+        .aluno-item.ausente {
+            background: #fef5f5;
+            border-left: 5px solid #f44336;
+        }
+
+        .aluno-foto {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid #dadada;
+        }
+
+        .aluno-item.presente .aluno-foto {
+            border-color: #4caf50;
+        }
+
+        .aluno-item.ausente .aluno-foto {
+            border-color: #f44336;
+        }
+
+        .aluno-info {
+            flex: 1;
+        }
+
+        .aluno-nome {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 3px;
+            color: #333;
+        }
+
+        .aluno-email {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .aluno-acoes {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-presenca {
+            padding: 8px 16px;
+            border: 2px solid;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            background: white;
+        }
+
+        .btn-presente {
+            border-color: #4caf50;
+            color: #4caf50;
+        }
+
+        .btn-presente:hover {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-presente.ativo {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-ausente {
+            border-color: #f44336;
+            color: #f44336;
+        }
+
+        .btn-ausente:hover {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-ausente.ativo {
+            background: #f44336;
+            color: white;
+        }
+
+        .area-salvar {
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .area-salvar.visible {
+            display: block;
+        }
+
+        .btn-salvar {
+            background: #cb0b0b;
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(203, 11, 11, 0.3);
+        }
+
+        .btn-salvar:hover {
+            background: #7e0000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(126, 0, 0, 0.4);
+        }
+
+        .btn-salvar:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .mensagem-sucesso {
+            background: #4caf50;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .mensagem-sucesso.visible {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .resumo-presencas {
+                grid-template-columns: 1fr;
+            }
+
+            .acoes-rapidas {
+                flex-direction: column;
+            }
+
+            .aluno-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .aluno-foto {
+                margin: 0 0 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navegacao">
+        <div class="menu">
+            <div class="menu-1">
+                <img src="./imagens-diario/lotus.svg" alt="Logo" class="projeto" width="30px" height="30px">
+            </div>
+            <div class="menu-2">
+                <input type="text" placeholder="Pesquise aqui...">
+            </div>
+            <div class="menu-3">
+                <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav">
+                <img src="./imagens-diario/configuracao.svg" alt="configuração" class="btn-config">
+                <img src="./imagens-diario/foto_de_perfil.png" alt="perfil" class="foto-de-perfil" id="fotoPerfil">
+            </div>
+        </div>
+    </nav>
+    
+    <div class="nome-da-guia">
+        <ul>
+            <li><a href="../Rede/connect.html">Redes</a></li>
+            <li><a href="../Sala-de-Aula/sala.html">Sala de Aula</a></li>
+            <li><a href="../Trilhas/trilhas.html">Trilhas</a></li>
+            <li><a href="diario.html">Diário</a></li>
+        </ul>
+    </div>
+
+    <main class="conteudo-principal">
+        <!-- Barra Lateral -->
+        <div class="bloco-de-conteudo-aulas">
+            <div class="sub-guia-aulas">
+                <a class="btn-sub-guia-aulas" href="diario-professor-inicio.html">Início</a>
+                <a class="btn-sub-guia-aulas" href="diario-registrar-presenca.html">Presença</a>
+                <a class="btn-sub-guia-aulas" href="diario-relatorio-professor.html">Relatórios</a>
+                <a class="btn-sub-guia-aulas" href="diario-minha-turma.html">Turmas</a>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="bloco-de-conteudo2">
+            <!-- Mensagem de Sucesso -->
+            <div class="mensagem-sucesso" id="mensagemSucesso">
+                ✓ Presenças registradas com sucesso!
+            </div>
+
+            <!-- Seleção de Turma e Data -->
+            <div class="secao-selecao">
+                <h2 style="margin: 0 0 20px 0; color: #333;">📝 Registrar Presença</h2>
+                
+                <div class="form-group">
+                    <label for="selectTurma">Selecione a Turma:</label>
+                    <select id="selectTurma">
+                        <option value="">Carregando turmas...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="dataAula">Data da Aula:</label>
+                    <input type="date" id="dataAula">
+                </div>
+
+                <button class="btn-carregar" id="btnCarregar" onclick="carregarChamada()">
+                    Carregar Chamada
+                </button>
+            </div>
+
+            <!-- Informações da Turma Selecionada -->
+            <div class="info-turma-selecionada" id="infoTurmaCard">
+                <h3 id="nomeTurma">-</h3>
+                <p id="detalheTurma">-</p>
+            </div>
+
+            <!-- Resumo das Presenças -->
+            <div class="resumo-presencas" id="resumoPresencas">
+                <div class="resumo-card presentes">
+                    <div class="label">Presentes</div>
+                    <div class="numero" id="totalPresentes">0</div>
+                </div>
+                <div class="resumo-card ausentes">
+                    <div class="label">Ausentes</div>
+                    <div class="numero" id="totalAusentes">0</div>
+                </div>
+                <div class="resumo-card total">
+                    <div class="label">Total de Alunos</div>
+                    <div class="numero" id="totalAlunos">0</div>
+                </div>
+            </div>
+
+            <!-- Ações Rápidas -->
+            <div class="acoes-rapidas" id="acoesRapidas">
+                <button class="btn-acao btn-todos-presentes" onclick="marcarTodos(true)">
+                    ✓ Marcar Todos Presentes
+                </button>
+                <button class="btn-acao btn-todos-ausentes" onclick="marcarTodos(false)">
+                    ✗ Marcar Todos Ausentes
+                </button>
+            </div>
+
+            <!-- Lista de Alunos -->
+            <div class="bloco-lista-alunos" id="blocoListaAlunos">
+                <div class="titulo-lista-alunos">LISTA DE ALUNOS</div>
+                <div class="lista-alunos" id="listaAlunos"></div>
+            </div>
+
+            <!-- Área de Salvar -->
+            <div class="area-salvar" id="areaSalvar">
+                <button class="btn-salvar" id="btnSalvar" onclick="salvarPresencas()">
+                    💾 Salvar Presenças
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        
+        // Dados do professor
+        let userData = JSON.parse(localStorage.getItem('user') || 'null');
+        if (!userData) {
+            userData = JSON.parse(localStorage.getItem('usuarioLogado') || '{}');
+        }
+        
+        const professorId = userData.id;
+        
+        // Estado
+        let turmaAtual = null;
+        let alunosTurma = [];
+        let presencasRegistradas = {};
+
+        // Verifica autenticação
+        if (!professorId) {
+            alert('Você precisa fazer login como professor!');
+            window.location.href = '/telas/Login/tela-senha.html';
+        }
+
+        // Define data de hoje
+        document.getElementById('dataAula').value = new Date().toISOString().split('T')[0];
+
+        // Carrega turmas
+        async function carregarTurmas() {
+            try {
+                const response = await fetch(`${API_URL}/turmas/professor/${professorId}`);
+                const data = await response.json();
+
+                const select = document.getElementById('selectTurma');
+                
+                if (data.turmas && data.turmas.length > 0) {
+                    select.innerHTML = '<option value="">Selecione uma turma...</option>';
+                    data.turmas.forEach(turma => {
+                        const option = document.createElement('option');
+                        option.value = turma.id;
+                        option.textContent = `${turma.nome} (${turma._count.alunos} alunos)`;
+                        select.appendChild(option);
+                    });
+                } else {
+                    select.innerHTML = '<option value="">Nenhuma turma encontrada</option>';
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao carregar turmas');
+            }
+        }
+
+        // Carrega chamada
+        async function carregarChamada() {
+            const turmaId = document.getElementById('selectTurma').value;
+            const dataAula = document.getElementById('dataAula').value;
+
+            if (!turmaId) {
+                alert('Por favor, selecione uma turma');
+                return;
+            }
+
+            if (!dataAula) {
+                alert('Por favor, selecione uma data');
+                return;
+            }
+
+            try {
+                document.getElementById('btnCarregar').disabled = true;
+                document.getElementById('btnCarregar').textContent = 'Carregando...';
+
+                const response = await fetch(`${API_URL}/turmas/${turmaId}`);
+                const data = await response.json();
+
+                if (data.turma) {
+                    turmaAtual = data.turma;
+                    alunosTurma = data.turma.alunos.map(a => a.aluno);
+
+                    document.getElementById('nomeTurma').textContent = turmaAtual.nome;
+                    document.getElementById('detalheTurma').textContent = 
+                        `${turmaAtual.curso.nome} | ${alunosTurma.length} aluno(s) matriculado(s)`;
+                    document.getElementById('infoTurmaCard').classList.add('visible');
+
+                    // Verifica presença existente
+                    const presencaResponse = await fetch(`${API_URL}/presencas/turma/${turmaId}/data/${dataAula}`);
+                    const presencaData = await presencaResponse.json();
+
+                    if (presencaData.presencas && presencaData.presencas.length > 0) {
+                        if (confirm('Já existe registro para esta data. Deseja editá-lo?')) {
+                            carregarPresencasExistentes(presencaData.presencas);
+                        } else {
+                            inicializarPresencas();
+                        }
+                    } else {
+                        inicializarPresencas();
+                    }
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao carregar dados');
+            } finally {
+                document.getElementById('btnCarregar').disabled = false;
+                document.getElementById('btnCarregar').textContent = 'Carregar Chamada';
+            }
+        }
+
+        function carregarPresencasExistentes(presencas) {
+            presencasRegistradas = {};
+            presencas.forEach(p => {
+                presencasRegistradas[p.alunoId] = p.presente;
+            });
+            renderizarListaAlunos();
+        }
+
+        function inicializarPresencas() {
+            presencasRegistradas = {};
+            alunosTurma.forEach(aluno => {
+                presencasRegistradas[aluno.id] = true;
+            });
+            renderizarListaAlunos();
+        }
+
+        function renderizarListaAlunos() {
+            const lista = document.getElementById('listaAlunos');
+            
+            lista.innerHTML = alunosTurma.map(aluno => {
+                const presente = presencasRegistradas[aluno.id];
+                const classePresenca = presente ? 'presente' : 'ausente';
+                const fotoUrl = aluno.perfilUrl 
+                    ? `http://localhost:3000${aluno.perfilUrl}` 
+                    : './imagens-diario/foto_de_perfil.png';
+                
+                return `
+                    <div class="aluno-item ${classePresenca}">
+                        <img src="${fotoUrl}" alt="${aluno.name}" class="aluno-foto">
+                        <div class="aluno-info">
+                            <div class="aluno-nome">${aluno.name}</div>
+                            <div class="aluno-email">${aluno.email}</div>
+                        </div>
+                        <div class="aluno-acoes">
+                            <button class="btn-presenca btn-presente ${presente ? 'ativo' : ''}" 
+                                    onclick="marcarPresenca(${aluno.id}, true)">
+                                ✓ Presente
+                            </button>
+                            <button class="btn-presenca btn-ausente ${!presente ? 'ativo' : ''}" 
+                                    onclick="marcarPresenca(${aluno.id}, false)">
+                                ✗ Ausente
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('blocoListaAlunos').classList.add('visible');
+            document.getElementById('resumoPresencas').classList.add('visible');
+            document.getElementById('acoesRapidas').classList.add('visible');
+            document.getElementById('areaSalvar').classList.add('visible');
+
+            atualizarResumo();
+        }
+
+        function marcarPresenca(alunoId, presente) {
+            presencasRegistradas[alunoId] = presente;
+            renderizarListaAlunos();
+        }
+
+        function marcarTodos(presente) {
+            alunosTurma.forEach(aluno => {
+                presencasRegistradas[aluno.id] = presente;
+            });
+            renderizarListaAlunos();
+        }
+
+        function atualizarResumo() {
+            const presentes = Object.values(presencasRegistradas).filter(p => p).length;
+            const ausentes = alunosTurma.length - presentes;
+            
+            document.getElementById('totalPresentes').textContent = presentes;
+            document.getElementById('totalAusentes').textContent = ausentes;
+            document.getElementById('totalAlunos').textContent = alunosTurma.length;
+        }
+
+        async function salvarPresencas() {
+            const dataAula = document.getElementById('dataAula').value;
+            
+            if (!dataAula) {
+                alert('Por favor, selecione uma data');
+                return;
+            }
+
+            const presencas = alunosTurma.map(aluno => ({
+                alunoId: aluno.id,
+                presente: presencasRegistradas[aluno.id]
+            }));
+
+            const btn = document.getElementById('btnSalvar');
+            btn.disabled = true;
+            btn.textContent = '💾 Salvando...';
+
+            try {
+                const response = await fetch(`${API_URL}/presencas/registrar`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        turmaId: turmaAtual.id,
+                        professorId: professorId,
+                        data: dataAula,
+                        presencas: presencas
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const msg = document.getElementById('mensagemSucesso');
+                    msg.classList.add('visible');
+                    setTimeout(() => {
+                        msg.classList.remove('visible');
+                    }, 3000);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao salvar presenças: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '💾 Salvar Presenças';
+            }
+        }
+
+        // Carrega turmas ao iniciar
+        carregarTurmas();
+    </script>
+
+    <script src="./Foto-usuario-adaptativa.js"></script>
+</body>
+</html>

@@ -6,6 +6,38 @@
     <title>Diário - Relatório de Presenças</title>
     <link rel="stylesheet" href="./css-diario/estilos_diario.css">
     <link rel="stylesheet" href="./css-diario/estilo_diario-aulas.css">
+    <style>
+        /* Estilos dos dropdowns */
+        .menu-3 {
+            position: relative !important;
+        }
+
+        .dropdown-notificacoes, 
+        .dropdown-configuracoes, 
+        .dropdown-perfil {
+            display: none;
+            position: absolute;
+            top: 55px;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 300px;
+            z-index: 9999;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        .ativo {
+            display: block !important;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
     <nav class="navegacao">
@@ -20,6 +52,53 @@
                 <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav">
                 <img src="./imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config">
                 <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" id="fotoPerfil">
+                
+                <!-- Dropdown de Notificações -->
+                <div class="dropdown-notificacoes" id="dropdownNotif">
+                    <div class="dropdown-header">
+                        <div class="dropdown-titulo">
+                            <img src="./imagens-diario/sino-black.svg" alt="Notificação">
+                            <span>Notificações</span>
+                        </div>
+                        <button class="btn-fechar" id="fecharNotif">&times;</button>
+                    </div>
+                    <div class="dropdown-opcoes">
+                        <div class="notificacao-vazia">Nenhuma notificação no momento</div>
+                    </div>
+                </div>
+
+                <!-- Dropdown de Configurações -->
+                <div class="dropdown-configuracoes" id="dropdownConfig">
+                    <div class="dropdown-header">
+                        <div class="dropdown-titulo">
+                            <img src="./imagens-diario/configuracao-black.svg" alt="Configuração">
+                            <span>Configurações</span>
+                        </div>
+                        <button class="btn-fechar" id="fecharConfig">&times;</button>
+                    </div>
+                    <div class="dropdown-opcoes">
+                        <button class="opcao-item">Tema</button>
+                        <button class="opcao-item">Acessibilidade</button>
+                        <button class="opcao-item">Opções avançadas</button>
+                    </div>
+                </div>
+
+                <!-- Dropdown de Perfil -->
+                <div class="dropdown-perfil" id="dropdownPerfil">
+                    <div class="dropdown-header">
+                        <div class="dropdown-titulo">
+                            <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini" id="fotoPerfilMini">
+                            <span id="nomeNoDropdown">Olá, Professor</span>
+                        </div>
+                        <button class="btn-fechar" id="fecharPerfil">&times;</button>
+                    </div>
+                    <div class="dropdown-opcoes">
+                        <button class="opcao-item">Seu perfil</button>
+                        <button class="opcao-item">Privacidade</button>
+                        <button class="opcao-item">Ajuda e Recursos</button>
+                        <button class="opcao-item sair-conta" onclick="fazerLogout()">Sair da Conta</button>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -36,9 +115,10 @@
     <main class="conteudo-principal">
         <div class="bloco-de-conteudo-aulas">
             <div class="sub-guia-aulas">
-                <a class="btn-sub-guia-aulas" href="diario.html">Início</a>
-                <a class="btn-sub-guia-aulas" href="diario-aulas-professor.html">Registrar Presença</a>
+                <a class="btn-sub-guia-aulas" href="diario-professor-inicio.html">Início</a>
+                <a class="btn-sub-guia-aulas" href="diario-registrar-presenca.html">Presença</a>
                 <a class="btn-sub-guia-aulas" href="diario-relatorio-professor.html">Relatórios</a>
+                <a class="btn-sub-guia-aulas" href="diario-minha-turma.html">Turmas</a>
             </div>
         </div>
 
@@ -88,8 +168,75 @@
 
     <script>
         const API_URL = 'http://localhost:3000/api';
-        const userData = JSON.parse(localStorage.getItem('user') || '{}');
+        
+        // --- LÓGICA DE DROPDOWNS ---
+        const dropNotif = document.getElementById('dropdownNotif');
+        const dropConfig = document.getElementById('dropdownConfig');
+        const dropPerfil = document.getElementById('dropdownPerfil');
+
+        function fecharTodos() {
+            dropNotif.classList.remove('ativo');
+            dropConfig.classList.remove('ativo');
+            dropPerfil.classList.remove('ativo');
+        }
+
+        // Abrir dropdowns
+        document.querySelector('.btn-notificao-nav').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const estaAberto = dropNotif.classList.contains('ativo');
+            fecharTodos();
+            if (!estaAberto) dropNotif.classList.add('ativo');
+        });
+
+        document.querySelector('.btn-config').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const estaAberto = dropConfig.classList.contains('ativo');
+            fecharTodos();
+            if (!estaAberto) dropConfig.classList.add('ativo');
+        });
+
+        document.getElementById('fotoPerfil').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const estaAberto = dropPerfil.classList.contains('ativo');
+            fecharTodos();
+            if (!estaAberto) dropPerfil.classList.add('ativo');
+        });
+
+        // Fechar (Botões X)
+        document.getElementById('fecharNotif').addEventListener('click', fecharTodos);
+        document.getElementById('fecharConfig').addEventListener('click', fecharTodos);
+        document.getElementById('fecharPerfil').addEventListener('click', fecharTodos);
+
+        // Fechar ao clicar fora
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.menu-3')) {
+                fecharTodos();
+            }
+        });
+
+        function fazerLogout() {
+            localStorage.removeItem('user');
+            localStorage.removeItem('usuarioLogado');
+            window.location.href = '../login.html';
+        }
+
+        // --- DADOS DO USUÁRIO ---
+        let userData = JSON.parse(localStorage.getItem('user') || 'null');
+        if (!userData) {
+            userData = JSON.parse(localStorage.getItem('usuarioLogado') || '{}');
+        }
+
         const professorId = userData.id;
+
+        if (userData && userData.id) {
+            document.getElementById('nomeNoDropdown').textContent = `Olá, ${userData.name || 'Professor'}`;
+            
+            if (userData.perfilUrl) {
+                const fotoUrl = `http://localhost:3000${userData.perfilUrl}`;
+                document.getElementById('fotoPerfil').src = fotoUrl;
+                document.getElementById('fotoPerfilMini').src = fotoUrl;
+            }
+        }
 
         // Carrega turmas do professor
         async function carregarTurmas() {
@@ -220,5 +367,7 @@
             window.location.href = '../login.html';
         }
     </script>
+
+    <script src="./Foto-usuario-adaptativa.js"></script>
 </body>
 </html>

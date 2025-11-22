@@ -11,33 +11,264 @@ datasource db {
 }
 
 // ============================================
-// USUÁRIOS (Professor + Aluno no mesmo model)
+// USUÁRIOS (Professor + Aluno + Empresa)
 // ============================================
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   name      String?
   senha     String
-  role      String   @default("aluno") // "professor" ou "aluno"
+  role      String   @default("aluno") // "professor", "aluno" ou "empresa"
   perfilUrl String?  // Foto de perfil
-  telefone  String?  // ✅ NOVO: Telefone para SMS
+  telefone  String?
   createdAt DateTime @default(now())
   
-  // Relações
+  // Perfil do usuário (aluno/professor)
+  especializacaoEmAndamento String?  // Curso atual
+  sobreMim                  String?  // Biografia
+  
+  // Relações antigas (mantidas)
   posts              Post[]
   atividadesCriadas  Atividade[]  @relation("ProfessorAtividades")
   entregas           Entrega[]
   turmasComoAluno    TurmaAluno[]
   turmasCriadas      Turma[]      @relation("ProfessorTurmas")
-  codigosVerificacao CodigoVerificacao[] // ✅ NOVO
-
-
+  codigosVerificacao CodigoVerificacao[]
   presencasComoAluno     Presenca[] @relation("AlunoPresencas")
   presencasComoProfessor Presenca[] @relation("ProfessorPresencas")
+  
+  // Novas relações
+  empresa            Empresa?
+  formacoes          Formacao[]
+  habilidades        UsuarioHabilidade[]
+  portfolios         Portfolio[]
+  projetosUsuario    ProjetoUsuario[]
+  propostasRecebidas Proposta[]
+  candidaturas       Candidatura[]
+  avaliacoesRecebidas Avaliacao[] @relation("UsuarioAvaliado")
+  avaliacoesFeitas    Avaliacao[] @relation("EmpresaAvaliadora")
 }
 
 // ============================================
-// VERIFICAÇÃO SMS (NOVO)
+// EMPRESA (Dados específicos de empresa)
+// ============================================
+model Empresa {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @unique
+  nomeEmpresa String
+  logoUrl     String?
+  descricao   String?
+  site        String?
+  createdAt   DateTime @default(now())
+  
+  user     User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projetos ProjetoEmpresa[]
+  propostas Proposta[]
+}
+
+// ============================================
+// PROJETOS DA EMPRESA (Explorar)
+// ============================================
+model ProjetoEmpresa {
+  id          Int      @id @default(autoincrement())
+  empresaId   Int
+  nome        String
+  descricao   String?
+  estado      String   @default("Aberto") // "Aberto", "Em Andamento", "Finalizado"
+  imagemUrl   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  empresa      Empresa        @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  candidaturas Candidatura[]
+  
+  @@index([empresaId, estado])
+}
+
+// ============================================
+// CANDIDATURAS (Pessoas que aceitaram)
+// ============================================
+model Candidatura {
+  id        Int      @id @default(autoincrement())
+  projetoId Int
+  usuarioId Int
+  status    String   @default("Aceito") // "Aceito", "Em Andamento", "Concluído"
+  createdAt DateTime @default(now())
+  
+  projeto   ProjetoEmpresa @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  usuario   User           @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  avaliacoes Avaliacao[]
+  
+  @@unique([projetoId, usuarioId])
+  @@index([usuarioId])
+}
+
+// ============================================
+// FORMAÇÕES ACADÊMICAS
+// ============================================
+model Formacao {
+  id          Int      @id @default(autoincrement())
+  usuarioId   Int
+  titulo      String   // "Tecnólogo em ADS"
+  instituicao String   // "FATEC Itanhaém"
+  descricao   String?
+  dataInicio  DateTime?
+  dataFim     DateTime?
+  emAndamento Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  
+  usuario User @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  @@index([usuarioId])
+}
+
+// ============================================
+// HABILIDADES (Catálogo)
+// ============================================
+model Habilidade {
+  id        Int      @id @default(autoincrement())
+  nome      String   @unique // "React", "Node.js", "Python"
+  categoria String?  // "Frontend", "Backend", "Design"
+  icone     String?
+  createdAt DateTime @default(now())
+  
+  usuariosHabilidades UsuarioHabilidade[]
+  propostas           PropostaHabilidade[]
+  projetosUsuario     ProjetoUsuarioHabilidade[]
+}
+
+// ============================================
+// HABILIDADES DO USUÁRIO
+// ============================================
+model UsuarioHabilidade {
+  id           Int      @id @default(autoincrement())
+  usuarioId    Int
+  habilidadeId Int
+  nivel        Int      @default(1) // 1-10 ou 1-5
+  xp           Int      @default(0) // Experiência acumulada
+  validado     Boolean  @default(false) // Se foi validado por empresa
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  usuario    User       @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  habilidade Habilidade @relation(fields: [habilidadeId], references: [id], onDelete: Cascade)
+  
+  @@unique([usuarioId, habilidadeId])
+  @@index([usuarioId])
+}
+
+// ============================================
+// PORTFÓLIO
+// ============================================
+model Portfolio {
+  id          Int      @id @default(autoincrement())
+  usuarioId   Int
+  titulo      String
+  descricao   String?
+  imagemUrl   String?
+  linkExterno String?
+  ordem       Int      @default(0)
+  createdAt   DateTime @default(now())
+  
+  usuario User @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  @@index([usuarioId, ordem])
+}
+
+// ============================================
+// PROJETOS DO USUÁRIO
+// ============================================
+model ProjetoUsuario {
+  id            Int       @id @default(autoincrement())
+  usuarioId     Int
+  nome          String
+  descricao     String?
+  imagemUrl     String?
+  dataRealizada DateTime?
+  createdAt     DateTime  @default(now())
+  
+  usuario            User                         @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  habilidadesUsadas  ProjetoUsuarioHabilidade[]
+  
+  @@index([usuarioId])
+}
+
+// ============================================
+// HABILIDADES USADAS NO PROJETO
+// ============================================
+model ProjetoUsuarioHabilidade {
+  id         Int @id @default(autoincrement())
+  projetoId  Int
+  habilidadeId Int
+  
+  projeto    ProjetoUsuario @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  habilidade Habilidade     @relation(fields: [habilidadeId], references: [id], onDelete: Cascade)
+  
+  @@unique([projetoId, habilidadeId])
+}
+
+// ============================================
+// PROPOSTAS (Empresa -> Usuário)
+// ============================================
+model Proposta {
+  id          Int      @id @default(autoincrement())
+  empresaId   Int
+  usuarioId   Int
+  nome        String
+  descricao   String?
+  imagemUrl   String?
+  estado      String   @default("Pendente") // "Pendente", "Aceita", "Recusada", "Concluída"
+  nivelMinimo Int      @default(1) // Nível mínimo requerido
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  empresa     Empresa              @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  usuario     User                 @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  habilidades PropostaHabilidade[]
+  
+  @@index([usuarioId, estado])
+  @@index([empresaId])
+}
+
+// ============================================
+// HABILIDADES REQUERIDAS NA PROPOSTA
+// ============================================
+model PropostaHabilidade {
+  id           Int @id @default(autoincrement())
+  propostaId   Int
+  habilidadeId Int
+  nivelMinimo  Int @default(1)
+  
+  proposta   Proposta   @relation(fields: [propostaId], references: [id], onDelete: Cascade)
+  habilidade Habilidade @relation(fields: [habilidadeId], references: [id], onDelete: Cascade)
+  
+  @@unique([propostaId, habilidadeId])
+}
+
+// ============================================
+// AVALIAÇÕES (Empresa avalia usuário)
+// ============================================
+model Avaliacao {
+  id            Int      @id @default(autoincrement())
+  candidaturaId Int
+  empresaId     Int      // User com role="empresa"
+  usuarioId     Int      // User avaliado
+  nota          Float    // 1-5 ou 1-10
+  comentario    String?
+  xpConcedido   Int      @default(0) // XP dado ao usuário
+  habilidadeId  Int?     // Habilidade específica avaliada
+  createdAt     DateTime @default(now())
+  
+  candidatura Candidatura @relation(fields: [candidaturaId], references: [id], onDelete: Cascade)
+  empresa     User        @relation("EmpresaAvaliadora", fields: [empresaId], references: [id])
+  usuario     User        @relation("UsuarioAvaliado", fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  @@index([usuarioId])
+  @@index([candidaturaId])
+}
+
+// ============================================
+// VERIFICAÇÃO SMS (mantido)
 // ============================================
 model CodigoVerificacao {
   id        Int      @id @default(autoincrement())
@@ -54,43 +285,41 @@ model CodigoVerificacao {
 }
 
 // ============================================
-// CURSOS
+// CURSOS (mantido)
 // ============================================
 model Curso {
   id        Int      @id @default(autoincrement())
-  nome      String   // "Análise e Desenvolvimento de Sistemas"
-  sigla     String   // "ADS"
+  nome      String
+  sigla     String
   descricao String?
   createdAt DateTime @default(now())
   
-  // Relações
   turmas Turma[]
 }
 
 // ============================================
-// TURMAS/GRUPOS
+// TURMAS/GRUPOS (mantido)
 // ============================================
 model Turma {
   id           Int      @id @default(autoincrement())
-  nome         String   // "Sistemas Embarcados - 3º Semestre"
-  sigla        String   @default("TEMP")  // "SE", "ADS", "GTI"
+  nome         String
+  sigla        String   @default("TEMP")
   descricao    String?
-  cor          String   @default("#FF6B6B")  
-  corTexto     String   @default("#FFFFFF")  
+  cor          String   @default("#FF6B6B")
+  corTexto     String   @default("#FFFFFF")
   cursoId      Int
   professorId  Int
   createdAt    DateTime @default(now())
   
-  // Relações
   curso       Curso          @relation(fields: [cursoId], references: [id])
   professor   User           @relation("ProfessorTurmas", fields: [professorId], references: [id])
   alunos      TurmaAluno[]
   atividades  Atividade[]
-   presencas Presenca[]
+  presencas   Presenca[]
 }
 
 // ============================================
-// RELAÇÃO ALUNO-TURMA (muitos para muitos)
+// RELAÇÃO ALUNO-TURMA (mantido)
 // ============================================
 model TurmaAluno {
   id       Int      @id @default(autoincrement())
@@ -98,7 +327,6 @@ model TurmaAluno {
   alunoId  Int
   entryAt  DateTime @default(now())
   
-  // Relações
   turma Turma @relation(fields: [turmaId], references: [id])
   aluno User  @relation(fields: [alunoId], references: [id])
   
@@ -106,7 +334,7 @@ model TurmaAluno {
 }
 
 // ============================================
-// ATIVIDADES/TAREFAS
+// ATIVIDADES/TAREFAS (mantido)
 // ============================================
 model Atividade {
   id           Int       @id @default(autoincrement())
@@ -117,7 +345,6 @@ model Atividade {
   professorId  Int
   createdAt    DateTime  @default(now())
   
-  // Relações
   turma     Turma     @relation(fields: [turmaId], references: [id])
   professor User      @relation("ProfessorAtividades", fields: [professorId], references: [id])
   entregas  Entrega[]
@@ -125,7 +352,7 @@ model Atividade {
 }
 
 // ============================================
-// ENTREGAS DOS ALUNOS
+// ENTREGAS DOS ALUNOS (mantido)
 // ============================================
 model Entrega {
   id           Int       @id @default(autoincrement())
@@ -133,9 +360,8 @@ model Entrega {
   alunoId      Int
   comentario   String?
   dataEntrega  DateTime  @default(now())
-  nota         Float?    // Nota atribuída pelo professor (opcional)
+  nota         Float?
   
-  // Relações
   atividade Atividade @relation(fields: [atividadeId], references: [id])
   aluno     User      @relation(fields: [alunoId], references: [id])
   arquivos  Arquivo[] @relation("EntregaArquivos")
@@ -144,31 +370,30 @@ model Entrega {
 }
 
 // ============================================
-// ARQUIVOS (Anexos de atividades e entregas)
+// ARQUIVOS (mantido)
 // ============================================
 model Arquivo {
   id           Int       @id @default(autoincrement())
   nomeOriginal String
-  nomeArquivo  String    // Nome salvo no servidor
-  tamanho      Int       // Tamanho em bytes
-  tipo         String    // MIME type
-  atividadeId  Int?      // Se for anexo da atividade
-  entregaId    Int?      // Se for anexo da entrega
+  nomeArquivo  String
+  tamanho      Int
+  tipo         String
+  atividadeId  Int?
+  entregaId    Int?
   createdAt    DateTime  @default(now())
   
-  // Relações
   atividade Atividade? @relation("AtividadeArquivos", fields: [atividadeId], references: [id])
   entrega   Entrega?   @relation("EntregaArquivos", fields: [entregaId], references: [id])
 }
 
 // ============================================
-// POSTS (rede social)
+// POSTS (mantido)
 // ============================================
 model Post {
   id        Int      @id @default(autoincrement())
   title     String
   content   String?
-  imageUrl  String?    // caminho da imagem
+  imageUrl  String?
   published Boolean  @default(true)
   authorId  Int
   author    User     @relation(fields: [authorId], references: [id])
@@ -176,10 +401,8 @@ model Post {
   updatedAt DateTime @default(now()) @updatedAt
 }
 
-
-
 // ============================================
-// PRESENÇAS
+// PRESENÇAS (mantido)
 // ============================================
 model Presenca {
   id          Int      @id @default(autoincrement())
@@ -190,7 +413,6 @@ model Presenca {
   presente    Boolean  @default(true)
   createdAt   DateTime @default(now())
   
-  // Relações
   turma     Turma @relation(fields: [turmaId], references: [id], onDelete: Cascade)
   aluno     User  @relation("AlunoPresencas", fields: [alunoId], references: [id], onDelete: Cascade)
   professor User  @relation("ProfessorPresencas", fields: [professorId], references: [id])
