@@ -5,54 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil Trilhas</title>
     <link rel="stylesheet" href="../estilos_trilhas/estilo_perfil_trilhas.css">
-    <style>
-        .foto-de-perfil, .perfil-mini {
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .area-input-comentario {
-            display: none;
-            align-items: center;
-            padding: 10px 0;
-            gap: 10px;
-        }
-        .area-input-comentario.ativo {
-            display: flex;
-        }
-        .area-input-comentario input {
-            flex-grow: 1;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-        }
-        .foto-perfil-comentario {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: #ddd; 
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-        .foto-perfil-comentario img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .card-comentario {
-            display: flex;
-            margin-bottom: 8px;
-            align-items: flex-start;
-        }
-        .card-comentario .comentario {
-            background-color: #f0f2f5;
-            padding: 8px 12px;
-            border-radius: 18px;
-            margin-left: 8px;
-            max-width: 80%;
-            word-wrap: break-word;
-            font-size: 0.9em;
-        }
-    </style>
 </head>
 <body>
 
@@ -100,7 +52,7 @@
                 <div class="dropdown-perfil" id="dropdownPerfil">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="../imagens_trilhas/foto_de_perfil.png" alt="Perfil" class="perfil-mini" id="fotoPerfilMini">
+                            <img src="../../imagens_trilhas/foto_de_perfil.png" alt="Perfil" class="perfil-mini" id="fotoPerfilMini">
                             <span id="nomeUsuarioPerfil">Olá, Usuário</span>
                         </div>
                         <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
@@ -118,10 +70,10 @@
 
     <div class="nome-da-guia">
         <ul>
-            <li><a href="../Rede/connect.html">Redes</a></li>
-            <li><a href="../Sala-de-Aula/sala.html">Sala de Aula</a></li>
-            <li><a href="../Trilhas/trilhas.html">Trilhas</a></li>
-            <li><a href="../Diario/diario.html">Diário</a></li>
+            <li><a href="../../Rede/connect.html">Redes</a></li>
+            <li><a href="../../Sala-de-Aula/sala.html">Sala de Aula</a></li>
+            <li><a href="../../Trilhas/trilhas.html">Trilhas</a></li>
+            <li><a href="../../Diario/diario.html">Diário</a></li>
         </ul>
     </div>
 
@@ -138,9 +90,9 @@
                     </div>
                 </div>
             </div>
+            <h3 class="h3-proposta">Sugestões de Propostas</h3>
             <div class="secao-propostas">
-                <h3 class="h3-proposta">Sugestões de Propostas</h3>
-                <a href="../telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="/telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
                     <div class="box-propostas-projeto">
                             <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
@@ -150,7 +102,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="../telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="/telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
                     <div class="box-propostas-projeto">
                             <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
@@ -172,7 +124,7 @@
                 </a>
 
                 <a href="" class="btn-trilhas-proposta">Filtrar Propostas</a> 
-            </div>
+            </div>>
         </div>
         <div class="seu-perfil">
             <div class="container-seu-perfil">
@@ -186,24 +138,133 @@
                                     <p class="especializacao-perfil">Técnico em Desenvolvimento de Sistemas</p>
                                 </div>
                                 <div class="botoes-perfil-trilhas">
-                                    <a href="" class="btn-trilhas">Habilidades <img src="../imagens_trilhas/habilidades-trilhas.svg" alt="habilidades"></a>
-                                    <a href="" class="btn-trilhas">Adicionar Currículo <img src="../imagens_trilhas/portifolio-perfil-trilhas.svg" alt="curriculo"></a>
                                     <a href="" class="btn-trilhas">Editar Perfil <img src="../imagens_trilhas/edit-icon-perfil.svg" alt="editar perfil"></a>
-                                    <!--<a href="" class="btn-trilhas">Seus Projetos</a>
-                                    <a href="" class="btn-trilhas">Nível</a>-->
                                 </div>
                             </div>
-                                <div class="desc-perfil">
-                                    <h5 class="desc-seu-perfil">Sobre mim</h5>
-                                    <div>
-                                        <p class="content-desc-seu-perfil">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, est reiciendis. Quisquam illum unde quae eveniet corrupti harum et eaque praesentium alias est, recusandae, sint at, asperiores impedit dolorum vitae.
-                                            Ipsam quidem, repudiandae optio veritatis tenetur provident. Ipsum perferendis rerum vel magnam accusantium numquam ab, odit eligendi soluta dicta asperiores natus non fugiat corrupti accusamus nisi, maiores beatae optio! Voluptatum.
-                                            Odio, sequi sed, aliquid est ipsa magni harum aut esse nemo obcaecati amet sint nobis minus omnis labore doloremque dicta quas possimus in molestiae enim! Debitis impedit iure inventore qui!
-                                            Ut nulla voluptatum veniam reiciendis fugiat. Ipsam optio facere corrupti odio eaque laboriosam sint obcaecati! Animi, laboriosam omnis. Vitae numquam autem ullam. Molestiae numquam quo reiciendis asperiores ut voluptates ad!
-                                        </p>
+                            <div class="suas-formacoes-perfil">
+                                <div class="content-formacoes">
+                                    <h3 class="h3-suas-formacoes">Minhas formações</h3>
+                                    <div class="suas-formacoes">
+                                        <div class="secao-suas-formacoes">
+                                            <div class="card-formacao">
+                                                <div class="img-sua-formacao">
+                                                    <img src="../imagens_trilhas/img-formacoes/USP.svg" alt="" class="img-formacao">
+                                                </div>
+                                                <div class="box-formacao">
+                                                    <p class="nome-local-formacao">USP</p>
+                                                    <div class="nm-data">
+                                                        <p class="nome-especializacao">Técnico em Desenvolvimento de Sistemas</p>
+                                                        
+                                                        <p class="data-especializacao">2025</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-formacao">
+                                                <div class="img-sua-formacao">
+                                                    <img src="../imagens_trilhas/img-formacoes/Etec.svg" alt="" class="img-formacao">
+                                                </div>
+                                                <div class="box-formacao">
+                                                    <p class="nome-local-formacao">Etec</p>
+                                                    <div class="nm-data">
+                                                        <p class="nome-especializacao">Técnico em Desenvolvimento de Sistemas</p>
+                                                        
+                                                        <p class="data-especializacao">2025</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="content-add-formacao">
+                                            <a href="" class="btn-trilhas">Adicionar Formações <img src="../imagens_trilhas/icone-formacao.svg" alt="formações"></a>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="desc-perfil">
+                                <h5 class="desc-seu-perfil">Sobre mim</h5>
+                                <div>
+                                    <p class="content-desc-seu-perfil">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, est reiciendis. Quisquam illum unde quae eveniet corrupti harum et eaque praesentium alias est, recusandae, sint at, asperiores impedit dolorum vitae.
+                                        Ipsam quidem, repudiandae optio veritatis tenetur provident. Ipsum perferendis rerum vel magnam accusantium numquam ab, odit eligendi soluta dicta asperiores natus non fugiat corrupti accusamus nisi, maiores beatae optio! Voluptatum.
+                                        Odio, sequi sed, aliquid est ipsa magni harum aut esse nemo obcaecati amet sint nobis minus omnis labore doloremque dicta quas possimus in molestiae enim! Debitis impedit iure inventore qui!
+                                        Ut nulla voluptatum veniam reiciendis fugiat. Ipsam optio facere corrupti odio eaque laboriosam sint obcaecati! Animi, laboriosam omnis. Vitae numquam autem ullam. Molestiae numquam quo reiciendis asperiores ut voluptates ad!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="habilidades-perfil">
+                                <div class=content-habilidades>
+                                    <h3 class="h3-habilidades">Suas habilidades</h3>
+                                    <div class="suas-habilidades">
+                                        <div class="secao-suas-habilidades">
+                                            <div class="card-habilidade" id="card-figma" data-projetos="45">
+                                                <div class="img-sua-habilidade">
+                                                    <img src="../imagens_trilhas/icone-habilidades-trilhas/FIGMA.svg" alt="" class="img-habilidade">
+                                                </div>
+                                                <div class="box-nm-nivel">
+                                                    <div class="nome-nivel">
+                                                        <div class="espaco-nome-habilidade">
+                                                            <p class="nome-habilidade">Figma</p>
+                                                        </div>
+                                                        <p class="nivel-habilidade">Nível: <span id="nivel-figma">1</span>/6</p>
+                                                    </div>
+                                                    <div class="linha-progresso-habilidade">
+                                                        <div id="progresso-figma" class="progresso-linha-habilidade"></div>
+                                                    </div>
+                                                    <div class="xp-nivel">
+                                                        <p class="xp-necessario texto-xp">XP: <span id="xp-faixa-figma">0</span>/600</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-habilidade" id="card-figma" data-projetos="45">
+                                                <div class="img-sua-habilidade">
+                                                    <img src="../imagens_trilhas/icone-habilidades-trilhas/FIGMA.svg" alt="" class="img-habilidade">
+                                                </div>
+                                                <div class="box-nm-nivel">
+                                                    <div class="nome-nivel">
+                                                        <div class="espaco-nome-habilidade">
+                                                            <p class="nome-habilidade">Figma</p>
+                                                        </div>
+                                                        <p class="nivel-habilidade">Nível: <span id="nivel-figma">1</span>/6</p>
+                                                    </div>
+                                                    <div class="linha-progresso-habilidade">
+                                                        <div id="progresso-figma" class="progresso-linha-habilidade"></div>
+                                                    </div>
+                                                    <div class="xp-nivel">
+                                                        <p class="xp-necessario texto-xp">XP: <span id="xp-faixa-figma">0</span>/600</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-habilidade" id="card-figma" data-projetos="45">
+                                                <div class="img-sua-habilidade">
+                                                    <img src="../imagens_trilhas/icone-habilidades-trilhas/FIGMA.svg" alt="" class="img-habilidade">
+                                                </div>
+                                                <div class="box-nm-nivel">
+                                                    <div class="nome-nivel">
+                                                        <div class="espaco-nome-habilidade">
+                                                            <p class="nome-habilidade">Figma</p>
+                                                        </div>
+                                                        <p class="nivel-habilidade">Nível: <span id="nivel-figma">1</span>/6</p>
+                                                    </div>
+                                                    <div class="linha-progresso-habilidade">
+                                                        <div id="progresso-figma" class="progresso-linha-habilidade"></div>
+                                                    </div>
+                                                    <div class="xp-nivel">
+                                                        <p class="xp-necessario texto-xp">XP: <span id="xp-faixa-figma">0</span>/600</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="margin-top: 10px; text-align: center;">
+                                                <button onclick="entregarProjeto('card-figma')" class="btn-trilhas" style="width:100%">
+                                                    + Entregar Projeto
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="content-add-habilidade">
+                                            <a href="" class="btn-trilhas">Adicionar Habilidades <img src="../imagens_trilhas/habilidades-trilhas.svg" alt="habilidades"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -262,16 +323,74 @@
                     // Usar foto padrão em caso de erro
                     fotoPerfilNav.src = URL_PADRAO;
                     fotoPerfilMini.src = URL_PADRAO;
-                    fotoComentario.src = URL_PADRAO;
                 }
             }
 
             await carregarFotoPerfil();
 
             // ============================================
-            // 3. LÓGICA DE COMENTÁRIOS
+            // 3. NÍVEIS DE HABILIDADE
             // ============================================
             
+            const XpPorProjeto = 20;
+            const MetaNivel = 600;
+            const NivelMax = 6;
+
+            // ============================================
+            // 3.1 CALCULAR SUE NIVEL ATUAL 
+            // ============================================
+
+            function calcularNivel(totalProjetos){
+                const xpTotal = totalProjetos * XpPorProjeto;
+
+                let nivelAtual = Math.floor(xpTotal/MetaNivel) +1;
+
+                let xpNaFaixa = xpTotal % MetaNivel;
+
+                if(nivelAtual >= NivelMax){
+                    nivelAtual = NivelMax;
+                    xpNaFaixa = MetaNivel;
+                }
+
+                return {
+                    nivel: nivelAtual,
+                    xp: xpNaFaixa,
+                };
+            }
+
+            // ============================================
+            // 3.2 ATUALIZAR O CODIGO
+            // ============================================
+
+            function atualizarCardsDeHabilidade() {
+            const cards = document.querySelectorAll('.card-habilidade');
+
+            cards.forEach(card => {
+                const projetos = parseInt(card.getAttribute('data-projetos')) || 0;
+
+                const resultado = calcularNivel(projetos);
+
+                const txtNivel = card.querySelector('.texto-nivel');
+                const txtXP = card.querySelector('.texto-xp');
+
+                if (txtNivel) {
+                    txtNivel.innerText = `Nível: ${resultado.nivel}/${NivelMax}`;
+                }
+                
+                if (txtXP) {
+                    txtXP.innerText = `XP: ${resultado.xp} / ${MetaNivel}`;
+                }
+                });
+            }
+
+            
+            // 3.3 ANIMAÇÃO BARRA DE PROGRESSO
+            
+
+            
+            // Executa a função de atualização imediatamente
+            atualizarCardsDeHabilidade();
+
             // ============================================
             // 4. DROPDOWNS
             // ============================================
