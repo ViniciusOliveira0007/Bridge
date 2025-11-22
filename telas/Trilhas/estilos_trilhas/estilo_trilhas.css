@@ -578,7 +578,7 @@ nav a:hover, .nome-da-guia a:hover {
 }
 
 /*Postagens do trilhas*/
-.container-post-trilhas {
+.container-propostas-trilhas {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -588,7 +588,7 @@ nav a:hover, .nome-da-guia a:hover {
     
 }
 
-.content-post-trilhas{
+.content-proposta-trilhas{
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -606,7 +606,7 @@ nav a:hover, .nome-da-guia a:hover {
     display: flex;
     background: #161616;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     align-items: center;
     justify-content: center;
     width: auto;
@@ -616,14 +616,16 @@ nav a:hover, .nome-da-guia a:hover {
 }
 
 
-.post-trilhas {
+.header-proposta-trilhas {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: 10px;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    padding: 8px;
+    background: #3f3f3f30;
+    border-radius: 20px;
+    padding: 5px;
 }
 
 .foto-de-perfil {
@@ -637,14 +639,13 @@ nav a:hover, .nome-da-guia a:hover {
     position: relative;
 }
 
-.img-projeto {
+.img-empresa {
     border-radius: 100px;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     overflow: hidden;
     object-fit: cover;
-    border: #3f3f3f solid 1px;
-    background-color: #ffffff;
+    border: #3f3f3f70 solid 1px;
 }
 
 .titulo-post-trilhas {
@@ -657,38 +658,39 @@ nav a:hover, .nome-da-guia a:hover {
     flex: 1;
 }
 
-.texto-post-trilhas {
+.titulo-proposta-trilhas {
     color: #ffffff;
     font-family: "Roboto-Regular", Arial, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 }
 
-.display-img-comentario {
+.display-proposta-trilhas {
     display: flex;
     flex-direction: row;
-    gap: 11px;
+    gap: 10px;
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
 }
 
-.img-post-trilhas {
+.img-proposta-trilhas {
     border-radius: 20px;
     flex-shrink: 0;
-    width: 604px;
-    height: 338px;
+    width: 600px;
+    height: 350px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: #3f3f3f solid 1px;
+    border: #3f3f3f50 solid 1px;
 }
 
 .todos-comentarios {
-    flex-shrink: 0;
-    width: 277px;
-    height: 338px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 350px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -705,54 +707,13 @@ nav a:hover, .nome-da-guia a:hover {
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    height: 303px;
+    height: 100%;
     overflow-y: auto;
     flex: 1;
 }
 
-.card-comentario {
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    flex-shrink: 0;
-}
-
-.foto-perfil-comentario {
-    background: #161616;
-    border-radius: 100px;
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: flex-start;
-    flex-shrink: 0;
-}
-
-.comentario{
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: flex-start;
-    flex: 1;
-}
-
-.ficou-realmente-bom {
-    color: #ffffff;
-    font-family: "Roboto-Regular", Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-}
-
-.interações-post-trilhas {
-    background: #161616;
+.interações-proposta-trilhas {
+    background: none;
     border-radius: 0px 0px 10px 10px;
     display: flex;
     flex-direction: row;
@@ -783,6 +744,7 @@ nav a:hover, .nome-da-guia a:hover {
 #btnRecusar{
     background-color: #d32f2f;
     border-radius: 0 0 10px 0;
+    transition: all 0.2s ease-in-out;
 }
 #btnRecusar:hover{
     background-color: #921414;
@@ -790,6 +752,7 @@ nav a:hover, .nome-da-guia a:hover {
 #btnAceitar{
     background: #17bb4d;
     border-radius: 0 0 0 10px;
+    transition: all 0.2s ease-in-out;
 }
 #btnAceitar:hover{
     background: #0f943b;
@@ -798,7 +761,119 @@ nav a:hover, .nome-da-guia a:hover {
     margin: 0px;
     padding: 0px;
 }
-
+.box-explorar{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.content-desc{
+    width: 600px;
+    height: auto;
+    justify-content: center;
+    background: #3f3f3f30;
+    border-radius: 20px;
+    transition: 0.3s ease;
+    margin-top: 10px;
+}
+.h3-descricao{
+    color: #ffffff;
+    justify-content: center;
+    text-align: left;
+    font-size: 16px;
+    padding: 15px 0 0 15px 
+}
+.content-desc-proposta{
+    color: #ffffff;
+    margin: 0 10px;
+    justify-content: center;
+    text-align: left;
+    font-size: 14px;
+    padding: 15px;
+    width: 100%;
+    height: 150px;
+}
+.habilidade-proposta{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.content-habilidade-proposta{
+    width: 100%;
+    height: 185px;
+    justify-content: center;
+    background: #3f3f3f30;
+    border-radius: 20px;
+    transition: 0.3s ease;
+    margin-top: 10px;
+}
+.h3-habilidade{
+    color: #ffffff;
+    justify-content: center;
+    text-align: left;
+    font-size: 16px;
+    padding: 15px 0 0 15px ;
+}
+.secao-habilidades{
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    grid-template-columns: 1fr;
+    display: grid;
+}
+.card-habilidade{
+    margin: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    background: #16161660;
+    padding: 5px;
+    width: 250px;
+    height: 50px;
+    border-radius: 15px;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.card-habilidade:hover{
+    background: #161616;
+    border: #3f3f3f solid 1px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.nome-habilidade{
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+}
+.nivel-habilidade{
+    color: #ffffff;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+.img-sua-habilidade{
+    display: flex;
+    flex-direction: column;
+    background: #3f3f3f20;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    transition:0.5s ease-in-out;
+}
+.img-sua-habilidade:hover{
+    background: #3f3f3f50;
+    box-shadow: 0 1px 5px rgba(255, 255, 255, 0.1)
+}
+.img-habilidade{
+    width: 15px;
+    height: 15px;
+    align-items: center;
+    justify-content: center;
+}
 
 /* Responsividade */
 @media (max-width: 768px) {
