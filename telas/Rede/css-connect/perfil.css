@@ -252,6 +252,8 @@
                   .agrupamento.sem-caixaG .caixa {
                     width: 100%;
                     height: 180px;
+                    margin: 0;
+
                   }
 
                   /* Layout dinâmico (sem hover) */
@@ -260,61 +262,81 @@
                     cursor: pointer;
                   }
 
-                  /* Modal centralizado */
-.modal {
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.3s ease;
-}
+/* MODAL */
+                  .modal {
+                    position: fixed;
+                    z-index: 2000;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.75);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    animation: fadeIn 0.3s ease;
+                  }
 
-.modal-conteudo {
-  background: white;
-  border-radius: 20px; /* mantém todas as bordas arredondadas */
-  padding: 20px;
-  max-width: 650px;
-  width: 90%; /* margens menores laterais */
-  max-height: 90vh;
-  overflow-y: auto; /* permite rolar, mas... */
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-  position: relative;
-  animation: slideUp 0.3s ease;
-}
+                  .modal-conteudo {
+                    background: white;
+                    border-radius: 20px; /* mantém todas as bordas arredondadas */
+                    padding: 20px;
+                    max-width: 650px;
+                    width: 90%; /* margens menores laterais */
+                    max-height: 90vh;
+                    overflow-y: auto; /* permite rolar, mas... */
+                    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+                    position: relative;
+                    animation: slideUp 0.3s ease;
+                  }
 
-/* 🔹 Esconde a barra de rolagem, mas mantém o scroll funcional */
-.modal-conteudo::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
-}
-.modal-conteudo {
-  scrollbar-width: none;
-}
+                  /* 🔹 Esconde a barra de rolagem, mas mantém o scroll funcional */
+                  .modal-conteudo::-webkit-scrollbar {
+                    width: 0;
+                    background: transparent;
+                  }
+                  .modal-conteudo {
+                    scrollbar-width: none;
+                  }
 
-/* Botão de fechar */
-.fechar {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 28px;
-  cursor: pointer;
-  color: black;
-  font-weight: bold;
-}
+                  /* Botão de fechar */
+                  .fechar {
+                    position: absolute;
+                    top: 10px;
+                    right: 15px;
+                    font-size: 28px;
+                    cursor: pointer;
+                    color: black;
+                    font-weight: bold;
+                  }
 
-/* Animações */
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
+                  /* Animações */
+                  @keyframes fadeIn {
+                    from {opacity: 0;}
+                    to {opacity: 1;}
+                  }
 
-@keyframes slideUp {
-  from {transform: translateY(20px); opacity: 0;}
-  to {transform: translateY(0); opacity: 1;}
-}
+                  @keyframes slideUp {
+                    from {transform: translateY(20px); opacity: 0;}
+                    to {transform: translateY(0); opacity: 1;}
+                  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

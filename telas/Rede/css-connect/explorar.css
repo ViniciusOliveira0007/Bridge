@@ -32,3 +32,171 @@
 
 }
 
+
+/* ============================
+   MODAL PADRÃO IGUAL AO PERFIL
+   ============================ */
+
+                                            .modal {
+                                                position: fixed;
+                                                top: 0;
+                                                left: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                                background: rgba(0,0,0,0.75);
+                                                display: flex;
+                                                justify-content: center;
+                                                align-items: center;
+                                                backdrop-filter: blur(4px);
+                                                z-index: 9999;
+                                            }
+
+                                            .modal-conteudo {
+                                                background: #fff;
+                                                width: 500px;
+                                                max-height: 90vh;
+                                                overflow-y: auto;
+                                                border-radius: 20px;
+                                                position: relative;
+                                                padding: 15px;
+                                                box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+                                                animation: fadeIn 0.3s ease;
+                                            }
+
+                                            /* Botão X */
+                                            .fechar {
+                                                position: absolute;
+                                                top: 15px;
+                                                right: 20px;
+                                                font-size: 28px;
+                                                cursor: pointer;
+                                                font-weight: bold;
+                                                color: #444;
+                                                transition: 0.2s;
+                                            }
+
+                                            .fechar:hover {
+                                                color: #000;
+                                                transform: scale(1.1);
+                                            }
+
+                                            /* ============================
+                                                POSTAGEM INTERNA
+                                            ============================ */
+
+                                            .postagem {
+                                                width: 100%;
+                                            }
+
+                                            .perfilPost {
+                                                display: flex;
+                                                align-items: center;
+                                                margin-bottom: 12px;
+                                            }
+
+                                            .fotoPost {
+                                                width: 52px;
+                                                height: 52px;
+                                                border-radius: 50%;
+                                                object-fit: cover;
+                                                margin-right: 12px;
+                                            }
+
+                                            .infosPost {
+                                                flex: 1;
+                                            }
+
+                                            .cabecalho {
+                                                display: flex;
+                                                justify-content: space-between;
+                                                align-items: center;
+                                            }
+
+                                            .nome-bloco {
+                                                display: flex;
+                                                flex-direction: column;
+                                            }
+
+                                            .nome {
+                                                font-size: 18px;
+                                                font-weight: 600;
+                                            }
+
+                                            .detalhes {
+                                                font-size: 13px;
+                                                color: #777;
+                                                display: flex;
+                                                gap: 8px;
+                                            }
+
+                                            .tempo {
+                                                font-size: 13px;
+                                                color: #999;
+                                            }
+
+                                            /* ============================
+                                                    IMAGEM POST
+                                            ============================ */
+
+                                            .imagem {
+                                                width: 100%;
+                                                border-radius: 15px;
+                                                margin: 12px 0;
+                                                object-fit: cover;
+                                            }
+
+                                            /* ============================
+                                                    REAÇÕES
+                                            ============================ */
+
+                                            .reacoes {
+                                                display: flex;
+                                                justify-content: space-between;
+                                                padding: 0 5px;
+                                                margin-bottom: 10px;
+                                            }
+
+                                            .reacoesPrincipais {
+                                                display: flex;
+                                                gap: 15px;
+                                            }
+
+                                            .reacao {
+                                                cursor: pointer;
+                                                font-size: 22px;
+                                                opacity: 0.8;
+                                                transition: 0.2s;
+                                            }
+
+                                            .reacao:hover {
+                                                opacity: 1;
+                                                transform: scale(1.1);
+                                            }
+
+                                        
+                                            /* ============================
+                                                DESCRIÇÃO / TEXTO
+                                            ============================ */
+
+                                            .comentario-post {
+                                                margin-top: 10px;
+                                                font-size: 15px;
+                                                line-height: 1.4;
+                                                color: #333;
+                                            }
+
+                                            /* ============================
+                                                    ANIMAÇÃO
+                                            ============================ */
+                                            @keyframes fadeIn {
+                                                from {
+                                                    opacity: 0;
+                                                    transform: scale(0.96);
+                                                }
+                                                to {
+                                                    opacity: 1;
+                                                    transform: scale(1);
+                                                }
+                                            }
+
+
