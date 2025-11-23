@@ -567,43 +567,43 @@ nav a:hover, .nome-da-guia a:hover {
     box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
 }
 
-.seu-perfil{
+.seus-projetos{
     flex: 1;
     padding: 20px;
     display: flex;
     justify-content: right;
-    margin-right: 180px;
     align-items: flex-start;
     overflow-y: auto;
+    margin-right: 120px;
 }
 
-.container-seu-perfil{
+.container-seus-projetos{
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
 }
-.content-trilhas-perfil{
+.content-trilhas-seus-projetos{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
-.box-seu-perfil{
+.box-seus-projetos{
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
-    width: 100%;
+    width: auto;
     height: auto;
     border: #dadada solid 1px;
     border-radius: 20px;
     padding:10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.info-perfil-trilhas{
+.info-portifolio-trilhas{
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -611,7 +611,6 @@ nav a:hover, .nome-da-guia a:hover {
     width: 100%;
     height: auto;
     padding: 20px;
-    margin: 5px;
     border-radius: 20px;
 }
 .info-perfil-trilhas desc-perfil{
@@ -631,6 +630,7 @@ nav a:hover, .nome-da-guia a:hover {
     justify-content: right;
     align-items: center;
     width: 100%;
+    height: 30px;
     gap: 10px;
 }
 .btn-trilhas{
@@ -676,7 +676,7 @@ nav a:hover, .nome-da-guia a:hover {
     align-items: center;
     justify-content: center
 }
-.estrutura-perfil{
+.estrutura-portifolio{
     width: 55%;
     height: auto;
     display: flex;
@@ -689,19 +689,16 @@ nav a:hover, .nome-da-guia a:hover {
     width: 100%;
     padding-bottom:  2px;
 }
-.especializacao-perfil{
-    color: #ffffff;
-    text-align: left;
-    font-size: 14px;
+
+.portifolio{
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    gap: 10px;
+    
 }
-.email-usuario{
-    color: #ffffff;
-    text-align: left;
-    font-size: 14px;
-    font-weight: normal;
-}
-.conteudo-perfil-trilhas{
+
+.conteudo-portifolio-trilhas{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -711,7 +708,7 @@ nav a:hover, .nome-da-guia a:hover {
     padding: 5px 10px;
     padding-bottom: 10px;
 }
-.desc-perfil{
+.seu-portifolio-trilhas{
     width: 100%;
     justify-content: center;
     background: #3f3f3f30;
@@ -719,196 +716,108 @@ nav a:hover, .nome-da-guia a:hover {
     transition: 0.3s ease;
     margin-top: 10px;
 }
-.desc-seu-perfil{
+.h3-seu-portifolio{
     color: #ffffff;
     justify-content: center;
     text-align: left;
     font-size: 16px;
     padding: 15px 0 0 15px ;
 }
-.content-desc-seu-perfil{
-    color: #ffffff;
-    font-size: 14px;
-    padding:10px;
-    border-radius: 30px;
-    margin: 0px 10px 10px 10px;
-    transition: 0.3s ease;
-    height: 180px;
-}
-.suas-formacoes-perfil{
+.secao-seu-portifolio{
     display: flex;
-    flex-direction: column;
-    padding: 10px 0;
-    width: 100%;
-}
-.h3-suas-formacoes{
-    color: #ffffff;
-    justify-content: center;
-    text-align: left;
-    font-size: 16px;
-    padding: 15px 0 0 15px ;
-}
-.content-formacoes{
-    width: 100%;
-    justify-content: center;
-    background: #3f3f3f30;
-    border-radius: 20px;
-    transition: 0.3s ease;
-    margin-top: 10px;
-}
-.suas-formacoes{
-    width: 100%;
-    padding: 10px 20px;
-}
-.habilidades-perfil{
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0;
-    width: 100%;
-}
-.secao-suas-formacoes{
+    flex-direction: row;
     width: 100%;
     height: auto;
-    justify-content: left;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
     grid-template-columns: 1fr;
     display: grid;
-    gap: 10px;
+    gap: 20px;
+    padding: 10px;
 }
-.card-formacao{
+.card-portifolio{
     display: flex;
     flex-direction: row;
     background: #16161660;
     padding: 10px;
     width: 100%;
-    height: 100px;
-    border-radius: 15px;
+    height: 220px;
+    border-radius: 20px;
     align-items: center;
     gap: 10px;
     transition: all 0.2s ease;
     cursor: pointer;
 }
-.card-formacao:hover{
+.card-portifolio:hover{
     background: #161616;
-    transform: scale(1.02);
     border: #3f3f3f solid 1px;
     transition: all 0.2s ease;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1)
 }
-.img-sua-formacao{
-    display: flex;
-    flex-direction: column;
-    background: #3f3f3f20;
-    padding: 5px;
-    width: 75px;
-    height: 75px;
-    border-radius: 10px;
-    justify-content: center;
-    align-items: center;
-}
-.img-sua-formacao:hover{
-    background: #3f3f3f50;
-}
-.img-formacao{
-    width: 50px;
-    height: 50px;
-    align-items: center;
-    justify-content: center;
-}
-.box-formacao{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-.nome-local-formacao{
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 10px;
-}
-.nm-data{
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    background: #3f3f3f30;
-    width: 100%;
-    border-radius: 10px;
-    padding: 0 0 0 10px;
-}
-.nome-especializacao{
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 5px;
-    width:100%;
-    text-align: left;
-    align-content: center;
-}
-.data-especializacao{
-    color: #ffffff50;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 5px;
-    width: 18%;
-    text-align: center;
-    align-content: center;
-    background: #3f3f3f50;
-    border-radius: 15px 10px 10px 15px;
-    padding: 10px;
-}
-.content-add-formacao{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 50px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-.content-edit-sobre-mim{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 50px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-.content-habilidades{
-    width: 100%;
-    justify-content: center;
-    background: #3f3f3f30;
+.img-do-portifolio{
+    width: auto;
+    height: 100%;
     border-radius: 20px;
-    transition: 0.3s ease;
-    margin-top: 10px;
 }
-.h3-habilidades{
+.img-portifolio{
+    width: 180px;
+    height: 100%;
+    border-radius: 10px;
+}
+.content-projeto{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: #3f3f3f30;
+    border-radius: 10px;
+    padding-right: 20px;
+}
+.titulo-projeto{
     color: #ffffff;
-    justify-content: center;
-    text-align: left;
     font-size: 16px;
-    padding: 15px 0 0 15px ;
-}
-.suas-habilidades{
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
     width: 100%;
-    padding: 10px 20px;
 }
-.secao-suas-habilidades{
+.header-projeto{
+    display: flex;
+    flex-direction: row;
     width: 100%;
+}
+.data-projeto{
+    color: #ffffff50;
+    font-size: 14px;
+    padding: 10px 5px;
+    width: 150px;
+}
+.box-projeto{
+    width: 100%;
+    background: #3f3f3f50;
+    border-radius: 10px;
+    margin: 10px;
     height: auto;
+}
+.secao-habilidade-projeto{
+    width: 100%;
+    height: 70px;
     justify-content: left;
     margin-bottom: 20px;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     display: grid;
-    gap: 10px;
+    gap: 5px;
+    padding: 10px 0;
 }
 .card-habilidade{
+    margin: 5px 10px;
     display: flex;
     flex-direction: row;
     background: #16161660;
-    padding: 10px;
-    width: 100%;
+    padding: 5px 10px;
+    width: auto;
     height: 60px;
     border-radius: 15px;
     align-items: center;
@@ -918,32 +827,20 @@ nav a:hover, .nome-da-guia a:hover {
 }
 .card-habilidade:hover{
     background: #161616;
-    transform: scale(1.05);
     border: #3f3f3f solid 1px;
     transition: all 0.2s ease;
     cursor: pointer;
-    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
 }
 .nome-habilidade{
     color: #ffffff;
+    padding: 5px 0;
     font-weight: bold;
     font-size: 14px;
-    margin-bottom: 5px;
 }
 .nivel-habilidade{
     color: #ffffff;
     font-size: 12px;
     margin-bottom: 5px;
-}
-.xp-nivel{
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 4px;
-    padding-right: 15px;
-}
-.xp-necessario{
-    color: #ffffff;
-    font-size: 10px;
 }
 .img-sua-habilidade{
     display: flex;
@@ -962,73 +859,32 @@ nav a:hover, .nome-da-guia a:hover {
     box-shadow: 0 1px 5px rgba(255, 255, 255, 0.1)
 }
 .img-habilidade{
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     align-items: center;
     justify-content: center;
 }
-.box-nm-nivel{
-    display: flex;
-    flex-direction: column;
-    width: 90%;
+.h3-nm-empresa{
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+    width: 100%;
 }
-.nome-nivel{
-    display: flex;
-    flex-direction: row;
-}
-
-
-/* SEÇÃO DE LOGICA DO CSS DA BARRA DE PROGRESSO */
-
-.linha-progresso-habilidade{
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-    background: #3f3f3f;
-    height: 5px;
-    border-radius: 10px;
-    justify-content: left;
-}
-.progresso-linha-habilidade{
-    background: #15D3B1;
-    height: 5px;
-    border-radius: 10px;
-    transition:  width 0.5s ease-in-out;
-    width: 0;
-}
-
-
-/* FIM CSS DA BARRA */
-
-.espaco-nome-habilidade{
-    width: 130px;
-    height: auto;
-}
-.content-add-habilidade{
+.empresa-entregue{
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 50px;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
-    gap: 10px;
+    margin-left: 15px;
 }
-.texto-habilidade{
-    display: flex;
-    flex-direction: row;
-    width: auto;
-    height: auto;
-    color: #ffffff;font-weight: bold;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
+.img-empresa{
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
 }
-.texto-habilidade img{
-    width: auto;
-    height: auto;
-}
-
-
 /* Responsividade */
 @media (max-width: 768px) {
     /* Ajustes para telas menores */
