@@ -5,69 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diário - Professor</title>
     <link rel="stylesheet" href="./css-diario/estilos_diario.css">
-    <style>
-        /* --- ESTILOS DO BOTÃO TROCAR FOTO --- */
-        .container-btn-foto {
-            width: 100%;
-            padding: 10px 20px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .btn-trocar-foto {
-            width: 100%;
-            background-color: #ffffff;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 8px 0;
-            font-size: 14px;
-            font-weight: bold;
-            color: #333;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .btn-trocar-foto:hover {
-            background-color: #f4f4f4;
-            border-color: #999;
-        }
-
-        /* --- ESTILOS DOS DROPDOWNS (IGUAL SALA.HTML) --- */
-        .menu-3 {
-            position: relative !important;
-        }
-
-        .dropdown-notificacoes, 
-        .dropdown-configuracoes, 
-        .dropdown-perfil {
-            display: none;
-            position: absolute;
-            top: 55px;
-            right: 0;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            width: 300px;
-            z-index: 9999;
-            overflow: hidden; /* Para o header não sair da borda */
-            border: 1px solid #e0e0e0;
-        }
-
-        /* Classe usada no Sala.html para mostrar */
-        .ativo {
-            display: block !important;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Cabeçalho do Dropdown (Estilo Sala) */
-       
-    </style>
 </head>
 <body>
     <nav class="navegacao">
@@ -90,7 +27,7 @@
                             <img src="./imagens-diario/sino-black.svg" alt="Notificação">
                             <span>Notificações</span>
                         </div>
-                        <button class="btn-fechar" id="fecharNotif">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-notif">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
                         <div class="notificacao-vazia">Nenhuma notificação no momento</div>
@@ -103,7 +40,7 @@
                             <img src="./imagens-diario/configuracao-black.svg" alt="Configuração">
                             <span>Configurações</span>
                         </div>
-                        <button class="btn-fechar" id="fecharConfig">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-config">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
                         <button class="opcao-item">Tema</button>
@@ -118,13 +55,13 @@
                             <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini" id="fotoPerfilMini">
                             <span id="nomeNoDropdown">Olá, Professor</span>
                         </div>
-                        <button class="btn-fechar" id="fecharPerfil">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
                         <button class="opcao-item">Seu perfil</button>
                         <button class="opcao-item">Privacidade</button>
                         <button class="opcao-item">Ajuda e Recursos</button>
-                        <button class="opcao-item sair-conta" onclick="fazerLogout()">Sair da Conta</button>
+                        <button class="opcao-item sair-conta" data-action="sair-da-conta">Sair da Conta</button>
                     </div>
                 </div>
             </div>
@@ -202,55 +139,59 @@
     <script>
         const API_URL = 'http://localhost:3000/api';
         
-        // --- LÓGICA DE DROPDOWNS (Adaptação do Sala.html) ---
-        const dropNotif = document.getElementById('dropdownNotif');
-        const dropConfig = document.getElementById('dropdownConfig');
-        const dropPerfil = document.getElementById('dropdownPerfil');
+        // --- LÓGICA DE DROPDOWNS (PADRÃO SALA.HTML) ---
+        const dropdownNotif = document.getElementById('dropdownNotif');
+        const dropdownConfig = document.getElementById('dropdownConfig');
+        const dropdownPerfil = document.getElementById('dropdownPerfil');
 
-        function fecharTodos() {
-            dropNotif.classList.remove('ativo');
-            dropConfig.classList.remove('ativo');
-            dropPerfil.classList.remove('ativo');
-        }
-
-        // Abrir
-        document.querySelector('.btn-notificao-nav').addEventListener('click', (e) => {
-            e.stopPropagation();
-            const estaAberto = dropNotif.classList.contains('ativo');
-            fecharTodos();
-            if (!estaAberto) dropNotif.classList.add('ativo');
+        // Botões de abertura
+        document.querySelector('.btn-notificao-nav').addEventListener('click', () => {
+            dropdownConfig.classList.remove('ativo');
+            dropdownPerfil.classList.remove('ativo');
+            dropdownNotif.classList.toggle('ativo');
         });
 
-        document.querySelector('.btn-config').addEventListener('click', (e) => {
-            e.stopPropagation();
-            const estaAberto = dropConfig.classList.contains('ativo');
-            fecharTodos();
-            if (!estaAberto) dropConfig.classList.add('ativo');
+        document.querySelector('.btn-config').addEventListener('click', () => {
+            dropdownNotif.classList.remove('ativo');
+            dropdownPerfil.classList.remove('ativo');
+            dropdownConfig.classList.toggle('ativo');
         });
 
-        document.querySelector('#fotoPerfilNav').addEventListener('click', (e) => {
-            e.stopPropagation();
-            const estaAberto = dropPerfil.classList.contains('ativo');
-            fecharTodos();
-            if (!estaAberto) dropPerfil.classList.add('ativo');
+        document.querySelector('.foto-de-perfil').addEventListener('click', () => {
+            dropdownNotif.classList.remove('ativo');
+            dropdownConfig.classList.remove('ativo');
+            dropdownPerfil.classList.toggle('ativo');
         });
 
-        // Fechar (Botões X)
-        document.getElementById('fecharNotif').addEventListener('click', fecharTodos);
-        document.getElementById('fecharConfig').addEventListener('click', fecharTodos);
-        document.getElementById('fecharPerfil').addEventListener('click', fecharTodos);
+        // Botões de fechar e ações
+        document.querySelectorAll('[data-action]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                
+                if (action === 'fechar-notif') {
+                    dropdownNotif.classList.remove('ativo');
+                } else if (action === 'fechar-config') {
+                    dropdownConfig.classList.remove('ativo');
+                } else if (action === 'fechar-perfil') {
+                    dropdownPerfil.classList.remove('ativo');
+                } else if (action === 'sair-da-conta') {
+                    if (confirm('Deseja sair da conta?')) {
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('usuarioLogado');
+                        window.location.href = '../login.html';
+                    }
+                }
+            });
+        });
 
         // Fechar ao clicar fora
-        window.addEventListener('click', (e) => {
+        document.addEventListener('click', (e) => {
             if (!e.target.closest('.menu-3')) {
-                fecharTodos();
+                dropdownNotif.classList.remove('ativo');
+                dropdownConfig.classList.remove('ativo');
+                dropdownPerfil.classList.remove('ativo');
             }
         });
-
-        function fazerLogout() {
-            localStorage.removeItem('user');
-            window.location.href = '../login.html';
-        }
 
         // --- DADOS DO USUÁRIO ---
         let userData = JSON.parse(localStorage.getItem('user') || 'null');
@@ -305,5 +246,34 @@
             }
         });
     </script>
+
+    <style>
+        /* Estilos específicos do botão trocar foto */
+        .container-btn-foto {
+            width: 100%;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .btn-trocar-foto {
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 8px 0;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .btn-trocar-foto:hover {
+            background-color: #f4f4f4;
+            border-color: #999;
+        }
+    </style>
 </body>
 </html>

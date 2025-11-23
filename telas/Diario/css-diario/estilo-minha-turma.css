@@ -1,0 +1,998 @@
+/* =======================================================
+           ✅ ESTILOS DE DROPDOWN - CONSOLIDADO
+           ======================================================= */
+        
+        /* Estilo Base: Esconder e Aparência (Substitui as duas definições) */
+        .dropdown-notificacoes,
+        .dropdown-configuracoes,
+        .dropdown-perfil {
+            display: block; /* Mantemos 'block' para que a opacidade e transição funcionem */
+            position: absolute;
+            top: 55px; 
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            min-width: 200px;
+            z-index: 9999;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+            
+            /* Propriedades de Animação/Transição */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        /* Posicionamento Específico */
+        .dropdown-notificacoes {
+            right: 120px;
+            
+        }
+
+        .dropdown-configuracoes {
+            right: 70px;
+            
+        }
+
+        .dropdown-perfil {
+            right: 10px;
+           
+        }
+
+        /* Estado Ativo: Mostrar */
+        .dropdown-notificacoes.ativo,
+        .dropdown-configuracoes.ativo,
+        .dropdown-perfil.ativo {
+            display: block !important; /* Mantido !important para garantir a exibição */
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Elementos Internos do Dropdown (Consolidados) */
+        .dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .dropdown-titulo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .dropdown-titulo img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .perfil-mini {
+            width: 30px !important;
+            height: 30px !important;
+            border: 2px solid #e0e0e0 !important;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .dropdown-titulo span {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .btn-fechar {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.3s;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .btn-fechar:hover {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .dropdown-opcoes {
+            padding: 10px 0;
+        }
+
+        .opcao-item {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.3s;
+        }
+
+        .opcao-item:hover {
+            background: #f8f9fa;
+        }
+
+        .sair-conta {
+            color: #d32f2f !important;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 5px;
+            padding-top: 15px !important;
+            padding-bottom: 12px !important;
+        }
+
+        .sair-conta:hover {
+            background: #ffebee !important;
+        }
+
+        .notificacao-vazia {
+            padding: 30px 20px;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        /* ESTILOS DA PÁGINA (Inalterados) */
+        .secao-turmas {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .secao-turmas h2 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 24px;
+        }
+
+        .grid-turmas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card-turma {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-top: 5px solid #cb0b0b;
+        }
+
+        .card-turma:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .card-turma-header {
+            background: linear-gradient(135deg, #cb0b0b 0%, #7e0000 100%);
+            color: white;
+            padding: 20px;
+        }
+
+        .card-turma-header h3 {
+            margin: 0 0 5px 0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .card-turma-header p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .card-turma-body {
+            padding: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-item strong {
+            color: #333;
+            min-width: 100px;
+            font-weight: 600;
+        }
+
+        .info-item .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: auto;
+        }
+
+        .badge-alunos {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-ativo {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .card-turma-footer {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-turma-acao {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-ver-alunos {
+            background: #cb0b0b;
+            color: white;
+        }
+
+        .btn-ver-alunos:hover {
+            background: #7e0000;
+            transform: translateY(-2px);
+        }
+
+        .btn-presenca {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-presenca:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .mensagem-vazio {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .mensagem-vazio h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .estatisticas-resumo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .card-estatistica {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 5px solid;
+        }
+
+        .card-estatistica.turmas { border-color: #cb0b0b; }
+        .card-estatistica.alunos { border-color: #2196f3; }
+        .card-estatistica.cursos { border-color: #ff9800; }
+
+        .card-estatistica .numero {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .card-estatistica.turmas .numero { color: #cb0b0b; }
+        .card-estatistica.alunos .numero { color: #2196f3; }
+        .card-estatistica.cursos .numero { color: #ff9800; }
+
+        .card-estatistica .label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #cb0b0b;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.ativo {
+            display: flex;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #cb0b0b 0%, #7e0000 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .modal-header .btn-fechar {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .lista-alunos-modal {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .aluno-item-modal {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background 0.3s ease;
+        }
+
+        .aluno-item-modal:hover {
+            background: #f8f9fa;
+        }
+
+        .aluno-item-modal:last-child {
+            border-bottom: none;
+        }
+
+        .aluno-foto-modal {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .aluno-info-modal {
+            flex: 1;
+        }
+
+        .aluno-nome-modal {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .aluno-email-modal {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .aluno-numero-modal {
+            color: #999;
+            font-size: 18px;
+            font-weight: bold;
+            min-width: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-turmas {
+                grid-template-columns: 1fr;
+            }
+            .card-turma-footer {
+                flex-direction: column;
+            }
+            .estatisticas-resumo {
+                grid-template-columns: 1fr;
+            }
+        }
+
+/* =======================================================
+   ESTILOS GERAIS E NAVEGAÇÃO (Inalterados, exceto dropdowns)
+   ======================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Navegação principal */
+nav {
+    background-color: #161616;
+    padding: 10px 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border: #e0e0e0;
+    position: relative;
+}
+
+.menu {
+    display: flex;  
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.menu-1, .menu-2, .menu-3 {
+    display: flex;
+    align-items: center;
+}
+
+.menu-1 {
+    flex: 0 0 auto;
+}
+
+.menu-2 {
+    flex: 1;
+    min-width: 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.menu-2 input {
+    width: 100%;
+    height: 30px;
+    border-radius: 20px;
+    background-image: url('/telas/Diario/imagens-diario/lupa.svg');
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    background-size: 20px 20px;
+    padding-left: 45px;
+    padding-right: 15px;
+    border: 1px solid #ccc;
+}
+
+.menu-2 input:focus {
+    outline: none;
+    border-color: #fdfdfd;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 10);
+}
+
+.menu-3 {
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    gap: 15px;
+    position: relative !important;
+}
+
+.menu-3 a {
+    text-decoration: none;
+    color: white;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.menu-3 img {
+    width: 24px;
+    height: 24px;
+}
+
+.btn-notificao-nav {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.btn-notificao-nav:hover {
+    opacity: 0.8;
+}
+
+.btn-config {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.btn-config:hover {
+    opacity: 0.8;
+}
+
+.foto-de-perfil {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.foto-de-perfil:hover {
+    opacity: 0.8;
+}
+
+/* Menu da guia Diário */
+.nome-da-guia {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    background-color: #161616;
+    padding: 0 20px;
+    gap: 30px;
+    justify-content: center;
+}
+
+.txt-guia {
+    font-weight: bold;
+    font-size: 15px;
+    color: #ffffff;
+    padding: 20px;
+}
+
+.nome-da-guia ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.nome-da-guia li a {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 15px;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 8px;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.nome-da-guia li a:hover {
+    background-color: #e0e0e0;
+    color: #000000;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+nav a:hover, .nome-da-guia a:hover {
+    color: #000000; 
+    text-decoration: none; 
+}
+
+/* Conteúdo principal */
+.conteudo-principal {
+    display: flex;
+    flex-direction: row;
+}
+
+.bloco-de-conteudo {
+    flex: 1;
+    padding: 20px;
+    background-color: #161616;   
+    min-height: calc(100vh - 100px);
+}
+
+.fixed{
+    position: sticky;
+}
+
+.bloco-de-conteudo2 {
+    flex: 5;
+    padding: 20px;
+    background-color: #fff;
+    min-height: calc(100vh - 100px);
+}
+
+.titulo-bloco {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.bloco-interno {
+    display: flex;
+    flex-direction: row;
+}
+
+.bloco-info{
+    display: block;
+}
+
+.foto-de-perfil-diario {
+    width: 75px;
+    height: 75px;
+    border-radius: 100px;
+}
+
+.img-saudacao{
+    display: flex;
+    padding: 20px 10px;
+}
+
+.saudacao{
+    align-content: center;
+    color: #fff;
+    border-left: #3f3f3f solid 1px;
+    padding-left: 10px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.texto-e-info {
+    background-color: #3f3f3f;
+    color: #fff;
+    border: #3f3f3f solid 1px;
+    margin-left: 10px;
+    width: auto;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.texto-e-info .info-aluno {
+    font-size: 12px;
+    padding: 5px;
+}
+
+.btn-muda-foto {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 100%;
+    transition: transform 0.1s ease;
+    transform-origin: center;
+}
+
+.btn-muda-foto:hover{
+    background-color: #3f3f3f;
+    color: #fff;
+    transform: scale(1.02);
+    box-shadow: rgba(255, 255, 255, 0.3) 0 3px 4px 0;
+}
+
+.btn-info{
+    padding: 0 10px;
+}
+
+.bloco-de-detalhe {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #161616;
+    padding: 10px;
+    border-radius: 5px;
+    align-items: center;
+    width: auto;
+}
+
+.bloco-de-detalhe h4 {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    width: auto;
+    border-bottom: #3f3f3f solid 1px;
+}
+
+.bloco-de-detalhe p {
+    margin-bottom: 0px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #3f3f3f;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: left;
+    width: auto;
+}
+
+.sub-guia-diario {
+    justify-content: center;
+    align-content: center;
+    height: 400px;
+    width: 300px; 
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    padding: 15px; 
+    background-color: #161616;
+    border-radius: 10px;
+    margin-top: 20px;
+    border: #3f3f3f solid 1px;
+}
+    
+.btn-sub-guia {
+    color: #fff;
+    font-weight: normal;
+    text-decoration: none;
+    background: none;
+    border-bottom: #3f3f3f solid 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: left;
+    padding: 10px;
+    padding-left: 30px;
+    transition: 0.1s ease;
+}
+
+.btn-sub-guia:hover{
+    background-color: #3f3f3f;
+    padding-left: 40px;
+    padding-top: 15px;
+    text-align: justify;
+    padding-bottom: 15px;
+    margin: 0 20px 0 20px;
+    font-size: 18px;
+    border-radius:15px;
+    width: auto;
+    height: auto;
+    color: #fff;
+    transform: scale(1.02);
+}
+
+/* Parte maior da página */
+.bloco-interno-maior {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.bloco-interno-maior .Informacoes {
+    flex: 1;
+    min-width: 250px;
+}
+
+.bloco-interno-maior .Informacoes h1 {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.titulo-box {
+    padding-left: 10px;
+    padding-bottom: 5px;
+    font-size: 18px;
+}
+
+p {
+    font-size: 12px;
+}
+
+.Informacoes-para-aluno {
+    border: #dadada solid 1px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    height: 200px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.bloco-interno-maior .Informacoes .Informacoes-para-aluno h3 {
+    font-size: 12px;
+    margin-bottom: 3px;
+    font-weight: normal;
+}
+
+.Informacoes-not {
+    margin-top: 20px;
+}
+
+.Informacoes-para-aluno-not {
+    border: #dadada solid 1px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    height: 200px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .menu {
+        flex-wrap: wrap;
+    }
+    
+    .menu-2 {
+        order: 3;
+        flex: 0 0 100%;
+        margin-top: 10px;
+    }
+    
+    .nome-da-guia ul {
+        gap: 10px;
+    }
+
+    /* Os estilos de dropdown foram ajustados na seção principal e não repetidos aqui, exceto o necessário */
+}
+
+@media (max-width: 768px) {
+    .conteudo-principal {
+        flex-direction: column;
+    }
+    
+    .bloco-interno-maior {
+        flex-direction: column;
+    }
+    
+    .menu-3 a {
+        display: none;
+    }
+    
+    .nome-da-guia {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+    
+    .nome-da-guia ul {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .dropdown-notificacoes,
+    .dropdown-configuracoes,
+    .dropdown-perfil {
+        width: 280px;
+        right: 0;
+        left: auto;
+    }
+}
+
+
+
+.bloco-aulas {
+  justify-content: center;
+  display: flex;
+}
+
+.bloco-de-conteudo-aulas{
+  flex: 1;
+  padding: 20px;
+  background-color: #161616;
+  min-height: calc(100vh - 100px);
+}
+
+.sub-guia-aulas{
+  justify-content: center;
+  align-content: center;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+  padding: 15px; 
+  background-color: #161616;
+  border-radius: 10px;
+  margin-top: 20px;
+  border: #3f3f3f solid 1px;
+}
+
+.btn-sub-guia-aulas{
+  color: #fff;
+  font-weight: normal;
+  text-decoration: none;
+  background: none;
+  border-bottom: #3f3f3f solid 1px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: left;
+  padding: 10px;
+  padding-left: 30px;
+  transition: 0.1s ease;
+}
+
+.btn-sub-guia-aulas:hover{
+  padding: 15px;
+  background-color: #3f3f3f;
+  border-radius: 15px;
+  padding-left: 40px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin: 0 20px 0 20px;
+  width: auto;
+  height: auto;
+  font-size: 18px;
+  text-align: justify;
+  color: #fff;
+  transform: scale(1.02);
+}
