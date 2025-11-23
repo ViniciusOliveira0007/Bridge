@@ -1,0 +1,938 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    /* REMOVIDO: background-color: #333; para não escurecer o conteúdo central/body */
+}
+
+/* Navegação principal */
+nav {
+    background-color: #161616;
+    padding: 10px 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border: #e0e0e0;
+    /* FIXO: Barra principal no topo */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.menu {
+    display: flex;  
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.menu-1, .menu-2, .menu-3 {
+    display: flex;
+    align-items: center;
+}
+
+.menu-1 {
+    flex: 0 0 auto;
+}
+
+.menu-2 {
+    flex: 1;
+    min-width: 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.menu-2 input {
+    width: 100%;
+    height: 30px;
+    border-radius: 20px;
+    background-image: url('../imagens_trilhas/lupa.svg');
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    background-size: 20px 20px;
+    padding-left: 45px;
+    padding-right: 15px;
+    border: 1px solid #ccc;
+}
+
+.menu-2 input:focus {
+    outline: none;
+    border-color: #fdfdfd;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 10);
+}
+
+.menu-3 {
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    gap: 15px;
+    position: relative; /* Para posicionar o dropdown */
+}
+
+.menu-3 a {
+    text-decoration: none;
+    color: white;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.menu-3 img {
+    width: 24px;
+    height: 24px;
+}
+
+.btn-notificao-nav {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.btn-notificao-nav:hover {
+    opacity: 0.8;
+}
+
+.btn-config {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.btn-config:hover {
+    opacity: 0.8;
+}
+
+.foto-de-perfil {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.foto-de-perfil:hover {
+    opacity: 0.8;
+}
+
+/* Dropdowns (base comum) */
+.dropdown-notificacoes,
+.dropdown-configuracoes,
+.dropdown-perfil {
+    position: absolute;
+    top: 45px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    min-width: 200px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+/* Posicionamento específico de cada dropdown */
+.dropdown-notificacoes {
+    right: 120px;
+}
+
+.dropdown-configuracoes {
+    right: 70px;
+}
+
+.dropdown-perfil {
+    right: 10px;
+    min-width: 220px;
+}
+
+.dropdown-notificacoes.ativo,
+.dropdown-configuracoes.ativo,
+.dropdown-perfil.ativo {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.dropdown-titulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropdown-titulo img {
+    width: 20px;
+    height: 20px;
+}
+
+.perfil-mini {
+    width: 20px !important;
+    height: 20px !important;
+    border: 1px solid #ccc !important;
+}
+
+.dropdown-titulo span {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+}
+
+.btn-fechar {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.btn-fechar:hover {
+    background-color: #f0f0f0;
+}
+
+.dropdown-opcoes {
+    padding: 10px 0;
+}
+
+.opcao-item {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+}
+
+.opcao-item:hover {
+    background-color: #f5f5f5;
+}
+
+/* Estilo especial para "Sair da Conta" */
+.sair-conta {
+    color: #d32f2f !important;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 5px;
+}
+
+.sair-conta:hover {
+    background-color: #ffebee !important;
+}
+
+/* Estilo para notificações vazias */
+.notificacao-vazia {
+    padding: 20px 15px;
+    text-align: center;
+    color: #666;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* Menu da guia Diário */
+.nome-da-guia {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    background-color: #161616;
+    padding: 0 20px;
+    gap: 30px;
+    justify-content: center;
+    /* FIXO: Abaixo da NAV (60px) */
+    position: fixed; 
+    top: 60px;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+.txt-guia {
+    font-weight: bold;
+    font-size: 15px;
+    color: #ffffff;
+    padding: 20px;
+}
+
+.nome-da-guia ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.nome-da-guia li a {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 15px;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 8px;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.nome-da-guia li a:hover {
+    background-color: #e0e0e0;
+    color: #000000;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+nav a:hover, .nome-da-guia a:hover {
+    color: #000000; 
+    text-decoration: none; 
+}
+
+/* Layout principal */
+.conteudo-principal {
+    display: flex;
+    flex-direction: row;
+    /* Adiciona padding-top para compensar as duas barras fixas (60px + 40px) */
+    padding-top: 100px; 
+    min-height: calc(100vh - 120px);
+}
+
+/* Sidebar das empresas */
+.empresas {
+    position: fixed;
+    background: #161616;
+    width: auto;
+    /* Posição: 100px abaixo do topo (60px da nav + 40px das guias) */
+    top: 100px;
+    /* Altura que ocupa o restante da tela */
+    height: calc(100vh - 100px); 
+    z-index: 998;
+    
+    padding-left:30px;
+    padding-right:20px;
+    /* ADIÇÃO CRUCIAL: Permite rolagem interna se o conteúdo exceder a altura */
+    overflow-y: auto; 
+    padding-bottom: 20px; /* Adiciona espaço no final para ver o último item */
+    
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    border-right: #000000 solid 1px;
+
+    /* ESTILO SCROLLBAR APENAS PARA FIREFOX */
+    scrollbar-color: #444 #222; /* thumb track */
+    scrollbar-width: thin; /* auto | thin | none */
+}
+
+/* ESTILOS DA SCROLLBAR PARA WEBKIT (Chrome, Safari, Edge) */
+.empresas::-webkit-scrollbar {
+    width: 8px; /* Largura da barra */
+}
+
+.empresas::-webkit-scrollbar-track {
+    background: #222; /* Fundo da trilha */
+    border-radius: 10px;
+}
+
+.empresas::-webkit-scrollbar-thumb {
+    background-color: #444; /* Cor da "alça" (thumb) */
+    border-radius: 10px; /* Arredondamento */
+    border: 1px solid #161616; /* Borda para destaque */
+}
+
+.empresas::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Cor da alça ao passar o mouse */
+}
+
+/* Card de perfil do trilhas*/
+.perfil-trilhas{
+    display: block;
+    margin-top: 10px;
+    background-color: none;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border-radius: 40px ;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    padding-right: 30px;
+}
+
+.box-perfil{
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.botoes-perfil{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 160px;
+    height: 160px;
+    gap: 5px;
+}
+
+.img-perfil{
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+    margin-left: 5px;
+    border: #3f3f3f solid 2px;
+}
+
+.btn-trilhas-perfil{
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;  
+    text-align: center;
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+    background: #3f3f3f40;
+    padding: 5px;
+    border: #3f3f3f90 solid 2px;
+    border-radius: 10px;
+    width: 100%;
+    transform-origin: center;
+    font-weight: bold; 
+    transition: 0.3s ease;
+}
+.btn-trilhas-perfil img{
+    width: 15px;
+    height: 15px;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    transition: 0.3s ease;
+}
+.btn-trilhas-perfil:hover{
+    padding: 0;
+    padding-top: 10px;
+    font-size: 16px;
+    padding-bottom: 10px;
+    transform: scale(1.02);
+    margin-left: 25px;
+    border-radius: 10px;
+    background-color: #3f3f3f;
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
+}
+.btn-trilhas-perfil:hover img{
+    width: 18px;
+    height: 18px;
+    padding: 0;
+}
+
+/* Seleção de pendentes*/
+.proposta{
+    justify-content: center;
+    text-align: center;
+    background: #3f3f3f30;
+    align-content: center;
+    height: 60px;
+    width: 60px;
+    border: #161616 solid 2px;
+    border-right: none;
+    border-radius: 15px 0 0 15px;
+    transition: transform 0.5s ease;
+    transform-origin: center;
+    transition: 0.3s ease;    
+}
+ /* Layout display propostas de projetos*/
+.box-propostas-projeto{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: none;
+    border: #3f3f3f30 solid 2px;
+    border-radius: 20px;
+    padding: 5px;
+    transition: 0.3s ease;
+}
+.box-propostas-projeto:hover{
+    background-color: #3f3f3f;
+    border-radius: 20px;
+    padding: 10px 5px 10px 5px ;
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
+}
+.box-propostas-projeto:hover .proposta{
+    background-color: #161616;
+}
+.box-propostas-projeto:hover .content-desc-proposta-projeto{
+    background-color: #161616;
+    border-left: #3f3f3f 1px solid;
+}
+.content-desc-proposta-projeto{
+    width: 190px;
+    height: 60px;
+    padding-left: 10px ;
+    padding-right: 10px ;
+    background: #3f3f3f30;
+    border: #161616 solid 2px;
+    border-left: none;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border-radius: 0 15px 15px 0 ;
+    transition: 0.3s ease;
+}
+.desc-projeto{
+    text-align: left;
+    align-content: center;
+    font-size: 12px;
+    text-decoration: none;
+    color: #ffffff;
+    max-width: 175px;
+    word-wrap: break-word;
+    font-weight: normal;
+}
+.btn-proposta{
+    text-decoration: none;
+}
+/* Seção de propostas */
+.secao-propostas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    width: 100%;
+    margin-bottom: 10px;
+    background: #3f3f3f10;
+    padding: 15px;
+    border-radius:  0 0 20px 20px;
+    height: 330px;
+    border: #3f3f3f30 solid 2px;
+}
+
+.h3-proposta {
+    color: #ffffff;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px;
+    background: #3f3f3f30;
+    border-radius: 20px 20px 0 0;
+}
+.btn-trilhas-proposta{
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;  
+    text-align: center;
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+    background: #3f3f3f60;
+    padding: 5px 20px;
+    border: #3f3f3f90 solid 2px;
+    border-radius: 10px;
+    width: 100%;
+    transform-origin: center;
+    font-weight: bold; 
+    transition: 0.3s ease;
+}
+.btn-trilhas-proposta:hover{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transform: scale(1.02);
+    border-radius: 10px;
+    background-color: #3f3f3f;
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
+}
+
+.seu-portifolio{
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: right;
+    align-items: flex-start;
+    overflow-y: auto;
+    margin-right: 100px;
+}
+
+.container-seu-portifolio{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+}
+.content-trilhas-portifolio{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.box-seu-portifolio{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: auto;
+    height: auto;
+    border: #dadada solid 1px;
+    border-radius: 20px;
+    padding:10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.info-portifolio-trilhas{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #161616;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    border-radius: 20px;
+}
+.info-perfil-trilhas desc-perfil{
+    display: flex;
+    flex-direction: column;
+}
+.img-perfil-trilhas{
+    border-radius: 50px;
+    border: #3f3f3f solid 2px;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+.botoes-perfil-trilhas{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+.btn-trilhas{
+    justify-content: center;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    align-self: center;
+    align-content: center;  
+    text-align: center;
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+    background: #3f3f3f60;
+    padding: 5px 10px;
+    border: #3f3f3f90 solid 2px;
+    border-radius: 10px;
+    width: auto;
+    height: 30px;
+    transform-origin: center;
+    font-weight: bold; 
+    transition: 0.3s ease;
+}
+.btn-trilhas img{
+    width: 15px;
+    height: 15px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+.btn-trilhas:hover{
+    transform: scale(1.02);
+    border-radius: 10px;
+    background-color: #3f3f3f;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
+}
+.info-usuario-trilhas{
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    gap: 10px;
+    align-items: center;
+    justify-content: center
+}
+.estrutura-portifolio{
+    width: 55%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+.nm-usuario{
+    color: #ffffff;
+    text-align: left;
+    font-size: 16px;
+    width: 100%;
+    padding-bottom:  2px;
+}
+
+.portifolio{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    
+}
+
+.conteudo-portifolio-trilhas{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    padding: 5px 10px;
+    padding-bottom: 10px;
+}
+.seu-portifolio-trilhas{
+    width: 100%;
+    justify-content: center;
+    background: #3f3f3f30;
+    border-radius: 20px;
+    transition: 0.3s ease;
+    margin-top: 10px;
+}
+.h3-seu-portifolio{
+    color: #ffffff;
+    justify-content: center;
+    text-align: left;
+    font-size: 16px;
+    padding: 15px 0 0 15px ;
+}
+.secao-seu-portifolio{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
+    gap: 20px;
+    padding: 20px;
+}
+.card-portifolio{
+    display: flex;
+    flex-direction: column;
+    background: #16161660;
+    padding: 10px;
+    width: 280px;
+    height: 440px;
+    border-radius: 20px;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.card-portifolio:hover{
+    background: #161616;
+    transform: scale(1.04);
+    border: #3f3f3f solid 1px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1)
+}
+.img-do-portifolio{
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+}
+.img-portifolio{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px 20px 5px 5px;
+}
+.transicao-img{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    width: 100%;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    background:#3f3f3f50;
+    padding: 5px 20px;
+    border-radius:  2px 2px 10px 10px;
+}
+.circulos{
+    background: #ffffff50;
+    height: 8px;
+    width: 8px;
+    border-radius: 20px;
+    transition: all 0.1s ease-in-out;
+}
+.circulos:hover{
+    background: #ffffff;
+    transform: scale(1.3);
+}
+.nm-portifolio{
+    width: 100%;
+    height: 50px;
+    padding: 10px 0;
+}
+.titulo-portifolio{
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    padding: 0 10px;
+    width: 100%;
+}
+.anexos{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    width: 100%;
+}
+.arquivos-em-anexo{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    background: #3f3f3f30;
+    border-radius: 20px;
+    transition: 0.3s ease;
+    margin-top: 10px;
+}
+.secao-arquivos-anexados{
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    margin-bottom: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
+    gap: 10px;
+}
+
+.card-de-anexo{
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    height: 120px;
+    padding: 10px;
+    background: #3f3f3f50;
+    border-radius: 20px;
+    gap: 10px;
+    transition: all 0.1s ease-in-out;
+}
+.card-de-anexo:hover{
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    height: 120px;
+    padding: 10px;
+    background: #3f3f3f80;
+    border-radius: 20px;
+    gap: 10px;
+}
+.img-de-anexo{
+    display: flex;
+    flex-direction: column;
+    width: 60px;
+    height: 60px;
+    background: #16161670;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    transition: all 0.2s ease-in-out;
+}
+.img-de-anexo:hover{
+    background: #16161690;
+}
+.img-anexo{
+    height: 35px;
+    width: 35px;
+}
+.projeto{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 5px;
+}
+.nome-projeto{
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    align-content: center;
+    width: 200px;
+    height: 50px;
+}
+.btn-ver-sobre{
+    text-decoration: none;
+    color: #ffffff;
+    padding: 5px;
+    font-weight: bold;
+    background: #15D3B1;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+.btn-ver-sobre:hover{
+    text-decoration: none;
+    color: #ffffff;
+    padding: 5px;
+    font-weight: bold;
+    background: #1c947e;
+    border-radius: 10px;
+    text-align: center;
+}
+.content-anexos{
+    width: 100%;
+    padding: 10px 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    /* Ajustes para telas menores */
+    .empresas {
+        position: relative; /* Volta ao fluxo normal para permitir que o conteúdo principal o empurre */
+        top: auto;
+        height: auto;
+        min-height: auto;
+        width: 100%;
+        border-right: none;
+        overflow-y: visible; /* Remove a rolagem interna em mobile, rola com a página */
+        padding-bottom: 10px;
+        /* Remove estilos de scrollbar para evitar conflitos em mobile */
+        scrollbar-width: auto;
+    }
+    
+    /* Remove os estilos de scrollbar do webkit em mobile para que o scroll nativo funcione bem */
+    .empresas::-webkit-scrollbar,
+    .empresas::-webkit-scrollbar-track,
+    .empresas::-webkit-scrollbar-thumb {
+        display: none; 
+    }
+
+    .conteudo-principal {
+        flex-direction: column;
+        padding-top: 100px;
+    }
+    
+}

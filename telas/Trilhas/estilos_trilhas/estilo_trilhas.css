@@ -829,7 +829,7 @@ nav a:hover, .nome-da-guia a:hover {
     background: #16161660;
     padding: 5px;
     width: 250px;
-    height: 50px;
+    height: 60px;
     border-radius: 15px;
     align-items: center;
     gap: 5px;
@@ -844,6 +844,7 @@ nav a:hover, .nome-da-guia a:hover {
 }
 .nome-habilidade{
     color: #ffffff;
+    padding: 5px 0;
     font-weight: bold;
     font-size: 14px;
 }
@@ -857,8 +858,8 @@ nav a:hover, .nome-da-guia a:hover {
     flex-direction: column;
     background: #3f3f3f20;
     padding: 5px;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 10px;
     justify-content: center;
     align-items: center;
@@ -869,8 +870,8 @@ nav a:hover, .nome-da-guia a:hover {
     box-shadow: 0 1px 5px rgba(255, 255, 255, 0.1)
 }
 .img-habilidade{
-    width: 15px;
-    height: 15px;
+    width: 30px;
+    height: 30px;
     align-items: center;
     justify-content: center;
 }
