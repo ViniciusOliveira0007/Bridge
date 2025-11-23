@@ -189,7 +189,7 @@
                                             </div>
                                         </div>
                                         <div class="content-add-formacao">
-                                            <a href="" class="btn-trilhas">Adicionar Formações <img src="../imagens_trilhas/icone-formacao.svg" alt="formações"></a>
+                                            <a href="#" class="btn-trilhas" id="btnAbrirFormacao">Adicionar Formações <img src="../imagens_trilhas/icone-formacao.svg" alt="formações"></a>
                                             
                                             <a href="" class="btn-trilhas">Editar Formações <img src="../imagens_trilhas/edit-icon-perfil.svg" alt="formações"></a>
                                         </div>
@@ -204,7 +204,7 @@
                                     </p>
                                 </div>
                                 <div class="content-edit-sobre-mim">
-                                    <a href="" class="btn-trilhas">Editar Sobre mim <img src="../imagens_trilhas/edit-icon-perfil.svg" alt="habilidades"></a>
+                                    <a href="#" class="btn-trilhas" id="btnAbrirSobreMim">Editar Sobre mim <img src="../imagens_trilhas/edit-icon-perfil.svg" alt="habilidades"></a>
                                 </div>
                             </div>
                             <div class="habilidades-perfil">
@@ -290,6 +290,7 @@
         const STORAGE_KEY = 'trilhasCommentsPost1';
 
         document.addEventListener('DOMContentLoaded', async function() {
+            
             
             // ============================================
             // 1. VERIFICAR LOGIN E CARREGAR DADOS
@@ -513,6 +514,87 @@
             }
 
 
+            // ============================================
+            // 7. POPUP SOBRE MIM (EDITAR)
+            // ============================================
+            
+            const popupSobre = document.getElementById('popupSobreMim');
+            const btnAbrirSobre = document.getElementById('btnAbrirSobreMim');
+            const btnFecharSobre = document.getElementById('btnFecharSobreMim');
+            const btnCancelarSobre = document.getElementById('btnCancelarSobreMim');
+            const formSobre = document.getElementById('formSobreMim');
+            
+            // Elementos de Texto
+            const txtAreaSobre = document.getElementById('txtSobreMim');
+            const textoPerfilAtual = document.querySelector('.content-desc-seu-perfil'); // Onde está o texto na página
+            const contador = document.getElementById('contadorAtual');
+
+            // Abrir Popup e Carregar Texto Atual
+            if (btnAbrirSobre) {
+                btnAbrirSobre.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Pega o texto atual da tela (removendo espaços extras)
+                    const textoAtual = textoPerfilAtual.innerText.trim();
+                    
+                    // Joga dentro do input
+                    txtAreaSobre.value = textoAtual;
+                    
+                    // Atualiza contador
+                    contador.innerText = textoAtual.length;
+
+                    popupSobre.classList.add('ativo');
+                });
+            }
+
+            // Fechar Popup
+            function fecharPopupSobre() {
+                popupSobre.classList.remove('ativo');
+            }
+
+            if(btnFecharSobre) btnFecharSobre.addEventListener('click', fecharPopupSobre);
+            if(btnCancelarSobre) btnCancelarSobre.addEventListener('click', fecharPopupSobre);
+
+            // Fechar ao clicar fora
+            popupSobre.addEventListener('click', function(e) {
+                if (e.target === popupSobre) fecharPopupSobre();
+            });
+
+            // Contador de Caracteres em Tempo Real
+            txtAreaSobre.addEventListener('input', function() {
+                contador.innerText = this.value.length;
+            });
+
+            // Salvar (Integração com Backend)
+            if(formSobre) {
+                formSobre.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const novoTexto = txtAreaSobre.value;
+
+                    try {
+                        // Exemplo de requisição para o seu backend
+                        /*
+                        const response = await fetch(`${API_URL}/users/${usuarioLogado.id}/sobre`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ about: novoTexto })
+                        });
+                        */
+                        
+                        // SIMULAÇÃO VISUAL (Atualiza na hora sem recarregar a página)
+                        textoPerfilAtual.innerText = novoTexto;
+                        alert('Descrição atualizada com sucesso!');
+                        fecharPopupSobre();
+
+                    } catch (error) {
+                        console.error('Erro ao salvar:', error);
+                        alert('Erro ao atualizar descrição.');
+                    }
+                });
+            }
+            
+
         });
     </script>
     <div class="popup-overlay" id="popupHabilidade">
@@ -522,27 +604,80 @@
             <button class="btn-fechar-popup" id="btnFecharPopup">&times;</button>
         </div>
         
-        <form class="popup-form">
-            <div class="grupo-input">
-                <label for="nomeHabilidade">Nome da Habilidade</label>
-                <input type="text" id="nomeHabilidade" placeholder="Ex: Figma, Photoshop, Java...">
-            </div>
+<form class="popup-form" id="formAddHabilidade">
+    
+    <div class="grupo-input container-search-habilidade">
+        <label for="searchHabilidade">Buscar Habilidade</label>
+        <div class="input-wrapper">
+            <input type="text" id="searchHabilidade" placeholder="Digite para buscar (ex: Figma, Java)..." autocomplete="off">
+            <ul id="listaSugestoes" class="lista-sugestoes"></ul>
+        </div>
+    </div>
 
+    <div id="habilidadeSelecionada" class="habilidade-preview" style="display: none;">
+        <div class="info-selected">
+            <img id="previewIcone" src="" alt="Icone">
+            <span id="previewNome">Nome da Habilidade</span>
+        </div>
+        <button type="button" id="btnRemoverSelecao" class="btn-fechar-mini">&times;</button>
+    </div>
 
+    <div class="popup-footer">
+        <button type="button" class="btn-cancelar" id="btnCancelarPopup">Cancelar</button>
+        <button type="submit" class="btn-salvar">Salvar Habilidade</button>
+    </div>
+</form>
+    </div>
+</div>
+
+<div class="popup-overlay" id="popupSobreMim">
+    <div class="popup-container">
+        <div class="popup-header">
+            <h2>Editar Sobre Mim</h2>
+            <button class="btn-fechar-popup" id="btnFecharSobreMim">&times;</button>
+        </div>
+        
+        <form class="popup-form" id="formSobreMim">
             <div class="grupo-input">
-                <label for="iconeHabilidade">Ícone da Habilidade</label>
-                <label class="custom-file-upload">
-                    <input type="file" id="iconeHabilidade">
-                    <img src="../imagens_trilhas/icone-formacao.svg" width="20" style="filter: invert(1);"> Escolher ícone...
-                </label>
+                <label for="txtSobreMim">Descreva suas experiências e objetivos</label>
+                <textarea id="txtSobreMim" placeholder="Escreva um pouco sobre você..." maxlength="500"></textarea>
+                <div class="contador-caracteres">
+                    <span id="contadorAtual">0</span>/500
+                </div>
             </div>
 
             <div class="popup-footer">
-                <button type="button" class="btn-cancelar" id="btnCancelarPopup">Cancelar</button>
-                <button type="submit" class="btn-salvar">Salvar Habilidade</button>
+                <button type="button" class="btn-cancelar" id="btnCancelarSobreMim">Cancelar</button>
+                <button type="submit" class="btn-salvar">Salvar Alterações</button>
             </div>
         </form>
     </div>
 </div>
+
+<div class="popup-overlay" id="popupSobreMim">
+    <div class="popup-container">
+        <div class="popup-header">
+            <h2>Editar Sobre Mim</h2>
+            <button class="btn-fechar-popup" id="btnFecharSobreMim">&times;</button>
+        </div>
+        
+        <form class="popup-form" id="formSobreMim">
+            <div class="grupo-input">
+                <label for="txtSobreMim">Descreva suas experiências e objetivos</label>
+                <textarea id="txtSobreMim" placeholder="Escreva um pouco sobre você..." maxlength="500"></textarea>
+                <div class="contador-caracteres">
+                    <span id="contadorAtual">0</span>/500
+                </div>
+            </div>
+
+            <div class="popup-footer">
+                <button type="button" class="btn-cancelar" id="btnCancelarSobreMim">Cancelar</button>
+                <button type="submit" class="btn-salvar">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 </body>
 </html>
