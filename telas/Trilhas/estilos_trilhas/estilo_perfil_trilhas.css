@@ -733,7 +733,7 @@ nav a:hover, .nome-da-guia a:hover {
     border-radius: 30px;
     margin: 0px 10px 10px 10px;
     transition: 0.3s ease;
-    height: 180px;
+    height: 100px;
 }
 .suas-formacoes-perfil{
     display: flex;
@@ -1026,6 +1026,198 @@ nav a:hover, .nome-da-guia a:hover {
 .texto-habilidade img{
     width: auto;
     height: auto;
+}
+/* --- ESTILOS DO POPUP --- */
+
+/* Fundo escuro transparente que cobre a tela */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Escurece o fundo */
+    backdrop-filter: blur(5px); /* Efeito de desfoque moderno */
+    z-index: 2000; /* Fica acima de tudo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Quando estiver ativo (via JS) */
+.popup-overlay.ativo {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* A caixa do Popup */
+.popup-container {
+    background-color: #161616;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 20px;
+    border: 1px solid #3f3f3f;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.popup-overlay.ativo .popup-container {
+    transform: translateY(0);
+}
+
+/* Cabeçalho */
+.popup-header {
+    background-color: #1f1f1f;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #3f3f3f;
+}
+
+.popup-header h2 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn-fechar-popup {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.btn-fechar-popup:hover {
+    color: #ff4d4d;
+}
+
+/* Formulário */
+.popup-form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.grupo-input label {
+    color: #cccccc;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Inputs estilizados iguais à sua barra de pesquisa */
+.grupo-input input[type="text"] {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    padding: 0 15px;
+    border: 1px solid #3f3f3f;
+    background-color: #2a2a2a;
+    color: white;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.grupo-input input[type="text"]:focus {
+    border-color: #ffffff;
+}
+
+/* Slider (Range) */
+.range-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+input[type="range"] {
+    flex: 1;
+    cursor: pointer;
+    accent-color: #ffffff; /* Cor do slider */
+}
+
+.valor-range {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 18px;
+    width: 30px;
+    text-align: center;
+}
+
+/* Input de Arquivo Personalizado */
+.custom-file-upload {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px dashed #3f3f3f;
+    border-radius: 10px;
+    color: #aaa;
+    background: #2a2a2a;
+    transition: 0.3s;
+}
+
+.custom-file-upload:hover {
+    background: #333;
+    color: white;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+/* Rodapé com botões */
+.popup-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Botões reutilizando a lógica do seu layout */
+.btn-salvar, .btn-cancelar {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-salvar {
+    background-color:#15D3B1;
+    color: #ffffff;
+}
+
+.btn-salvar:hover {
+    background-color: #14a086;
+    transform: scale(1.05);
+}
+
+.btn-cancelar {
+    background-color: transparent;
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
+}
+
+.btn-cancelar:hover {
+    background-color: #ff4d4d;
+    color: white;
 }
 
 

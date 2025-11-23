@@ -200,10 +200,7 @@
                                 <h5 class="desc-seu-perfil">Sobre mim</h5>
                                 <div>
                                     <p class="content-desc-seu-perfil">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, est reiciendis. Quisquam illum unde quae eveniet corrupti harum et eaque praesentium alias est, recusandae, sint at, asperiores impedit dolorum vitae.
-                                        Ipsam quidem, repudiandae optio veritatis tenetur provident. Ipsum perferendis rerum vel magnam accusantium numquam ab, odit eligendi soluta dicta asperiores natus non fugiat corrupti accusamus nisi, maiores beatae optio! Voluptatum.
-                                        Odio, sequi sed, aliquid est ipsa magni harum aut esse nemo obcaecati amet sint nobis minus omnis labore doloremque dicta quas possimus in molestiae enim! Debitis impedit iure inventore qui!
-                                        Ut nulla voluptatum veniam reiciendis fugiat. Ipsam optio facere corrupti odio eaque laboriosam sint obcaecati! Animi, laboriosam omnis. Vitae numquam autem ullam. Molestiae numquam quo reiciendis asperiores ut voluptates ad!
+                                        Olá, sou um admirador da tecnologia. Tenho muito interesse nessa área tão abrangente e incrivel!!
                                     </p>
                                 </div>
                                 <div class="content-edit-sobre-mim">
@@ -274,7 +271,8 @@
                                             </div>
                                         </div>
                                         <div class="content-add-habilidade">
-                                            <a href="" class="btn-trilhas">Adicionar Habilidades <img src="../imagens_trilhas/habilidades-trilhas.svg" alt="habilidades"></a>
+                                            <a href="#" class="btn-trilhas" id="btnAbrirPopup">Adicionar Habilidades <img src="../imagens_trilhas/habilidades-trilhas.svg" alt="habilidades"></a>
+
                                             <a href="" class="btn-trilhas">Editar Habilidades <img src="../imagens_trilhas/edit-icon-perfil.svg" alt="habilidades"></a>
                                         </div>
                                     </div>
@@ -401,7 +399,7 @@
             
             // 3.3 ANIMAÇÃO BARRA DE PROGRESSO
             
-            
+
             
             // Executa a função de atualização imediatamente
             atualizarCardsDeHabilidade();
@@ -471,7 +469,80 @@
                     fecharDropdownPerfil();
                 }
             });
+
+
+            // ============================================
+            // 5. LÓGICA DO POPUP (ADICIONAR HABILIDADE)
+            // ============================================
+            const popup = document.getElementById('popupHabilidade');
+            const btnAbrir = document.getElementById('btnAbrirPopup');
+            const btnFechar = document.getElementById('btnFecharPopup');
+            const btnCancelar = document.getElementById('btnCancelarPopup');
+
+            // Abrir Popup
+            if(btnAbrir) {
+                btnAbrir.addEventListener('click', function(e) {
+                    e.preventDefault(); // Previne o link de recarregar a página
+                    popup.classList.add('ativo');
+                });
+            }
+
+            // Fechar Popup (Função genérica)
+            function fecharPopup() {
+                popup.classList.remove('ativo');
+            }
+
+            if(btnFechar) btnFechar.addEventListener('click', fecharPopup);
+            if(btnCancelar) btnCancelar.addEventListener('click', fecharPopup);
+
+            // Fechar ao clicar fora da caixa do popup
+            popup.addEventListener('click', function(e) {
+                if (e.target === popup) {
+                    fecharPopup();
+                }
+            });
+
+            // (Opcional) Lógica para o botão Salvar
+            const formHabilidade = document.querySelector('.popup-form');
+            if(formHabilidade) {
+                formHabilidade.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Funcionalidade de salvar será integrada com o Backend!');
+                    fecharPopup();
+                });
+            }
+
+
         });
     </script>
+    <div class="popup-overlay" id="popupHabilidade">
+    <div class="popup-container">
+        <div class="popup-header">
+            <h2>Adicionar Nova Habilidade</h2>
+            <button class="btn-fechar-popup" id="btnFecharPopup">&times;</button>
+        </div>
+        
+        <form class="popup-form">
+            <div class="grupo-input">
+                <label for="nomeHabilidade">Nome da Habilidade</label>
+                <input type="text" id="nomeHabilidade" placeholder="Ex: Figma, Photoshop, Java...">
+            </div>
+
+
+            <div class="grupo-input">
+                <label for="iconeHabilidade">Ícone da Habilidade</label>
+                <label class="custom-file-upload">
+                    <input type="file" id="iconeHabilidade">
+                    <img src="../imagens_trilhas/icone-formacao.svg" width="20" style="filter: invert(1);"> Escolher ícone...
+                </label>
+            </div>
+
+            <div class="popup-footer">
+                <button type="button" class="btn-cancelar" id="btnCancelarPopup">Cancelar</button>
+                <button type="submit" class="btn-salvar">Salvar Habilidade</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
