@@ -567,43 +567,43 @@ nav a:hover, .nome-da-guia a:hover {
     box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
 }
 
-.seu-perfil{
+.seu-portifolio{
     flex: 1;
     padding: 20px;
     display: flex;
     justify-content: right;
-    margin-right: 180px;
     align-items: flex-start;
     overflow-y: auto;
+    margin-right: 100px;
 }
 
-.container-seu-perfil{
+.container-seu-portifolio{
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
 }
-.content-trilhas-perfil{
+.content-trilhas-portifolio{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
-.box-seu-perfil{
+.box-seu-portifolio{
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
-    width: 100%;
+    width: auto;
     height: auto;
     border: #dadada solid 1px;
     border-radius: 20px;
     padding:10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.info-perfil-trilhas{
+.info-portifolio-trilhas{
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -611,7 +611,6 @@ nav a:hover, .nome-da-guia a:hover {
     width: 100%;
     height: auto;
     padding: 20px;
-    margin: 5px;
     border-radius: 20px;
 }
 .info-perfil-trilhas desc-perfil{
@@ -676,7 +675,7 @@ nav a:hover, .nome-da-guia a:hover {
     align-items: center;
     justify-content: center
 }
-.estrutura-perfil{
+.estrutura-portifolio{
     width: 55%;
     height: auto;
     display: flex;
@@ -689,19 +688,16 @@ nav a:hover, .nome-da-guia a:hover {
     width: 100%;
     padding-bottom:  2px;
 }
-.especializacao-perfil{
-    color: #ffffff;
-    text-align: left;
-    font-size: 14px;
+
+.portifolio{
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    gap: 10px;
+    
 }
-.email-usuario{
-    color: #ffffff;
-    text-align: left;
-    font-size: 14px;
-    font-weight: normal;
-}
-.conteudo-perfil-trilhas{
+
+.conteudo-portifolio-trilhas{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -711,7 +707,7 @@ nav a:hover, .nome-da-guia a:hover {
     padding: 5px 10px;
     padding-bottom: 10px;
 }
-.desc-perfil{
+.seu-portifolio-trilhas{
     width: 100%;
     justify-content: center;
     background: #3f3f3f30;
@@ -719,163 +715,102 @@ nav a:hover, .nome-da-guia a:hover {
     transition: 0.3s ease;
     margin-top: 10px;
 }
-.desc-seu-perfil{
+.h3-seu-portifolio{
     color: #ffffff;
     justify-content: center;
     text-align: left;
     font-size: 16px;
     padding: 15px 0 0 15px ;
 }
-.content-desc-seu-perfil{
-    color: #ffffff;
-    font-size: 14px;
-    padding:10px;
-    border-radius: 30px;
-    margin: 0px 10px 10px 10px;
-    transition: 0.3s ease;
-    height: 100px;
-}
-.suas-formacoes-perfil{
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0;
-    width: 100%;
-}
-.h3-suas-formacoes{
-    color: #ffffff;
-    justify-content: center;
-    text-align: left;
-    font-size: 16px;
-    padding: 15px 0 0 15px ;
-}
-.content-formacoes{
-    width: 100%;
-    justify-content: center;
-    background: #3f3f3f30;
-    border-radius: 20px;
-    transition: 0.3s ease;
-    margin-top: 10px;
-}
-.suas-formacoes{
-    width: 100%;
-    padding: 10px 20px;
-}
-.habilidades-perfil{
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0;
-    width: 100%;
-}
-.secao-suas-formacoes{
-    width: 100%;
-    height: auto;
-    justify-content: left;
-    margin-bottom: 20px;
-    grid-template-columns: 1fr;
-    display: grid;
-    gap: 10px;
-}
-.card-formacao{
+.secao-seu-portifolio{
     display: flex;
     flex-direction: row;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
+    gap: 20px;
+    padding: 20px;
+}
+.card-portifolio{
+    display: flex;
+    flex-direction: column;
     background: #16161660;
     padding: 10px;
-    width: 100%;
-    height: 100px;
-    border-radius: 15px;
+    width: 280px;
+    height: 440px;
+    border-radius: 20px;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     transition: all 0.2s ease;
     cursor: pointer;
 }
-.card-formacao:hover{
+.card-portifolio:hover{
     background: #161616;
-    transform: scale(1.02);
+    transform: scale(1.04);
     border: #3f3f3f solid 1px;
     transition: all 0.2s ease;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1)
 }
-.img-sua-formacao{
-    display: flex;
-    flex-direction: column;
-    background: #3f3f3f20;
-    padding: 5px;
-    width: 75px;
-    height: 75px;
-    border-radius: 10px;
-    justify-content: center;
-    align-items: center;
-}
-.img-sua-formacao:hover{
-    background: #3f3f3f50;
-}
-.img-formacao{
-    width: 50px;
-    height: 50px;
-    align-items: center;
-    justify-content: center;
-}
-.box-formacao{
-    display: flex;
-    flex-direction: column;
+.img-do-portifolio{
     width: 100%;
+    height: auto;
+    border-radius: 20px;
 }
-.nome-local-formacao{
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 10px;
+.img-portifolio{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px 20px 5px 5px;
 }
-.nm-data{
+.transicao-img{
     display: flex;
     flex-direction: row;
-    gap: 10px;
-    background: #3f3f3f30;
+    gap: 8px;
     width: 100%;
-    border-radius: 10px;
-    padding: 0 0 0 10px;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    background:#3f3f3f50;
+    padding: 5px 20px;
+    border-radius:  2px 2px 10px 10px;
 }
-.nome-especializacao{
+.circulos{
+    background: #ffffff50;
+    height: 8px;
+    width: 8px;
+    border-radius: 20px;
+    transition: all 0.1s ease-in-out;
+}
+.circulos:hover{
+    background: #ffffff;
+    transform: scale(1.3);
+}
+.nm-portifolio{
+    width: 100%;
+    height: 50px;
+    padding: 10px 0;
+}
+.titulo-portifolio{
     color: #ffffff;
+    font-size: 16px;
     font-weight: bold;
-    font-size: 14px;
-    padding: 5px;
-    width:100%;
     text-align: left;
-    align-content: center;
-}
-.data-especializacao{
-    color: #ffffff50;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 5px;
-    width: 18%;
-    text-align: center;
-    align-content: center;
-    background: #3f3f3f50;
-    border-radius: 15px 10px 10px 15px;
-    padding: 10px;
-}
-.content-add-formacao{
-    display: flex;
-    flex-direction: row;
+    padding: 0 10px;
     width: 100%;
-    height: 50px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
 }
-.content-edit-sobre-mim{
+.anexos{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    padding: 10px 0;
     width: 100%;
-    height: 50px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
 }
-.content-habilidades{
+.arquivos-em-anexo{
+    display: flex;
+    flex-direction: column;
     width: 100%;
     justify-content: center;
     background: #3f3f3f30;
@@ -883,343 +818,94 @@ nav a:hover, .nome-da-guia a:hover {
     transition: 0.3s ease;
     margin-top: 10px;
 }
-.h3-habilidades{
-    color: #ffffff;
-    justify-content: center;
-    text-align: left;
-    font-size: 16px;
-    padding: 15px 0 0 15px ;
-}
-.suas-habilidades{
-    width: 100%;
-    padding: 10px 20px;
-}
-.secao-suas-habilidades{
+.secao-arquivos-anexados{
     width: 100%;
     height: auto;
-    justify-content: left;
+    justify-content: center;
     margin-bottom: 20px;
     grid-template-columns: 1fr 1fr 1fr;
     display: grid;
     gap: 10px;
 }
-.card-habilidade{
+
+.card-de-anexo{
     display: flex;
-    flex-direction: row;
-    background: #16161660;
+    flex-direction: column;
+    width: 280px;
+    height: 120px;
     padding: 10px;
-    width: 100%;
-    height: 60px;
-    border-radius: 15px;
-    align-items: center;
-    gap: 5px;
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-.card-habilidade:hover{
-    background: #161616;
-    transform: scale(1.05);
-    border: #3f3f3f solid 1px;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
-}
-.nome-habilidade{
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-.nivel-habilidade{
-    color: #ffffff;
-    font-size: 12px;
-    margin-bottom: 5px;
-}
-.xp-nivel{
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 4px;
-    padding-right: 15px;
-}
-.xp-necessario{
-    color: #ffffff;
-    font-size: 10px;
-}
-.img-sua-habilidade{
-    display: flex;
-    flex-direction: column;
-    background: #3f3f3f20;
-    padding: 5px;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    justify-content: center;
-    align-items: center;
-    transition:0.5s ease-in-out;
-}
-.img-sua-habilidade:hover{
     background: #3f3f3f50;
-    box-shadow: 0 1px 5px rgba(255, 255, 255, 0.1)
+    border-radius: 20px;
+    gap: 10px;
+    transition: all 0.1s ease-in-out;
 }
-.img-habilidade{
-    width: 25px;
-    height: 25px;
-    align-items: center;
-    justify-content: center;
-}
-.box-nm-nivel{
+.card-de-anexo:hover{
     display: flex;
     flex-direction: column;
-    width: 90%;
-}
-.nome-nivel{
-    display: flex;
-    flex-direction: row;
-}
-
-
-/* SEÇÃO DE LOGICA DO CSS DA BARRA DE PROGRESSO */
-
-.linha-progresso-habilidade{
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-    background: #3f3f3f;
-    height: 5px;
-    border-radius: 10px;
-    justify-content: left;
-}
-.progresso-linha-habilidade{
-    background: #15D3B1;
-    height: 5px;
-    border-radius: 10px;
-    transition:  width 0.5s ease-in-out;
-    width: 0;
-}
-
-
-/* FIM CSS DA BARRA */
-
-.espaco-nome-habilidade{
-    width: 130px;
-    height: auto;
-}
-.content-add-habilidade{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 50px;
-    justify-content: center;
-    align-items: center;
+    width: 280px;
+    height: 120px;
+    padding: 10px;
+    background: #3f3f3f80;
+    border-radius: 20px;
     gap: 10px;
 }
-.texto-habilidade{
+.img-de-anexo{
+    display: flex;
+    flex-direction: column;
+    width: 60px;
+    height: 60px;
+    background: #16161670;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    transition: all 0.2s ease-in-out;
+}
+.img-de-anexo:hover{
+    background: #16161690;
+}
+.img-anexo{
+    height: 35px;
+    width: 35px;
+}
+.projeto{
     display: flex;
     flex-direction: row;
-    width: auto;
-    height: auto;
-    color: #ffffff;font-weight: bold;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     gap: 5px;
 }
-.texto-habilidade img{
-    width: auto;
-    height: auto;
-}
-/* --- ESTILOS DO POPUP --- */
-
-/* Fundo escuro transparente que cobre a tela */
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Escurece o fundo */
-    backdrop-filter: blur(5px); /* Efeito de desfoque moderno */
-    z-index: 2000; /* Fica acima de tudo */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-/* Quando estiver ativo (via JS) */
-.popup-overlay.ativo {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* A caixa do Popup */
-.popup-container {
-    background-color: #161616;
-    width: 90%;
-    max-width: 500px;
-    border-radius: 20px;
-    border: 1px solid #3f3f3f;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transform: translateY(-20px);
-    transition: transform 0.3s ease;
-    overflow: hidden;
-}
-
-.popup-overlay.ativo .popup-container {
-    transform: translateY(0);
-}
-
-/* Cabeçalho */
-.popup-header {
-    background-color: #1f1f1f;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #3f3f3f;
-}
-
-.popup-header h2 {
+.nome-projeto{
     color: #ffffff;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.btn-fechar-popup {
-    background: none;
-    border: none;
-    color: #ffffff;
-    font-size: 24px;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-
-.btn-fechar-popup:hover {
-    color: #ff4d4d;
-}
-
-/* Formulário */
-.popup-form {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.grupo-input {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.grupo-input label {
-    color: #cccccc;
     font-size: 14px;
     font-weight: bold;
+    text-align: left;
+    align-content: center;
+    width: 200px;
+    height: 50px;
 }
-
-/* Inputs estilizados iguais à sua barra de pesquisa */
-.grupo-input input[type="text"] {
-    width: 100%;
-    height: 40px;
-    border-radius: 10px;
-    padding: 0 15px;
-    border: 1px solid #3f3f3f;
-    background-color: #2a2a2a;
-    color: white;
-    outline: none;
-    transition: border 0.3s;
-}
-
-.grupo-input input[type="text"]:focus {
-    border-color: #ffffff;
-}
-
-/* Slider (Range) */
-.range-container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-input[type="range"] {
-    flex: 1;
-    cursor: pointer;
-    accent-color: #ffffff; /* Cor do slider */
-}
-
-.valor-range {
+.btn-ver-sobre{
+    text-decoration: none;
     color: #ffffff;
+    padding: 5px;
     font-weight: bold;
-    font-size: 18px;
-    width: 30px;
+    background: #15D3B1;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+.btn-ver-sobre:hover{
+    text-decoration: none;
+    color: #ffffff;
+    padding: 5px;
+    font-weight: bold;
+    background: #1c947e;
+    border-radius: 10px;
     text-align: center;
 }
-
-/* Input de Arquivo Personalizado */
-.custom-file-upload {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    cursor: pointer;
-    border: 1px dashed #3f3f3f;
-    border-radius: 10px;
-    color: #aaa;
-    background: #2a2a2a;
-    transition: 0.3s;
-}
-
-.custom-file-upload:hover {
-    background: #333;
-    color: white;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-/* Rodapé com botões */
-.popup-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-/* Botões reutilizando a lógica do seu layout */
-.btn-salvar, .btn-cancelar {
+.content-anexos{
+    width: 100%;
     padding: 10px 20px;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-    transition: 0.3s;
 }
-
-.btn-salvar {
-    background-color:#15D3B1;
-    color: #ffffff;
-}
-
-.btn-salvar:hover {
-    background-color: #14a086;
-    transform: scale(1.05);
-}
-
-.btn-cancelar {
-    background-color: transparent;
-    border: 1px solid #ff4d4d;
-    color: #ff4d4d;
-}
-
-.btn-cancelar:hover {
-    background-color: #ff4d4d;
-    color: white;
-}
-
 
 /* Responsividade */
 @media (max-width: 768px) {
