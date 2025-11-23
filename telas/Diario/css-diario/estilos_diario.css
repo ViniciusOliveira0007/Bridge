@@ -8,7 +8,9 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Navegação principal */
+/* ========================================
+   NAVEGAÇÃO PRINCIPAL
+   ======================================== */
 nav {
     background-color: #161616;
     padding: 10px 20px;
@@ -16,7 +18,7 @@ nav {
     display: flex;
     align-items: center;
     border: #e0e0e0;
-    position: relative; /* Necessário para o dropdown */
+    position: relative;
 }
 
 .menu {
@@ -66,7 +68,7 @@ nav {
     flex: 0 0 auto;
     justify-content: flex-end;
     gap: 15px;
-    position: relative; /* Para posicionar o dropdown */
+    position: relative !important;
 }
 
 .menu-3 a {
@@ -107,24 +109,30 @@ nav {
     border: 2px solid #ffffff;
     cursor: pointer;
     transition: opacity 0.2s ease;
-    border-radius: 50px;
 }
 
 .foto-de-perfil:hover {
     opacity: 0.8;
 }
 
-/* Dropdowns (base comum) */
+/* ========================================
+   ESTILOS DOS DROPDOWNS - PADRONIZADO COM SALA.HTML
+   ======================================== */
+
 .dropdown-notificacoes,
 .dropdown-configuracoes,
 .dropdown-perfil {
+    display: none;
     position: absolute;
-    top: 45px;
+    top: 55px;
+    right: 0;
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     min-width: 200px;
-    z-index: 1000;
+    z-index: 9999;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
@@ -142,23 +150,37 @@ nav {
 
 .dropdown-perfil {
     right: 10px;
-    min-width: 220px;
 }
 
+/* Classe para mostrar o dropdown */
 .dropdown-notificacoes.ativo,
 .dropdown-configuracoes.ativo,
 .dropdown-perfil.ativo {
+    display: block !important;
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cabeçalho do Dropdown */
 .dropdown-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 15px;
     border-bottom: 1px solid #e0e0e0;
+    background: #f8f9fa;
 }
 
 .dropdown-titulo {
@@ -173,9 +195,11 @@ nav {
 }
 
 .perfil-mini {
-    width: 20px !important;
-    height: 20px !important;
-    border: 1px solid #ccc !important;
+    width: 23px !important;
+    height: 23px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e0e0e0 !important;
 }
 
 .dropdown-titulo span {
@@ -187,22 +211,26 @@ nav {
 .btn-fechar {
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 24px;
     color: #666;
     cursor: pointer;
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: background-color 0.2s ease;
+    transition: all 0.3s;
+    line-height: 1;
+    padding: 0;
 }
 
 .btn-fechar:hover {
     background-color: #f0f0f0;
+    color: #333;
 }
 
+/* Opções do Dropdown */
 .dropdown-opcoes {
     padding: 10px 0;
 }
@@ -225,18 +253,18 @@ nav {
     background-color: #f5f5f5;
 }
 
-/* Estilo especial para "Sair da Conta" */
 .sair-conta {
     color: #d32f2f !important;
     border-top: 1px solid #e0e0e0;
     margin-top: 5px;
+  
 }
 
 .sair-conta:hover {
     background-color: #ffebee !important;
 }
 
-/* Estilo para notificações vazias */
+/* Notificação vazia */
 .notificacao-vazia {
     padding: 20px 15px;
     text-align: center;
@@ -245,15 +273,10 @@ nav {
     font-style: italic;
 }
 
+/* ========================================
+   MENU DA GUIA DIÁRIO
+   ======================================== */
 
-
-
-
-
-
-
-
-/* Menu da guia Diário */
 .nome-da-guia {
     display: flex;
     align-items: center;
@@ -304,7 +327,10 @@ nav a:hover, .nome-da-guia a:hover {
     text-decoration: none; 
 }
 
-/* Conteúdo principal */
+/* ========================================
+   CONTEÚDO PRINCIPAL
+   ======================================== */
+
 .conteudo-principal {
     display: flex;
     flex-direction: row;
@@ -317,7 +343,7 @@ nav a:hover, .nome-da-guia a:hover {
     min-height: calc(100vh - 100px);
 }
 
-.fixed{
+.fixed {
     position: sticky;
 }
 
@@ -341,7 +367,7 @@ nav a:hover, .nome-da-guia a:hover {
     flex-direction: row;
 }
 
-.bloco-info{
+.bloco-info {
     display: block;
 }
 
@@ -349,14 +375,15 @@ nav a:hover, .nome-da-guia a:hover {
     width: 75px;
     height: 75px;
     border-radius: 100px;
+    object-fit: cover;
 }
 
-.img-saudacao{
+.img-saudacao {
     display: flex;
     padding: 20px 10px;
 }
 
-.saudacao{
+.saudacao {
     align-content: center;
     color: #fff;
     border-left: #3f3f3f solid 1px;
@@ -395,14 +422,14 @@ nav a:hover, .nome-da-guia a:hover {
     transform-origin: center;
 }
 
-.btn-muda-foto:hover{
+.btn-muda-foto:hover {
     background-color: #3f3f3f;
     color: #fff;
     transform: scale(1.02);
     box-shadow: rgba(255, 255, 255, 0.3) 0 3px 4px 0;
 }
 
-.btn-info{
+.btn-info {
     padding: 0 10px;
 }
 
@@ -438,6 +465,10 @@ nav a:hover, .nome-da-guia a:hover {
     width: auto;
 }
 
+/* ========================================
+   SUB-GUIA DIÁRIO
+   ======================================== */
+
 .sub-guia-diario {
     justify-content: center;
     align-content: center;
@@ -469,7 +500,7 @@ nav a:hover, .nome-da-guia a:hover {
     transition: 0.1s ease;
 }
 
-.btn-sub-guia:hover{
+.btn-sub-guia:hover {
     background-color: #3f3f3f;
     padding-left: 40px;
     padding-top: 15px;
@@ -477,14 +508,17 @@ nav a:hover, .nome-da-guia a:hover {
     padding-bottom: 15px;
     margin: 0 20px 0 20px;
     font-size: 18px;
-    border-radius:15px;
+    border-radius: 15px;
     width: auto;
     height: auto;
     color: #fff;
     transform: scale(1.02);
 }
 
-/* Parte maior da página */
+/* ========================================
+   PARTE MAIOR DA PÁGINA
+   ======================================== */
+
 .bloco-interno-maior {
     display: flex;
     flex-direction: row;
@@ -514,7 +548,7 @@ p {
 
 .Informacoes-para-aluno {
     border: #dadada solid 1px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
     height: 200px;
     width: 100%;
@@ -534,7 +568,7 @@ p {
 
 .Informacoes-para-aluno-not {
     border: #dadada solid 1px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
     height: 200px;
     width: 100%;
@@ -542,7 +576,10 @@ p {
     padding: 10px;
 }
 
-/* Responsividade */
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
 @media (max-width: 1024px) {
     .menu {
         flex-wrap: wrap;
@@ -560,17 +597,17 @@ p {
 
     .dropdown-notificacoes {
         right: 100px;
-        min-width: 180px;
+        width: 280px; /* Ajustado para telas menores */
     }
-
+    
     .dropdown-configuracoes {
         right: 50px;
-        min-width: 180px;
+        width: 280px;
     }
-
+    
     .dropdown-perfil {
         right: 0px;
-        min-width: 200px;
+        width: 280px;
     }
 }
 
@@ -598,8 +635,11 @@ p {
         gap: 5px;
     }
 
-    .dropdown-configuracoes {
-        right: 10px;
-        min-width: 180px;
+    .dropdown-notificacoes,
+    .dropdown-configuracoes,
+    .dropdown-perfil {
+        width: 280px;
+        right: 0;
+        left: auto;
     }
 }
