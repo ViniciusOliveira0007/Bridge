@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Diagnóstico - Dropdowns</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+
+        /* Navegação */
+        nav {
+            background-color: #161616;
+            padding: 10px 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu {
+            display: flex;  
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 20px;
+        }
+
+        .menu-1 {
+            color: white;
+            font-weight: bold;
+        }
+
+        .menu-3 {
+            display: flex;
+            gap: 15px;
+            position: relative !important;
+        }
+
+        .menu-3 img {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .menu-3 img:hover {
+            transform: scale(1.1);
+        }
+
+        .foto-de-perfil {
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        /* DROPDOWNS */
+        .dropdown-notificacoes,
+        .dropdown-configuracoes,
+        .dropdown-perfil {
+            display: none;
+            position: absolute;
+            top: 55px;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            z-index: 9999;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        .ativo {
+            display: block !important;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-header {
+            background: #f8f9fa;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .dropdown-titulo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .dropdown-titulo img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .perfil-mini {
+            width: 30px !important;
+            height: 30px !important;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+        }
+
+        .btn-fechar {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .btn-fechar:hover {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .dropdown-opcoes {
+            padding: 10px 0;
+        }
+
+        .opcao-item {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            text-align: left;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 14px;
+            color: #333;
+            display: block;
+        }
+
+        .opcao-item:hover {
+            background: #f8f9fa;
+        }
+
+        .sair-conta {
+            color: #d32f2f !important;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 5px;
+            padding-top: 15px !important;
+        }
+
+        .sair-conta:hover {
+            background: #ffebee !important;
+        }
+
+        .notificacao-vazia {
+            padding: 30px 20px;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* Console de Log */
+        .console-log {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #0f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-width: 400px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 10000;
+        }
+
+        .console-log .log-item {
+            margin: 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .log-title {
+            color: #ff0 !important;
+            font-weight: bold;
+            margin-bottom: 10px !important;
+        }
+
+        .log-success {
+            color: #0f0 !important;
+        }
+
+        .log-error {
+            color: #f00 !important;
+        }
+
+        .log-warning {
+            color: #fa0 !important;
+        }
+
+        /* Conteúdo */
+        .conteudo {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .instrucoes {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .instrucoes h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .instrucoes p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .status-card {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ccc;
+        }
+
+        .status-card.ok {
+            border-color: #4caf50;
+        }
+
+        .status-card.error {
+            border-color: #f44336;
+        }
+
+        .status-card h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .status-card .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="menu">
+            <div class="menu-1">
+                <h2>🔍 TESTE DE DIAGNÓSTICO</h2>
+            </div>
+            
+            <div class="menu-3">
+                <!-- Usando SVG inline para garantir que as imagens apareçam -->
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9'/%3E%3Cpath d='M13.73 21a2 2 0 0 1-3.46 0'/%3E%3C/svg%3E" 
+                     alt="notificação" 
+                     class="btn-notificao-nav"
+                     id="btnNotif">
+                
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M12 1v6m0 6v6m9-9h-6m-6 0H3'/%3E%3C/svg%3E" 
+                     alt="configuração" 
+                     class="btn-config"
+                     id="btnConfig">
+                
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 20c0-4 4-6 8-6s8 2 8 6'/%3E%3C/svg%3E" 
+                     alt="perfil" 
+                     class="foto-de-perfil" 
+                     id="fotoPerfil">
+                
+                <!-- Dropdown de Notificações -->
+                <div class="dropdown-notificacoes" id="dropdownNotif">
+                    <div class="dropdown-header">
+                        <div class="dropdown-titulo">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9'/%3E%3C/svg%3E">
+                            <span>Notificações</span>
+                        </div>
+                        <button class="btn-fechar" id="fecharNotif">&times;</button>
+                    </div>
+                    <div class="dropdown-opcoes">
+                        <div class="notificacao-vazia">✅ Dropdown de notificações funcionando!</div>
+                    </div>
+                </div>
+
+                <!-- Dropdown de Configurações -->
+                <div class="dropdown-configuracoes" id="dropdownConfig">
+                    <div class="dropdown-header">
+                        <div class="dropdown-titulo">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E">
+                            <span>Configurações</span>
+                        </div>
+                        <button class="btn-fechar" id="fecharConfig">&times;</button>
+                    </div>
+                    <div class="dropdown-opcoes">
+                        <button class="opcao-item">✅ Tema</button>
+                        <button class="opcao-item">✅ Acessibilidade</button>
+                        <button class="opcao-item">✅ Opções avançadas</button>
+                    </div>
+                </div>
+
+                <!-- Dropdown de Perfil -->
+                <div class="dropdown-perfil" id="dropdownPerfil">
+                    <div class="dropdown-header">
+                        <div class="dropdown-titulo">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3C/svg%3E" class="perfil-mini">
+                            <span id="nomeNoDropdown">Olá, Usuário</span>
+                        </div>
+                        <button class="btn-fechar" id="fecharPerfil">&times;</button>
+                    </div>
+                    <div class="dropdown-opcoes">
+                        <button class="opcao-item">✅ Seu perfil</button>
+                        <button class="opcao-item">✅ Privacidade</button>
+                        <button class="opcao-item">✅ Ajuda e Recursos</button>
+                        <button class="opcao-item sair-conta">🚪 Sair da Conta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="conteudo">
+        <div class="instrucoes">
+            <h1>🔍 Diagnóstico de Dropdowns</h1>
+            <p><strong>Instruções:</strong> Clique nos ícones no canto superior direito (sino, engrenagem, perfil)</p>
+            <p>Observe o console de log no canto inferior direito para ver o que está acontecendo</p>
+            
+            <div class="status-grid">
+                <div class="status-card" id="statusNotif">
+                    <h3>Notificações</h3>
+                    <div class="value" id="contNotif">0</div>
+                </div>
+                <div class="status-card" id="statusConfig">
+                    <h3>Configurações</h3>
+                    <div class="value" id="contConfig">0</div>
+                </div>
+                <div class="status-card" id="statusPerfil">
+                    <h3>Perfil</h3>
+                    <div class="value" id="contPerfil">0</div>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; font-size: 12px; color: #999;">
+                Se os dropdowns funcionarem aqui mas não no seu projeto, o problema está no CSS ou conflito de arquivos
+            </p>
+        </div>
+    </div>
+
+    <!-- Console de Log -->
+    <div class="console-log">
+        <div class="log-title">📋 LOG DE EVENTOS</div>
+        <div id="logContainer"></div>
+    </div>
+
+    <script>
+        // Sistema de Log
+        const logContainer = document.getElementById('logContainer');
+        let contadorNotif = 0;
+        let contadorConfig = 0;
+        let contadorPerfil = 0;
+
+        function log(message, type = 'success') {
+            const time = new Date().toLocaleTimeString();
+            const div = document.createElement('div');
+            div.className = `log-item log-${type}`;
+            div.textContent = `[${time}] ${message}`;
+            logContainer.appendChild(div);
+            logContainer.scrollTop = logContainer.scrollHeight;
+            console.log(`[${time}] ${message}`);
+        }
+
+        log('✅ Sistema iniciado', 'success');
+
+        // Elementos
+        const dropNotif = document.getElementById('dropdownNotif');
+        const dropConfig = document.getElementById('dropdownConfig');
+        const dropPerfil = document.getElementById('dropdownPerfil');
+        
+        const btnNotif = document.getElementById('btnNotif');
+        const btnConfig = document.getElementById('btnConfig');
+        const btnPerfil = document.getElementById('fotoPerfil');
+
+        // Verificar se elementos existem
+        if (!dropNotif || !dropConfig || !dropPerfil) {
+            log('❌ ERRO: Dropdowns não encontrados no DOM', 'error');
+        } else {
+            log('✅ Dropdowns encontrados', 'success');
+        }
+
+        if (!btnNotif || !btnConfig || !btnPerfil) {
+            log('❌ ERRO: Botões não encontrados no DOM', 'error');
+        } else {
+            log('✅ Botões encontrados', 'success');
+        }
+
+        function fecharTodos() {
+            log('🔒 Fechando todos os dropdowns', 'warning');
+            dropNotif.classList.remove('ativo');
+            dropConfig.classList.remove('ativo');
+            dropPerfil.classList.remove('ativo');
+        }
+
+        // Abrir Notificações
+        btnNotif.addEventListener('click', (e) => {
+            e.stopPropagation();
+            log('🔔 Clicou em Notificações', 'success');
+            const estaAberto = dropNotif.classList.contains('ativo');
+            fecharTodos();
+            if (!estaAberto) {
+                dropNotif.classList.add('ativo');
+                contadorNotif++;
+                document.getElementById('contNotif').textContent = contadorNotif;
+                document.getElementById('statusNotif').classList.add('ok');
+                log('✅ Dropdown Notificações ABERTO', 'success');
+            }
+        });
+
+        // Abrir Configurações
+        btnConfig.addEventListener('click', (e) => {
+            e.stopPropagation();
+            log('⚙️ Clicou em Configurações', 'success');
+            const estaAberto = dropConfig.classList.contains('ativo');
+            fecharTodos();
+            if (!estaAberto) {
+                dropConfig.classList.add('ativo');
+                contadorConfig++;
+                document.getElementById('contConfig').textContent = contadorConfig;
+                document.getElementById('statusConfig').classList.add('ok');
+                log('✅ Dropdown Configurações ABERTO', 'success');
+            }
+        });
+
+        // Abrir Perfil
+        btnPerfil.addEventListener('click', (e) => {
+            e.stopPropagation();
+            log('👤 Clicou em Perfil', 'success');
+            const estaAberto = dropPerfil.classList.contains('ativo');
+            fecharTodos();
+            if (!estaAberto) {
+                dropPerfil.classList.add('ativo');
+                contadorPerfil++;
+                document.getElementById('contPerfil').textContent = contadorPerfil;
+                document.getElementById('statusPerfil').classList.add('ok');
+                log('✅ Dropdown Perfil ABERTO', 'success');
+            }
+        });
+
+        // Fechar (Botões X)
+        document.getElementById('fecharNotif').addEventListener('click', (e) => {
+            log('❌ Fechou Notificações via X', 'warning');
+            fecharTodos();
+        });
+        
+        document.getElementById('fecharConfig').addEventListener('click', (e) => {
+            log('❌ Fechou Configurações via X', 'warning');
+            fecharTodos();
+        });
+        
+        document.getElementById('fecharPerfil').addEventListener('click', (e) => {
+            log('❌ Fechou Perfil via X', 'warning');
+            fecharTodos();
+        });
+
+        // Fechar ao clicar fora
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.menu-3')) {
+                const algumAberto = dropNotif.classList.contains('ativo') || 
+                                   dropConfig.classList.contains('ativo') || 
+                                   dropPerfil.classList.contains('ativo');
+                if (algumAberto) {
+                    log('👆 Clicou fora - Fechando dropdowns', 'warning');
+                    fecharTodos();
+                }
+            }
+        });
+
+        log('✅ Event listeners configurados', 'success');
+        log('🎯 Sistema pronto! Clique nos ícones acima', 'success');
+
+        // Teste automático após 2 segundos
+        setTimeout(() => {
+            log('⏰ Executando teste automático...', 'warning');
+            log('🧪 Testando classes CSS...', 'warning');
+            
+            // Testar se a classe .ativo funciona
+            dropNotif.classList.add('ativo');
+            const estiloComputado = window.getComputedStyle(dropNotif);
+            const display = estiloComputado.display;
+            
+            if (display === 'block') {
+                log('✅ CSS funcionando! Display = ' + display, 'success');
+            } else {
+                log('❌ PROBLEMA NO CSS! Display = ' + display, 'error');
+                log('💡 Verifique se o arquivo CSS foi carregado corretamente', 'error');
+            }
+            
+            dropNotif.classList.remove('ativo');
+        }, 2000);
+    </script>
+</body>
+</html>

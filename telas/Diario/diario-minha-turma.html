@@ -4,367 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diário - Minhas Turmas</title>
-    <link rel="stylesheet" href="./css-diario/estilos_diario.css">
-    <link rel="stylesheet" href="./css-diario/estilo_diario-aulas.css">
-    <style>
-        .secao-turmas {
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
+    
+ 
+    
 
-        .secao-turmas h2 {
-            margin: 0 0 20px 0;
-            color: #333;
-            font-size: 24px;
-        }
-
-        .grid-turmas {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .card-turma {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border-top: 5px solid #cb0b0b;
-        }
-
-        .card-turma:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-        }
-
-        .card-turma-header {
-            background: linear-gradient(135deg, #cb0b0b 0%, #7e0000 100%);
-            color: white;
-            padding: 20px;
-        }
-
-        .card-turma-header h3 {
-            margin: 0 0 5px 0;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .card-turma-header p {
-            margin: 0;
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .card-turma-body {
-            padding: 20px;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .info-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .info-item strong {
-            color: #333;
-            min-width: 100px;
-            font-weight: 600;
-        }
-
-        .info-item .badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-left: auto;
-        }
-
-        .badge-alunos {
-            background: #e3f2fd;
-            color: #1976d2;
-        }
-
-        .badge-ativo {
-            background: #e8f5e9;
-            color: #388e3c;
-        }
-
-        .card-turma-footer {
-            padding: 15px 20px;
-            background: #f8f9fa;
-            border-top: 1px solid #e0e0e0;
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-turma-acao {
-            flex: 1;
-            padding: 10px 16px;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 13px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-ver-alunos {
-            background: #cb0b0b;
-            color: white;
-        }
-
-        .btn-ver-alunos:hover {
-            background: #7e0000;
-            transform: translateY(-2px);
-        }
-
-        .btn-presenca {
-            background: #4caf50;
-            color: white;
-        }
-
-        .btn-presenca:hover {
-            background: #45a049;
-            transform: translateY(-2px);
-        }
-
-        .mensagem-vazio {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-        }
-
-        .mensagem-vazio img {
-            width: 120px;
-            height: 120px;
-            opacity: 0.5;
-            margin-bottom: 20px;
-        }
-
-        .mensagem-vazio h3 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .mensagem-vazio p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .estatisticas-resumo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .card-estatistica {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
-            border-left: 5px solid;
-        }
-
-        .card-estatistica.turmas {
-            border-color: #cb0b0b;
-        }
-
-        .card-estatistica.alunos {
-            border-color: #2196f3;
-        }
-
-        .card-estatistica.cursos {
-            border-color: #ff9800;
-        }
-
-        .card-estatistica .numero {
-            font-size: 36px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .card-estatistica.turmas .numero {
-            color: #cb0b0b;
-        }
-
-        .card-estatistica.alunos .numero {
-            color: #2196f3;
-        }
-
-        .card-estatistica.cursos .numero {
-            color: #ff9800;
-        }
-
-        .card-estatistica .label {
-            font-size: 12px;
-            color: #666;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .loading-spinner {
-            text-align: center;
-            padding: 40px;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #cb0b0b;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-            .grid-turmas {
-                grid-template-columns: 1fr;
-            }
-
-            .card-turma-footer {
-                flex-direction: column;
-            }
-
-            .estatisticas-resumo {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Modal de Alunos */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-overlay.ativo {
-            display: flex;
-        }
-
-        .modal-container {
-            background: white;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 700px;
-            max-height: 80vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, #cb0b0b 0%, #7e0000 100%);
-            color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h3 {
-            margin: 0;
-            font-size: 20px;
-        }
-
-        .modal-header .btn-fechar {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 28px;
-            cursor: pointer;
-            line-height: 1;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-        }
-
-        .modal-body {
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .lista-alunos-modal {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .aluno-item-modal {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #e0e0e0;
-            transition: background 0.3s ease;
-        }
-
-        .aluno-item-modal:hover {
-            background: #f8f9fa;
-        }
-
-        .aluno-item-modal:last-child {
-            border-bottom: none;
-        }
-
-        .aluno-foto-modal {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-            border: 2px solid #e0e0e0;
-        }
-
-        .aluno-info-modal {
-            flex: 1;
-        }
-
-        .aluno-nome-modal {
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 3px;
-        }
-
-        .aluno-email-modal {
-            font-size: 13px;
-            color: #666;
-        }
-
-        .aluno-numero-modal {
-            color: #999;
-            font-size: 18px;
-            font-weight: bold;
-            min-width: 30px;
-        }
-    </style>
+    <link rel="stylesheet" href="./css-diario/estilo-minha-turma.css">
+    
+ 
 </head>
 <body>
 
@@ -376,10 +22,55 @@
             <div class="menu-2">
                 <input type="text" placeholder="Pesquise aqui...">
             </div>
+            
             <div class="menu-3">
                 <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav">
                 <img src="./imagens-diario/configuracao.svg" alt="configuração" class="btn-config">
                 <img src="./imagens-diario/foto_de_perfil.png" alt="perfil" class="foto-de-perfil" id="fotoPerfil">
+                
+                <div class="dropdown-notificacoes" id="dropdownNotif">
+                    <div class="dropdown-header">
+                        <div class="dropdown-titulo">
+                            <img src="./imagens-diario/sino-black.svg" alt="Notificação">
+                            <span>Notificações</span>
+                        </div>
+                        <button class="btn-fechar" data-action="fechar-notif">&times;</button>
+                    </div>
+                    <div class="dropdown-opcoes">
+                        <div class="notificacao-vazia">Nenhuma notificação no momento</div>
+                    </div>
+                </div>
+
+                <div class="dropdown-configuracoes" id="dropdownConfig">
+                    <div class="dropdown-header">
+                        <div class="dropdown-titulo">
+                            <img src="./imagens-diario/configuracao-black.svg" alt="Configuração">
+                            <span>Configurações</span>
+                        </div>
+                        <button class="btn-fechar" data-action="fechar-config">&times;</button>
+                    </div>
+                    <div class="dropdown-opcoes">
+                        <button class="opcao-item">Tema</button>
+                        <button class="opcao-item">Acessibilidade</button>
+                        <button class="opcao-item">Opções avançadas</button>
+                    </div>
+                </div>
+
+                <div class="dropdown-perfil" id="dropdownPerfil">
+                    <div class="dropdown-header">
+                        <div class="dropdown-titulo">
+                            <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini" id="fotoPerfilMini">
+                            <span id="nomeNoDropdown">Olá, Professor</span>
+                        </div>
+                        <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
+                    </div>
+                    <div class="dropdown-opcoes">
+                        <button class="opcao-item">Seu perfil</button>
+                        <button class="opcao-item">Privacidade</button>
+                        <button class="opcao-item">Ajuda e Recursos</button>
+                        <button class="opcao-item sair-conta" data-action="sair-da-conta">Sair da Conta</button>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -394,22 +85,19 @@
     </div>
 
     <main class="conteudo-principal">
-        <!-- Barra Lateral -->
         <div class="bloco-de-conteudo-aulas">
             <div class="sub-guia-aulas">
                 <a class="btn-sub-guia-aulas" href="diario-professor-inicio.html">Início</a>
                 <a class="btn-sub-guia-aulas" href="diario-registrar-presenca.html">Presença</a>
                 <a class="btn-sub-guia-aulas" href="diario-relatorio-professor.html">Relatórios</a>
-                <a class="btn-sub-guia-aulas" href="diario-turmas-professor.html">Turmas</a>
+                <a class="btn-sub-guia-aulas" href="diario-minha-turma.html">Turmas</a>
             </div>
         </div>
 
-        <!-- Conteúdo Principal -->
         <div class="bloco-de-conteudo2">
             <div class="secao-turmas">
                 <h2>📚 Minhas Turmas</h2>
 
-                <!-- Estatísticas Resumo -->
                 <div class="estatisticas-resumo" id="estatisticasResumo" style="display: none;">
                     <div class="card-estatistica turmas">
                         <div class="label">Total de Turmas</div>
@@ -425,19 +113,16 @@
                     </div>
                 </div>
 
-                <!-- Loading -->
                 <div class="loading-spinner" id="loadingSpinner">
                     <div class="spinner"></div>
                     <p>Carregando suas turmas...</p>
                 </div>
 
-                <!-- Grid de Turmas -->
                 <div class="grid-turmas" id="gridTurmas"></div>
             </div>
         </div>
     </main>
 
-    <!-- Modal de Alunos -->
     <div class="modal-overlay" id="modalAlunos">
         <div class="modal-container">
             <div class="modal-header">
@@ -458,26 +143,85 @@
         if (!userData) {
             userData = JSON.parse(localStorage.getItem('usuarioLogado') || '{}');
         }
+        
+        const professorId = userData ? userData.id : null;
+        const userName = userData ? userData.name : 'Professor';
+        const userPerfilUrl = userData ? userData.perfilUrl : null;
 
-        const professorId = userData.id;
+        // Atualizar nome e foto
+        document.getElementById('nomeNoDropdown').textContent = `Olá, ${userName}`;
 
-        if (!professorId) {
-            alert('Você precisa fazer login como professor!');
-            window.location.href = '/telas/Login/tela-senha.html';
+        if (userPerfilUrl) {
+            const urlFoto = userPerfilUrl.startsWith('http') 
+                ? userPerfilUrl 
+                : `http://localhost:3000${userPerfilUrl}`;
+            
+            document.getElementById('fotoPerfil').src = urlFoto;
+            document.getElementById('fotoPerfilMini').src = urlFoto;
         }
 
-        // Atualiza foto de perfil
-        if (userData.perfilUrl) {
-            document.getElementById('fotoPerfil').src = `http://localhost:3000${userData.perfilUrl}`;
+        // ===================================
+        // DROPDOWNS - MESMO PADRÃO DO SALA.HTML
+        // ===================================
+        const dropdownNotif = document.getElementById('dropdownNotif');
+        const dropdownConfig = document.getElementById('dropdownConfig');
+        const dropdownPerfil = document.getElementById('dropdownPerfil');
+
+        document.querySelector('.btn-notificao-nav').addEventListener('click', () => {
+            dropdownConfig.classList.remove('ativo');
+            dropdownPerfil.classList.remove('ativo');
+            dropdownNotif.classList.toggle('ativo');
+        });
+
+        document.querySelector('.btn-config').addEventListener('click', () => {
+            dropdownNotif.classList.remove('ativo');
+            dropdownPerfil.classList.remove('ativo');
+            dropdownConfig.classList.toggle('ativo');
+        });
+
+        document.querySelector('.foto-de-perfil').addEventListener('click', () => {
+            dropdownNotif.classList.remove('ativo');
+            dropdownConfig.classList.remove('ativo');
+            dropdownPerfil.classList.toggle('ativo');
+        });
+
+        document.querySelectorAll('[data-action]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                
+                if (action === 'fechar-notif') {
+                    dropdownNotif.classList.remove('ativo');
+                } else if (action === 'fechar-config') {
+                    dropdownConfig.classList.remove('ativo');
+                } else if (action === 'fechar-perfil') {
+                    dropdownPerfil.classList.remove('ativo');
+                } else if (action === 'sair-da-conta') {
+                    if (confirm('Deseja sair da conta?')) {
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('usuarioLogado');
+                        window.location.href = '../login.html';
+                    }
+                }
+            });
+        });
+
+        // ===================================
+        // FUNÇÕES DE TURMAS
+        // ===================================
+        
+        function fazerLogout() {
+            localStorage.removeItem('user');
+            localStorage.removeItem('usuarioLogado');
+            window.location.href = '../login.html';
         }
 
-        // Carrega turmas do professor
         async function carregarTurmas() {
             try {
                 const response = await fetch(`${API_URL}/turmas/professor/${professorId}`);
                 const data = await response.json();
 
-                document.getElementById('loadingSpinner').style.display = 'none';
+                const spinner = document.getElementById('loadingSpinner');
+                if(spinner) spinner.style.display = 'none';
 
                 if (data.turmas && data.turmas.length > 0) {
                     renderizarEstatisticas(data.turmas);
@@ -487,13 +231,15 @@
                 }
             } catch (error) {
                 console.error('Erro ao carregar turmas:', error);
-                document.getElementById('loadingSpinner').innerHTML = `
-                    <p style="color: #d32f2f;">Erro ao carregar turmas. Por favor, tente novamente.</p>
-                `;
+                const spinner = document.getElementById('loadingSpinner');
+                if(spinner) {
+                    spinner.innerHTML = `
+                        <p style="color: #d32f2f;">Erro ao carregar turmas. Por favor, tente novamente.</p>
+                    `;
+                }
             }
         }
 
-        // Renderiza estatísticas
         function renderizarEstatisticas(turmas) {
             const totalTurmas = turmas.length;
             const totalAlunos = turmas.reduce((acc, turma) => acc + turma._count.alunos, 0);
@@ -506,7 +252,6 @@
             document.getElementById('estatisticasResumo').style.display = 'grid';
         }
 
-        // Renderiza turmas
         function renderizarTurmas(turmas) {
             const grid = document.getElementById('gridTurmas');
             
@@ -548,7 +293,6 @@
             }).join('');
         }
 
-        // Mostra mensagem quando não há turmas
         function mostrarMensagemVazio() {
             const grid = document.getElementById('gridTurmas');
             grid.innerHTML = `
@@ -560,7 +304,6 @@
             `;
         }
 
-        // Ver alunos da turma
         async function verAlunos(turmaId, nomeTurma) {
             try {
                 const response = await fetch(`${API_URL}/turmas/${turmaId}`);
@@ -605,22 +348,23 @@
             }
         }
 
-        // Fechar modal
         function fecharModal() {
             document.getElementById('modalAlunos').classList.remove('ativo');
         }
 
-        // Fechar modal ao clicar fora
         document.getElementById('modalAlunos').addEventListener('click', (e) => {
             if (e.target.id === 'modalAlunos') {
                 fecharModal();
             }
         });
 
-        // Carregar turmas ao iniciar
-        carregarTurmas();
+        // Inicializar
+        if (!professorId) {
+            alert('Você precisa fazer login como professor!');
+        } else {
+            carregarTurmas();
+        }
     </script>
 
-    <script src="./Foto-usuario-adaptativa.js"></script>
 </body>
 </html>
