@@ -92,32 +92,32 @@
             </div>
             <h3 class="h3-proposta">Sugestões de Propostas</h3>
             <div class="secao-propostas">
-                <a href="/telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="../imagens_trilhas/img-empresas/meta.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
-                                oiii
+                                Nova identidade visual.
                             </h4>
                         </div>
                     </div>
                 </a>
-                <a href="/telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="../imagens_trilhas/img-empresas/amazon.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
-                                oiii
+                                Sistema autonomo de IA.
                             </h4>
                         </div>
                     </div>
                 </a>
-                <a href="./telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="../imagens_trilhas/img-empresas/google.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
-                                Tabela Excel, contabilidade e gerenciamento
+                                Tabela Excel, contabilidade e gerenciamento de informações
                             </h4>
                         </div>
                     </div>
@@ -327,190 +327,212 @@
     </main>
 
     <script>
-        const API_URL = 'http://localhost:3000/api';
-        const STORAGE_KEY = 'trilhasCommentsPost1';
+       const API_URL = 'http://localhost:3000/api';
+const STORAGE_KEY = 'trilhasCommentsPost1';
 
-        document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    
+    // ============================================
+    // 1. VERIFICAR LOGIN E CARREGAR DADOS
+    // ============================================
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    
+    if (!usuarioLogado || !usuarioLogado.id) {
+        alert('Você precisa fazer login primeiro!');
+        window.location.href = '/home.html';
+        return;
+    }
+
+    console.log('👤 Usuário logado:', usuarioLogado);
+
+    // ============================================
+    // 2. FUNÇÃO PARA ATUALIZAR TODAS AS FOTOS
+    // ============================================
+    function atualizarTodasFotosPerfil(fotoUrl) {
+        const URL_PADRAO = '../imagens_trilhas/foto_de_perfil.png';
+        const urlCompleta = fotoUrl 
+            ? (fotoUrl.startsWith('http') ? fotoUrl : `http://localhost:3000${fotoUrl}`)
+            : URL_PADRAO;
+        
+        // Atualizar foto no nav
+        const fotoPerfilNav = document.getElementById('fotoPerfilNav');
+        if (fotoPerfilNav) {
+            fotoPerfilNav.src = urlCompleta;
+            fotoPerfilNav.onerror = () => fotoPerfilNav.src = URL_PADRAO;
+        }
+        
+        // Atualizar foto no dropdown
+        const fotoPerfilMini = document.getElementById('fotoPerfilMini');
+        if (fotoPerfilMini) {
+            fotoPerfilMini.src = urlCompleta;
+            fotoPerfilMini.onerror = () => fotoPerfilMini.src = URL_PADRAO;
+        }
+        
+        // Atualizar foto na sidebar (perfil)
+        const imgPerfil = document.querySelector('.img-perfil');
+        if (imgPerfil) {
+            imgPerfil.src = urlCompleta;
+            imgPerfil.onerror = () => imgPerfil.src = URL_PADRAO;
+        }
+        
+        console.log('✅ Fotos de perfil atualizadas:', urlCompleta);
+    }
+
+    // ============================================
+    // 3. ATUALIZAÇÃO IMEDIATA DO LOCALSTORAGE
+    // ============================================
+    if (usuarioLogado.perfilUrl) {
+        atualizarTodasFotosPerfil(usuarioLogado.perfilUrl);
+    }
+
+    // ============================================
+    // 4. CARREGAR DADOS ATUALIZADOS DA API
+    // ============================================
+    async function carregarFotoPerfil() {
+        try {
+            const response = await fetch(`${API_URL}/users/${usuarioLogado.id}`);
+            const data = await response.json();
             
-            // ============================================
-            // 1. VERIFICAR LOGIN E CARREGAR DADOS
-            // ============================================
-            const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
-            
-            if (!usuarioLogado || !usuarioLogado.id) {
-                alert('Você precisa fazer login primeiro!');
-                window.location.href = '/home.html';
-                return;
-            }
-
-            const URL_PADRAO = './imagens_trilhas/foto_de_perfil.png';
-            const fotoPerfilNav = document.getElementById('fotoPerfilNav');
-            const fotoPerfilMini = document.getElementById('fotoPerfilMini');
-            const fotoComentario = document.getElementById('fotoComentario');
-
-            console.log('👤 Usuário logado:', usuarioLogado);
-
-            // ============================================
-            // 2. CARREGAR FOTO DE PERFIL DO BACKEND
-            // ============================================
-            async function carregarFotoPerfil() {
-                try {
-                    const response = await fetch(`${API_URL}/users/${usuarioLogado.id}`);
-                    const data = await response.json();
-                    
-                    if (data.success && data.user) {
-                        const fotoUrl = data.user.perfilUrl 
-                            ? `http://localhost:3000${data.user.perfilUrl}` 
-                            : URL_PADRAO;
-                        
-                        fotoPerfilNav.src = fotoUrl;
-                        fotoPerfilMini.src = fotoUrl;
-                        fotoComentario.src = fotoUrl;
-                        
-                        // Atualizar nome do usuário
-                        document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${data.user.name || 'Usuário'}`;
-                        
-                        console.log('✅ Foto de perfil carregada:', fotoUrl);
-                    }
-                } catch (error) {
-                    console.error('❌ Erro ao carregar foto de perfil:', error);
-                    // Usar foto padrão em caso de erro
-                    fotoPerfilNav.src = URL_PADRAO;
-                    fotoPerfilMini.src = URL_PADRAO;
-                }
-            }
-
-            await carregarFotoPerfil();
-
-            // ============================================
-            // 3. NÍVEIS DE HABILIDADE
-            // ============================================
-            
-            const XpPorProjeto = 20;
-            const MetaNivel = 600;
-            const NivelMax = 6;
-
-            // ============================================
-            // 3.1 CALCULAR SUE NIVEL ATUAL 
-            // ============================================
-
-            function calcularNivel(totalProjetos){
-                const xpTotal = totalProjetos * XpPorProjeto;
-
-                let nivelAtual = Math.floor(xpTotal/MetaNivel) +1;
-
-                let xpNaFaixa = xpTotal % MetaNivel;
-
-                if(nivelAtual >= NivelMax){
-                    nivelAtual = NivelMax;
-                    xpNaFaixa = MetaNivel;
-                }
-
-                return {
-                    nivel: nivelAtual,
-                    xp: xpNaFaixa,
+            if (data.success && data.user) {
+                // Atualizar localStorage com dados mais recentes
+                const usuarioAtualizado = {
+                    ...usuarioLogado,
+                    name: data.user.name,
+                    perfilUrl: data.user.perfilUrl
                 };
-            }
-
-            // ============================================
-            // 3.2 ATUALIZAR O CODIGO
-            // ============================================
-
-            function atualizarCardsDeHabilidade() {
-            const cards = document.querySelectorAll('.card-habilidade');
-
-            cards.forEach(card => {
-                const projetos = parseInt(card.getAttribute('data-projetos')) || 0;
-
-                const resultado = calcularNivel(projetos);
-
-                const txtNivel = card.querySelector('.texto-nivel');
-                const txtXP = card.querySelector('.texto-xp');
-
-                if (txtNivel) {
-                    txtNivel.innerText = `Nível: ${resultado.nivel}/${NivelMax}`;
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
+                
+                // Atualizar nome do usuário
+                document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${data.user.name || 'Usuário'}`;
+                
+                // Atualizar fotos
+                if (data.user.perfilUrl) {
+                    atualizarTodasFotosPerfil(data.user.perfilUrl);
                 }
                 
-                if (txtXP) {
-                    txtXP.innerText = `XP: ${resultado.xp} / ${MetaNivel}`;
-                }
-                });
+                console.log('✅ Dados do usuário carregados da API');
             }
+        } catch (error) {
+            console.error('❌ Erro ao carregar foto de perfil:', error);
+        }
+    }
 
-            
-            // 3.3 ANIMAÇÃO BARRA DE PROGRESSO
-            
+    // Executar carregamento da API
+    await carregarFotoPerfil();
 
-            
-            // Executa a função de atualização imediatamente
-            atualizarCardsDeHabilidade();
+    // ============================================
+    // 5. NÍVEIS DE HABILIDADE
+    // ============================================
+    
+    const XpPorProjeto = 20;
+    const MetaNivel = 600;
+    const NivelMax = 6;
 
-            // ============================================
-            // 4. DROPDOWNS
-            // ============================================
-            const dropdownNotif = document.getElementById('dropdownNotif');
-            const dropdownConfig = document.getElementById('dropdownConfig');
-            const dropdownPerfil = document.getElementById('dropdownPerfil');
-            const btnNotif = document.querySelector('.btn-notificao-nav');
-            const btnConfig = document.querySelector('.btn-config');
-            
-            function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
-            function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
-            function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
-            
-            btnNotif.addEventListener('click', function() {
-                fecharDropdownConfig();
-                fecharDropdownPerfil();
-                dropdownNotif.classList.toggle('ativo');
-            });
-            
-            btnConfig.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownPerfil();
-                dropdownConfig.classList.toggle('ativo');
-            });
-            
-            fotoPerfilNav.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownConfig();
-                dropdownPerfil.classList.toggle('ativo');
-            });
+    function calcularNivel(totalProjetos){
+        const xpTotal = totalProjetos * XpPorProjeto;
+        let nivelAtual = Math.floor(xpTotal/MetaNivel) + 1;
+        let xpNaFaixa = xpTotal % MetaNivel;
 
-            document.querySelectorAll('[data-action]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const action = this.getAttribute('data-action');
-                    switch(action) {
-                        case 'fechar-notif': fecharDropdownNotif(); break;
-                        case 'fechar-config': fecharDropdownConfig(); break;
-                        case 'fechar-perfil': fecharDropdownPerfil(); break;
-                        case 'sair-da-conta':
-                            if (confirm('Tem certeza que deseja sair da conta?')) {
-                                localStorage.removeItem('usuarioLogado');
-                                window.location.href = '/home.html';
-                            }
-                            fecharDropdownPerfil();
-                            break;
-                        default:
-                            alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
-                            fecharDropdownConfig(); 
-                            fecharDropdownPerfil();
-                            break;
-                    }
-                });
-            });
+        if(nivelAtual >= NivelMax){
+            nivelAtual = NivelMax;
+            xpNaFaixa = MetaNivel;
+        }
+
+        return {
+            nivel: nivelAtual,
+            xp: xpNaFaixa,
+        };
+    }
+
+    function atualizarCardsDeHabilidade() {
+        const cards = document.querySelectorAll('.card-habilidade');
+
+        cards.forEach(card => {
+            const projetos = parseInt(card.getAttribute('data-projetos')) || 0;
+            const resultado = calcularNivel(projetos);
+
+            const txtNivel = card.querySelector('.texto-nivel');
+            const txtXP = card.querySelector('.texto-xp');
+
+            if (txtNivel) {
+                txtNivel.innerText = `Nível: ${resultado.nivel}/${NivelMax}`;
+            }
             
-            document.addEventListener('click', function(event) {
-                const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                                       !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                                       !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
-                
-                if (isClickOutside) {
-                    fecharDropdownNotif();
-                    fecharDropdownConfig();
-                    fecharDropdownPerfil();
-                }
-            });
+            if (txtXP) {
+                txtXP.innerText = `XP: ${resultado.xp} / ${MetaNivel}`;
+            }
         });
+    }
+
+    atualizarCardsDeHabilidade();
+
+    // ============================================
+    // 6. DROPDOWNS
+    // ============================================
+    const dropdownNotif = document.getElementById('dropdownNotif');
+    const dropdownConfig = document.getElementById('dropdownConfig');
+    const dropdownPerfil = document.getElementById('dropdownPerfil');
+    const btnNotif = document.querySelector('.btn-notificao-nav');
+    const btnConfig = document.querySelector('.btn-config');
+    const fotoPerfilNav = document.getElementById('fotoPerfilNav');
+    
+    function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
+    function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
+    function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
+    
+    btnNotif.addEventListener('click', function() {
+        fecharDropdownConfig();
+        fecharDropdownPerfil();
+        dropdownNotif.classList.toggle('ativo');
+    });
+    
+    btnConfig.addEventListener('click', function() {
+        fecharDropdownNotif();
+        fecharDropdownPerfil();
+        dropdownConfig.classList.toggle('ativo');
+    });
+    
+    fotoPerfilNav.addEventListener('click', function() {
+        fecharDropdownNotif();
+        fecharDropdownConfig();
+        dropdownPerfil.classList.toggle('ativo');
+    });
+
+    document.querySelectorAll('[data-action]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            switch(action) {
+                case 'fechar-notif': fecharDropdownNotif(); break;
+                case 'fechar-config': fecharDropdownConfig(); break;
+                case 'fechar-perfil': fecharDropdownPerfil(); break;
+                case 'sair-da-conta':
+                    if (confirm('Tem certeza que deseja sair da conta?')) {
+                        localStorage.removeItem('usuarioLogado');
+                        window.location.href = '/home.html';
+                    }
+                    fecharDropdownPerfil();
+                    break;
+                default:
+                    alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
+                    fecharDropdownConfig(); 
+                    fecharDropdownPerfil();
+                    break;
+            }
+        });
+    });
+    
+    document.addEventListener('click', function(event) {
+        const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
+                               !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
+                               !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
+        
+        if (isClickOutside) {
+            fecharDropdownNotif();
+            fecharDropdownConfig();
+            fecharDropdownPerfil();
+        }
+    });
+});
     </script>
 </body>
 </html>

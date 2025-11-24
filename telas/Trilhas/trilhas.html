@@ -94,32 +94,32 @@
             </div>
             <h3 class="h3-proposta">Sugestões de Propostas</h3>
             <div class="secao-propostas">
-                <a href="/telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="./imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="./imagens_trilhas/img-empresas/meta.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
-                                oiii
+                                Nova identidade visual.
                             </h4>
                         </div>
                     </div>
                 </a>
-                <a href="/telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="./imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="./imagens_trilhas/img-empresas/amazon.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
-                                oiii
+                                Sistema autonomo de IA.
                             </h4>
                         </div>
                     </div>
                 </a>
-                <a href="./telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="./imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="./imagens_trilhas/img-empresas/google.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
-                                Tabela Excel, contabilidade e gerenciamento
+                                Tabela Excel, contabilidade e gerenciamento de informações
                             </h4>
                         </div>
                     </div>
@@ -366,15 +366,50 @@
                 return;
             }
 
-            const URL_PADRAO = './imagens_trilhas/foto_de_perfil.png';
-            const fotoPerfilNav = document.getElementById('fotoPerfilNav');
-            const fotoPerfilMini = document.getElementById('fotoPerfilMini');
-            const fotoComentario = document.getElementById('fotoComentario');
-
             console.log('👤 Usuário logado:', usuarioLogado);
 
             // ============================================
-            // 2. CARREGAR FOTO DE PERFIL DO BACKEND
+            // 2. FUNÇÃO PARA ATUALIZAR TODAS AS FOTOS
+            // ============================================
+            function atualizarTodasFotosPerfil(fotoUrl) {
+                const URL_PADRAO = './imagens_trilhas/foto_de_perfil.png';
+                const urlCompleta = fotoUrl 
+                    ? (fotoUrl.startsWith('http') ? fotoUrl : `http://localhost:3000${fotoUrl}`)
+                    : URL_PADRAO;
+                
+                // Atualizar foto no nav
+                const fotoPerfilNav = document.getElementById('fotoPerfilNav');
+                if (fotoPerfilNav) {
+                    fotoPerfilNav.src = urlCompleta;
+                    fotoPerfilNav.onerror = () => fotoPerfilNav.src = URL_PADRAO;
+                }
+                
+                // Atualizar foto no dropdown
+                const fotoPerfilMini = document.getElementById('fotoPerfilMini');
+                if (fotoPerfilMini) {
+                    fotoPerfilMini.src = urlCompleta;
+                    fotoPerfilMini.onerror = () => fotoPerfilMini.src = URL_PADRAO;
+                }
+                
+                // Atualizar foto na sidebar (perfil)
+                const imgPerfil = document.querySelector('.img-perfil');
+                if (imgPerfil) {
+                    imgPerfil.src = urlCompleta;
+                    imgPerfil.onerror = () => imgPerfil.src = URL_PADRAO;
+                }
+                
+                console.log('✅ Fotos de perfil atualizadas:', urlCompleta);
+            }
+
+            // ============================================
+            // 3. ATUALIZAÇÃO IMEDIATA DO LOCALSTORAGE
+            // ============================================
+            if (usuarioLogado.perfilUrl) {
+                atualizarTodasFotosPerfil(usuarioLogado.perfilUrl);
+            }
+
+            // ============================================
+            // 4. CARREGAR DADOS ATUALIZADOS DA API
             // ============================================
             async function carregarFotoPerfil() {
                 try {
@@ -382,37 +417,34 @@
                     const data = await response.json();
                     
                     if (data.success && data.user) {
-                        const fotoUrl = data.user.perfilUrl 
-                            ? `http://localhost:3000${data.user.perfilUrl}` 
-                            : URL_PADRAO;
-                        
-                        fotoPerfilNav.src = fotoUrl;
-                        fotoPerfilMini.src = fotoUrl;
-                        fotoComentario.src = fotoUrl;
+                        // Atualizar localStorage com dados mais recentes
+                        const usuarioAtualizado = {
+                            ...usuarioLogado,
+                            name: data.user.name,
+                            perfilUrl: data.user.perfilUrl
+                        };
+                        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
                         
                         // Atualizar nome do usuário
                         document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${data.user.name || 'Usuário'}`;
                         
-                        console.log('✅ Foto de perfil carregada:', fotoUrl);
+                        // Atualizar fotos
+                        if (data.user.perfilUrl) {
+                            atualizarTodasFotosPerfil(data.user.perfilUrl);
+                        }
+                        
+                        console.log('✅ Dados do usuário carregados da API');
                     }
                 } catch (error) {
                     console.error('❌ Erro ao carregar foto de perfil:', error);
-                    // Usar foto padrão em caso de erro
-                    fotoPerfilNav.src = URL_PADRAO;
-                    fotoPerfilMini.src = URL_PADRAO;
-                    fotoComentario.src = URL_PADRAO;
                 }
             }
 
+            // Executar carregamento da API
             await carregarFotoPerfil();
 
             // ============================================
-            // 3. LÓGICA DE ESTADO PROPOSTA
-            // ============================================
-           
-
-            // ============================================
-            // 4. DROPDOWNS
+            // 5. DROPDOWNS
             // ============================================
             const dropdownNotif = document.getElementById('dropdownNotif');
             const dropdownConfig = document.getElementById('dropdownConfig');

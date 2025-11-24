@@ -91,33 +91,33 @@
                 </div>
             </div>
             <h3 class="h3-proposta">Sugestões de Propostas</h3>
-            <div class="secao-propostas">
-                <a href="/telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+<div class="secao-propostas">
+                <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="../imagens_trilhas/img-empresas/meta.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
-                                oiii
+                                Nova identidade visual.
                             </h4>
                         </div>
                     </div>
                 </a>
-                <a href="/telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="../imagens_trilhas/img-empresas/amazon.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
-                                oiii
+                                Sistema autonomo de IA.
                             </h4>
                         </div>
                     </div>
                 </a>
-                <a href="./telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="../imagens_trilhas/img-empresas/google.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
-                                Tabela Excel, contabilidade e gerenciamento
+                                Tabela Excel, contabilidade e gerenciamento de informações
                             </h4>
                         </div>
                     </div>
@@ -221,361 +221,373 @@
 
     <script>
         const API_URL = 'http://localhost:3000/api';
-        const STORAGE_KEY = 'trilhasCommentsPost1';
+const STORAGE_KEY = 'trilhasCommentsPost1';
 
-        document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    
+    // ============================================
+    // 1. VERIFICAR LOGIN E CARREGAR DADOS
+    // ============================================
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    
+    if (!usuarioLogado || !usuarioLogado.id) {
+        alert('Você precisa fazer login primeiro!');
+        window.location.href = '/home.html';
+        return;
+    }
+
+    console.log('👤 Usuário logado:', usuarioLogado);
+
+    // ============================================
+    // 2. FUNÇÃO PARA ATUALIZAR TODAS AS FOTOS
+    // ============================================
+    function atualizarTodasFotosPerfil(fotoUrl) {
+        const URL_PADRAO = '../imagens_trilhas/foto_de_perfil.png';
+        const urlCompleta = fotoUrl 
+            ? (fotoUrl.startsWith('http') ? fotoUrl : `http://localhost:3000${fotoUrl}`)
+            : URL_PADRAO;
+        
+        // Atualizar foto no nav
+        const fotoPerfilNav = document.getElementById('fotoPerfilNav');
+        if (fotoPerfilNav) {
+            fotoPerfilNav.src = urlCompleta;
+            fotoPerfilNav.onerror = () => fotoPerfilNav.src = URL_PADRAO;
+        }
+        
+        // Atualizar foto no dropdown
+        const fotoPerfilMini = document.getElementById('fotoPerfilMini');
+        if (fotoPerfilMini) {
+            fotoPerfilMini.src = urlCompleta;
+            fotoPerfilMini.onerror = () => fotoPerfilMini.src = URL_PADRAO;
+        }
+        
+        // Atualizar foto na sidebar (perfil) - TODAS as instâncias
+        const imgsPerfil = document.querySelectorAll('.img-perfil');
+        imgsPerfil.forEach(img => {
+            img.src = urlCompleta;
+            img.onerror = () => img.src = URL_PADRAO;
+        });
+
+        // Atualizar foto específica do portfólio (caso exista)
+        const imgPerfilTrilhas = document.querySelector('.img-perfil-trilhas');
+        if (imgPerfilTrilhas) {
+            imgPerfilTrilhas.src = urlCompleta;
+            imgPerfilTrilhas.onerror = () => imgPerfilTrilhas.src = URL_PADRAO;
+        }
+        
+        console.log('✅ Fotos de perfil atualizadas:', urlCompleta);
+    }
+
+    // ============================================
+    // 3. ATUALIZAÇÃO IMEDIATA DO LOCALSTORAGE
+    // ============================================
+    if (usuarioLogado.perfilUrl) {
+        atualizarTodasFotosPerfil(usuarioLogado.perfilUrl);
+    }
+
+    // ============================================
+    // 4. CARREGAR DADOS ATUALIZADOS DA API
+    // ============================================
+    async function carregarFotoPerfil() {
+        try {
+            const response = await fetch(`${API_URL}/users/${usuarioLogado.id}`);
+            const data = await response.json();
             
-            // ============================================
-            // 1. VERIFICAR LOGIN E CARREGAR DADOS
-            // ============================================
-            const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
-            
-            if (!usuarioLogado || !usuarioLogado.id) {
-                alert('Você precisa fazer login primeiro!');
-                window.location.href = '/home.html';
-                return;
-            }
-
-            const URL_PADRAO = './imagens_trilhas/foto_de_perfil.png';
-            const fotoPerfilNav = document.getElementById('fotoPerfilNav');
-            const fotoPerfilMini = document.getElementById('fotoPerfilMini');
-            const fotoComentario = document.getElementById('fotoComentario');
-
-            console.log('👤 Usuário logado:', usuarioLogado);
-
-            // ============================================
-            // 2. CARREGAR FOTO DE PERFIL DO BACKEND
-            // ============================================
-            async function carregarFotoPerfil() {
-                try {
-                    const response = await fetch(`${API_URL}/users/${usuarioLogado.id}`);
-                    const data = await response.json();
-                    
-                    if (data.success && data.user) {
-                        const fotoUrl = data.user.perfilUrl 
-                            ? `http://localhost:3000${data.user.perfilUrl}` 
-                            : URL_PADRAO;
-                        
-                        fotoPerfilNav.src = fotoUrl;
-                        fotoPerfilMini.src = fotoUrl;
-                        fotoComentario.src = fotoUrl;
-                        
-                        // Atualizar nome do usuário
-                        document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${data.user.name || 'Usuário'}`;
-                        
-                        console.log('✅ Foto de perfil carregada:', fotoUrl);
-                    }
-                } catch (error) {
-                    console.error('❌ Erro ao carregar foto de perfil:', error);
-                    // Usar foto padrão em caso de erro
-                    fotoPerfilNav.src = URL_PADRAO;
-                    fotoPerfilMini.src = URL_PADRAO;
-                }
-            }
-
-            await carregarFotoPerfil();
-
-            // ============================================
-            // 3. NÍVEIS DE HABILIDADE
-            // ============================================
-            
-            const XpPorProjeto = 20;
-            const MetaNivel = 600;
-            const NivelMax = 6;
-
-            // ============================================
-            // 3.1 CALCULAR SUE NIVEL ATUAL 
-            // ============================================
-
-            function calcularNivel(totalProjetos){
-                const xpTotal = totalProjetos * XpPorProjeto;
-
-                let nivelAtual = Math.floor(xpTotal/MetaNivel) +1;
-
-                let xpNaFaixa = xpTotal % MetaNivel;
-
-                if(nivelAtual >= NivelMax){
-                    nivelAtual = NivelMax;
-                    xpNaFaixa = MetaNivel;
-                }
-
-                return {
-                    nivel: nivelAtual,
-                    xp: xpNaFaixa,
+            if (data.success && data.user) {
+                // Atualizar localStorage com dados mais recentes
+                const usuarioAtualizado = {
+                    ...usuarioLogado,
+                    name: data.user.name,
+                    perfilUrl: data.user.perfilUrl
                 };
-            }
-
-            // ============================================
-            // 3.2 ATUALIZAR O CODIGO
-            // ============================================
-
-            function atualizarCardsDeHabilidade() {
-            const cards = document.querySelectorAll('.card-habilidade');
-
-            cards.forEach(card => {
-                const projetos = parseInt(card.getAttribute('data-projetos')) || 0;
-
-                const resultado = calcularNivel(projetos);
-
-                const txtNivel = card.querySelector('.texto-nivel');
-                const txtXP = card.querySelector('.texto-xp');
-
-                if (txtNivel) {
-                    txtNivel.innerText = `Nível: ${resultado.nivel}/${NivelMax}`;
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
+                
+                // Atualizar nome do usuário
+                document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${data.user.name || 'Usuário'}`;
+                
+                // Atualizar nome no portfólio (se existir)
+                const nmUsuario = document.querySelector('.nm-usuario');
+                if (nmUsuario) {
+                    nmUsuario.textContent = data.user.name || 'Usuário';
                 }
                 
-                if (txtXP) {
-                    txtXP.innerText = `XP: ${resultado.xp} / ${MetaNivel}`;
+                // Atualizar fotos
+                if (data.user.perfilUrl) {
+                    atualizarTodasFotosPerfil(data.user.perfilUrl);
                 }
-                });
+                
+                console.log('✅ Dados do usuário carregados da API');
             }
+        } catch (error) {
+            console.error('❌ Erro ao carregar foto de perfil:', error);
+        }
+    }
 
-            
-            // 3.3 ANIMAÇÃO BARRA DE PROGRESSO
-            
+    // Executar carregamento da API
+    await carregarFotoPerfil();
 
-            
-            // Executa a função de atualização imediatamente
-            atualizarCardsDeHabilidade();
+    // ============================================
+    // 5. NÍVEIS DE HABILIDADE
+    // ============================================
+    
+    const XpPorProjeto = 20;
+    const MetaNivel = 600;
+    const NivelMax = 6;
 
-            // ============================================
-            // 4. DROPDOWNS
-            // ============================================
-            const dropdownNotif = document.getElementById('dropdownNotif');
-            const dropdownConfig = document.getElementById('dropdownConfig');
-            const dropdownPerfil = document.getElementById('dropdownPerfil');
-            const btnNotif = document.querySelector('.btn-notificao-nav');
-            const btnConfig = document.querySelector('.btn-config');
-            
-            function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
-            function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
-            function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
-            
-            btnNotif.addEventListener('click', function() {
-                fecharDropdownConfig();
-                fecharDropdownPerfil();
-                dropdownNotif.classList.toggle('ativo');
-            });
-            
-            btnConfig.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownPerfil();
-                dropdownConfig.classList.toggle('ativo');
-            });
-            
-            fotoPerfilNav.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownConfig();
-                dropdownPerfil.classList.toggle('ativo');
-            });
+    function calcularNivel(totalProjetos){
+        const xpTotal = totalProjetos * XpPorProjeto;
+        let nivelAtual = Math.floor(xpTotal/MetaNivel) + 1;
+        let xpNaFaixa = xpTotal % MetaNivel;
 
-            document.querySelectorAll('[data-action]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const action = this.getAttribute('data-action');
-                    switch(action) {
-                        case 'fechar-notif': fecharDropdownNotif(); break;
-                        case 'fechar-config': fecharDropdownConfig(); break;
-                        case 'fechar-perfil': fecharDropdownPerfil(); break;
-                        case 'sair-da-conta':
-                            if (confirm('Tem certeza que deseja sair da conta?')) {
-                                localStorage.removeItem('usuarioLogado');
-                                window.location.href = '/home.html';
-                            }
-                            fecharDropdownPerfil();
-                            break;
-                        default:
-                            alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
-                            fecharDropdownConfig(); 
-                            fecharDropdownPerfil();
-                            break;
+        if(nivelAtual >= NivelMax){
+            nivelAtual = NivelMax;
+            xpNaFaixa = MetaNivel;
+        }
+
+        return {
+            nivel: nivelAtual,
+            xp: xpNaFaixa,
+        };
+    }
+
+    function atualizarCardsDeHabilidade() {
+        const cards = document.querySelectorAll('.card-habilidade');
+
+        cards.forEach(card => {
+            const projetos = parseInt(card.getAttribute('data-projetos')) || 0;
+            const resultado = calcularNivel(projetos);
+
+            const txtNivel = card.querySelector('.texto-nivel');
+            const txtXP = card.querySelector('.texto-xp');
+
+            if (txtNivel) {
+                txtNivel.innerText = `Nível: ${resultado.nivel}/${NivelMax}`;
+            }
+            
+            if (txtXP) {
+                txtXP.innerText = `XP: ${resultado.xp} / ${MetaNivel}`;
+            }
+        });
+    }
+
+    atualizarCardsDeHabilidade();
+
+    // ============================================
+    // 6. DROPDOWNS
+    // ============================================
+    const dropdownNotif = document.getElementById('dropdownNotif');
+    const dropdownConfig = document.getElementById('dropdownConfig');
+    const dropdownPerfil = document.getElementById('dropdownPerfil');
+    const btnNotif = document.querySelector('.btn-notificao-nav');
+    const btnConfig = document.querySelector('.btn-config');
+    const fotoPerfilNav = document.getElementById('fotoPerfilNav');
+    
+    function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
+    function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
+    function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
+    
+    btnNotif.addEventListener('click', function() {
+        fecharDropdownConfig();
+        fecharDropdownPerfil();
+        dropdownNotif.classList.toggle('ativo');
+    });
+    
+    btnConfig.addEventListener('click', function() {
+        fecharDropdownNotif();
+        fecharDropdownPerfil();
+        dropdownConfig.classList.toggle('ativo');
+    });
+    
+    fotoPerfilNav.addEventListener('click', function() {
+        fecharDropdownNotif();
+        fecharDropdownConfig();
+        dropdownPerfil.classList.toggle('ativo');
+    });
+
+    document.querySelectorAll('[data-action]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            switch(action) {
+                case 'fechar-notif': fecharDropdownNotif(); break;
+                case 'fechar-config': fecharDropdownConfig(); break;
+                case 'fechar-perfil': fecharDropdownPerfil(); break;
+                case 'sair-da-conta':
+                    if (confirm('Tem certeza que deseja sair da conta?')) {
+                        localStorage.removeItem('usuarioLogado');
+                        window.location.href = '/home.html';
                     }
-                });
-            });
-            
-            document.addEventListener('click', function(event) {
-                const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                                       !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                                       !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
-                
-                if (isClickOutside) {
-                    fecharDropdownNotif();
-                    fecharDropdownConfig();
                     fecharDropdownPerfil();
-                }
-            });
+                    break;
+                default:
+                    alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
+                    fecharDropdownConfig(); 
+                    fecharDropdownPerfil();
+                    break;
+            }
+        });
+    });
+    
+    document.addEventListener('click', function(event) {
+        const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
+                               !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
+                               !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
+        
+        if (isClickOutside) {
+            fecharDropdownNotif();
+            fecharDropdownConfig();
+            fecharDropdownPerfil();
+        }
+    });
 
-            // ============================================
-            // 6. LÓGICA DO POPUP DE ADICIONAR PROJETO
-            // ============================================
+    // ============================================
+    // 7. LÓGICA DO POPUP DE ADICIONAR PROJETO
+    // ============================================
+    
+    const popupAdd = document.getElementById('popupAdicionar');
+    const btnOpenAdd = document.getElementById('btnAdicionarPortifolio'); 
+
+    window.fecharPopupAdd = function() {
+        popupAdd.classList.remove('ativo');
+    }
+
+    window.mudarAba = function(aba) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('ativo'));
+        document.querySelectorAll('.aba-conteudo').forEach(cont => {
+            cont.style.display = 'none';
+            cont.classList.remove('ativo');
+        });
+
+        if(aba === 'aba-imagem') {
+            document.querySelectorAll('.tab-btn')[0].classList.add('ativo');
+            const form = document.getElementById('form-imagem');
+            form.style.display = 'flex';
+            form.classList.add('ativo');
+        } else {
+            document.querySelectorAll('.tab-btn')[1].classList.add('ativo');
+            const form = document.getElementById('form-arquivo');
+            form.style.display = 'flex';
+            form.classList.add('ativo');
+        }
+    }
+
+    if(btnOpenAdd) {
+        btnOpenAdd.addEventListener('click', function(e) {
+            e.preventDefault();
+            popupAdd.classList.add('ativo');
+        });
+    }
+
+    const formImagem = document.getElementById('form-imagem');
+    formImagem.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const titulo = document.getElementById('tituloImagem').value;
+        const inputImg = document.getElementById('inputImagem');
+        
+        if(inputImg.files && inputImg.files[0]) {
+            const reader = new FileReader();
             
-            const popupAdd = document.getElementById('popupAdicionar');
-            // Pega o botão que abre o popup (Você precisa adicionar esse ID no HTML)
-            const btnOpenAdd = document.getElementById('btnAdicionarPortifolio'); 
+            reader.onload = function(e) {
+                const novaImagemURL = e.target.result;
 
-            // Funções Globais (para funcionar no onclick do HTML)
-            window.fecharPopupAdd = function() {
-                popupAdd.classList.remove('ativo');
-            }
-
-            window.mudarAba = function(aba) {
-                // Remove classe ativo das abas e conteúdos
-                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('ativo'));
-                document.querySelectorAll('.aba-conteudo').forEach(cont => {
-                    cont.style.display = 'none';
-                    cont.classList.remove('ativo');
-                });
-
-                // Ativa a aba clicada
-                if(aba === 'aba-imagem') {
-                    document.querySelectorAll('.tab-btn')[0].classList.add('ativo');
-                    const form = document.getElementById('form-imagem');
-                    form.style.display = 'flex';
-                    form.classList.add('ativo');
-                } else {
-                    document.querySelectorAll('.tab-btn')[1].classList.add('ativo');
-                    const form = document.getElementById('form-arquivo');
-                    form.style.display = 'flex';
-                    form.classList.add('ativo');
-                }
-            }
-
-            // Abrir Popup
-            if(btnOpenAdd) {
-                btnOpenAdd.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    popupAdd.classList.add('ativo');
-                });
-            }
-
-            // --- LÓGICA 1: ADICIONAR IMAGEM (CARD PORTFÓLIO) ---
-            const formImagem = document.getElementById('form-imagem');
-            formImagem.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const titulo = document.getElementById('tituloImagem').value;
-                const inputImg = document.getElementById('inputImagem');
-                
-                if(inputImg.files && inputImg.files[0]) {
-                    const reader = new FileReader();
-                    
-                    reader.onload = function(e) {
-                        const novaImagemURL = e.target.result;
-
-                        // Cria o HTML do novo Card
-                        const novoCardHTML = `
-                            <div class="card-portifolio">
-                                <div class="img-do-portifolio">
-                                    <img src="${novaImagemURL}" alt="${titulo}" class="img-portifolio">
-                                </div>
-                                <div class="nm-portifolio">
-                                    <h3 class="titulo-portifolio">${titulo}</h3>
-                                </div>
-                            </div>
-                        `;
-
-                        // Adiciona na div correta (.secao-seu-portifolio)
-                        const containerPortifolio = document.querySelector('.secao-seu-portifolio');
-                        containerPortifolio.insertAdjacentHTML('afterbegin', novoCardHTML);
-                        
-                        // Limpa e fecha
-                        formImagem.reset();
-                        document.getElementById('txtNomeImagem').innerText = "Escolher imagem...";
-                        fecharPopupAdd();
-                    }
-                    
-                    reader.readAsDataURL(inputImg.files[0]);
-                }
-            });
-
-            // Atualizar texto do input file
-            document.getElementById('inputImagem').addEventListener('change', function() {
-                if(this.files[0]) document.getElementById('txtNomeImagem').innerText = this.files[0].name;
-            });
-
-
-            // --- LÓGICA 2: ADICIONAR ARQUIVO (ANEXOS) ---
-            const formArquivo = document.getElementById('form-arquivo');
-            formArquivo.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const titulo = document.getElementById('tituloArquivo').value;
-                const link = document.getElementById('linkArquivo').value || '#';
-                const icone = document.getElementById('tipoIcone').value;
-
-                // Cria o HTML do novo Anexo
-                const novoAnexoHTML = `
-                    <div class="card-de-anexo">
-                        <div class="projeto">
-                            <div class="img-de-anexo">
-                                <img src="../imagens_trilhas/icone-habilidades-trilhas/${icone}" alt="Icone" class="img-anexo">
-                            </div>
-                            <p class="nome-projeto">${titulo}</p>
+                const novoCardHTML = `
+                    <div class="card-portifolio">
+                        <div class="img-do-portifolio">
+                            <img src="${novaImagemURL}" alt="${titulo}" class="img-portifolio">
                         </div>
-                        <a href="${link}" target="_blank" class="btn-ver-sobre">Ver sobre</a>
+                        <div class="nm-portifolio">
+                            <h3 class="titulo-portifolio">${titulo}</h3>
+                        </div>
                     </div>
                 `;
 
-                // Adiciona na div correta (.secao-arquivos-anexados)
-                const containerAnexos = document.querySelector('.secao-arquivos-anexados');
-                containerAnexos.insertAdjacentHTML('afterbegin', novoAnexoHTML);
-
-                // Limpa e fecha
-                formArquivo.reset();
+                const containerPortifolio = document.querySelector('.secao-seu-portifolio');
+                containerPortifolio.insertAdjacentHTML('afterbegin', novoCardHTML);
+                
+                formImagem.reset();
+                document.getElementById('txtNomeImagem').innerText = "Escolher imagem...";
                 fecharPopupAdd();
-            });
+            }
+            
+            reader.readAsDataURL(inputImg.files[0]);
+        }
+    });
 
-            // ==========================================
-            // 7. LÓGICA DO VISUALIZADOR DE IMAGEM
-            // ==========================================
-            const popupViewer = document.getElementById('popupVisualizarImg');
-            const imgExpandida = document.getElementById('imgExpandida');
-            const tituloExpandido = document.getElementById('tituloExpandido');
-            const btnFecharViewer = document.getElementById('btnFecharViewer');
+    document.getElementById('inputImagem').addEventListener('change', function() {
+        if(this.files[0]) document.getElementById('txtNomeImagem').innerText = this.files[0].name;
+    });
 
-            // Função para abrir o visualizador
-            document.addEventListener('click', function(e) {
-                // Verifica se clicou em uma imagem do portfólio
-                if (e.target.classList.contains('img-portifolio')) {
-                    // Verifica se NÃO estamos no modo edição (para não abrir enquanto deleta)
-                    const areaPortifolio = document.querySelector('.seu-portifolio');
-                    if (areaPortifolio.classList.contains('modo-edicao')) {
-                        return; // Sai da função se estiver editando
-                    }
+    const formArquivo = document.getElementById('form-arquivo');
+    formArquivo.addEventListener('submit', function(e) {
+        e.preventDefault();
 
-                    const srcImagem = e.target.src;
-                    // Busca o título dentro do card pai
-                    const cardPai = e.target.closest('.card-portifolio');
-                    const titulo = cardPai.querySelector('.titulo-portifolio').innerText;
+        const titulo = document.getElementById('tituloArquivo').value;
+        const link = document.getElementById('linkArquivo').value || '#';
+        const icone = document.getElementById('tipoIcone').value;
 
-                    // Preenche o popup
-                    imgExpandida.src = srcImagem;
-                    tituloExpandido.innerText = titulo;
+        const novoAnexoHTML = `
+            <div class="card-de-anexo">
+                <div class="projeto">
+                    <div class="img-de-anexo">
+                        <img src="../imagens_trilhas/icone-habilidades-trilhas/${icone}" alt="Icone" class="img-anexo">
+                    </div>
+                    <p class="nome-projeto">${titulo}</p>
+                </div>
+                <a href="${link}" target="_blank" class="btn-ver-sobre">Ver sobre</a>
+            </div>
+        `;
 
-                    // Abre
-                    popupViewer.classList.add('ativo');
-                }
-            });
+        const containerAnexos = document.querySelector('.secao-arquivos-anexados');
+        containerAnexos.insertAdjacentHTML('afterbegin', novoAnexoHTML);
 
-            // Função para fechar
-            function fecharViewer() {
-                popupViewer.classList.remove('ativo');
-                setTimeout(() => {
-                    imgExpandida.src = ""; // Limpa para não piscar na próxima
-                }, 300);
+        formArquivo.reset();
+        fecharPopupAdd();
+    });
+
+    // ==========================================
+    // 8. LÓGICA DO VISUALIZADOR DE IMAGEM
+    // ==========================================
+    const popupViewer = document.getElementById('popupVisualizarImg');
+    const imgExpandida = document.getElementById('imgExpandida');
+    const tituloExpandido = document.getElementById('tituloExpandido');
+    const btnFecharViewer = document.getElementById('btnFecharViewer');
+
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('img-portifolio')) {
+            const areaPortifolio = document.querySelector('.seu-portifolio');
+            if (areaPortifolio.classList.contains('modo-edicao')) {
+                return;
             }
 
-            if(btnFecharViewer) {
-                btnFecharViewer.addEventListener('click', fecharViewer);
-            }
+            const srcImagem = e.target.src;
+            const cardPai = e.target.closest('.card-portifolio');
+            const titulo = cardPai.querySelector('.titulo-portifolio').innerText;
 
-            // Fechar clicando fora da imagem
-            popupViewer.addEventListener('click', function(e) {
-                if (e.target === popupViewer || e.target.classList.contains('popup-viewer-container')) {
-                    fecharViewer();
-                }
-            });
+            imgExpandida.src = srcImagem;
+            tituloExpandido.innerText = titulo;
 
-        });
+            popupViewer.classList.add('ativo');
+        }
+    });
+
+    function fecharViewer() {
+        popupViewer.classList.remove('ativo');
+        setTimeout(() => {
+            imgExpandida.src = "";
+        }, 300);
+    }
+
+    if(btnFecharViewer) {
+        btnFecharViewer.addEventListener('click', fecharViewer);
+    }
+
+    popupViewer.addEventListener('click', function(e) {
+        if (e.target === popupViewer || e.target.classList.contains('popup-viewer-container')) {
+            fecharViewer();
+        }
+    });
+
+});
     </script>
 
     <div class="popup-overlay" id="popupAdicionar">
