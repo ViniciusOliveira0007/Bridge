@@ -758,7 +758,7 @@ nav a:hover, .nome-da-guia a:hover {
 }
 .img-do-portifolio{
     width: 100%;
-    height: auto;
+    height: 320px;
     border-radius: 20px;
 }
 .img-portifolio{
@@ -905,6 +905,315 @@ nav a:hover, .nome-da-guia a:hover {
 .content-anexos{
     width: 100%;
     padding: 10px 20px;
+}
+
+/* --- ESTILOS DO POPUP (Design Dark) --- */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.popup-overlay.ativo {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-container {
+    background-color: #161616;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 20px;
+    border: 1px solid #3f3f3f;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.popup-header {
+    background-color: #1f1f1f;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #3f3f3f;
+}
+
+.popup-header h2 {
+    color: #fff;
+    font-size: 18px;
+}
+
+.btn-fechar-popup {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* --- ABAS (TABS) --- */
+.popup-tabs {
+    display: flex;
+    border-bottom: 1px solid #3f3f3f;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px;
+    background: #161616;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.tab-btn:hover {
+    background-color: #1f1f1f;
+    color: #fff;
+}
+
+.tab-btn.ativo {
+    color: #fff;
+    border-bottom: 3px solid #fff;
+    background-color: #252525;
+}
+
+/* --- FORMULÁRIO --- */
+.popup-form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.grupo-input label {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.grupo-input input[type="text"], 
+.input-padrao {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    padding: 0 15px;
+    border: 1px solid #3f3f3f;
+    background-color: #2a2a2a;
+    color: white;
+    outline: none;
+}
+
+/* Input de arquivo customizado */
+.custom-file-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px dashed #3f3f3f;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #2a2a2a;
+    color: #aaa;
+    transition: 0.3s;
+}
+
+.custom-file-upload:hover {
+    background: #333;
+    color: white;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.popup-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Botões reutilizando a lógica do seu layout */
+.btn-salvar, .btn-cancelar {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-salvar {
+    background-color:#15D3B1;
+    color: #ffffff;
+}
+
+.btn-salvar:hover {
+    background-color: #14a086;
+    transform: scale(1.05);
+}
+
+.btn-cancelar {
+    background-color: transparent;
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
+}
+
+.btn-cancelar:hover {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+/* --- BOTÃO DE DELETAR (Modo Edição) --- */
+
+/* O botão de lixeira (X) */
+.btn-delete-card {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: #ff4d4d; /* Vermelho */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 10; /* Ficar acima da imagem */
+    display: none; /* Oculto por padrão */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+}
+
+.btn-delete-card:hover {
+    background-color: #ff0000;
+    transform: scale(1.1);
+}
+
+/* Anexos precisam de position relative para o botão ficar no lugar certo */
+.card-de-anexo {
+    position: relative;
+}
+
+/* --- ATIVANDO O MODO EDIÇÃO --- */
+/* Quando a div pai tiver a classe 'modo-edicao', mostra os botões */
+.modo-edicao .btn-delete-card {
+    display: flex;
+    animation: popIn 0.3s ease;
+}
+
+/* Efeito de tremedeira opcional para indicar que está editando */
+.modo-edicao .card-portifolio, 
+.modo-edicao .card-de-anexo {
+    border: 1px dashed #ff4d4d;
+}
+
+@keyframes popIn {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+/* --- ESTILOS DO VISUALIZADOR DE IMAGEM --- */
+
+/* Container específico para centralizar a imagem */
+.popup-viewer-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Para clicar no overlay e fechar */
+}
+
+.viewer-content {
+    position: relative;
+    pointer-events: auto; /* Reativa cliques na imagem */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%;
+    max-height: 90%;
+    animation: zoomIn 0.3s ease;
+}
+
+/* A Imagem Expandida */
+#imgExpandida {
+    max-width: 100%;
+    max-height: 80vh; /* Garante que não estoure a altura */
+    border-radius: 15px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    border: 1px solid #3f3f3f;
+    object-fit: contain;
+}
+
+/* O Título embaixo da imagem */
+#tituloExpandido {
+    color: #fff;
+    margin-top: 15px;
+    font-size: 18px;
+    text-align: center;
+    background-color: rgba(22, 22, 22, 0.8);
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #3f3f3f;
+}
+
+/* Botão de fechar flutuante */
+.btn-fechar-viewer {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2001;
+}
+
+.btn-fechar-viewer:hover {
+    background: #ff4d4d;
+    border-color: #ff4d4d;
+    transform: rotate(90deg);
+}
+
+/* Animação de Zoom */
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
 /* Responsividade */

@@ -1037,8 +1037,8 @@ nav a:hover, .nome-da-guia a:hover {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7); /* Escurece o fundo */
-    backdrop-filter: blur(5px); /* Efeito de desfoque moderno */
-    z-index: 2000; /* Fica acima de tudo */
+    backdrop-filter: blur(5px); 
+    z-index: 2000; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1146,7 +1146,7 @@ nav a:hover, .nome-da-guia a:hover {
 input[type="range"] {
     flex: 1;
     cursor: pointer;
-    accent-color: #ffffff; /* Cor do slider */
+    accent-color: #ffffff;
 }
 
 .valor-range {
@@ -1218,6 +1218,164 @@ input[type="file"] {
 .btn-cancelar:hover {
     background-color: #ff4d4d;
     color: white;
+}
+/* Container relativo para posicionar a lista */
+.container-search-habilidade {
+    position: relative;
+}
+
+/* A lista de sugestões (Dropdown) */
+.lista-sugestoes {
+    position: absolute;
+    top: 75px; 
+    left: 0;
+    width: 100%;
+    background-color: #2a2a2a;
+    border: 1px solid #3f3f3f;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    display: none; 
+}
+
+/* Item da lista */
+.lista-sugestoes li {
+    padding: 10px 15px;
+    cursor: pointer;
+    color: #fff;
+    border-bottom: 1px solid #3f3f3f;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s;
+}
+
+.lista-sugestoes li:hover {
+    background-color: #3f3f3f;
+}
+
+.lista-sugestoes img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Preview do item selecionado */
+.habilidade-preview {
+    background: #3f3f3f40;
+    border: 1px solid #3f3f3f;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.info-selected {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-fechar-mini {
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Estilo específico para a área de texto */
+textarea#txtSobreMim {
+    width: 100%;
+    height: 200px; 
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid #3f3f3f;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    outline: none;
+    resize: vertical;
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 14px;
+    line-height: 1.5;
+    transition: border 0.3s;
+}
+
+textarea#txtSobreMim:focus {
+    border-color: #ffffff;
+}
+
+/* Contador de caracteres */
+.contador-caracteres {
+    text-align: right;
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* Estilo específico para a área de texto */
+textarea#txtSobreMim {
+    width: 100%;
+    height: 200px; 
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid #3f3f3f;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    outline: none;
+    resize: vertical; 
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 14px;
+    line-height: 1.5;
+    transition: border 0.3s;
+}
+
+textarea#txtSobreMim:focus {
+    border-color: #ffffff;
+}
+
+/* Contador de caracteres */
+.contador-caracteres {
+    text-align: right;
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* --- ESTILOS ESPECÍFICOS DO POPUP FORMAÇÃO --- */
+
+/* Coloca dois inputs na mesma linha */
+.linha-dupla {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.linha-dupla .grupo-input {
+    flex: 1; /* Cada um ocupa 50% */
+}
+
+/*Input estilizad comn padrao*/
+
+.inpu-formacao{
+    background: #3f3f3f;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: none;
+}
+
+/* Ajuste para inputs de número não terem as setinhas feias */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
 
 

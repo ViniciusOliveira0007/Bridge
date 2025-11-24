@@ -189,7 +189,7 @@
                                             </div>
                                         </div>
                                         <div class="content-add-formacao">
-                                            <a href="" class="btn-trilhas">Adicionar Formações <img src="../imagens_trilhas/icone-formacao.svg" alt="formações"></a>
+                                            <a href="#" class="btn-trilhas" id="btnAbrirFormacao">Adicionar Formações <img src="../imagens_trilhas/icone-formacao.svg" alt="formações"></a>
                                             
                                             <a href="" class="btn-trilhas">Editar Formações <img src="../imagens_trilhas/edit-icon-perfil.svg" alt="formações"></a>
                                         </div>
@@ -204,7 +204,7 @@
                                     </p>
                                 </div>
                                 <div class="content-edit-sobre-mim">
-                                    <a href="" class="btn-trilhas">Editar Sobre mim <img src="../imagens_trilhas/edit-icon-perfil.svg" alt="habilidades"></a>
+                                    <a href="#" class="btn-trilhas" id="btnAbrirSobreMim">Editar Sobre mim <img src="../imagens_trilhas/edit-icon-perfil.svg" alt="habilidades"></a>
                                 </div>
                             </div>
                             <div class="habilidades-perfil">
@@ -290,6 +290,7 @@
         const STORAGE_KEY = 'trilhasCommentsPost1';
 
         document.addEventListener('DOMContentLoaded', async function() {
+            
             
             // ============================================
             // 1. VERIFICAR LOGIN E CARREGAR DADOS
@@ -513,36 +514,301 @@
             }
 
 
+            // ============================================
+            // 7. POPUP SOBRE MIM (EDITAR)
+            // ============================================
+            
+            const popupSobre = document.getElementById('popupSobreMim');
+            const btnAbrirSobre = document.getElementById('btnAbrirSobreMim');
+            const btnFecharSobre = document.getElementById('btnFecharSobreMim');
+            const btnCancelarSobre = document.getElementById('btnCancelarSobreMim');
+            const formSobre = document.getElementById('formSobreMim');
+            
+            // Elementos de Texto
+            const txtAreaSobre = document.getElementById('txtSobreMim');
+            const textoPerfilAtual = document.querySelector('.content-desc-seu-perfil'); // Onde está o texto na página
+            const contador = document.getElementById('contadorAtual');
+
+            // Abrir Popup e Carregar Texto Atual
+            if (btnAbrirSobre) {
+                btnAbrirSobre.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Pega o texto atual da tela (removendo espaços extras)
+                    const textoAtual = textoPerfilAtual.innerText.trim();
+                    
+                    // Joga dentro do input
+                    txtAreaSobre.value = textoAtual;
+                    
+                    // Atualiza contador
+                    contador.innerText = textoAtual.length;
+
+                    popupSobre.classList.add('ativo');
+                });
+            }
+
+            // Fechar Popup
+            function fecharPopupSobre() {
+                popupSobre.classList.remove('ativo');
+            }
+
+            if(btnFecharSobre) btnFecharSobre.addEventListener('click', fecharPopupSobre);
+            if(btnCancelarSobre) btnCancelarSobre.addEventListener('click', fecharPopupSobre);
+
+            // Fechar ao clicar fora
+            popupSobre.addEventListener('click', function(e) {
+                if (e.target === popupSobre) fecharPopupSobre();
+            });
+
+            // Contador de Caracteres em Tempo Real
+            txtAreaSobre.addEventListener('input', function() {
+                contador.innerText = this.value.length;
+            });
+
+            // Salvar (Integração com Backend)
+            if(formSobre) {
+                formSobre.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const novoTexto = txtAreaSobre.value;
+
+                    try {
+                        // Exemplo de requisição para o seu backend
+                        /*
+                        const response = await fetch(`${API_URL}/users/${usuarioLogado.id}/sobre`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ about: novoTexto })
+                        });
+                        */
+                        
+                        // SIMULAÇÃO VISUAL (Atualiza na hora sem recarregar a página)
+                        textoPerfilAtual.innerText = novoTexto;
+                        alert('Descrição atualizada com sucesso!');
+                        fecharPopupSobre();
+
+                    } catch (error) {
+                        console.error('Erro ao salvar:', error);
+                        alert('Erro ao atualizar descrição.');
+                    }
+                });
+
+                // ============================================
+            // 8. LÓGICA DO POPUP FORMAÇÃO ACADÊMICA
+            // ============================================
+            
+            const popupFormacao = document.getElementById('popupFormacao');
+            const btnAbrirFormacao = document.getElementById('btnAbrirFormacao'); // Botão que já existe no seu HTML
+            const btnFecharFormacao = document.getElementById('btnFecharPopupFormacao');
+            const btnCancelarFormacao = document.getElementById('btnCancelarFormacao');
+            const formAdicionarFormacao = document.getElementById('form-adicionar-formacao');
+            
+            const inputCertificado = document.getElementById('inputCertificado');
+            const txtCertificado = document.getElementById('txtNomeCertificado');
+
+            // Abrir
+            if(btnAbrirFormacao) {
+                btnAbrirFormacao.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    popupFormacao.classList.add('ativo');
+                });
+            }
+
+            // Fechar
+            function fecharPopupFormacao() {
+                popupFormacao.classList.remove('ativo');
+                // Reseta o form ao fechar
+                setTimeout(() => {
+                    formAdicionarFormacao.reset();
+                    txtCertificado.innerText = "Anexar arquivo...";
+                    txtCertificado.style.color = "#aaa";
+                }, 300);
+            }
+
+            if(btnFecharFormacao) btnFecharFormacao.addEventListener('click', fecharPopupFormacao);
+            if(btnCancelarFormacao) btnCancelarFormacao.addEventListener('click', fecharPopupFormacao);
+
+            // Mostrar nome do arquivo selecionado
+            inputCertificado.addEventListener('change', function() {
+                if(this.files[0]) {
+                    txtCertificado.innerText = this.files[0].name;
+                    txtCertificado.style.color = "#fff";
+                }
+            });
+
+            // SALVAR FORMAÇÃO
+            formAdicionarFormacao.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // 1. Pegar valores
+                const instituicao = document.getElementById('nomeInstituicao').value;
+                const curso = document.getElementById('nomeCurso').value;
+                const anoInicio = document.getElementById('anoInicio').value;
+                const anoFim = document.getElementById('anoFim').value;
+                
+                // Ícone padrão (Escola/Universidade)
+                // Você pode criar uma lógica para mudar o ícone se quiser, mas usarei um padrão aqui
+                const iconePadrao = "../imagens_trilhas/icone-formacao.svg"; 
+
+                // 2. Criar HTML do Novo Card
+                const novoCardHTML = `
+                    <div class="card-formacao">
+                        <div class="img-sua-formacao">
+                            <img src="${iconePadrao}" alt="Ícone" class="img-formacao" style="filter: invert(1);">
+                        </div>
+                        <div class="box-formacao">
+                            <p class="nome-local-formacao">${instituicao}</p>
+                            <div class="nm-data">
+                                <p class="nome-especializacao">${curso}</p>
+                                <p class="data-especializacao">${anoInicio} - ${anoFim}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // 3. Adicionar na tela (No topo da lista)
+                const containerFormacoes = document.querySelector('.secao-suas-formacoes');
+                containerFormacoes.insertAdjacentHTML('afterbegin', novoCardHTML);
+
+                // 4. Feedback e Fechar
+                // Se houver arquivo, aqui você enviaria para o backend
+                if(inputCertificado.files[0]) {
+                    console.log("Arquivo para upload:", inputCertificado.files[0].name);
+                }
+
+                fecharPopupFormacao();
+            });
+            }
+            
+
         });
     </script>
+
+
     <div class="popup-overlay" id="popupHabilidade">
-    <div class="popup-container">
-        <div class="popup-header">
-            <h2>Adicionar Nova Habilidade</h2>
-            <button class="btn-fechar-popup" id="btnFecharPopup">&times;</button>
+        <div class="popup-container">
+            <div class="popup-header">
+                <h2>Adicionar Nova Habilidade</h2>
+                <button class="btn-fechar-popup" id="btnFecharPopup">&times;</button>
+            </div>
+
+            <form class="popup-form" id="formAddHabilidade">
+                <div class="grupo-input container-search-habilidade">
+                    <label for="searchHabilidade">Buscar Habilidade</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="searchHabilidade" placeholder="Digite para buscar (ex: Figma, Java)..." autocomplete="off">
+                        <ul id="listaSugestoes" class="lista-sugestoes"></ul>
+                    </div>
+                </div>
+
+                <div id="habilidadeSelecionada" class="habilidade-preview" style="display: none;">
+                    <div class="info-selected">
+                        <img id="previewIcone" src="" alt="Icone">
+                        <span id="previewNome">Nome da Habilidade</span>
+                    </div>
+                    <button type="button" id="btnRemoverSelecao" class="btn-fechar-mini">&times;</button>
+                </div>
+
+                <div class="popup-footer">
+                    <button type="button" class="btn-cancelar" id="btnCancelarPopup">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Salvar Habilidade</button>
+                </div>
+            </form>
         </div>
-        
-        <form class="popup-form">
-            <div class="grupo-input">
-                <label for="nomeHabilidade">Nome da Habilidade</label>
-                <input type="text" id="nomeHabilidade" placeholder="Ex: Figma, Photoshop, Java...">
-            </div>
-
-
-            <div class="grupo-input">
-                <label for="iconeHabilidade">Ícone da Habilidade</label>
-                <label class="custom-file-upload">
-                    <input type="file" id="iconeHabilidade">
-                    <img src="../imagens_trilhas/icone-formacao.svg" width="20" style="filter: invert(1);"> Escolher ícone...
-                </label>
-            </div>
-
-            <div class="popup-footer">
-                <button type="button" class="btn-cancelar" id="btnCancelarPopup">Cancelar</button>
-                <button type="submit" class="btn-salvar">Salvar Habilidade</button>
-            </div>
-        </form>
     </div>
-</div>
+
+    <div class="popup-overlay" id="popupSobreMim">
+        <div class="popup-container">
+            <div class="popup-header">
+                <h2>Editar Sobre Mim</h2>
+                <button class="btn-fechar-popup" id="btnFecharSobreMim">&times;</button>
+            </div>
+
+            <form class="popup-form" id="formSobreMim">
+                <div class="grupo-input">
+                    <label for="txtSobreMim">Descreva suas experiências e objetivos</label>
+                    <textarea id="txtSobreMim" placeholder="Escreva um pouco sobre você..." maxlength="500"></textarea>
+                    <div class="contador-caracteres">
+                        <span id="contadorAtual">0</span>/500
+                    </div>
+                </div>
+
+                <div class="popup-footer">
+                    <button type="button" class="btn-cancelar" id="btnCancelarSobreMim">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popupSobreMim">
+        <div class="popup-container">
+            <div class="popup-header">
+                <h2>Editar Sobre Mim</h2>
+                <button class="btn-fechar-popup" id="btnFecharSobreMim">&times;</button>
+            </div>
+
+            <form class="popup-form" id="formSobreMim">
+                <div class="grupo-input">
+                    <label for="txtSobreMim">Descreva suas experiências e objetivos</label>
+                    <textarea id="txtSobreMim" placeholder="Escreva um pouco sobre você..." maxlength="500"></textarea>
+                    <div class="contador-caracteres">
+                        <span id="contadorAtual">0</span>/500
+                    </div>
+                </div>
+
+                <div class="popup-footer">
+                    <button type="button" class="btn-cancelar" id="btnCancelarSobreMim">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popupFormacao">
+        <div class="popup-container">
+            <div class="popup-header">
+                <h2>Adicionar Formação Acadêmica</h2>
+                <button class="btn-fechar-popup" id="btnFecharPopupFormacao">&times;</button>
+            </div>
+
+            <form id="form-adicionar-formacao" class="popup-form">
+                <div class="grupo-input">
+                    <label for="nomeInstituicao">Instituição de Ensino</label>
+                    <input type="text" id="nomeInstituicao" placeholder="Ex: USP, Fatec, Alura..." required>
+                </div>
+
+                <div class="grupo-input">
+                    <label for="nomeCurso">Nome do Curso / Especialização</label>
+                    <input type="text" id="nomeCurso" placeholder="Ex: Ciência da Computação" required>
+                </div>
+
+                <div class="linha-dupla">
+                    <div class="grupo-input">
+                        <label for="anoInicio">Ano Início</label>
+                        <input type="number" id="anoInicio" placeholder="2022" min="1900" max="2099" required class="inpu-formacao">
+                    </div>
+                    <div class="grupo-input">
+                        <label for="anoFim">Ano Fim (ou Previsão)</label>
+                        <input type="number" id="anoFim" placeholder="2025" min="1900" max="2099" required class="inpu-formacao">
+                    </div>
+                </div>
+
+                <div class="grupo-input">
+                    <label>Comprovante / Certificado</label>
+                    <label class="custom-file-upload">
+                        <input type="file" id="inputCertificado" accept=".pdf,.jpg,.png,.jpeg">
+                        <span id="txtNomeCertificado">Anexar arquivo...</span>
+                    </label>
+                </div>
+
+                <div class="popup-footer">
+                    <button type="button" class="btn-cancelar" id="btnCancelarFormacao">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Salvar Formação</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
