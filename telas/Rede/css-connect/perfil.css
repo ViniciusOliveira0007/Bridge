@@ -339,4 +339,74 @@
 
 
 
+/* ================= PERFIL EXTRA (ABAIXO DOS POSTS) ================= */
+
+.perfilExtra {
+  width: 550px;
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.boxPerfil {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.08);
+  font-family: Arial;
+}
+
+.boxPerfil h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+.boxPerfil p {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.4;
+}
+
+.itemPerfil {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  padding-left: 5px;
+}
+
+.tituloItem {
+  font-weight: bold;
+  font-size: 16px;
+  color: #222;
+}
+
+.descricaoItem {
+  font-size: 14px;
+  color: #555;
+  margin: 3px 0;
+}
+
+.tempoItem {
+  font-size: 13px;
+  color: #777;
+}
+
+.listaCompetencias {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listaCompetencias li {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  width: fit-content;
+}
 

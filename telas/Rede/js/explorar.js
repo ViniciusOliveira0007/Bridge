@@ -3,107 +3,107 @@
 // 🔹 Dados dos posts (podem ser expandidos depois)
 const dadosPosts = {
   adm1: {
-    nome: "Durval_Medeiros_Rocha",
-    fotoPerfil: "./assetsConnect/aluna1.jpg", 
+    nome: "Durval Medeiros Rocha",
+    fotoPerfil: "./assetsConnect/explorar/perfil1.jpg", 
     cargo: "Professor",
     escola: "UNICAMP",
-    descricao: "Descrição curta sobre a pessoa."
+    descricao: ""
   },
 
   agro2: {
-    nome: "Epaminondas_Ribeiro",
-    fotoPerfil: "./assetsConnect/",
+    nome: "Epaminondas Ribeiro",
+    fotoPerfil: "./assetsConnect/explorar/perfil2.avif",
     cargo: "Professor",
     escola: "UFMG",
     descricao: "..."
   },
   saude3: {
-    nome: "Jessica_Cunha_Fernandes",
-    fotoPerfil: "./assetsConnect/",
+    nome: "Jessica Cunha Fernandes",
+    fotoPerfil: "./assetsConnect/explorar/perfil4.jpg",
     cargo: "Aluna",
     escola: "Fatec Americana",
     descricao: ""
   },
   enge2: {
-    nome: "Melissa_Almeida_Costa",
+    nome: "Melissa Almeida Costa",
     fotoPerfil: "./assetsConnect/",
     cargo: "Aluna",
     escola: "USP",
     descricao: ""
   },
   ds1: {
-    nome: "Thalyta_Yasmin_Silva",
-    fotoPerfil: "./assetsConnect/",
+    nome: "Thalyta Yasmin Silva",
+    fotoPerfil: "./assetsConnect/explorar/perfil3.jpg",
     cargo: "Aluna",
     escola: "Fatec Adamantina",
     descricao: ""
   },
   saude1: {
-    nome: "Julia_Fernandes_Soares",
+    nome: "Julia Fernandes Soares",
     fotoPerfil: "./assetsConnect/",
     cargo: "Aluna",
     escola: "UFRJ",
     descricao: ""
   },
   adm3: {
-    nome: "Luana_Bomfim_Santos",
+    nome: "Luana Bomfim Santos",
     fotoPerfil: "./assetsConnect/",
     cargo: "Professora",
     escola: "USP",
     descricao: ""
   },
   adm6: {
-    nome: "Jessica_Meireles",
+    nome: "Jessica Meireles",
     fotoPerfil: "./assetsConnect/",
     cargo: "Aluna",
     escola: "FASUPI",
     descricao: ""
   },
   adm2: {
-    nome: "Fernanda_Ribeiro_Cunha",
+    nome: "Fernanda Ribeiro Cunha",
     fotoPerfil: "./assetsConnect/",
     cargo: "Aluna",
     escola: "UFSC",
     descricao: ""
   },
   agro1: {
-    nome: "Antonio_Matheus",
+    nome: "Antonio Matheus",
     fotoPerfil: "./assetsConnect/",
     cargo: "Professor",
     escola: "UNIFOR",
     descricao: ""
   },
   ds3: {
-    nome: "Mike_de_Carvalho",
+    nome: "Mike de Carvalho",
     fotoPerfil: "./assetsConnect/",
     cargo: "Aluno",
     escola: "FGV",
     descricao: ""
   },
   ds2: {
-    nome: "Rebeca_Andrade",
+    nome: "Rebeca Andrade",
     fotoPerfil: "./assetsConnect/",
     cargo: "Aluna",
     escola: "UFGS",
     descricao: ""
   },
   cozinha1: {
-    nome: "Julha_Pinheiro_Santos",
+    nome: "Marcelho Hipolito",
     fotoPerfil: "./assetsConnect/",
     cargo: "Aluna",
     escola: "SENAI",
     descricao: ""
   },
   enge1: {
-    nome: "Geovana_Ribeiro",
+    nome: "Geovana Ribeiro",
     fotoPerfil: "./assetsConnect/",
     cargo: "Aluna",
     escola: "Etec Adolpho Berezin",
     descricao: ""
   },
   cozinha2: {
-    nome: "Marcelho_Hipolito",
-    fotoPerfil: "./assetsConnect/",
+    nome: "Julia Pinheiro Santos",
+    fotoPerfil: "./assetsConnect/aluna2.jpg",
     cargo: "Professor",
     escola: "SENAI",
     descricao: ""
