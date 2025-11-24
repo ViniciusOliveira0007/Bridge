@@ -1037,8 +1037,8 @@ nav a:hover, .nome-da-guia a:hover {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7); /* Escurece o fundo */
-    backdrop-filter: blur(5px); /* Efeito de desfoque moderno */
-    z-index: 2000; /* Fica acima de tudo */
+    backdrop-filter: blur(5px); 
+    z-index: 2000; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1146,7 +1146,7 @@ nav a:hover, .nome-da-guia a:hover {
 input[type="range"] {
     flex: 1;
     cursor: pointer;
-    accent-color: #ffffff; /* Cor do slider */
+    accent-color: #ffffff;
 }
 
 .valor-range {
@@ -1227,7 +1227,7 @@ input[type="file"] {
 /* A lista de sugestões (Dropdown) */
 .lista-sugestoes {
     position: absolute;
-    top: 75px; /* Ajuste conforme a altura do seu input */
+    top: 75px; 
     left: 0;
     width: 100%;
     background-color: #2a2a2a;
@@ -1238,7 +1238,7 @@ input[type="file"] {
     max-height: 200px;
     overflow-y: auto;
     z-index: 10;
-    display: none; /* Escondido por padrão */
+    display: none; 
 }
 
 /* Item da lista */
@@ -1293,15 +1293,15 @@ input[type="file"] {
 /* Estilo específico para a área de texto */
 textarea#txtSobreMim {
     width: 100%;
-    height: 200px; /* Altura maior para texto */
+    height: 200px; 
     border-radius: 10px;
     padding: 15px;
     border: 1px solid #3f3f3f;
     background-color: #2a2a2a;
     color: #ffffff;
     outline: none;
-    resize: vertical; /* Permite o usuário aumentar a altura se quiser */
-    font-family: Arial, Helvetica, sans-serif; /* Mesma fonte do site */
+    resize: vertical;
+    font-family: Arial, Helvetica, sans-serif; 
     font-size: 14px;
     line-height: 1.5;
     transition: border 0.3s;
@@ -1322,15 +1322,15 @@ textarea#txtSobreMim:focus {
 /* Estilo específico para a área de texto */
 textarea#txtSobreMim {
     width: 100%;
-    height: 200px; /* Altura maior para texto */
+    height: 200px; 
     border-radius: 10px;
     padding: 15px;
     border: 1px solid #3f3f3f;
     background-color: #2a2a2a;
     color: #ffffff;
     outline: none;
-    resize: vertical; /* Permite o usuário aumentar a altura se quiser */
-    font-family: Arial, Helvetica, sans-serif; /* Mesma fonte do site */
+    resize: vertical; 
+    font-family: Arial, Helvetica, sans-serif; 
     font-size: 14px;
     line-height: 1.5;
     transition: border 0.3s;
@@ -1348,6 +1348,35 @@ textarea#txtSobreMim:focus {
     margin-top: 5px;
 }
 
+/* --- ESTILOS ESPECÍFICOS DO POPUP FORMAÇÃO --- */
+
+/* Coloca dois inputs na mesma linha */
+.linha-dupla {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.linha-dupla .grupo-input {
+    flex: 1; /* Cada um ocupa 50% */
+}
+
+/*Input estilizad comn padrao*/
+
+.inpu-formacao{
+    background: #3f3f3f;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: none;
+}
+
+/* Ajuste para inputs de número não terem as setinhas feias */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 
 
 /* Responsividade */
