@@ -930,6 +930,10 @@ nav a:hover, .nome-da-guia a:hover {
     font-size: 14px;
     margin-bottom: 5px;
 }
+.nm-habilidade{
+    color: #ffffff;
+    font-size: 14px;
+}
 .nivel-habilidade{
     color: #ffffff;
     font-size: 12px;
@@ -990,6 +994,25 @@ nav a:hover, .nome-da-guia a:hover {
     justify-content: left;
 }
 .progresso-linha-habilidade{
+    background: #15D3B1;
+    height: 5px;
+    border-radius: 10px;
+    transition:  width 0.5s ease-in-out;
+    width: 0;
+}
+
+
+.xp-barra-fundo {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    background: #3f3f3f;
+    height: 5px;
+    border-radius: 10px;
+    justify-content: left;
+}
+
+.xp-preenchimento {
     background: #15D3B1;
     height: 5px;
     border-radius: 10px;
@@ -1369,6 +1392,7 @@ textarea#txtSobreMim:focus {
     border-radius: 10px;
     text-decoration: none;
     border: none;
+    color: #fff;
 }
 
 /* Ajuste para inputs de número não terem as setinhas feias */
@@ -1377,6 +1401,68 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
+
+/* Estilo para a mensagem de instrução no pop-up */
+.instrucao-selecao {
+    color: #ccc;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+/* Novo Container para o Grid de Habilidades */
+.grid-habilidades {
+    /* Define o layout de Grid 4x4 */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas de tamanho igual */
+    gap: 15px; /* Espaçamento entre os cards */
+    padding: 10px;
+    
+    /* Configuração de altura e rolagem para pop-up */
+    max-height: 400px; 
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+/* Garante que o card de habilidade dentro do pop-up seja interativo */
+.popup-overlay .card-habilidade {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
+    padding: 10px; /* Mantém o espaçamento interno do card */
+    border: 1px solid transparent; /* Adiciona uma borda transparente para não "saltar" ao selecionar */
+    background-color: #1e1e1e; /* Um fundo sutil para o card, se o fundo do popup for escuro */
+}
+
+.popup-overlay .card-habilidade:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Estilo para a habilidade SELECIONADA (importante para feedback visual) */
+.popup-overlay .card-habilidade.selecionada {
+    border: 2px solid #3f3f3f; /* Cor de destaque para seleção, use a cor primária do seu projeto */
+    background-color: #3f3f3f60; /* Fundo levemente diferente para indicar seleção */
+}
+
+/* Responsividade do grid */
+@media (max-width: 768px) {
+    .grid-habilidades {
+        grid-template-columns: repeat(3, 1fr); /* 3 colunas em tablets */
+    }
+}
+@media (max-width: 600px) {
+    .grid-habilidades {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas menores */
+    }
+}
+@media (max-width: 400px) {
+    .grid-habilidades {
+        grid-template-columns: 1fr; /* 1 coluna em telas muito pequenas */
+    }
+}
+
+
+
 
 
 /* Responsividade */
