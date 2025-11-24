@@ -91,33 +91,33 @@
                 </div>
             </div>
             <h3 class="h3-proposta">Sugestões de Propostas</h3>
-            <div class="secao-propostas">
-                <a href="/telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+<div class="secao-propostas">
+                <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="../imagens_trilhas/img-empresas/meta.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
-                                oiii
+                                Nova identidade visual.
                             </h4>
                         </div>
                     </div>
                 </a>
-                <a href="/telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="../imagens_trilhas/img-empresas/amazon.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
-                                oiii
+                                Sistema autonomo de IA.
                             </h4>
                         </div>
                     </div>
                 </a>
-                <a href="./telas-trilhas/pendentes_trilhas.html" class="btn-proposta">
+                <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
-                            <img src="../imagens_trilhas/google-pendente.svg" alt="Projeto Pendente Google" class="proposta">
+                            <img src="../imagens_trilhas/img-empresas/google.svg" alt="Projeto Pendente Google" class="proposta">
                         <div class="content-desc-proposta-projeto">
                             <h4 class="desc-projeto">
-                                Tabela Excel, contabilidade e gerenciamento
+                                Tabela Excel, contabilidade e gerenciamento de informações
                             </h4>
                         </div>
                     </div>
@@ -137,8 +137,9 @@
                                     <h4 class="nm-usuario">Rodrigo Santos</h4>
                                 </div>
                                 <div class="botoes-perfil-trilhas">
-                                    <a href="" class="btn-trilhas">Adicionar <img src="../imagens_trilhas/portifolio-perfil-trilhas.svg" alt="editar perfil"></a>
-                                    <a href="" class="btn-trilhas">Editar Portifólio <img src="../imagens_trilhas/edit-icon-perfil.svg" alt="editar perfil"></a>
+                                    <a href="#" class="btn-trilhas" id="btnAdicionarPortifolio">Adicionar <img src="../imagens_trilhas/portifolio-perfil-trilhas.svg"></a>
+                                    
+                                    <a href="#" class="btn-trilhas" id="btnEditarPortifolio">Editar Portifólio <img src="../imagens_trilhas/edit-icon-perfil.svg"></a>
                                 </div>
                             </div>
                             <div class="portifolio">
@@ -149,12 +150,6 @@
                                             <div class="img-do-portifolio">
                                                 <img src="../imagens_trilhas/img-Portifolio/imgPortifolio3.jpeg" alt="" class="img-portifolio">
                                             </div>
-                                            <div class="transicao-img">
-                                                <div class="circulos"></div>
-                                                <div class="circulos"></div>
-                                                <div class="circulos"></div>
-                                                <div class="circulos"></div>
-                                            </div>
                                             <div class="nm-portifolio">
                                                 <h3 class="titulo-portifolio">Logotipos entregues</h3>
                                             </div>
@@ -164,15 +159,6 @@
                                             <div class="img-do-portifolio">
                                                 <img src="../imagens_trilhas/img-Portifolio/imgPortifolio2.jpeg" alt="" class="img-portifolio">
                                             </div>
-                                            <div class="transicao-img">
-                                                <div class="circulos"></div>
-                                                <div class="circulos"></div>
-                                                <div class="circulos"></div>
-                                                <div class="circulos"></div>
-                                                <div class="circulos"></div>
-                                                <div class="circulos"></div>
-                                                <div class="circulos"></div>
-                                            </div>
                                             <div class="nm-portifolio">
                                                 <h3 class="titulo-portifolio">Logotipos entregues</h3>
                                             </div>
@@ -181,12 +167,6 @@
                                         <div class="card-portifolio">
                                             <div class="img-do-portifolio">
                                                 <img src="../imagens_trilhas/img-Portifolio/imgPortifolio1.jpeg" alt="" class="img-portifolio">
-                                            </div>
-                                            <div class="transicao-img">
-                                                <div class="circulos"></div>
-                                                <div class="circulos"></div>
-                                                <div class="circulos"></div>
-                                                <div class="circulos"></div>
                                             </div>
                                             <div class="nm-portifolio">
                                                 <h3 class="titulo-portifolio">Logotipos entregues</h3>
@@ -423,7 +403,251 @@
                     fecharDropdownPerfil();
                 }
             });
+
+            // ============================================
+            // 6. LÓGICA DO POPUP DE ADICIONAR PROJETO
+            // ============================================
+            
+            const popupAdd = document.getElementById('popupAdicionar');
+            // Pega o botão que abre o popup (Você precisa adicionar esse ID no HTML)
+            const btnOpenAdd = document.getElementById('btnAdicionarPortifolio'); 
+
+            // Funções Globais (para funcionar no onclick do HTML)
+            window.fecharPopupAdd = function() {
+                popupAdd.classList.remove('ativo');
+            }
+
+            window.mudarAba = function(aba) {
+                // Remove classe ativo das abas e conteúdos
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('ativo'));
+                document.querySelectorAll('.aba-conteudo').forEach(cont => {
+                    cont.style.display = 'none';
+                    cont.classList.remove('ativo');
+                });
+
+                // Ativa a aba clicada
+                if(aba === 'aba-imagem') {
+                    document.querySelectorAll('.tab-btn')[0].classList.add('ativo');
+                    const form = document.getElementById('form-imagem');
+                    form.style.display = 'flex';
+                    form.classList.add('ativo');
+                } else {
+                    document.querySelectorAll('.tab-btn')[1].classList.add('ativo');
+                    const form = document.getElementById('form-arquivo');
+                    form.style.display = 'flex';
+                    form.classList.add('ativo');
+                }
+            }
+
+            // Abrir Popup
+            if(btnOpenAdd) {
+                btnOpenAdd.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    popupAdd.classList.add('ativo');
+                });
+            }
+
+            // --- LÓGICA 1: ADICIONAR IMAGEM (CARD PORTFÓLIO) ---
+            const formImagem = document.getElementById('form-imagem');
+            formImagem.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const titulo = document.getElementById('tituloImagem').value;
+                const inputImg = document.getElementById('inputImagem');
+                
+                if(inputImg.files && inputImg.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const novaImagemURL = e.target.result;
+
+                        // Cria o HTML do novo Card
+                        const novoCardHTML = `
+                            <div class="card-portifolio">
+                                <div class="img-do-portifolio">
+                                    <img src="${novaImagemURL}" alt="${titulo}" class="img-portifolio">
+                                </div>
+                                <div class="nm-portifolio">
+                                    <h3 class="titulo-portifolio">${titulo}</h3>
+                                </div>
+                            </div>
+                        `;
+
+                        // Adiciona na div correta (.secao-seu-portifolio)
+                        const containerPortifolio = document.querySelector('.secao-seu-portifolio');
+                        containerPortifolio.insertAdjacentHTML('afterbegin', novoCardHTML);
+                        
+                        // Limpa e fecha
+                        formImagem.reset();
+                        document.getElementById('txtNomeImagem').innerText = "Escolher imagem...";
+                        fecharPopupAdd();
+                    }
+                    
+                    reader.readAsDataURL(inputImg.files[0]);
+                }
+            });
+
+            // Atualizar texto do input file
+            document.getElementById('inputImagem').addEventListener('change', function() {
+                if(this.files[0]) document.getElementById('txtNomeImagem').innerText = this.files[0].name;
+            });
+
+
+            // --- LÓGICA 2: ADICIONAR ARQUIVO (ANEXOS) ---
+            const formArquivo = document.getElementById('form-arquivo');
+            formArquivo.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const titulo = document.getElementById('tituloArquivo').value;
+                const link = document.getElementById('linkArquivo').value || '#';
+                const icone = document.getElementById('tipoIcone').value;
+
+                // Cria o HTML do novo Anexo
+                const novoAnexoHTML = `
+                    <div class="card-de-anexo">
+                        <div class="projeto">
+                            <div class="img-de-anexo">
+                                <img src="../imagens_trilhas/icone-habilidades-trilhas/${icone}" alt="Icone" class="img-anexo">
+                            </div>
+                            <p class="nome-projeto">${titulo}</p>
+                        </div>
+                        <a href="${link}" target="_blank" class="btn-ver-sobre">Ver sobre</a>
+                    </div>
+                `;
+
+                // Adiciona na div correta (.secao-arquivos-anexados)
+                const containerAnexos = document.querySelector('.secao-arquivos-anexados');
+                containerAnexos.insertAdjacentHTML('afterbegin', novoAnexoHTML);
+
+                // Limpa e fecha
+                formArquivo.reset();
+                fecharPopupAdd();
+            });
+
+            // ==========================================
+            // 7. LÓGICA DO VISUALIZADOR DE IMAGEM
+            // ==========================================
+            const popupViewer = document.getElementById('popupVisualizarImg');
+            const imgExpandida = document.getElementById('imgExpandida');
+            const tituloExpandido = document.getElementById('tituloExpandido');
+            const btnFecharViewer = document.getElementById('btnFecharViewer');
+
+            // Função para abrir o visualizador
+            document.addEventListener('click', function(e) {
+                // Verifica se clicou em uma imagem do portfólio
+                if (e.target.classList.contains('img-portifolio')) {
+                    // Verifica se NÃO estamos no modo edição (para não abrir enquanto deleta)
+                    const areaPortifolio = document.querySelector('.seu-portifolio');
+                    if (areaPortifolio.classList.contains('modo-edicao')) {
+                        return; // Sai da função se estiver editando
+                    }
+
+                    const srcImagem = e.target.src;
+                    // Busca o título dentro do card pai
+                    const cardPai = e.target.closest('.card-portifolio');
+                    const titulo = cardPai.querySelector('.titulo-portifolio').innerText;
+
+                    // Preenche o popup
+                    imgExpandida.src = srcImagem;
+                    tituloExpandido.innerText = titulo;
+
+                    // Abre
+                    popupViewer.classList.add('ativo');
+                }
+            });
+
+            // Função para fechar
+            function fecharViewer() {
+                popupViewer.classList.remove('ativo');
+                setTimeout(() => {
+                    imgExpandida.src = ""; // Limpa para não piscar na próxima
+                }, 300);
+            }
+
+            if(btnFecharViewer) {
+                btnFecharViewer.addEventListener('click', fecharViewer);
+            }
+
+            // Fechar clicando fora da imagem
+            popupViewer.addEventListener('click', function(e) {
+                if (e.target === popupViewer || e.target.classList.contains('popup-viewer-container')) {
+                    fecharViewer();
+                }
+            });
+
         });
     </script>
+
+    <div class="popup-overlay" id="popupAdicionar">
+    <div class="popup-container">
+        <div class="popup-header">
+            <h2>Adicionar Novo Projeto</h2>
+            <button class="btn-fechar-popup" onclick="fecharPopupAdd()">&times;</button>
+        </div>
+
+        <div class="popup-tabs">
+            <button class="tab-btn ativo" onclick="mudarAba('aba-imagem')">Portfólio (Imagem)</button>
+            <button class="tab-btn" onclick="mudarAba('aba-arquivo')">Anexo (Arquivo)</button>
+        </div>
+        
+        <form id="form-imagem" class="popup-form aba-conteudo ativo">
+            <div class="grupo-input">
+                <label for="tituloImagem">Título do Projeto</label>
+                <input type="text" id="tituloImagem" placeholder="Ex: Redesign de Logotipo" required>
+            </div>
+
+            <div class="grupo-input">
+                <label>Imagem do Projeto</label>
+                <label class="custom-file-upload">
+                    <input type="file" id="inputImagem" accept="image/*" required>
+                    <span id="txtNomeImagem">Escolher imagem...</span>
+                </label>
+            </div>
+
+            <div class="popup-footer">
+                <button type="button" class="btn-cancelar" onclick="fecharPopupAdd()">Cancelar</button>
+                <button type="submit" class="btn-salvar">Adicionar ao Portfólio</button>
+            </div>
+        </form>
+
+        <form id="form-arquivo" class="popup-form aba-conteudo" style="display: none;">
+            <div class="grupo-input">
+                <label for="tituloArquivo">Nome do Arquivo</label>
+                <input type="text" id="tituloArquivo" placeholder="Ex: Documentação TCC" required>
+            </div>
+
+            <div class="grupo-input">
+                <label for="linkArquivo">Link ou Arquivo</label>
+                <input type="text" id="linkArquivo" placeholder="Cole o link (Github, Drive)...">
+                </div>
+
+            <div class="grupo-input">
+                <label>Tipo de Ícone</label>
+                <select id="tipoIcone" class="input-padrao">
+                    <option value="Word.svg">Word</option>
+                    <option value="Excel.svg">Excel</option>
+                    <option value="github-white.svg">GitHub</option>
+                    <option value="PDF.svg">PDF</option> </select>
+            </div>
+
+            <div class="popup-footer">
+                <button type="button" class="btn-cancelar" onclick="fecharPopupAdd()">Cancelar</button>
+                <button type="submit" class="btn-salvar">Adicionar aos Anexos</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="popup-overlay" id="popupVisualizarImg">
+    <div class="popup-viewer-container">
+        <button class="btn-fechar-viewer" id="btnFecharViewer">&times;</button>
+        
+        <div class="viewer-content">
+            <img src="" alt="Imagem Expandida" id="imgExpandida">
+            <h3 id="tituloExpandido">Título do Projeto</h3>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

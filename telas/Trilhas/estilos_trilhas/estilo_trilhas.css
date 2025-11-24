@@ -685,7 +685,10 @@ nav a:hover, .nome-da-guia a:hover {
     justify-content: center;
     border: #3f3f3f50 solid 1px;
 }
-
+.img-proposta{
+    width: 100%;
+    
+}
 .todos-comentarios {
     display: flex;
     flex-direction: column;
