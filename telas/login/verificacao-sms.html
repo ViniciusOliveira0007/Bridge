@@ -6,7 +6,6 @@
     <title>Verificação SMS - Bridge</title>
     <link rel="stylesheet" href="./estilos_login/estilos_confirmacao-de-email.css">
     <style>
-        /* Estilos específicos para verificação SMS */
         .container-verificacao {
             background: #161616;
             border-radius: 50px;
@@ -22,295 +21,37 @@
             z-index: 10;
             box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.25);
         }
-
-        .sms-icon {
-            font-size: 64px;
-            margin-bottom: 10px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-        }
-
-        .sms-title {
-            color: #ffffff;
-            font-family: "Roboto-Bold", sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            text-align: center;
-            margin: 0;
-        }
-
-        .sms-subtitle {
-            color: #ffffff;
-            font-family: "Roboto-Regular", sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            text-align: center;
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        .sms-subtitle strong {
-            color: #15D3B1;
-            font-weight: 700;
-        }
-
-        #smsForm {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .codigo-input {
-            background: #ffffff;
-            border-radius: 10px;
-            border: 2px solid #ffffff;
-            padding: 15px;
-            font-family: "Roboto-Bold", sans-serif;
-            font-size: 28px;
-            text-align: center;
-            letter-spacing: 8px;
-            width: 100%;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .codigo-input:focus {
-            border-color: #15D3B1;
-            box-shadow: 0 0 10px rgba(21, 211, 177, 0.3);
-        }
-
-        .codigo-input::placeholder {
-            color: #929292;
-            letter-spacing: 8px;
-        }
-
-        .helper-text {
-            color: #929292;
-            font-family: "Roboto-Regular", sans-serif;
-            font-size: 12px;
-            text-align: center;
-            margin: -5px 0 0 0;
-        }
-
-        .error-message {
-            color: #ff6b6b;
-            font-family: "Roboto-Regular", sans-serif;
-            font-size: 14px;
-            text-align: center;
-            display: none;
-            margin: 0;
-            padding: 10px;
-            background: rgba(255, 107, 107, 0.1);
-            border-radius: 8px;
-        }
-
-        .success-message {
-            color: #15D3B1;
-            font-family: "Roboto-Bold", sans-serif;
-            font-size: 14px;
-            text-align: center;
-            display: none;
-            margin: 0;
-            padding: 10px;
-            background: rgba(21, 211, 177, 0.1);
-            border-radius: 8px;
-        }
-
-        .btn-verificar {
-            background: #ffffff;
-            border-radius: 10px;
-            border: none;
-            padding: 12px 20px;
-            font-family: "Roboto-Bold", sans-serif;
-            font-size: 16px;
-            font-weight: 700;
-            color: #000000;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .btn-verificar:hover:not(:disabled) {
-            background: #15D3B1;
-            color: #ffffff;
-            transform: translateY(-1px);
-        }
-
-        .btn-verificar:disabled {
-            background: #929292;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        .btn-reenviar {
-            background: transparent;
-            border: 2px solid #ffffff;
-            border-radius: 10px;
-            padding: 10px 20px;
-            font-family: "Roboto-Bold", sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .btn-reenviar:hover:not(:disabled) {
-            background: #ffffff;
-            color: #000000;
-        }
-
-        .btn-reenviar:disabled {
-            border-color: #929292;
-            color: #929292;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        .countdown {
-            color: #15D3B1;
-            font-family: "Roboto-Bold", sans-serif;
-            font-size: 13px;
-            text-align: center;
-            margin: 10px 0 0 0;
-        }
-
-        .voltar-link {
-            color: #ffffff;
-            font-family: "Roboto-Regular", sans-serif;
-            font-size: 14px;
-            text-decoration: none;
-            margin-top: 20px;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: background 0.3s ease;
-        }
-
-        .voltar-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Botão voltar posicionado */
-        .btn-voltar-sms {
-            position: absolute;
-            left: 30px;
-            top: 32px;
-        }
-
-        .btn-voltar-sms .voltar1 {
-            color: #ffffff;
-            border-radius: 20px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 120px;
-            height: 40px;
-            font-family: "Roboto-Bold", sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            text-decoration: none;
-            background-image: url('../imagens_login/seta.svg');
-            background-repeat: no-repeat;
-            background-position: 15px center;
-            background-size: 20px 20px;
-            text-indent: 15px;
-            text-align: center;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-voltar-sms .voltar1:hover {
-            color: #000000;
-            background-color: #ffffff;
-            background-image: url('../imagens_login/Setas-black.svg');
-            background-repeat: no-repeat;
-            background-position: 15px center;
-            background-size: 20px 20px;
-        }
-
-        .etec-sms {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 29px;
-            width: 89px;
-            height: 45px;
-            object-fit: cover;
-        }
-
-        .nossa-marca-sms {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            position: absolute;
-            right: 38px;
-            bottom: 38px;
-        }
-
-        .nossa-marca-sms .bridge {
-            color: #ffffff;
-            font-family: "Roboto-Bold", sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .container-verificacao {
-                padding: 30px 20px;
-                max-width: 90%;
-            }
-
-            .sms-title {
-                font-size: 20px;
-            }
-
-            .codigo-input {
-                font-size: 24px;
-                letter-spacing: 6px;
-            }
-
-            .btn-voltar-sms {
-                left: 15px;
-                top: 15px;
-            }
-        }
+        .sms-icon { font-size: 64px; margin-bottom: 10px; animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .sms-title { color: #ffffff; font-family: "Roboto-Bold", sans-serif; font-size: 24px; font-weight: 700; text-align: center; margin: 0; }
+        .sms-subtitle { color: #ffffff; font-family: "Roboto-Regular", sans-serif; font-size: 14px; font-weight: 400; text-align: center; margin: 0; line-height: 1.5; }
+        .sms-subtitle strong { color: #15D3B1; font-weight: 700; }
+        #smsForm { width: 100%; display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
+        .codigo-input { background: #ffffff; border-radius: 10px; border: 2px solid #ffffff; padding: 15px; font-family: "Roboto-Bold", sans-serif; font-size: 28px; text-align: center; letter-spacing: 8px; width: 100%; outline: none; transition: border-color 0.3s ease; }
+        .codigo-input:focus { border-color: #15D3B1; box-shadow: 0 0 10px rgba(21, 211, 177, 0.3); }
+        .helper-text { color: #929292; font-family: "Roboto-Regular", sans-serif; font-size: 12px; text-align: center; margin: -5px 0 0 0; }
+        .error-message { color: #ff6b6b; font-size: 14px; text-align: center; display: none; margin: 0; padding: 10px; background: rgba(255, 107, 107, 0.1); border-radius: 8px; }
+        .success-message { color: #15D3B1; font-size: 14px; text-align: center; display: none; margin: 0; padding: 10px; background: rgba(21, 211, 177, 0.1); border-radius: 8px; }
+        .btn-verificar { background: #ffffff; border-radius: 10px; border: none; padding: 12px 20px; font-size: 16px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.3s ease; }
+        .btn-verificar:hover:not(:disabled) { background: #15D3B1; color: #ffffff; }
+        .btn-verificar:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-reenviar { background: transparent; border: 2px solid #ffffff; border-radius: 10px; padding: 10px 20px; font-size: 14px; font-weight: 700; color: #ffffff; cursor: pointer; width: 100%; transition: all 0.3s ease; }
+        .btn-reenviar:hover:not(:disabled) { background: rgba(255, 255, 255, 0.1); }
+        .btn-reenviar:disabled { opacity: 0.5; cursor: not-allowed; }
+        .countdown { color: #15D3B1; font-size: 13px; text-align: center; margin: 10px 0 0 0; }
+        .voltar-link { color: #ffffff; font-size: 14px; text-decoration: none; margin-top: 20px; display: block; text-align: center; transition: color 0.3s ease; }
+        .voltar-link:hover { color: #15D3B1; }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="bloco-de-opcoes">
             <div class="layout-fixo">
                 <div class="bloco-logo">
-                    <img src="./imagens_login/lotus.svg" alt="Logo da instituição" width="30px" height="30px">
+                    <img src="./imagens_login/lotus.svg" width="30px" height="30px">
                     <div class="bridge">BRIDGE</div>
                     <div class="barra"></div>
                     <div class="login">Login</div>
-                </div>
-                <div class="navega">
-                    <div class="btn-voltar">
-                        <a class="voltar" href="/home.html">Voltar ao inicio</a>
-                    </div>
-                    <div class="btn-default">
-                        <a class="button">Suporte</a>
-                    </div>
-                    <div class="btn-default">
-                        <div class="button">Quem somos</div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -324,212 +65,233 @@
 
         <div class="container-verificacao">
             <div class="sms-icon">📱</div>
-            <h2 class="sms-title">Verificação em duas etapas</h2>
-            <p class="sms-subtitle">Digite o código de 6 dígitos enviado para <strong id="telefoneDisplay"></strong></p>
+            <h2 class="sms-title">Verificação de Segurança</h2>
+            <p class="sms-subtitle">Digite o código enviado para <strong id="telefoneDisplay">...</strong> para confirmar a operação.</p>
 
             <form id="smsForm">
-                <input 
-                    type="text" 
-                    id="codigoInput" 
-                    class="codigo-input"
-                    placeholder="000000"
-                    maxlength="6"
-                    autocomplete="off"
-                    required
-                >
+                <input type="text" id="codigoInput" class="codigo-input" placeholder="000000" maxlength="6" autocomplete="off" required>
                 <p class="helper-text">O código expira em 5 minutos</p>
 
                 <p id="errorMessage" class="error-message"></p>
                 <p id="successMessage" class="success-message"></p>
 
-                <button type="submit" class="btn-verificar" id="submitBtn">
-                    Verificar código
-                </button>
-
-                <button type="button" class="btn-reenviar" id="reenviarBtn">
-                    Reenviar código
-                </button>
-
+                <button type="submit" class="btn-verificar" id="submitBtn">Confirmar código</button>
+                <button type="button" class="btn-reenviar" id="reenviarBtn">Reenviar código</button>
                 <p class="countdown" id="countdown"></p>
             </form>
-
-            <a href="./confirmacao-de-senha.html" class="voltar-link">← Voltar para login</a>
-        </div>
-
-        <div class="btn-voltar-sms">
-            <a class="voltar1" href="./confirmacao-de-senha.html">Voltar</a>
-        </div>
-        
-        <img class="etec-sms" src="./imagens_login/Etec.svg" />
-        
-        <div class="nossa-marca-sms">
-            <img src="./imagens_login/lotus.svg" width="30px" height="30px" alt="">
-            <div class="bridge">BRIDGE</div>
+            <a href="#" class="voltar-link" onclick="history.back(); return false;">← Cancelar</a>
         </div>
     </main>
 
-    <script>
-        // Pega dados do localStorage
-        const userId = localStorage.getItem('userId');
-        const telefone = localStorage.getItem('userTelefone');
-        const telefoneDisplay = document.getElementById('telefoneDisplay');
-        const codigoInput = document.getElementById('codigoInput');
-        const errorMessage = document.getElementById('errorMessage');
-        const successMessage = document.getElementById('successMessage');
-        const form = document.getElementById('smsForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const reenviarBtn = document.getElementById('reenviarBtn');
-        const countdown = document.getElementById('countdown');
+   <script>
+    // ✅ Dados do usuário e fluxo
+    const userIdString = localStorage.getItem('userId');
+    const userEmail = localStorage.getItem('userEmail');
+    const userId = userIdString ? parseInt(userIdString) : null;
+    const authFlow = sessionStorage.getItem('authFlow'); 
+    const tempNovaSenha = sessionStorage.getItem('tempNovaSenha');
+    let telefone = localStorage.getItem('userTelefone'); 
 
-        // Valida se tem os dados necessários
-        if (!userId || !telefone) {
-            alert('Sessão inválida. Faça login novamente.');
-            window.location.href = './tela-senha.html';
-        }
+    console.log('🔐 Fluxo de autenticação:', authFlow || 'login-normal');
 
-        // Mascara o telefone para exibição (ex: +55 11 *****-9999)
-        function mascaraTelefone(tel) {
-            if (tel.length >= 13) {
-                const inicio = tel.substring(0, 7);
-                const fim = tel.substring(tel.length - 4);
-                return `${inicio}*****${fim}`;
-            }
-            return tel;
-        }
+    // Elementos do DOM
+    const telefoneDisplay = document.getElementById('telefoneDisplay');
+    const codigoInput = document.getElementById('codigoInput');
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+    const submitBtn = document.getElementById('submitBtn');
+    const reenviarBtn = document.getElementById('reenviarBtn');
+    const countdown = document.getElementById('countdown');
 
-        telefoneDisplay.textContent = mascaraTelefone(telefone);
+    // Validações iniciais
+    if (!userEmail || userId === null || isNaN(userId)) {
+        alert('Sessão inválida ou informações ausentes.');
+        window.location.href = './tela-senha.html';
+    }
+    
+    // Exibição do telefone mascarado
+    if (telefone) {
+        const inicio = telefone.substring(0, 7); 
+        const fim = telefone.substring(telefone.length - 4);
+        telefoneDisplay.textContent = `${inicio}*****${fim}`;
+    } else {
+        telefoneDisplay.textContent = 'o seu número cadastrado';
+    }
 
-        // Foca automaticamente no input
-        codigoInput.focus();
+    // Input apenas números
+    codigoInput.focus();
+    codigoInput.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    });
 
-        // Permite apenas números
-        codigoInput.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
-        });
-
-        // Contador de tempo (5 minutos)
-        let tempoRestante = 300; // 5 minutos em segundos
-        const intervalo = setInterval(() => {
-            tempoRestante--;
-            const minutos = Math.floor(tempoRestante / 60);
-            const segundos = tempoRestante % 60;
-            countdown.textContent = `Tempo restante: ${minutos}:${segundos.toString().padStart(2, '0')}`;
-
-            if (tempoRestante <= 0) {
-                clearInterval(intervalo);
-                countdown.textContent = 'Código expirado. Clique em "Reenviar código"';
-                countdown.style.color = '#ff6b6b';
-            }
-        }, 1000);
-
-        // Verificar código
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const codigo = codigoInput.value;
-
-            if (codigo.length !== 6) {
-                errorMessage.textContent = 'Digite os 6 dígitos do código';
-                errorMessage.style.display = 'block';
-                successMessage.style.display = 'none';
-                return;
-            }
-
-            errorMessage.style.display = 'none';
-            successMessage.style.display = 'none';
+    // ⏱️ Timer de expiração
+    let tempoRestante = 300; // 5 minutos
+    const intervalo = setInterval(() => {
+        tempoRestante--;
+        const m = Math.floor(tempoRestante / 60);
+        const s = tempoRestante % 60;
+        countdown.textContent = `Tempo restante: ${m}:${s.toString().padStart(2, '0')}`;
+        
+        if (tempoRestante <= 0) {
+            clearInterval(intervalo);
+            countdown.textContent = 'Código expirado';
+            countdown.style.color = '#ff6b6b';
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Verificando...';
+        }
+    }, 1000);
 
-            try {
-                const response = await fetch('http://localhost:3000/api/verificar-codigo-sms', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        telefone,
-                        codigo,
-                        userId: parseInt(userId)
-                    })
-                });
+    // ✅ SUBMIT DO FORMULÁRIO (VERIFICAR CÓDIGO)
+    document.getElementById('smsForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const codigo = codigoInput.value;
 
-                const data = await response.json();
+        if (codigo.length !== 6) {
+            errorMessage.textContent = 'Digite o código de 6 dígitos';
+            errorMessage.style.display = 'block';
+            return;
+        }
 
-                if (response.ok && data.success) {
-                    console.log('✅ Código verificado com sucesso!');
-                    successMessage.textContent = 'Código verificado! Redirecionando...';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Verificando...';
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'none';
+
+        try {
+            // 1️⃣ Verifica o código SMS
+            const response = await fetch('http://localhost:3000/api/verificar-codigo-sms', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: userEmail,
+                    codigo: codigo
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                console.log('✅ Código verificado com sucesso');
+                
+                // 2️⃣ Verifica se é fluxo de reset de senha
+                if (authFlow === 'reset-password' && tempNovaSenha) {
+                    console.log('🔄 Fluxo de reset de senha detectado');
+                    submitBtn.textContent = 'Alterando senha...';
+                    
+                    // 3️⃣ Chama API para efetivamente trocar a senha
+                    const resetResponse = await fetch('http://localhost:3000/api/reset-password', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: userEmail,
+                            novaSenha: tempNovaSenha
+                        })
+                    });
+
+                    const resetData = await resetResponse.json();
+
+                    if (resetResponse.ok && resetData.success) {
+                        console.log('✅ Senha alterada com sucesso');
+                        successMessage.textContent = '✅ Senha alterada com sucesso! Redirecionando...';
+                        successMessage.style.display = 'block';
+                        
+                        // Limpa dados temporários
+                        sessionStorage.removeItem('tempNovaSenha');
+                        sessionStorage.removeItem('authFlow');
+                        localStorage.removeItem('userTelefone');
+                        localStorage.removeItem('userId');
+                        
+                        // Redireciona para tela de login
+                        setTimeout(() => {
+                            window.location.href = './tela-senha.html';
+                        }, 2000);
+                    } else {
+                        throw new Error(resetData.message || 'Erro ao alterar senha no banco.');
+                    }
+
+                } else {
+                    // 🔐 Fluxo de login normal (2FA)
+                    console.log('✅ Login 2FA bem-sucedido');
+                    successMessage.textContent = '✅ Verificação concluída! Entrando...';
                     successMessage.style.display = 'block';
-                    clearInterval(intervalo);
-
-                    // Redireciona após 1 segundo
+                    
                     setTimeout(() => {
                         window.location.href = '/telas/Sala-de-Aula/sala.html';
-                    }, 1000);
-
-                } else {
-                    console.error('❌ Código inválido:', data.message);
-                    errorMessage.textContent = data.message || 'Código inválido ou expirado';
-                    errorMessage.style.display = 'block';
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Verificar código';
-                    codigoInput.value = '';
-                    codigoInput.focus();
+                    }, 1500);
                 }
 
-            } catch (error) {
-                console.error('❌ Erro ao verificar código:', error);
-                errorMessage.textContent = 'Erro ao conectar com o servidor';
-                errorMessage.style.display = 'block';
+            } else {
+                throw new Error(data.message || 'Código incorreto.');
+            }
+
+        } catch (error) {
+            console.error('❌ Erro:', error);
+            errorMessage.textContent = error.message || 'Erro ao verificar código';
+            errorMessage.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Confirmar código';
+        }
+    });
+
+    // ♻️ Reenviar Código
+    reenviarBtn.addEventListener('click', async () => {
+        reenviarBtn.disabled = true;
+        reenviarBtn.textContent = 'Reenviando...';
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'none';
+        
+        try {
+            const response = await fetch('http://localhost:3000/api/enviar-codigo-sms', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    email: userEmail
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                console.log('✅ Código reenviado');
+                successMessage.textContent = '✅ Novo código enviado!';
+                successMessage.style.display = 'block';
+
+                // Reset do timer
+                tempoRestante = 300;
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Verificar código';
-            }
-        });
+                countdown.style.color = '#15D3B1';
 
-        // Reenviar código
-        reenviarBtn.addEventListener('click', async () => {
-            errorMessage.style.display = 'none';
-            successMessage.style.display = 'none';
-            reenviarBtn.disabled = true;
-            reenviarBtn.textContent = 'Enviando...';
-
-            try {
-                const response = await fetch('http://localhost:3000/api/enviar-codigo-sms', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        userId: parseInt(userId),
-                        telefone
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.success) {
-                    console.log('✅ Código reenviado!');
-                    successMessage.textContent = 'Novo código enviado!';
-                    successMessage.style.display = 'block';
-
-                    // Reseta o contador
-                    tempoRestante = 300;
-                    countdown.style.color = '#15D3B1';
-
-                    setTimeout(() => {
-                        successMessage.style.display = 'none';
-                    }, 3000);
-
-                } else {
-                    errorMessage.textContent = 'Erro ao reenviar código';
-                    errorMessage.style.display = 'block';
+                // Atualiza telefone se retornado
+                if (data.telefone) {
+                    localStorage.setItem('userTelefone', data.telefone);
+                    telefone = data.telefone;
+                    const inicio = telefone.substring(0, 7); 
+                    const fim = telefone.substring(telefone.length - 4);
+                    telefoneDisplay.textContent = `${inicio}*****${fim}`;
                 }
 
-            } catch (error) {
-                console.error('❌ Erro ao reenviar código:', error);
-                errorMessage.textContent = 'Erro ao conectar com o servidor';
-                errorMessage.style.display = 'block';
-            } finally {
-                reenviarBtn.disabled = false;
-                reenviarBtn.textContent = 'Reenviar código';
-            }
-        });
-    </script>
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
 
+            } else {
+                errorMessage.textContent = data.message || 'Erro ao reenviar código';
+                errorMessage.style.display = 'block';
+            }
+
+        } catch (error) {
+            console.error('❌ Erro ao reenviar:', error);
+            errorMessage.textContent = 'Erro ao conectar com o servidor';
+            errorMessage.style.display = 'block';
+        } finally {
+            reenviarBtn.disabled = false;
+            reenviarBtn.textContent = 'Reenviar código';
+        }
+    });
+
+    // Limpeza ao sair da página
+    window.addEventListener('beforeunload', () => {
+        clearInterval(intervalo);
+    });
+</script>
 </body>
 </html>

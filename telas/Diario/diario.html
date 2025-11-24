@@ -61,15 +61,39 @@
     </div>
 
     <script>
-        // Pega o usuário do localStorage
-        let userData = JSON.parse(localStorage.getItem('user') || 'null');
+        console.log('🚀 Iniciando verificação de usuário...');
         
-        if (!userData) {
-            userData = JSON.parse(localStorage.getItem('usuarioLogado') || '{}');
+        // Declara userData no escopo global
+        let userData = null;
+        
+        // Tenta recuperar do localStorage com múltiplas fontes
+        try {
+            // Tenta pegar do formato 'user'
+            const userStr = localStorage.getItem('user');
+            if (userStr && userStr !== 'null') {
+                userData = JSON.parse(userStr);
+                console.log('✅ Dados encontrados em "user":', userData);
+            }
+        } catch (e) {
+            console.error('❌ Erro ao ler "user":', e);
+        }
+        
+        // Se não encontrou, tenta 'usuarioLogado'
+        if (!userData || !userData.id) {
+            try {
+                const usuarioLogadoStr = localStorage.getItem('usuarioLogado');
+                if (usuarioLogadoStr && usuarioLogadoStr !== '{}') {
+                    userData = JSON.parse(usuarioLogadoStr);
+                    console.log('✅ Dados encontrados em "usuarioLogado":', userData);
+                }
+            } catch (e) {
+                console.error('❌ Erro ao ler "usuarioLogado":', e);
+            }
         }
         
         // Se ainda não tiver, tenta construir manualmente
         if (!userData || !userData.id) {
+            console.log('⚠️ Tentando construir userData manualmente...');
             const userId = localStorage.getItem('userId');
             const userName = localStorage.getItem('userName');
             const userEmail = localStorage.getItem('userEmail');
@@ -82,29 +106,40 @@
                     email: userEmail,
                     role: userRole
                 };
+                // Salva no formato correto
                 localStorage.setItem('user', JSON.stringify(userData));
+                console.log('✅ userData construído manualmente:', userData);
             }
         }
 
-        console.log('👤 Dados do usuário:', userData);
-        console.log('🎭 Role do usuário:', userData.role);
+        console.log('👤 Dados finais do usuário:', userData);
+        console.log('🎭 Role do usuário:', userData ? userData.role : 'INDEFINIDO');
 
-        // Redireciona baseado no role
-        if (userData && userData.role) {
-            if (userData.role === 'professor') {
-                console.log('🎓 Redirecionando para área do professor...');
-                window.location.href = './diario-professor-inicio.html';
-            } else if (userData.role === 'aluno') {
-                console.log('📚 Redirecionando para área do aluno...');
-                window.location.href = './diario-aluno-inicio.html';
+        // Aguarda um momento para garantir que tudo carregou
+        setTimeout(() => {
+            // Redireciona baseado no role
+            if (userData && userData.id && userData.role) {
+                const role = userData.role.toLowerCase().trim(); // Normaliza o role
+                
+                console.log('🔍 Role normalizado:', role);
+                
+                if (role === 'professor') {
+                    console.log('🎓 Redirecionando para área do professor...');
+                    window.location.href = './diario-professor-inicio.html';
+                } else if (role === 'aluno') {
+                    console.log('📚 Redirecionando para área do aluno...');
+                    window.location.href = './diario-aluno-inicio.html';
+                } else {
+                    console.error('❌ Perfil não reconhecido:', userData.role);
+                    alert('Perfil não reconhecido: ' + userData.role);
+                    window.location.href = '/telas/Login/tela-senha.html';
+                }
             } else {
-                alert('Perfil não reconhecido');
+                console.error('❌ Dados de usuário inválidos:', userData);
+                alert('Você precisa fazer login primeiro!');
                 window.location.href = '/telas/Login/tela-senha.html';
             }
-        } else {
-            alert('Você precisa fazer login primeiro!');
-            window.location.href = '/telas/Login/tela-senha.html';
-        }
+        }, 500); // Delay de 500ms para garantir que tudo carregou
     </script>
 </body>
 </html>

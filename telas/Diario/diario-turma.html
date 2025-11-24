@@ -22,9 +22,8 @@
             <div class="menu-3">
                 <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav">
                 <img src="./imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config">
-                <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil">
+                <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" id="fotoPerfil">
                 
-                <!-- Dropdown de Notificações -->
                 <div class="dropdown-notificacoes" id="dropdownNotif">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
@@ -38,7 +37,6 @@
                     </div>
                 </div>
 
-                <!-- Dropdown de Configurações -->
                 <div class="dropdown-configuracoes" id="dropdownConfig">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
@@ -54,12 +52,11 @@
                     </div>
                 </div>
 
-                <!-- Dropdown de Perfil -->
                 <div class="dropdown-perfil" id="dropdownPerfil">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
                             <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
-                            <span>Olá, Rodrigo</span>
+                            <span id="nomeUsuarioPerfil">Olá, Carregando...</span>
                         </div>
                         <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
@@ -131,6 +128,55 @@
         </div>
     </main>
 
-    <script src="./Foto-usuario-adaptativa.js"></script>
+    
+    <script>
+        // --- SCRIPT UNIFICADO DE PERFIL ---
+        document.addEventListener('DOMContentLoaded', function() {
+            let userData = JSON.parse(localStorage.getItem('user') || 'null');
+            if (!userData) {
+                userData = JSON.parse(localStorage.getItem('usuarioLogado') || '{}');
+            }
+
+            if (userData && userData.name) {
+                document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${userData.name}`;
+                
+                const fotoPerfil = document.getElementById('fotoPerfil');
+                const perfilMini = document.querySelector('.perfil-mini');
+                
+                if (userData.perfilUrl) {
+                    const url = `http://localhost:3000${userData.perfilUrl}`;
+                    if(fotoPerfil) fotoPerfil.src = url;
+                    if(perfilMini) perfilMini.src = url;
+                }
+            }
+            
+            // Dropdowns
+            const btns = {
+                notif: document.querySelector('.btn-notificao-nav'),
+                config: document.querySelector('.btn-config'),
+                perfil: document.querySelector('.foto-de-perfil')
+            };
+            const drops = {
+                notif: document.getElementById('dropdownNotif'),
+                config: document.getElementById('dropdownConfig'),
+                perfil: document.getElementById('dropdownPerfil')
+            };
+
+            function fecharTodos() { Object.values(drops).forEach(d => d.classList.remove('ativo')); }
+
+            if(btns.notif) btns.notif.onclick = (e) => { e.stopPropagation(); const ab = drops.notif.classList.contains('ativo'); fecharTodos(); if(!ab) drops.notif.classList.add('ativo'); };
+            if(btns.config) btns.config.onclick = (e) => { e.stopPropagation(); const ab = drops.config.classList.contains('ativo'); fecharTodos(); if(!ab) drops.config.classList.add('ativo'); };
+            if(btns.perfil) btns.perfil.onclick = (e) => { e.stopPropagation(); const ab = drops.perfil.classList.contains('ativo'); fecharTodos(); if(!ab) drops.perfil.classList.add('ativo'); };
+            
+            document.querySelectorAll('.btn-fechar').forEach(b => b.onclick = fecharTodos);
+            window.onclick = () => fecharTodos();
+
+            // Logout
+            const btnSair = document.querySelector('.sair-conta');
+            if(btnSair) {
+                btnSair.onclick = () => { if(confirm('Sair?')) { localStorage.removeItem('user'); window.location.href = '/public/home.html'; } }
+            }
+        });
+    </script>
 </body>
 </html>

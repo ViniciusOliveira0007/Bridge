@@ -113,7 +113,7 @@ nav {
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    min-width: 200px;
+    min-width: 250px;
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
@@ -131,7 +131,7 @@ nav {
 
 .dropdown-perfil {
     right: 10px;
-    min-width: 220px;
+    min-width: 250px;
 }
 
 .dropdown-notificacoes.ativo,
