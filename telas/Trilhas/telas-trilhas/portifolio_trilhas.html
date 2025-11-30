@@ -220,14 +220,10 @@
     </main>
 
     <script>
-        const API_URL = 'http://localhost:3000/api';
-const STORAGE_KEY = 'trilhasCommentsPost1';
+      const API_URL = 'http://localhost:3000/api';
 
 document.addEventListener('DOMContentLoaded', async function() {
     
-    // ============================================
-    // 1. VERIFICAR LOGIN E CARREGAR DADOS
-    // ============================================
     const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
     
     if (!usuarioLogado || !usuarioLogado.id) {
@@ -239,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     console.log('👤 Usuário logado:', usuarioLogado);
 
     // ============================================
-    // 2. FUNÇÃO PARA ATUALIZAR TODAS AS FOTOS
+    // FUNÇÕES DE ATUALIZAÇÃO DE FOTOS
     // ============================================
     function atualizarTodasFotosPerfil(fotoUrl) {
         const URL_PADRAO = '../imagens_trilhas/foto_de_perfil.png';
@@ -247,54 +243,27 @@ document.addEventListener('DOMContentLoaded', async function() {
             ? (fotoUrl.startsWith('http') ? fotoUrl : `http://localhost:3000${fotoUrl}`)
             : URL_PADRAO;
         
-        // Atualizar foto no nav
-        const fotoPerfilNav = document.getElementById('fotoPerfilNav');
-        if (fotoPerfilNav) {
-            fotoPerfilNav.src = urlCompleta;
-            fotoPerfilNav.onerror = () => fotoPerfilNav.src = URL_PADRAO;
-        }
+        const elementos = [
+            document.getElementById('fotoPerfilNav'),
+            document.getElementById('fotoPerfilMini'),
+            ...document.querySelectorAll('.img-perfil'),
+            document.querySelector('.img-perfil-trilhas')
+        ];
         
-        // Atualizar foto no dropdown
-        const fotoPerfilMini = document.getElementById('fotoPerfilMini');
-        if (fotoPerfilMini) {
-            fotoPerfilMini.src = urlCompleta;
-            fotoPerfilMini.onerror = () => fotoPerfilMini.src = URL_PADRAO;
-        }
-        
-        // Atualizar foto na sidebar (perfil) - TODAS as instâncias
-        const imgsPerfil = document.querySelectorAll('.img-perfil');
-        imgsPerfil.forEach(img => {
-            img.src = urlCompleta;
-            img.onerror = () => img.src = URL_PADRAO;
+        elementos.forEach(el => {
+            if (el) {
+                el.src = urlCompleta;
+                el.onerror = () => el.src = URL_PADRAO;
+            }
         });
-
-        // Atualizar foto específica do portfólio (caso exista)
-        const imgPerfilTrilhas = document.querySelector('.img-perfil-trilhas');
-        if (imgPerfilTrilhas) {
-            imgPerfilTrilhas.src = urlCompleta;
-            imgPerfilTrilhas.onerror = () => imgPerfilTrilhas.src = URL_PADRAO;
-        }
-        
-        console.log('✅ Fotos de perfil atualizadas:', urlCompleta);
     }
 
-    // ============================================
-    // 3. ATUALIZAÇÃO IMEDIATA DO LOCALSTORAGE
-    // ============================================
-    if (usuarioLogado.perfilUrl) {
-        atualizarTodasFotosPerfil(usuarioLogado.perfilUrl);
-    }
-
-    // ============================================
-    // 4. CARREGAR DADOS ATUALIZADOS DA API
-    // ============================================
-    async function carregarFotoPerfil() {
+    async function carregarDadosUsuario() {
         try {
             const response = await fetch(`${API_URL}/users/${usuarioLogado.id}`);
             const data = await response.json();
             
             if (data.success && data.user) {
-                // Atualizar localStorage com dados mais recentes
                 const usuarioAtualizado = {
                     ...usuarioLogado,
                     name: data.user.name,
@@ -302,149 +271,86 @@ document.addEventListener('DOMContentLoaded', async function() {
                 };
                 localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
                 
-                // Atualizar nome do usuário
                 document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${data.user.name || 'Usuário'}`;
                 
-                // Atualizar nome no portfólio (se existir)
                 const nmUsuario = document.querySelector('.nm-usuario');
                 if (nmUsuario) {
                     nmUsuario.textContent = data.user.name || 'Usuário';
                 }
                 
-                // Atualizar fotos
                 if (data.user.perfilUrl) {
                     atualizarTodasFotosPerfil(data.user.perfilUrl);
                 }
-                
-                console.log('✅ Dados do usuário carregados da API');
             }
         } catch (error) {
-            console.error('❌ Erro ao carregar foto de perfil:', error);
+            console.error('❌ Erro ao carregar dados do usuário:', error);
         }
     }
 
-    // Executar carregamento da API
-    await carregarFotoPerfil();
+    await carregarDadosUsuario();
 
     // ============================================
-    // 5. NÍVEIS DE HABILIDADE
+    // CARREGAR PORTFÓLIO DO BANCO
     // ============================================
-    
-    const XpPorProjeto = 20;
-    const MetaNivel = 600;
-    const NivelMax = 6;
-
-    function calcularNivel(totalProjetos){
-        const xpTotal = totalProjetos * XpPorProjeto;
-        let nivelAtual = Math.floor(xpTotal/MetaNivel) + 1;
-        let xpNaFaixa = xpTotal % MetaNivel;
-
-        if(nivelAtual >= NivelMax){
-            nivelAtual = NivelMax;
-            xpNaFaixa = MetaNivel;
-        }
-
-        return {
-            nivel: nivelAtual,
-            xp: xpNaFaixa,
-        };
-    }
-
-    function atualizarCardsDeHabilidade() {
-        const cards = document.querySelectorAll('.card-habilidade');
-
-        cards.forEach(card => {
-            const projetos = parseInt(card.getAttribute('data-projetos')) || 0;
-            const resultado = calcularNivel(projetos);
-
-            const txtNivel = card.querySelector('.texto-nivel');
-            const txtXP = card.querySelector('.texto-xp');
-
-            if (txtNivel) {
-                txtNivel.innerText = `Nível: ${resultado.nivel}/${NivelMax}`;
-            }
+    async function carregarPortfolio() {
+        try {
+            console.log('📥 Carregando portfólio...');
             
-            if (txtXP) {
-                txtXP.innerText = `XP: ${resultado.xp} / ${MetaNivel}`;
+            const response = await fetch(`${API_URL}/trilhas/portfolio/${usuarioLogado.id}`);
+            const data = await response.json();
+            
+            if (data.success && data.portfolios) {
+                console.log(`✅ ${data.portfolios.length} itens de portfólio carregados`);
+                renderizarPortfolio(data.portfolios);
             }
+        } catch (error) {
+            console.error('❌ Erro ao carregar portfólio:', error);
+        }
+    }
+
+    function renderizarPortfolio(portfolios) {
+        const container = document.querySelector('.secao-seu-portifolio');
+        if (!container) return;
+
+        // Limpar itens estáticos
+        container.innerHTML = '';
+
+        if (portfolios.length === 0) {
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: #999;">
+                    <p>Nenhum item no portfólio ainda</p>
+                    <p style="font-size: 14px;">Clique em "Adicionar" para começar</p>
+                </div>
+            `;
+            return;
+        }
+
+        portfolios.forEach(item => {
+            const cardHTML = `
+                <div class="card-portifolio" data-portfolio-id="${item.id}">
+                    <div class="img-do-portifolio">
+                        <img src="${item.imagemUrl || '../imagens_trilhas/img-Portifolio/default.jpg'}" 
+                             alt="${item.titulo}" 
+                             class="img-portifolio">
+                    </div>
+                    <div class="nm-portifolio">
+                        <h3 class="titulo-portifolio">${item.titulo}</h3>
+                        ${item.linkExterno ? `<a href="${item.linkExterno}" target="_blank" class="link-externo">🔗 Ver projeto</a>` : ''}
+                    </div>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', cardHTML);
         });
     }
 
-    atualizarCardsDeHabilidade();
+    await carregarPortfolio();
 
     // ============================================
-    // 6. DROPDOWNS
+    // POPUP ADICIONAR PORTFÓLIO
     // ============================================
-    const dropdownNotif = document.getElementById('dropdownNotif');
-    const dropdownConfig = document.getElementById('dropdownConfig');
-    const dropdownPerfil = document.getElementById('dropdownPerfil');
-    const btnNotif = document.querySelector('.btn-notificao-nav');
-    const btnConfig = document.querySelector('.btn-config');
-    const fotoPerfilNav = document.getElementById('fotoPerfilNav');
-    
-    function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
-    function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
-    function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
-    
-    btnNotif.addEventListener('click', function() {
-        fecharDropdownConfig();
-        fecharDropdownPerfil();
-        dropdownNotif.classList.toggle('ativo');
-    });
-    
-    btnConfig.addEventListener('click', function() {
-        fecharDropdownNotif();
-        fecharDropdownPerfil();
-        dropdownConfig.classList.toggle('ativo');
-    });
-    
-    fotoPerfilNav.addEventListener('click', function() {
-        fecharDropdownNotif();
-        fecharDropdownConfig();
-        dropdownPerfil.classList.toggle('ativo');
-    });
-
-    document.querySelectorAll('[data-action]').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            const action = this.getAttribute('data-action');
-            switch(action) {
-                case 'fechar-notif': fecharDropdownNotif(); break;
-                case 'fechar-config': fecharDropdownConfig(); break;
-                case 'fechar-perfil': fecharDropdownPerfil(); break;
-                case 'sair-da-conta':
-                    if (confirm('Tem certeza que deseja sair da conta?')) {
-                        localStorage.removeItem('usuarioLogado');
-                        window.location.href = '/home.html';
-                    }
-                    fecharDropdownPerfil();
-                    break;
-                default:
-                    alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
-                    fecharDropdownConfig(); 
-                    fecharDropdownPerfil();
-                    break;
-            }
-        });
-    });
-    
-    document.addEventListener('click', function(event) {
-        const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                               !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                               !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
-        
-        if (isClickOutside) {
-            fecharDropdownNotif();
-            fecharDropdownConfig();
-            fecharDropdownPerfil();
-        }
-    });
-
-    // ============================================
-    // 7. LÓGICA DO POPUP DE ADICIONAR PROJETO
-    // ============================================
-    
     const popupAdd = document.getElementById('popupAdicionar');
-    const btnOpenAdd = document.getElementById('btnAdicionarPortifolio'); 
+    const btnOpenAdd = document.getElementById('btnAdicionarPortifolio');
 
     window.fecharPopupAdd = function() {
         popupAdd.classList.remove('ativo');
@@ -477,8 +383,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
+    // ============================================
+    // SALVAR PORTFÓLIO (IMAGEM) NO BANCO
+    // ============================================
     const formImagem = document.getElementById('form-imagem');
-    formImagem.addEventListener('submit', function(e) {
+    formImagem.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const titulo = document.getElementById('tituloImagem').value;
@@ -487,26 +396,36 @@ document.addEventListener('DOMContentLoaded', async function() {
         if(inputImg.files && inputImg.files[0]) {
             const reader = new FileReader();
             
-            reader.onload = function(e) {
-                const novaImagemURL = e.target.result;
+            reader.onload = async function(e) {
+                const imagemBase64 = e.target.result;
 
-                const novoCardHTML = `
-                    <div class="card-portifolio">
-                        <div class="img-do-portifolio">
-                            <img src="${novaImagemURL}" alt="${titulo}" class="img-portifolio">
-                        </div>
-                        <div class="nm-portifolio">
-                            <h3 class="titulo-portifolio">${titulo}</h3>
-                        </div>
-                    </div>
-                `;
+                try {
+                    const response = await fetch(`${API_URL}/trilhas/portfolio`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            usuarioId: usuarioLogado.id,
+                            titulo: titulo,
+                            imagemUrl: imagemBase64, // Em produção, fazer upload real
+                            ordem: 0
+                        })
+                    });
 
-                const containerPortifolio = document.querySelector('.secao-seu-portifolio');
-                containerPortifolio.insertAdjacentHTML('afterbegin', novoCardHTML);
-                
-                formImagem.reset();
-                document.getElementById('txtNomeImagem').innerText = "Escolher imagem...";
-                fecharPopupAdd();
+                    const data = await response.json();
+
+                    if (data.success) {
+                        alert('✅ Item adicionado ao portfólio!');
+                        formImagem.reset();
+                        document.getElementById('txtNomeImagem').innerText = "Escolher imagem...";
+                        fecharPopupAdd();
+                        await carregarPortfolio(); // Recarregar
+                    } else {
+                        alert('❌ ' + (data.message || 'Erro ao adicionar item'));
+                    }
+                } catch (error) {
+                    console.error('❌ Erro ao salvar:', error);
+                    alert('Erro ao adicionar ao portfólio');
+                }
             }
             
             reader.readAsDataURL(inputImg.files[0]);
@@ -517,36 +436,63 @@ document.addEventListener('DOMContentLoaded', async function() {
         if(this.files[0]) document.getElementById('txtNomeImagem').innerText = this.files[0].name;
     });
 
+    // ============================================
+    // SALVAR ANEXO (ARQUIVO/LINK) NO BANCO
+    // ============================================
     const formArquivo = document.getElementById('form-arquivo');
-    formArquivo.addEventListener('submit', function(e) {
+    formArquivo.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const titulo = document.getElementById('tituloArquivo').value;
         const link = document.getElementById('linkArquivo').value || '#';
-        const icone = document.getElementById('tipoIcone').value;
 
-        const novoAnexoHTML = `
-            <div class="card-de-anexo">
-                <div class="projeto">
-                    <div class="img-de-anexo">
-                        <img src="../imagens_trilhas/icone-habilidades-trilhas/${icone}" alt="Icone" class="img-anexo">
+        try {
+            const response = await fetch(`${API_URL}/trilhas/portfolio`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    usuarioId: usuarioLogado.id,
+                    titulo: titulo,
+                    linkExterno: link,
+                    ordem: 0
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert('✅ Anexo adicionado ao portfólio!');
+                formArquivo.reset();
+                fecharPopupAdd();
+                
+                // Adicionar à seção de anexos (renderização local)
+                const icone = document.getElementById('tipoIcone').value;
+                const novoAnexoHTML = `
+                    <div class="card-de-anexo" data-portfolio-id="${data.portfolio.id}">
+                        <div class="projeto">
+                            <div class="img-de-anexo">
+                                <img src="../imagens_trilhas/icone-habilidades-trilhas/${icone}" alt="Ícone" class="img-anexo">
+                            </div>
+                            <p class="nome-projeto">${titulo}</p>
+                        </div>
+                        <a href="${link}" target="_blank" class="btn-ver-sobre">Ver sobre</a>
                     </div>
-                    <p class="nome-projeto">${titulo}</p>
-                </div>
-                <a href="${link}" target="_blank" class="btn-ver-sobre">Ver sobre</a>
-            </div>
-        `;
+                `;
 
-        const containerAnexos = document.querySelector('.secao-arquivos-anexados');
-        containerAnexos.insertAdjacentHTML('afterbegin', novoAnexoHTML);
-
-        formArquivo.reset();
-        fecharPopupAdd();
+                const containerAnexos = document.querySelector('.secao-arquivos-anexados');
+                containerAnexos.insertAdjacentHTML('beforeend', novoAnexoHTML);
+            } else {
+                alert('❌ ' + (data.message || 'Erro ao adicionar anexo'));
+            }
+        } catch (error) {
+            console.error('❌ Erro ao salvar anexo:', error);
+            alert('Erro ao adicionar anexo');
+        }
     });
 
-    // ==========================================
-    // 8. LÓGICA DO VISUALIZADOR DE IMAGEM
-    // ==========================================
+    // ============================================
+    // VISUALIZADOR DE IMAGEM
+    // ============================================
     const popupViewer = document.getElementById('popupVisualizarImg');
     const imgExpandida = document.getElementById('imgExpandida');
     const tituloExpandido = document.getElementById('tituloExpandido');
@@ -554,11 +500,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('img-portifolio')) {
-            const areaPortifolio = document.querySelector('.seu-portifolio');
-            if (areaPortifolio.classList.contains('modo-edicao')) {
-                return;
-            }
-
             const srcImagem = e.target.src;
             const cardPai = e.target.closest('.card-portifolio');
             const titulo = cardPai.querySelector('.titulo-portifolio').innerText;
@@ -587,6 +528,139 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     });
 
+    // ============================================
+    // MODO EDIÇÃO - REMOVER ITENS
+    // ============================================
+    const btnEditarPortfolio = document.getElementById('btnEditarPortifolio');
+    let modoEdicao = false;
+
+    if (btnEditarPortfolio) {
+        btnEditarPortfolio.addEventListener('click', function(e) {
+            e.preventDefault();
+            modoEdicao = !modoEdicao;
+
+            const cards = document.querySelectorAll('.card-portifolio[data-portfolio-id]');
+            
+            if (modoEdicao) {
+                btnEditarPortfolio.innerHTML = 'Concluir Edição <img src="../imagens_trilhas/edit-icon-perfil.svg">';
+                btnEditarPortfolio.style.background = '#4CAF50';
+                
+                cards.forEach(card => {
+                    if (!card.querySelector('.btn-remover-portfolio')) {
+                        const btnRemover = document.createElement('button');
+                        btnRemover.className = 'btn-remover-portfolio';
+                        btnRemover.innerHTML = '🗑️';
+                        btnRemover.style.cssText = 'position: absolute; top: 10px; right: 10px; background: #f44336; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; z-index: 10;';
+                        
+                        btnRemover.addEventListener('click', async function(e) {
+                            e.stopPropagation();
+                            
+                            const portfolioId = card.dataset.portfolioId;
+                            
+                            if (confirm('Deseja remover este item do portfólio?')) {
+                                try {
+                                    const response = await fetch(`${API_URL}/trilhas/portfolio/${portfolioId}`, {
+                                        method: 'DELETE'
+                                    });
+
+                                    const data = await response.json();
+
+                                    if (data.success) {
+                                        card.style.opacity = '0';
+                                        setTimeout(() => card.remove(), 300);
+                                        alert('✅ Item removido!');
+                                    } else {
+                                        alert('❌ Erro ao remover item');
+                                    }
+                                } catch (error) {
+                                    console.error('❌ Erro ao remover:', error);
+                                    alert('Erro ao remover item');
+                                }
+                            }
+                        });
+                        
+                        card.style.position = 'relative';
+                        card.appendChild(btnRemover);
+                    }
+                });
+            } else {
+                btnEditarPortfolio.innerHTML = 'Editar Portfólio <img src="../imagens_trilhas/edit-icon-perfil.svg">';
+                btnEditarPortfolio.style.background = '';
+                
+                cards.forEach(card => {
+                    const btnRemover = card.querySelector('.btn-remover-portfolio');
+                    if (btnRemover) btnRemover.remove();
+                });
+            }
+        });
+    }
+
+    // ============================================
+    // DROPDOWNS (mantido)
+    // ============================================
+    const dropdownNotif = document.getElementById('dropdownNotif');
+    const dropdownConfig = document.getElementById('dropdownConfig');
+    const dropdownPerfil = document.getElementById('dropdownPerfil');
+    const btnNotif = document.querySelector('.btn-notificao-nav');
+    const btnConfig = document.querySelector('.btn-config');
+    const fotoPerfilNav = document.getElementById('fotoPerfilNav');
+    
+    function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
+    function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
+    function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
+    
+    btnNotif.addEventListener('click', () => {
+        fecharDropdownConfig();
+        fecharDropdownPerfil();
+        dropdownNotif.classList.toggle('ativo');
+    });
+    
+    btnConfig.addEventListener('click', () => {
+        fecharDropdownNotif();
+        fecharDropdownPerfil();
+        dropdownConfig.classList.toggle('ativo');
+    });
+    
+    fotoPerfilNav.addEventListener('click', () => {
+        fecharDropdownNotif();
+        fecharDropdownConfig();
+        dropdownPerfil.classList.toggle('ativo');
+    });
+
+    document.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            switch(action) {
+                case 'fechar-notif': fecharDropdownNotif(); break;
+                case 'fechar-config': fecharDropdownConfig(); break;
+                case 'fechar-perfil': fecharDropdownPerfil(); break;
+                case 'sair-da-conta':
+                    if (confirm('Tem certeza que deseja sair da conta?')) {
+                        localStorage.removeItem('usuarioLogado');
+                        window.location.href = '/home.html';
+                    }
+                    fecharDropdownPerfil();
+                    break;
+                default:
+                    alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
+                    fecharDropdownConfig(); 
+                    fecharDropdownPerfil();
+                    break;
+            }
+        });
+    });
+    
+    document.addEventListener('click', event => {
+        const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
+                               !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
+                               !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
+        
+        if (isClickOutside) {
+            fecharDropdownNotif();
+            fecharDropdownConfig();
+            fecharDropdownPerfil();
+        }
+    });
 });
     </script>
 

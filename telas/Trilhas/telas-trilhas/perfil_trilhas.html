@@ -327,14 +327,10 @@
     </main>
 
     <script>
-      const API_URL = 'http://localhost:3000/api';
-const STORAGE_KEY = 'trilhasCommentsPost1';
+   const API_URL = 'http://localhost:3000/api';
 
 document.addEventListener('DOMContentLoaded', async function() {
     
-    // ============================================
-    // 1. VERIFICAR LOGIN E CARREGAR DADOS
-    // ============================================
     const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
     
     if (!usuarioLogado || !usuarioLogado.id) {
@@ -343,10 +339,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         return;
     }
 
-    console.log('👤 Usuário logado:', usuarioLogado);
-
     // ============================================
-    // 2. FUNÇÃO PARA ATUALIZAR TODAS AS FOTOS
+    // FUNÇÕES DE ATUALIZAÇÃO DE FOTOS (mantidas)
     // ============================================
     function atualizarTodasFotosPerfil(fotoUrl) {
         const URL_PADRAO = '../imagens_trilhas/foto_de_perfil.png';
@@ -354,119 +348,132 @@ document.addEventListener('DOMContentLoaded', async function() {
             ? (fotoUrl.startsWith('http') ? fotoUrl : `http://localhost:3000${fotoUrl}`)
             : URL_PADRAO;
         
-        // Atualizar foto no nav
-        const fotoPerfilNav = document.getElementById('fotoPerfilNav');
-        if (fotoPerfilNav) {
-            fotoPerfilNav.src = urlCompleta;
-            fotoPerfilNav.onerror = () => fotoPerfilNav.src = URL_PADRAO;
-        }
+        const elementos = [
+            document.getElementById('fotoPerfilNav'),
+            document.getElementById('fotoPerfilMini'),
+            document.querySelector('.img-perfil'),
+            document.querySelector('.img-perfil-trilhas')
+        ];
         
-        // Atualizar foto no dropdown
-        const fotoPerfilMini = document.getElementById('fotoPerfilMini');
-        if (fotoPerfilMini) {
-            fotoPerfilMini.src = urlCompleta;
-            fotoPerfilMini.onerror = () => fotoPerfilMini.src = URL_PADRAO;
-        }
-        
-        // Atualizar foto na sidebar (perfil)
-        const imgPerfil = document.querySelector('.img-perfil');
-        if (imgPerfil) {
-            imgPerfil.src = urlCompleta;
-            imgPerfil.onerror = () => imgPerfil.src = URL_PADRAO;
-        }
-        
-        // Atualizar foto grande do perfil
-        const imgPerfilTrilhas = document.querySelector('.img-perfil-trilhas');
-        if (imgPerfilTrilhas) {
-            imgPerfilTrilhas.src = urlCompleta;
-            imgPerfilTrilhas.onerror = () => imgPerfilTrilhas.src = URL_PADRAO;
-        }
-        
-        console.log('✅ Fotos de perfil atualizadas:', urlCompleta);
+        elementos.forEach(el => {
+            if (el) {
+                el.src = urlCompleta;
+                el.onerror = () => el.src = URL_PADRAO;
+            }
+        });
     }
 
-    // ============================================
-    // 3. ATUALIZAÇÃO IMEDIATA DO LOCALSTORAGE
-    // ============================================
-    if (usuarioLogado.perfilUrl) {
-        atualizarTodasFotosPerfil(usuarioLogado.perfilUrl);
-    }
-
-    // ============================================
-    // 4. CARREGAR DADOS ATUALIZADOS DA API
-    // ============================================
-    async function carregarFotoPerfil() {
+    async function carregarDadosUsuario() {
         try {
             const response = await fetch(`${API_URL}/users/${usuarioLogado.id}`);
             const data = await response.json();
             
             if (data.success && data.user) {
-                // Atualizar localStorage com dados mais recentes
                 const usuarioAtualizado = {
                     ...usuarioLogado,
                     name: data.user.name,
-                    perfilUrl: data.user.perfilUrl
+                    perfilUrl: data.user.perfilUrl,
+                    sobreMim: data.user.sobreMim
                 };
                 localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
                 
-                // Atualizar nome do usuário
+                // Atualizar nome
                 document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${data.user.name || 'Usuário'}`;
+                const nmUsuario = document.querySelector('.nm-usuario');
+                if (nmUsuario) nmUsuario.textContent = data.user.name || 'Usuário';
                 
-                // Atualizar fotos
+                // Atualizar "Sobre Mim"
+                const sobreMimElement = document.querySelector('.content-desc-seu-perfil');
+                if (sobreMimElement && data.user.sobreMim) {
+                    sobreMimElement.textContent = data.user.sobreMim;
+                }
+                
                 if (data.user.perfilUrl) {
                     atualizarTodasFotosPerfil(data.user.perfilUrl);
                 }
-                
-                console.log('✅ Dados do usuário carregados da API');
             }
         } catch (error) {
-            console.error('❌ Erro ao carregar foto de perfil:', error);
+            console.error('❌ Erro ao carregar dados do usuário:', error);
         }
     }
 
-    // Executar carregamento da API
-    await carregarFotoPerfil();
+    await carregarDadosUsuario();
 
     // ============================================
-    // 5. NÍVEIS DE HABILIDADE (LÓGICA CORRIGIDA)
+    // CARREGAR HABILIDADES DO BANCO
     // ============================================
-    
-    // Se 20 projetos dão 600 XP, cada projeto deve valer 30 XP.
-    const XpPorProjeto = 30; 
-    const MetaNivel = 600; // XP total necessário para subir de nível
-    const NivelMax = 6;
+    async function carregarHabilidades() {
+        try {
+            const response = await fetch(`${API_URL}/trilhas/habilidades/${usuarioLogado.id}`);
+            const data = await response.json();
+            
+            if (data.success && data.habilidades) {
+                renderizarHabilidades(data.habilidades);
+            }
+        } catch (error) {
+            console.error('❌ Erro ao carregar habilidades:', error);
+        }
+    }
 
-    // ============================================
-    // 5.1 CALCULAR SEU NÍVEL ATUAL
-    // ============================================
+    function renderizarHabilidades(habilidades) {
+        const container = document.querySelector('.secao-suas-habilidades');
+        if (!container) return;
 
-    function calcularNivel(totalProjetos){
-        const xpTotal = totalProjetos * XpPorProjeto;
+        container.innerHTML = '';
 
-        // O nível é a quantidade de Metas de XP completas + 1 (para começar no Nível 1)
-        let nivelBase = Math.floor(xpTotal / MetaNivel); 
+        if (habilidades.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: #999;">Nenhuma habilidade adicionada ainda</p>';
+            return;
+        }
+
+        habilidades.forEach(hab => {
+            const nivel = calcularNivel(hab.xp);
+            
+            const cardHTML = `
+                <div class="card-habilidade" data-habilidade-id="${hab.id}">
+                    <div class="img-sua-habilidade">
+                        <img src="../imagens_trilhas/icone-habilidades-trilhas/${hab.habilidade.icone || 'default.svg'}" 
+                             alt="${hab.habilidade.nome}" 
+                             class="img-habilidade">
+                    </div>
+                    <div class="box-nm-nivel">
+                        <div class="nome-nivel">
+                            <div class="espaco-nome-habilidade">
+                                <p class="nome-habilidade">${hab.habilidade.nome}</p>
+                            </div>
+                            <p class="nivel-habilidade">Nível: <span>${nivel.nivel}</span>/6</p>
+                        </div>
+                        <div class="linha-progresso-habilidade">
+                            <div class="progresso-linha-habilidade" style="width: ${nivel.progresso}%"></div>
+                        </div>
+                        <div class="xp-nivel">
+                            <p class="xp-necessario texto-xp">XP: <span>${nivel.xp}</span>/600</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', cardHTML);
+        });
+    }
+
+    // Sistema de XP e Níveis
+    const XP_POR_PROJETO = 30;
+    const META_NIVEL = 600;
+    const NIVEL_MAX = 6;
+
+    function calcularNivel(xpTotal) {
+        let nivelBase = Math.floor(xpTotal / META_NIVEL);
         let nivelAtual = nivelBase + 1;
+        let xpNaFaixa = xpTotal % META_NIVEL;
+        let progressoPercentual = (xpNaFaixa / META_NIVEL) * 100;
 
-        let xpNaFaixa = xpTotal % MetaNivel;
-        
-        // Calcula a porcentagem de progresso na faixa de 0 a 600
-        let progressoPercentual = (xpNaFaixa / MetaNivel) * 100;
-
-        // Se o nível máximo for atingido, trava o nível em NivelMax e o XP em MetaNivel
-        if(nivelAtual > NivelMax){
-            nivelAtual = NivelMax;
-            xpNaFaixa = MetaNivel;
+        if (nivelAtual > NIVEL_MAX) {
+            nivelAtual = NIVEL_MAX;
+            xpNaFaixa = META_NIVEL;
             progressoPercentual = 100;
         }
-        
-        // Trata o caso em que o total de projetos for exatamente um múltiplo de 20/600
-        if (xpNaFaixa === 0 && totalProjetos > 0 && nivelAtual <= NivelMax) {
-             if (nivelAtual > 1) {
-                xpNaFaixa = MetaNivel;
-                progressoPercentual = 100;
-             }
-        }
-        
+
         return {
             nivel: nivelAtual,
             xp: xpNaFaixa,
@@ -474,69 +481,337 @@ document.addEventListener('DOMContentLoaded', async function() {
         };
     }
 
+    await carregarHabilidades();
+
     // ============================================
-    // 5.2 ATUALIZAR O CÓDIGO E A BARRA DE PROGRESSO
+    // CARREGAR FORMAÇÕES DO BANCO
     // ============================================
-
-    function atualizarCardsDeHabilidade() {
-        const cards = document.querySelectorAll('.card-habilidade');
-
-        cards.forEach(card => {
-            const projetos = parseInt(card.getAttribute('data-projetos')) || 0; 
-            const resultado = calcularNivel(projetos);
+    async function carregarFormacoes() {
+        try {
+            const response = await fetch(`${API_URL}/trilhas/formacoes/${usuarioLogado.id}`);
+            const data = await response.json();
             
-            const spanNivel = card.querySelector('.nivel-habilidade span');
-            const spanXP = card.querySelector('.xp-necessario span');
-            let barraProgresso = card.querySelector('.progresso-linha-habilidade') || card.querySelector('.xp-preenchimento');
-
-            if (spanNivel) {
-                spanNivel.textContent = resultado.nivel; 
+            if (data.success && data.formacoes) {
+                renderizarFormacoes(data.formacoes);
             }
+        } catch (error) {
+            console.error('❌ Erro ao carregar formações:', error);
+        }
+    }
+
+    function renderizarFormacoes(formacoes) {
+        const container = document.querySelector('.secao-suas-formacoes');
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        if (formacoes.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: #999;">Nenhuma formação adicionada ainda</p>';
+            return;
+        }
+
+        formacoes.forEach(form => {
+            const dataInicio = form.dataInicio ? new Date(form.dataInicio).getFullYear() : '-';
+            const dataFim = form.dataFim ? new Date(form.dataFim).getFullYear() : (form.emAndamento ? 'Cursando' : '-');
             
-            if (spanXP) {
-                spanXP.textContent = resultado.xp; 
+            const cardHTML = `
+                <div class="card-formacao" data-formacao-id="${form.id}">
+                    <div class="img-sua-formacao">
+                        <img src="../imagens_trilhas/icone-formacao.svg" alt="Formação" class="img-formacao">
+                    </div>
+                    <div class="box-formacao">
+                        <p class="nome-local-formacao">${form.instituicao}</p>
+                        <div class="nm-data">
+                            <p class="nome-especializacao">${form.titulo}</p>
+                            <p class="data-especializacao">${dataInicio} - ${dataFim}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', cardHTML);
+        });
+    }
+
+    await carregarFormacoes();
+
+    // ============================================
+    // POPUP ADICIONAR HABILIDADE
+    // ============================================
+    const popupHabilidade = document.getElementById('popupHabilidade');
+    const btnAbrirPopup = document.getElementById('btnAbrirPopup');
+    const btnFecharPopup = document.getElementById('btnFecharPopup');
+    const btnCancelarPopup = document.getElementById('btnCancelarPopup');
+
+    // Carregar catálogo de habilidades
+    async function carregarCatalogoHabilidades() {
+        try {
+            const response = await fetch(`${API_URL}/trilhas/habilidades-catalogo`);
+            const data = await response.json();
+            
+            if (data.success && data.habilidades) {
+                renderizarCatalogo(data.habilidades);
             }
+        } catch (error) {
+            console.error('❌ Erro ao carregar catálogo:', error);
+        }
+    }
+
+    function renderizarCatalogo(habilidades) {
+        const grid = document.querySelector('.grid-habilidades');
+        if (!grid) return;
+
+        grid.innerHTML = '';
+
+        habilidades.forEach(hab => {
+            const cardHTML = `
+                <div class="card-habilidade card-selecionavel" data-habilidade-id="${hab.id}">
+                    <img src="../imagens_trilhas/icone-habilidades-trilhas/${hab.icone || 'default.svg'}" 
+                         alt="${hab.nome}" 
+                         class="img-habilidade">
+                    <div class="box-habilidade">
+                        <p class="nm-habilidade">${hab.nome}</p>
+                        <div class="nivel-habilidade">
+                            <div class="barra-habilidade">
+                                <div class="progress" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
             
-            if (barraProgresso) {
-                barraProgresso.style.width = `${resultado.progresso}%`;
+            grid.insertAdjacentHTML('beforeend', cardHTML);
+        });
+    }
+
+    if (btnAbrirPopup) {
+        btnAbrirPopup.addEventListener('click', async function(e) {
+            e.preventDefault();
+            await carregarCatalogoHabilidades();
+            popupHabilidade.classList.add('ativo');
+        });
+    }
+
+    function fecharPopup() {
+        popupHabilidade.classList.remove('ativo');
+    }
+
+    if (btnFecharPopup) btnFecharPopup.addEventListener('click', fecharPopup);
+    if (btnCancelarPopup) btnCancelarPopup.addEventListener('click', fecharPopup);
+
+    // Seleção de habilidade
+    const gridHabilidades = document.querySelector('.grid-habilidades');
+    if (gridHabilidades) {
+        gridHabilidades.addEventListener('click', function(e) {
+            let card = e.target.closest('.card-selecionavel');
+            if (card) {
+                document.querySelectorAll('.card-selecionavel').forEach(c => {
+                    c.classList.remove('selecionada');
+                });
+                card.classList.add('selecionada');
             }
         });
     }
 
-    atualizarCardsDeHabilidade();
+    // Salvar habilidade selecionada
+    const btnSalvarHabilidade = document.getElementById('btnSalvarHabilidade');
+    if (btnSalvarHabilidade) {
+        btnSalvarHabilidade.addEventListener('click', async function(e) {
+            e.preventDefault();
+
+            const cardSelecionado = document.querySelector('.card-selecionavel.selecionada');
+        
+            if (cardSelecionado) {
+                const habilidadeId = cardSelecionado.dataset.habilidadeId;
+                
+                try {
+                    const response = await fetch(`${API_URL}/trilhas/habilidades`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            usuarioId: usuarioLogado.id,
+                            habilidadeId: parseInt(habilidadeId),
+                            nivel: 1
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        alert('✅ Habilidade adicionada com sucesso!');
+                        fecharPopup();
+                        await carregarHabilidades(); // Recarregar lista
+                    } else {
+                        alert('❌ ' + (data.message || 'Erro ao adicionar habilidade'));
+                    }
+                } catch (error) {
+                    console.error('❌ Erro ao salvar habilidade:', error);
+                    alert('Erro ao adicionar habilidade');
+                }
+            } else {
+                alert('Por favor, selecione uma habilidade antes de adicionar.');
+            }
+        });
+    }
 
     // ============================================
-    // 6. DROPDOWNS
+    // POPUP SOBRE MIM
+    // ============================================
+    const popupSobre = document.getElementById('popupSobreMim');
+    const btnAbrirSobre = document.getElementById('btnAbrirSobreMim');
+    const btnFecharSobre = document.getElementById('btnFecharSobreMim');
+    const btnCancelarSobre = document.getElementById('btnCancelarSobreMim');
+    const formSobre = document.getElementById('formSobreMim');
+    const txtAreaSobre = document.getElementById('txtSobreMim');
+    const textoPerfilAtual = document.querySelector('.content-desc-seu-perfil');
+    const contador = document.getElementById('contadorAtual');
+
+    if (btnAbrirSobre) {
+        btnAbrirSobre.addEventListener('click', function(e) {
+            e.preventDefault();
+            const textoAtual = textoPerfilAtual.innerText.trim();
+            txtAreaSobre.value = textoAtual;
+            contador.innerText = textoAtual.length;
+            popupSobre.classList.add('ativo');
+        });
+    }
+
+    function fecharPopupSobre() {
+        popupSobre.classList.remove('ativo');
+    }
+
+    if (btnFecharSobre) btnFecharSobre.addEventListener('click', fecharPopupSobre);
+    if (btnCancelarSobre) btnCancelarSobre.addEventListener('click', fecharPopupSobre);
+
+    txtAreaSobre.addEventListener('input', function() {
+        contador.innerText = this.value.length;
+    });
+
+    if (formSobre) {
+        formSobre.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const novoTexto = txtAreaSobre.value;
+
+            try {
+                const response = await fetch(`${API_URL}/trilhas/perfil/${usuarioLogado.id}/sobre-mim`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sobreMim: novoTexto })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    textoPerfilAtual.innerText = novoTexto;
+                    alert('✅ Perfil atualizado com sucesso!');
+                    fecharPopupSobre();
+                } else {
+                    alert('❌ Erro ao atualizar perfil');
+                }
+            } catch (error) {
+                console.error('Erro ao salvar:', error);
+                alert('Erro ao atualizar descrição.');
+            }
+        });
+    }
+
+    // ============================================
+    // POPUP FORMAÇÃO ACADÊMICA
+    // ============================================
+    const popupFormacao = document.getElementById('popupFormacao');
+    const btnAbrirFormacao = document.getElementById('btnAbrirFormacao');
+    const btnFecharFormacao = document.getElementById('btnFecharPopupFormacao');
+    const btnCancelarFormacao = document.getElementById('btnCancelarFormacao');
+    const formAdicionarFormacao = document.getElementById('form-adicionar-formacao');
+
+    if (btnAbrirFormacao) {
+        btnAbrirFormacao.addEventListener('click', function(e) {
+            e.preventDefault();
+            popupFormacao.classList.add('ativo');
+        });
+    }
+
+    function fecharPopupFormacao() {
+        popupFormacao.classList.remove('ativo');
+        setTimeout(() => {
+            formAdicionarFormacao.reset();
+        }, 300);
+    }
+
+    if (btnFecharFormacao) btnFecharFormacao.addEventListener('click', fecharPopupFormacao);
+    if (btnCancelarFormacao) btnCancelarFormacao.addEventListener('click', fecharPopupFormacao);
+
+    formAdicionarFormacao.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const instituicao = document.getElementById('nomeInstituicao').value;
+        const curso = document.getElementById('nomeCurso').value;
+        const anoInicio = document.getElementById('anoInicio').value;
+        const anoFim = document.getElementById('anoFim').value;
+
+        try {
+            const response = await fetch(`${API_URL}/trilhas/formacoes`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    usuarioId: usuarioLogado.id,
+                    titulo: curso,
+                    instituicao: instituicao,
+                    dataInicio: `${anoInicio}-01-01`,
+                    dataFim: `${anoFim}-01-01`,
+                    emAndamento: false
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert('✅ Formação adicionada com sucesso!');
+                fecharPopupFormacao();
+                await carregarFormacoes(); // Recarregar lista
+            } else {
+                alert('❌ ' + (data.message || 'Erro ao adicionar formação'));
+            }
+        } catch (error) {
+            console.error('❌ Erro ao salvar formação:', error);
+            alert('Erro ao adicionar formação');
+        }
+    });
+
+    // ============================================
+    // DROPDOWNS (mantido do código original)
     // ============================================
     const dropdownNotif = document.getElementById('dropdownNotif');
     const dropdownConfig = document.getElementById('dropdownConfig');
     const dropdownPerfil = document.getElementById('dropdownPerfil');
     const btnNotif = document.querySelector('.btn-notificao-nav');
     const btnConfig = document.querySelector('.btn-config');
+    const fotoPerfilNav = document.getElementById('fotoPerfilNav');
     
     function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
     function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
     function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
     
-    btnNotif.addEventListener('click', function() {
+    btnNotif.addEventListener('click', () => {
         fecharDropdownConfig();
         fecharDropdownPerfil();
         dropdownNotif.classList.toggle('ativo');
     });
     
-    btnConfig.addEventListener('click', function() {
+    btnConfig.addEventListener('click', () => {
         fecharDropdownNotif();
         fecharDropdownPerfil();
         dropdownConfig.classList.toggle('ativo');
     });
     
-    fotoPerfilNav.addEventListener('click', function() {
+    fotoPerfilNav.addEventListener('click', () => {
         fecharDropdownNotif();
         fecharDropdownConfig();
         dropdownPerfil.classList.toggle('ativo');
     });
 
-    document.querySelectorAll('[data-action]').forEach(function(btn) {
+    document.querySelectorAll('[data-action]').forEach(btn => {
         btn.addEventListener('click', function() {
             const action = this.getAttribute('data-action');
             switch(action) {
@@ -559,7 +834,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     });
     
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', event => {
         const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
                                !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
                                !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
@@ -570,235 +845,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             fecharDropdownPerfil();
         }
     });
-
-    // ============================================
-    // 7. LÓGICA DO POPUP (ADICIONAR HABILIDADE)
-    // ============================================
-    const popup = document.getElementById('popupHabilidade');
-    const btnAbrir = document.getElementById('btnAbrirPopup');
-    const btnFechar = document.getElementById('btnFecharPopup');
-    const btnCancelar = document.getElementById('btnCancelarPopup');
-
-    if(btnAbrir) {
-        btnAbrir.addEventListener('click', function(e) {
-            e.preventDefault();
-            popup.classList.add('ativo');
-        });
-    }
-
-    function fecharPopup() {
-        popup.classList.remove('ativo');
-    }
-
-    if(btnFechar) btnFechar.addEventListener('click', fecharPopup);
-    if(btnCancelar) btnCancelar.addEventListener('click', fecharPopup);
-
-    popup.addEventListener('click', function(e) {
-        if (e.target === popup) {
-            fecharPopup();
-        }
-    });
-
-    const formHabilidade = document.querySelector('.popup-form');
-    if(formHabilidade) {
-        formHabilidade.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Funcionalidade de salvar será integrada com o Backend!');
-            fecharPopup();
-        });
-    }
-
-    // ============================================
-    // 8. POPUP SOBRE MIM (EDITAR)
-    // ============================================
-    
-    const popupSobre = document.getElementById('popupSobreMim');
-    const btnAbrirSobre = document.getElementById('btnAbrirSobreMim');
-    const btnFecharSobre = document.getElementById('btnFecharSobreMim');
-    const btnCancelarSobre = document.getElementById('btnCancelarSobreMim');
-    const formSobre = document.getElementById('formSobreMim');
-    
-    const txtAreaSobre = document.getElementById('txtSobreMim');
-    const textoPerfilAtual = document.querySelector('.content-desc-seu-perfil');
-    const contador = document.getElementById('contadorAtual');
-
-    if (btnAbrirSobre) {
-        btnAbrirSobre.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const textoAtual = textoPerfilAtual.innerText.trim();
-            txtAreaSobre.value = textoAtual;
-            contador.innerText = textoAtual.length;
-
-            popupSobre.classList.add('ativo');
-        });
-    }
-
-    function fecharPopupSobre() {
-        popupSobre.classList.remove('ativo');
-    }
-
-    if(btnFecharSobre) btnFecharSobre.addEventListener('click', fecharPopupSobre);
-    if(btnCancelarSobre) btnCancelarSobre.addEventListener('click', fecharPopupSobre);
-
-    popupSobre.addEventListener('click', function(e) {
-        if (e.target === popupSobre) fecharPopupSobre();
-    });
-
-    txtAreaSobre.addEventListener('input', function() {
-        contador.innerText = this.value.length;
-    });
-
-    if(formSobre) {
-        formSobre.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const novoTexto = txtAreaSobre.value;
-
-            try {
-                textoPerfilAtual.innerText = novoTexto;
-                fecharPopupSobre();
-
-            } catch (error) {
-                console.error('Erro ao salvar:', error);
-                alert('Erro ao atualizar descrição.');
-            }
-        });
-    }
-
-    // ============================================
-    // 9. LÓGICA DO POPUP FORMAÇÃO ACADÊMICA
-    // ============================================
-    
-    const popupFormacao = document.getElementById('popupFormacao');
-    const btnAbrirFormacao = document.getElementById('btnAbrirFormacao');
-    const btnFecharFormacao = document.getElementById('btnFecharPopupFormacao');
-    const btnCancelarFormacao = document.getElementById('btnCancelarFormacao');
-    const formAdicionarFormacao = document.getElementById('form-adicionar-formacao');
-    
-    const inputCertificado = document.getElementById('inputCertificado');
-    const txtCertificado = document.getElementById('txtNomeCertificado');
-
-    if(btnAbrirFormacao) {
-        btnAbrirFormacao.addEventListener('click', function(e) {
-            e.preventDefault();
-            popupFormacao.classList.add('ativo');
-        });
-    }
-
-    function fecharPopupFormacao() {
-        popupFormacao.classList.remove('ativo');
-        setTimeout(() => {
-            formAdicionarFormacao.reset();
-            txtCertificado.innerText = "Anexar arquivo...";
-            txtCertificado.style.color = "#aaa";
-        }, 300);
-    }
-
-    if(btnFecharFormacao) btnFecharFormacao.addEventListener('click', fecharPopupFormacao);
-    if(btnCancelarFormacao) btnCancelarFormacao.addEventListener('click', fecharPopupFormacao);
-
-    inputCertificado.addEventListener('change', function() {
-        if(this.files[0]) {
-            txtCertificado.innerText = this.files[0].name;
-            txtCertificado.style.color = "#fff";
-        }
-    });
-
-    formAdicionarFormacao.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const instituicao = document.getElementById('nomeInstituicao').value;
-        const curso = document.getElementById('nomeCurso').value;
-        const anoInicio = document.getElementById('anoInicio').value;
-        const anoFim = document.getElementById('anoFim').value;
-        
-        const iconePadrao = "../imagens_trilhas/icone-formacao.svg"; 
-
-        const novoCardHTML = `
-            <div class="card-formacao">
-                <div class="img-sua-formacao">
-                    <img src="${iconePadrao}" alt="Ícone" class="img-formacao">
-                </div>
-                <div class="box-formacao">
-                    <p class="nome-local-formacao">${instituicao}</p>
-                    <div class="nm-data">
-                        <p class="nome-especializacao">${curso}</p>
-                        <p class="data-especializacao">${anoInicio} - ${anoFim}</p>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        const containerFormacoes = document.querySelector('.secao-suas-formacoes');
-        containerFormacoes.insertAdjacentHTML('afterbegin', novoCardHTML);
-
-        if(inputCertificado.files[0]) {
-            console.log("Arquivo para upload:", inputCertificado.files[0].name);
-        }
-
-        fecharPopupFormacao();
-    });
-
-    // ============================================
-    // 10. LÓGICA DO POPUP HABILIDADE (SELEÇÃO 4X4)
-    // ============================================
-
-    const gridHabilidades = document.querySelector('.grid-habilidades');
-    const btnSalvarHabilidade = document.getElementById('btnSalvarHabilidade');
-    const popupHabilidade = document.getElementById('popupHabilidade');
-
-    if (gridHabilidades) {
-        gridHabilidades.addEventListener('click', function(e) {
-            let card = e.target.closest('.card-selecionavel');
-
-            if (card) {
-                document.querySelectorAll('.card-selecionavel').forEach(c => {
-                    c.classList.remove('selecionada');
-                });
-
-                card.classList.add('selecionada');
-            }
-        });
-    }
-
-    if (btnSalvarHabilidade) {
-        btnSalvarHabilidade.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            const cardSelecionado = document.querySelector('.card-selecionavel.selecionada');
-        
-            if (cardSelecionado) {
-                const habilidadeNome = cardSelecionado.querySelector('.nm-habilidade').textContent;
-                const habilidadeId = cardSelecionado.dataset.habilidadeId;
-            
-                console.log(`Habilidade selecionada para adição: ${habilidadeNome} (ID: ${habilidadeId}).`);
-            
-                if(popupHabilidade) {
-                    popupHabilidade.classList.remove('ativo');
-                    cardSelecionado.classList.remove('selecionada'); 
-                }
-            
-            } else {
-                alert('Por favor, selecione uma habilidade antes de adicionar.');
-            }
-        });
-    }
-
-    const habilidadesDisponiveis = [
-        { id: 'figma', nome: 'Figma', imagem: '../imagens_trilhas/icone-habilidades-trilhas/FIGMA.svg', projetos: 5 },
-        { id: 'css', nome: 'CSS', imagem: '../imagens_trilhas/icone-habilidades-trilhas/CSS.svg', projetos: 19 },
-        { id: 'photoshop', nome: 'Photoshop', imagem: '../imagens_trilhas/icone-habilidades-trilhas/PHOTOSHOP.svg', projetos: 49 },
-        { id: 'html', nome: 'HTML', imagem: '../imagens_trilhas/icone-habilidades-trilhas/HTML.svg', projetos: 37 },
-        { id: 'javascript', nome: 'JavaScript', imagem: '../imagens_trilhas/icone-habilidades-trilhas/JAVASCRIPT.svg', projetos: 73 },
-        { id: 'react', nome: 'React', imagem: '../imagens_trilhas/icone-habilidades-trilhas/REACT.svg', projetos: 0 },
-        { id: 'python', nome: 'Python', imagem: '../imagens_trilhas/icone-habilidades-trilhas/PYTHON.svg', projetos: 0 },
-        { id: 'java', nome: 'Java', imagem: '../imagens_trilhas/icone-habilidades-trilhas/MYSQL.svg', projetos: 0 },
-        { id: 'excel', nome: 'Excel', imagem: '../imagens_trilhas/icone-habilidades-trilhas/Excel.svg', projetos: 0 },
-        { id: 'word', nome: 'Word', imagem: '../imagens_trilhas/icone-habilidades-trilhas/Word.svg', projetos: 0 },
-        { id: 'php', nome: 'PHP', imagem: '../imagens_trilhas/icone-habilidades-trilhas/PHP.svg', projetos: 0 },
-        { id: 'vite', nome: 'Vite', imagem: '../imagens_trilhas/icone-habilidades-trilhas/VITE.svg', projetos: 0 },
-    ];
 });
     </script>
 

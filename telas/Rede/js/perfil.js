@@ -140,7 +140,7 @@ function abrirModalPostagem(post) {
         <div class="cabecalho">
           <div class="nome-bloco">
             <div class="linha"></div>
-            <span class="nome">Rodrigo_Santos54</span>
+            <span class="nome">Rodrigo Junior</span>
             <div class="detalhes">
               <span>Aluno</span>
               <span>Etec</span>

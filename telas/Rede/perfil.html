@@ -14,7 +14,7 @@
                 <nav class="navegacao">
                     <div class="menu">
                         <div class="menu-1">
-                            <img src="./assetsConnect/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
+                            <img src="/telas/Diario/imagens-diario/lotus.svg" alt="Logo da instituição" class="projeto" width="30px" height="30px">
                         </div>
 
                         <div class="menu-2">
@@ -174,109 +174,172 @@
 
 <script src="js/perfil.js"></script>
 
-     <section class="feed">
-                <div class="cardPage">
-                    <div class="topPage"></div>
-                    <div class="dividerPage"></div>
-                    <img src="/telas/Diario/imagens-diario/foto_de_perfil.png" class="photoPage" alt="">
-                    <div class="contentPage">
-                        <div class="namePage">Rodrigo dos Santos Pereira Junior</div>
-                        <div class="infoPage">
-                            <div>Etec de Itanhaém</div>
-                            <div>Aluno</div>
-                        </div>
-                    </div>
-                                            <div class="edit"><p>Editar</p><span class="iconeSimples">edit</span></div>
+   <section class="feed">
 
-                </div>
+    <!-- ======================== CARD DO PERFIL ======================== -->
+    <div class="cardPage">
+        <div class="topPage"></div>
+        <div class="dividerPage"></div>
 
-               
-                <div class="containerDados">
-                    <p>Publicações: 1</p>
-                    <p>Seguidores: 237</p>
-                    <p>Seguindo: 128</p>
-                </div>
+        <img src="/telas/Diario/imagens-diario/foto_de_perfil.png" class="photoPage" alt="">
 
-
-
-
-
-
-
-
-      <div class="containerBlocos">
-            <div class="containerBtn">
-                <div class="btnContainer selecionado" data-target="grupo1">
-                <span class="iconeSimples material-icons">photo_camera</span>
-                <div class="underlineBtn"></div>
-                </div>
-                <div class="btnContainer" data-target="grupo2">
-                <span class="iconeSimples material-icons">star</span>
-                <div class="underlineBtn"></div>
-                </div>
-                <div class="btnContainer" data-target="grupo3">
-                <span class="iconeSimples material-icons">keep</span>
-                <div class="underlineBtn"></div>
-                </div>
+        <div class="contentPage">
+            <div class="namePage">Rodrigo dos Santos Pereira Junior</div>
+            <div class="infoPage">
+                <div>Etec de Itanhaém</div>
+                <div>Aluno</div>
             </div>
+        </div>
 
-   <div class="container">
-    
-   <div class="grupoCards ativo" id="grupo1"></div>
-
-
-    <!-- GRUPO 2 -->
-    <div class="grupoCards" id="grupo2">
-        <div class="agrupamento">
-            <div class="blocos">
-                <div class="bloco">
-                    <img class="caixa" src="./assetsConnect/post.jpg" alt="">
-                    <img class="caixa" src="./assetsConnect/post1ds.jpg" alt="">
-                </div>
-                <div class="bloco">
-                    <img class="caixa" src="./assetsConnect/post5ds.jpg" alt="">
-                    <img class="caixa" src="./assetsConnect/post4adm.jpg" alt="">
-                </div>
-            </div>
-                <img class="caixaG" src="./assetsConnect/postM.jpg" alt="">
+        <div class="edit">
+            <p>Editar</p>
+            <span class="iconeSimples">edit</span>
+        </div>
     </div>
 
-    <!-- GRUPO 3 -->
-    <div class="grupoCards" id="grupo3">
-        <div class="agrupamento">
-            <div class="blocos">
-                <div class="bloco">
-                <div class="caixa"></div>
-                <div class="caixa"></div>
-                </div>
-                <div class="bloco">
-                <div class="caixa"></div>
-                <div class="caixa"></div>
+    <!-- ======================== DADOS DO PERFIL ======================== -->
+    <div class="containerDados">
+        <p>Publicações: 1</p>
+        <p>Seguidores: 237</p>
+        <p>Seguindo: 128</p>
+    </div>
+
+    <!-- ======================== CONTAINER DOS CARDS ======================== -->
+    <div class="containerBlocos">
+
+        <div class="containerBtn">
+            <div class="btnContainer selecionado" data-target="grupo1">
+                <span class="iconeSimples material-icons">photo_camera</span>
+                <div class="underlineBtn"></div>
+            </div>
+
+            <div class="btnContainer" data-target="grupo2">
+                <span class="iconeSimples material-icons">star</span>
+                <div class="underlineBtn"></div>
+            </div>
+
+            <div class="btnContainer" data-target="grupo3">
+                <span class="iconeSimples material-icons">keep</span>
+                <div class="underlineBtn"></div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <!-- GRUPO 1 (posts via JS) -->
+            <div class="grupoCards ativo" id="grupo1"></div>
+
+            <!-- GRUPO 2 -->
+            <div class="grupoCards" id="grupo2">
+                <div class="agrupamento">
+                    <div class="blocos">
+                        <div class="bloco">
+                            <img class="caixa" src="./assetsConnect/post.jpg" alt="">
+                            <img class="caixa" src="./assetsConnect/post1ds.jpg" alt="">
+                        </div>
+                        <div class="bloco">
+                            <img class="caixa" src="./assetsConnect/post5ds.jpg" alt="">
+                            <img class="caixa" src="./assetsConnect/post4adm.jpg" alt="">
+                        </div>
+                    </div>
+                    <img class="caixaG" src="./assetsConnect/postM.jpg" alt="">
                 </div>
             </div>
-            <div class="caixaG"></div>
-        </div> 
-</div>
 
+            <!-- GRUPO 3 -->
+            <div class="grupoCards" id="grupo3">
+                <div class="agrupamento">
+                    <div class="blocos">
+                        <div class="bloco">
+                            <div class="caixa"></div>
+                            <div class="caixa"></div>
+                        </div>
+                        <div class="bloco">
+                            <div class="caixa"></div>
+                            <div class="caixa"></div>
+                        </div>
+                    </div>
+                    <div class="caixaG"></div>
 
+                </div>
+            </div>
 
+        </div>
+    </div>
 
-<script>
-  const btns = document.querySelectorAll('.btnContainer');
-  const grupos = document.querySelectorAll('.grupoCards');
+    <!-- ======================== PERFIL EXTRA (NOVA ÁREA) ======================== -->
+    <div class="perfilExtra">
 
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btns.forEach(b => b.classList.remove('selecionado'));
-      grupos.forEach(g => g.classList.remove('ativo'));
+        <!-- SOBRE -->
+        <div class="boxPerfil">
+            <h2>Sobre</h2>
+            <p>
+                Estudante dedicado da Etec de Itanhaém, sempre buscando aprimorar habilidades acadêmicas
+                e profissionais. Interessado em tecnologia, projetos escolares, trabalho em equipe e evolução pessoal.
+            </p>
+        </div>
 
-      btn.classList.add('selecionado');
-      const target = btn.getAttribute('data-target');
-      document.getElementById(target).classList.add('ativo');
-    });
-  });
-</script>
-  </section>
+        <!-- EXPERIÊNCIAS -->
+        <div class="boxPerfil">
+            <h2>Experiências</h2>
+
+            <div class="itemPerfil">
+                <span class="tituloItem">Monitor de Sala</span>
+                <span class="descricaoItem">Apoio aos professores, organização de atividades e auxílio aos colegas.</span>
+                <span class="tempoItem">2023 - 2024</span>
+            </div>
+
+            <div class="itemPerfil">
+                <span class="tituloItem">Projeto Integrador</span>
+                <span class="descricaoItem">Participação no desenvolvimento de sistemas e atividades práticas.</span>
+                <span class="tempoItem">2024</span>
+            </div>
+        </div>
+
+        <!-- COMPETÊNCIAS -->
+        <div class="boxPerfil">
+            <h2>Competências</h2>
+            <ul class="listaCompetencias">
+                <li>Comunicação</li>
+                <li>Organização</li>
+                <li>Trabalho em equipe</li>
+                <li>Raciocínio lógico</li>
+                <li>Proatividade</li>
+            </ul>
+        </div>
+
+        <!-- FORMAÇÃO -->
+        <div class="boxPerfil">
+            <h2>Formação Acadêmica</h2>
+
+            <div class="itemPerfil">
+                <span class="tituloItem">Ensino Médio com Habilitação Técnica</span>
+                <span class="descricaoItem">Etec de Itanhaém — Técnico em Administração / Desenvolvimento de Sistemas</span>
+                <span class="tempoItem">2022 - 2024</span>
+            </div>
+        </div>
+
+    </div>
+    <!-- ====================== / PERFIL EXTRA ============================ -->
+
+    <!-- SCRIPT DOS BOTÕES -->
+    <script>
+        const btns = document.querySelectorAll('.btnContainer');
+        const grupos = document.querySelectorAll('.grupoCards');
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btns.forEach(b => b.classList.remove('selecionado'));
+                grupos.forEach(g => g.classList.remove('ativo'));
+
+                btn.classList.add('selecionado');
+                const target = btn.getAttribute('data-target');
+                document.getElementById(target).classList.add('ativo');
+            });
+        });
+    </script>
+
+</section>
 
 
   <aside class="sugestoes">
