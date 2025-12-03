@@ -9,10 +9,8 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioPhone = process.env.TWILIO_PHONE_NUMBER;
 
-// Inicializa cliente Twilio apenas se as credenciais existirem E forem válidas
 let client: ReturnType<typeof twilio> | null = null;
 
-// ✅ CORREÇÃO: Valida se as credenciais existem e são válidas antes de inicializar
 if (accountSid && authToken && accountSid.startsWith('AC') && authToken.length > 20) {
   try {
     client = twilio(accountSid, authToken);
@@ -26,62 +24,45 @@ if (accountSid && authToken && accountSid.startsWith('AC') && authToken.length >
   console.warn('💡 Para testar sem SMS real, os códigos aparecerão no console do servidor');
 }
 
-/**
- * Gera código de 6 dígitos
- */
 function gerarCodigo(): string {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
-/**
- * Formata telefone brasileiro para E.164
- * Exemplo: (11) 99999-9999 → +5511999999999
- */
 function formatarTelefone(telefone: string): string {
-  // Remove tudo que não é número
   const numeros = telefone.replace(/\D/g, '');
   
-  // Se já começa com código do país, retorna
   if (numeros.startsWith('55') && numeros.length === 13) {
     return `+${numeros}`;
   }
   
-  // Se tem 11 dígitos (DDD + 9 dígitos), adiciona +55
-  if (numeros.length === 11) {
+  if (numeros.length === 11 || numeros.length === 10) {
     return `+55${numeros}`;
   }
   
-  // Se tem 10 dígitos (DDD + 8 dígitos), adiciona +55
-  if (numeros.length === 10) {
-    return `+55${numeros}`;
-  }
-  
-  // Retorna como estava se não encaixar nos padrões
   return telefone;
 }
 
 /**
- * Enviar código SMS após login bem-sucedido
+ * ✅ CORRIGIDO: Aceita userId OU email para buscar telefone
  * POST /api/enviar-codigo-sms
  */
 export const enviarCodigoSMS = async (req: Request, res: Response) => {
   try {
-    const { userId, telefone } = req.body;
+    const { userId, email, telefone } = req.body;
 
-    console.log('📱 Requisição de envio SMS:', { userId, telefone });
+    console.log('📱 Requisição de envio SMS:', { userId, email, telefone: telefone ? '***' : 'não fornecido' });
 
-    // Validações
-    if (!userId || !telefone) {
-      return res.status(400).json({
-        success: false,
-        message: 'userId e telefone são obrigatórios'
+    // ✅ Busca usuário por userId OU email
+    let user;
+    if (userId) {
+      user = await prisma.user.findUnique({
+        where: { id: parseInt(userId) }
+      });
+    } else if (email) {
+      user = await prisma.user.findUnique({
+        where: { email }
       });
     }
-
-    // Verifica se usuário existe
-    const user = await prisma.user.findUnique({
-      where: { id: parseInt(userId) }
-    });
 
     if (!user) {
       return res.status(404).json({
@@ -90,9 +71,19 @@ export const enviarCodigoSMS = async (req: Request, res: Response) => {
       });
     }
 
+    // ✅ Usa telefone do body OU do usuário no banco
+    const telefoneUsuario = telefone || user.telefone;
+
+    if (!telefoneUsuario) {
+      return res.status(400).json({
+        success: false,
+        message: 'Usuário não possui telefone cadastrado'
+      });
+    }
+
     // Gera código
     const codigo = gerarCodigo();
-    const expiraEm = new Date(Date.now() + 5 * 60 * 1000); // 5 minutos
+    const expiraEm = new Date(Date.now() + 5 * 60 * 1000);
 
     console.log('🔢 Código gerado:', codigo);
     console.log('⏰ Expira em:', expiraEm.toLocaleString('pt-BR'));
@@ -100,36 +91,36 @@ export const enviarCodigoSMS = async (req: Request, res: Response) => {
     // Salva no banco
     await prisma.codigoVerificacao.create({
       data: {
-        telefone,
+        telefone: telefoneUsuario,
         codigo,
         expiraEm,
-        userId: parseInt(userId)
+        userId: user.id
       }
     });
 
     console.log('💾 Código salvo no banco de dados');
 
-    // Formata telefone
-    const telefoneFormatado = formatarTelefone(telefone);
+    const telefoneFormatado = formatarTelefone(telefoneUsuario);
     console.log('📞 Telefone formatado:', telefoneFormatado);
 
-    // ✅ CORREÇÃO: Se NÃO tiver Twilio configurado, apenas retorna sucesso (modo desenvolvimento)
+    // Modo desenvolvimento sem Twilio
     if (!client) {
       console.log('');
-      console.log('═══════════════════════════════════════════');
-      console.log('🔐 CÓDIGO DE VERIFICAÇÃO (MODO DESENVOLVIMENTO)');
-      console.log('═══════════════════════════════════════════');
-      console.log(`   Usuário: ${user.name} (ID: ${userId})`);
-      console.log(`   Telefone: ${telefone}`);
+      console.log('╔═══════════════════════════════════════════╗');
+      console.log('📋 CÓDIGO DE VERIFICAÇÃO (MODO DESENVOLVIMENTO)');
+      console.log('╠═══════════════════════════════════════════╣');
+      console.log(`   Usuário: ${user.name} (ID: ${user.id})`);
+      console.log(`   Email: ${user.email}`);
+      console.log(`   Telefone: ${telefoneUsuario}`);
       console.log(`   CÓDIGO: ${codigo}`);
       console.log(`   Válido até: ${expiraEm.toLocaleString('pt-BR')}`);
-      console.log('═══════════════════════════════════════════');
+      console.log('╚═══════════════════════════════════════════╝');
       console.log('');
 
       return res.status(200).json({
         success: true,
         message: 'Código gerado com sucesso (desenvolvimento)',
-        // ⚠️ APENAS EM DESENVOLVIMENTO - REMOVA EM PRODUÇÃO
+        telefone: telefoneUsuario,
         debug: {
           codigo: codigo,
           nota: 'Twilio não configurado - código aparece no console'
@@ -137,7 +128,7 @@ export const enviarCodigoSMS = async (req: Request, res: Response) => {
       });
     }
 
-    // Envia SMS via Twilio (apenas se configurado)
+    // Envia SMS via Twilio
     try {
       const message = await client.messages.create({
         body: `Bridge - Seu código de verificação é: ${codigo}. Válido por 5 minutos.`,
@@ -150,17 +141,17 @@ export const enviarCodigoSMS = async (req: Request, res: Response) => {
 
       return res.status(200).json({
         success: true,
-        message: 'Código enviado por SMS'
+        message: 'Código enviado por SMS',
+        telefone: telefoneUsuario
       });
 
     } catch (twilioError: any) {
       console.error('❌ Erro ao enviar SMS via Twilio:', twilioError.message);
       
-      // Mesmo com erro do Twilio, o código foi salvo no banco
-      // Então retorna sucesso para continuar o fluxo
       return res.status(200).json({
         success: true,
         message: 'Código gerado (erro ao enviar SMS)',
+        telefone: telefoneUsuario,
         debug: {
           codigo: codigo,
           erro: 'Falha no envio do SMS, mas código foi salvo'
@@ -184,26 +175,43 @@ export const enviarCodigoSMS = async (req: Request, res: Response) => {
  */
 export const verificarCodigoSMS = async (req: Request, res: Response) => {
   try {
-    const { telefone, codigo, userId } = req.body;
+    const { telefone, codigo, userId, email } = req.body;
 
-    console.log('🔍 Verificando código SMS:', { telefone, codigo: '******', userId });
+    console.log('🔍 Verificando código SMS:', { telefone, codigo: '******', userId, email });
 
-    // Validações
-    if (!telefone || !codigo) {
+    if (!codigo) {
       return res.status(400).json({
         success: false,
-        message: 'Telefone e código são obrigatórios'
+        message: 'Código é obrigatório'
+      });
+    }
+
+    // Busca usuário se fornecido userId ou email
+    let user;
+    if (userId) {
+      user = await prisma.user.findUnique({ where: { id: parseInt(userId) } });
+    } else if (email) {
+      user = await prisma.user.findUnique({ where: { email } });
+    }
+
+    // Usa telefone do body OU do usuário
+    const telefoneVerificar = telefone || user?.telefone;
+
+    if (!telefoneVerificar) {
+      return res.status(400).json({
+        success: false,
+        message: 'Telefone não identificado'
       });
     }
 
     // Busca código válido
     const verificacao = await prisma.codigoVerificacao.findFirst({
       where: {
-        telefone,
+        telefone: telefoneVerificar,
         codigo,
         expiraEm: { gte: new Date() },
         usado: false,
-        ...(userId && { userId: parseInt(userId) })
+        ...(user && { userId: user.id })
       }
     });
 
@@ -213,7 +221,7 @@ export const verificarCodigoSMS = async (req: Request, res: Response) => {
       // Debug: Mostra códigos válidos no console (apenas desenvolvimento)
       const codigosValidos = await prisma.codigoVerificacao.findMany({
         where: {
-          telefone,
+          telefone: telefoneVerificar,
           usado: false
         },
         orderBy: {
@@ -242,7 +250,7 @@ export const verificarCodigoSMS = async (req: Request, res: Response) => {
       data: { usado: true }
     });
 
-    console.log(`✅ Código verificado com sucesso para telefone ${telefone}`);
+    console.log(`✅ Código verificado com sucesso para telefone ${telefoneVerificar}`);
 
     return res.status(200).json({
       success: true,
@@ -266,14 +274,31 @@ export const verificarCodigoSMS = async (req: Request, res: Response) => {
  */
 export const reenviarCodigoSMS = async (req: Request, res: Response) => {
   try {
-    const { userId, telefone } = req.body;
+    const { userId, telefone, email } = req.body;
 
     console.log('♻️ Reenviando código SMS');
+
+    // Busca usuário
+    let user;
+    if (userId) {
+      user = await prisma.user.findUnique({ where: { id: parseInt(userId) } });
+    } else if (email) {
+      user = await prisma.user.findUnique({ where: { email } });
+    }
+
+    const telefoneUsuario = telefone || user?.telefone;
+
+    if (!telefoneUsuario) {
+      return res.status(400).json({
+        success: false,
+        message: 'Telefone não encontrado'
+      });
+    }
 
     // Invalida códigos anteriores não usados
     await prisma.codigoVerificacao.updateMany({
       where: {
-        telefone,
+        telefone: telefoneUsuario,
         usado: false
       },
       data: {

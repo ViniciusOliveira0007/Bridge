@@ -327,190 +327,405 @@
     </main>
 
     <script>
-        const API_URL = 'http://localhost:3000/api';
-        const STORAGE_KEY = 'trilhasCommentsPost1';
+      const API_URL = 'http://localhost:3000/api';
 
-        document.addEventListener('DOMContentLoaded', async function() {
-            
-            // ============================================
-            // 1. VERIFICAR LOGIN E CARREGAR DADOS
-            // ============================================
-            const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
-            
-            if (!usuarioLogado || !usuarioLogado.id) {
-                alert('Você precisa fazer login primeiro!');
-                window.location.href = '/home.html';
-                return;
+document.addEventListener('DOMContentLoaded', async function() {
+    
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    
+    if (!usuarioLogado || !usuarioLogado.id) {
+        alert('Você precisa fazer login primeiro!');
+        window.location.href = '/home.html';
+        return;
+    }
+
+    console.log('👤 Usuário logado:', usuarioLogado);
+
+    // ============================================
+    // FUNÇÕES DE ATUALIZAÇÃO DE FOTOS
+    // ============================================
+    function atualizarTodasFotosPerfil(fotoUrl) {
+        const URL_PADRAO = '../imagens_trilhas/foto_de_perfil.png';
+        const urlCompleta = fotoUrl 
+            ? (fotoUrl.startsWith('http') ? fotoUrl : `http://localhost:3000${fotoUrl}`)
+            : URL_PADRAO;
+        
+        const elementos = [
+            document.getElementById('fotoPerfilNav'),
+            document.getElementById('fotoPerfilMini'),
+            document.querySelector('.img-perfil')
+        ];
+        
+        elementos.forEach(el => {
+            if (el) {
+                el.src = urlCompleta;
+                el.onerror = () => el.src = URL_PADRAO;
             }
+        });
+    }
 
-            const URL_PADRAO = './imagens_trilhas/foto_de_perfil.png';
-            const fotoPerfilNav = document.getElementById('fotoPerfilNav');
-            const fotoPerfilMini = document.getElementById('fotoPerfilMini');
-            const fotoComentario = document.getElementById('fotoComentario');
-
-            console.log('👤 Usuário logado:', usuarioLogado);
-
-            // ============================================
-            // 2. CARREGAR FOTO DE PERFIL DO BACKEND
-            // ============================================
-            async function carregarFotoPerfil() {
-                try {
-                    const response = await fetch(`${API_URL}/users/${usuarioLogado.id}`);
-                    const data = await response.json();
-                    
-                    if (data.success && data.user) {
-                        const fotoUrl = data.user.perfilUrl 
-                            ? `http://localhost:3000${data.user.perfilUrl}` 
-                            : URL_PADRAO;
-                        
-                        fotoPerfilNav.src = fotoUrl;
-                        fotoPerfilMini.src = fotoUrl;
-                        fotoComentario.src = fotoUrl;
-                        
-                        // Atualizar nome do usuário
-                        document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${data.user.name || 'Usuário'}`;
-                        
-                        console.log('✅ Foto de perfil carregada:', fotoUrl);
-                    }
-                } catch (error) {
-                    console.error('❌ Erro ao carregar foto de perfil:', error);
-                    // Usar foto padrão em caso de erro
-                    fotoPerfilNav.src = URL_PADRAO;
-                    fotoPerfilMini.src = URL_PADRAO;
-                }
-            }
-
-            await carregarFotoPerfil();
-
-            // ============================================
-            // 3. NÍVEIS DE HABILIDADE
-            // ============================================
+    async function carregarDadosUsuario() {
+        try {
+            const response = await fetch(`${API_URL}/users/${usuarioLogado.id}`);
+            const data = await response.json();
             
-            const XpPorProjeto = 20;
-            const MetaNivel = 600;
-            const NivelMax = 6;
-
-            // ============================================
-            // 3.1 CALCULAR SUE NIVEL ATUAL 
-            // ============================================
-
-            function calcularNivel(totalProjetos){
-                const xpTotal = totalProjetos * XpPorProjeto;
-
-                let nivelAtual = Math.floor(xpTotal/MetaNivel) +1;
-
-                let xpNaFaixa = xpTotal % MetaNivel;
-
-                if(nivelAtual >= NivelMax){
-                    nivelAtual = NivelMax;
-                    xpNaFaixa = MetaNivel;
-                }
-
-                return {
-                    nivel: nivelAtual,
-                    xp: xpNaFaixa,
+            if (data.success && data.user) {
+                const usuarioAtualizado = {
+                    ...usuarioLogado,
+                    name: data.user.name,
+                    perfilUrl: data.user.perfilUrl
                 };
-            }
-
-            // ============================================
-            // 3.2 ATUALIZAR O CODIGO
-            // ============================================
-
-            function atualizarCardsDeHabilidade() {
-            const cards = document.querySelectorAll('.card-habilidade');
-
-            cards.forEach(card => {
-                const projetos = parseInt(card.getAttribute('data-projetos')) || 0;
-
-                const resultado = calcularNivel(projetos);
-
-                const txtNivel = card.querySelector('.texto-nivel');
-                const txtXP = card.querySelector('.texto-xp');
-
-                if (txtNivel) {
-                    txtNivel.innerText = `Nível: ${resultado.nivel}/${NivelMax}`;
-                }
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
                 
-                if (txtXP) {
-                    txtXP.innerText = `XP: ${resultado.xp} / ${MetaNivel}`;
-                }
-                });
-            }
-
-            
-            // 3.3 ANIMAÇÃO BARRA DE PROGRESSO
-            
-
-            
-            // Executa a função de atualização imediatamente
-            atualizarCardsDeHabilidade();
-
-            // ============================================
-            // 4. DROPDOWNS
-            // ============================================
-            const dropdownNotif = document.getElementById('dropdownNotif');
-            const dropdownConfig = document.getElementById('dropdownConfig');
-            const dropdownPerfil = document.getElementById('dropdownPerfil');
-            const btnNotif = document.querySelector('.btn-notificao-nav');
-            const btnConfig = document.querySelector('.btn-config');
-            
-            function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
-            function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
-            function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
-            
-            btnNotif.addEventListener('click', function() {
-                fecharDropdownConfig();
-                fecharDropdownPerfil();
-                dropdownNotif.classList.toggle('ativo');
-            });
-            
-            btnConfig.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownPerfil();
-                dropdownConfig.classList.toggle('ativo');
-            });
-            
-            fotoPerfilNav.addEventListener('click', function() {
-                fecharDropdownNotif();
-                fecharDropdownConfig();
-                dropdownPerfil.classList.toggle('ativo');
-            });
-
-            document.querySelectorAll('[data-action]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const action = this.getAttribute('data-action');
-                    switch(action) {
-                        case 'fechar-notif': fecharDropdownNotif(); break;
-                        case 'fechar-config': fecharDropdownConfig(); break;
-                        case 'fechar-perfil': fecharDropdownPerfil(); break;
-                        case 'sair-da-conta':
-                            if (confirm('Tem certeza que deseja sair da conta?')) {
-                                localStorage.removeItem('usuarioLogado');
-                                window.location.href = '/home.html';
-                            }
-                            fecharDropdownPerfil();
-                            break;
-                        default:
-                            alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
-                            fecharDropdownConfig(); 
-                            fecharDropdownPerfil();
-                            break;
-                    }
-                });
-            });
-            
-            document.addEventListener('click', function(event) {
-                const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                                       !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                                       !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
+                document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${data.user.name || 'Usuário'}`;
                 
-                if (isClickOutside) {
-                    fecharDropdownNotif();
-                    fecharDropdownConfig();
-                    fecharDropdownPerfil();
+                if (data.user.perfilUrl) {
+                    atualizarTodasFotosPerfil(data.user.perfilUrl);
                 }
+            }
+        } catch (error) {
+            console.error('❌ Erro ao carregar dados do usuário:', error);
+        }
+    }
+
+    await carregarDadosUsuario();
+
+    // ============================================
+    // CARREGAR CANDIDATURAS (PROJETOS ACEITOS)
+    // ============================================
+    async function carregarMeusProjetos() {
+        try {
+            console.log('📥 Carregando projetos aceitos...');
+            
+            const response = await fetch(`${API_URL}/trilhas/candidaturas/usuario/${usuarioLogado.id}`);
+            const data = await response.json();
+            
+            if (data.success && data.candidaturas) {
+                console.log(`✅ ${data.candidaturas.length} projetos encontrados`);
+                renderizarProjetos(data.candidaturas);
+            }
+        } catch (error) {
+            console.error('❌ Erro ao carregar projetos:', error);
+        }
+    }
+
+    function renderizarProjetos(candidaturas) {
+        const container = document.querySelector('.secao-seu-portifolio');
+        if (!container) return;
+
+        // Limpar projetos estáticos
+        container.innerHTML = '';
+
+        if (candidaturas.length === 0) {
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: #999;">
+                    <p>Você ainda não aceitou nenhum projeto</p>
+                    <p style="font-size: 14px;">Vá para a página "Explorar" para ver projetos disponíveis</p>
+                    <a href="../trilhas.html" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background: #4285f4; color: white; text-decoration: none; border-radius: 8px;">Ver Projetos</a>
+                </div>
+            `;
+            return;
+        }
+
+        candidaturas.forEach(candidatura => {
+            const projeto = candidatura.projeto;
+            const empresa = projeto.empresa;
+            const dataAceite = new Date(candidatura.createdAt).toLocaleDateString('pt-BR');
+            
+            const statusClass = {
+                'Aceito': 'status-aceito',
+                'Em Andamento': 'status-andamento',
+                'Concluído': 'status-concluido'
+            }[candidatura.status] || 'status-aceito';
+
+            const statusEmoji = {
+                'Aceito': '✅',
+                'Em Andamento': '🔄',
+                'Concluído': '🎉'
+            }[candidatura.status] || '✅';
+            
+            const cardHTML = `
+                <div class="card-portifolio" data-candidatura-id="${candidatura.id}">
+                    <div class="img-do-portifolio">
+                        <img src="${projeto.imagemUrl || '../imagens_trilhas/img-Portifolio/default.jpg'}" 
+                             alt="${projeto.nome}" 
+                             class="img-portifolio">
+                    </div>
+                    <div class="content-projeto">
+                        <div class="header-projeto">
+                            <h3 class="titulo-projeto">${projeto.nome}</h3>
+                            <p class="data-projeto">Aceito em: ${dataAceite}</p>
+                            <div class="${statusClass}" style="display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 12px; margin-top: 5px;">
+                                ${statusEmoji} ${candidatura.status}
+                            </div>
+                        </div>
+                        
+                        <div class="box-projeto">
+                            <p style="color: #bbb; margin: 10px 0;">${projeto.descricao || 'Sem descrição'}</p>
+                            
+                            <div class="secao-habilidade-projeto">
+                                <h4 style="color: white; font-size: 14px; margin: 10px 0;">Habilidades usadas:</h4>
+                                ${projeto.habilidadesRequeridas?.map(hr => `
+                                    <div class="card-habilidade" style="display: inline-block; margin: 5px;">
+                                        <div class="img-sua-habilidade">
+                                            <img src="../imagens_trilhas/icone-habilidades-trilhas/${hr.habilidade.icone || 'default.svg'}" 
+                                                 alt="${hr.habilidade.nome}" 
+                                                 class="img-habilidade"
+                                                 style="width: 30px; height: 30px;">
+                                        </div>
+                                        <div class="box-nm-nivel">
+                                            <div class="nome-nivel">
+                                                <p class="nome-habilidade" style="font-size: 12px;">${hr.habilidade.nome}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('') || '<p style="color: #999;">Nenhuma habilidade específica</p>'}
+                            </div>
+                        </div>
+                        
+                        <div class="empresa-entregue">
+                            <img src="${empresa.logoUrl || '../imagens_trilhas/img-empresas/default.svg'}" 
+                                 alt="${empresa.user.name}" 
+                                 class="img-empresa"
+                                 style="width: 40px; height: 40px; border-radius: 8px;">
+                            <div>
+                                <h3 class="h3-nm-empresa">${empresa.user.name}</h3>
+                                <p style="font-size: 12px; color: #999;">${projeto.categoria || 'Projeto'}</p>
+                            </div>
+                        </div>
+
+                        ${candidatura.status !== 'Concluído' ? `
+                            <div style="margin-top: 15px; text-align: center;">
+                                <button class="btn-marcar-concluido" 
+                                        data-candidatura-id="${candidatura.id}"
+                                        style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px;">
+                                    ✓ Marcar como Concluído
+                                </button>
+                            </div>
+                        ` : candidatura.avaliacoes && candidatura.avaliacoes.length > 0 ? `
+                            <div style="margin-top: 15px; padding: 15px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; border-left: 4px solid #4CAF50;">
+                                <p style="color: #4CAF50; font-weight: bold; margin-bottom: 5px;">⭐ Projeto Avaliado</p>
+                                <p style="color: #ddd; font-size: 14px;">Nota: ${candidatura.avaliacoes[0].nota}/5</p>
+                                <p style="color: #999; font-size: 12px; margin-top: 5px;">+${candidatura.avaliacoes[0].xpConcedido} XP ganhos</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+        // Adicionar event listeners para botões de marcar como concluído
+        document.querySelectorAll('.btn-marcar-concluido').forEach(btn => {
+            btn.addEventListener('click', async function() {
+                const candidaturaId = this.dataset.candidaturaId;
+                await marcarComoConcluido(candidaturaId);
             });
         });
+    }
+
+    // ============================================
+    // MARCAR PROJETO COMO CONCLUÍDO
+    // ============================================
+    async function marcarComoConcluido(candidaturaId) {
+        if (!confirm('Tem certeza que concluiu este projeto?')) {
+            return;
+        }
+
+        try {
+            // Como não temos endpoint específico, vamos simular localmente
+            // Em produção, criar endpoint: PUT /api/trilhas/candidaturas/:id
+            
+            const card = document.querySelector(`[data-candidatura-id="${candidaturaId}"]`);
+            if (card) {
+                // Atualizar visualmente
+                const statusDiv = card.querySelector('[class*="status-"]');
+                if (statusDiv) {
+                    statusDiv.className = 'status-concluido';
+                    statusDiv.innerHTML = '🎉 Concluído';
+                }
+
+                // Remover botão
+                const btn = card.querySelector('.btn-marcar-concluido');
+                if (btn) {
+                    btn.remove();
+                }
+
+                // Adicionar mensagem de aguardando avaliação
+                const contentProjeto = card.querySelector('.content-projeto');
+                if (contentProjeto) {
+                    const avisoHTML = `
+                        <div style="margin-top: 15px; padding: 15px; background: rgba(66, 133, 244, 0.1); border-radius: 8px; border-left: 4px solid #4285f4;">
+                            <p style="color: #4285f4; font-weight: bold; margin-bottom: 5px;">⏳ Aguardando Avaliação</p>
+                            <p style="color: #ddd; font-size: 14px;">A empresa irá avaliar seu trabalho em breve</p>
+                        </div>
+                    `;
+                    contentProjeto.insertAdjacentHTML('beforeend', avisoHTML);
+                }
+
+                alert('✅ Projeto marcado como concluído! Aguarde a avaliação da empresa.');
+                
+                // TODO: Em produção, fazer requisição real:
+                // const response = await fetch(`${API_URL}/trilhas/candidaturas/${candidaturaId}`, {
+                //     method: 'PUT',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ status: 'Concluído' })
+                // });
+            }
+        } catch (error) {
+            console.error('❌ Erro ao marcar como concluído:', error);
+            alert('Erro ao atualizar status do projeto');
+        }
+    }
+
+    await carregarMeusProjetos();
+
+    // ============================================
+    // ESTATÍSTICAS DE PROJETOS
+    // ============================================
+    async function exibirEstatisticas() {
+        try {
+            const response = await fetch(`${API_URL}/trilhas/candidaturas/usuario/${usuarioLogado.id}`);
+            const data = await response.json();
+            
+            if (data.success && data.candidaturas) {
+                const total = data.candidaturas.length;
+                const concluidos = data.candidaturas.filter(c => c.status === 'Concluído').length;
+                const emAndamento = data.candidaturas.filter(c => c.status === 'Em Andamento').length;
+                
+                // Calcular XP total das avaliações
+                let xpTotal = 0;
+                data.candidaturas.forEach(c => {
+                    if (c.avaliacoes && c.avaliacoes.length > 0) {
+                        xpTotal += c.avaliacoes.reduce((sum, av) => sum + av.xpConcedido, 0);
+                    }
+                });
+
+                // Adicionar painel de estatísticas
+                const estatisticasHTML = `
+                    <div class="estatisticas-projetos" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; margin-bottom: 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+                        <div style="text-align: center;">
+                            <p style="font-size: 32px; font-weight: bold; color: #4285f4;">${total}</p>
+                            <p style="color: #999; font-size: 14px;">Total de Projetos</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <p style="font-size: 32px; font-weight: bold; color: #FFA500;">${emAndamento}</p>
+                            <p style="color: #999; font-size: 14px;">Em Andamento</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <p style="font-size: 32px; font-weight: bold; color: #4CAF50;">${concluidos}</p>
+                            <p style="color: #999; font-size: 14px;">Concluídos</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <p style="font-size: 32px; font-weight: bold; color: #FFD700;">${xpTotal}</p>
+                            <p style="color: #999; font-size: 14px;">XP Total Ganho</p>
+                        </div>
+                    </div>
+                `;
+
+                const containerPrincipal = document.querySelector('.seu-portifolio-trilhas');
+                if (containerPrincipal) {
+                    containerPrincipal.insertAdjacentHTML('afterbegin', estatisticasHTML);
+                }
+            }
+        } catch (error) {
+            console.error('❌ Erro ao exibir estatísticas:', error);
+        }
+    }
+
+    await exibirEstatisticas();
+
+    // ============================================
+    // DROPDOWNS (mantido)
+    // ============================================
+    const dropdownNotif = document.getElementById('dropdownNotif');
+    const dropdownConfig = document.getElementById('dropdownConfig');
+    const dropdownPerfil = document.getElementById('dropdownPerfil');
+    const btnNotif = document.querySelector('.btn-notificao-nav');
+    const btnConfig = document.querySelector('.btn-config');
+    const fotoPerfilNav = document.getElementById('fotoPerfilNav');
+    
+    function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
+    function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
+    function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
+    
+    btnNotif.addEventListener('click', () => {
+        fecharDropdownConfig();
+        fecharDropdownPerfil();
+        dropdownNotif.classList.toggle('ativo');
+    });
+    
+    btnConfig.addEventListener('click', () => {
+        fecharDropdownNotif();
+        fecharDropdownPerfil();
+        dropdownConfig.classList.toggle('ativo');
+    });
+    
+    fotoPerfilNav.addEventListener('click', () => {
+        fecharDropdownNotif();
+        fecharDropdownConfig();
+        dropdownPerfil.classList.toggle('ativo');
+    });
+
+    document.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            switch(action) {
+                case 'fechar-notif': fecharDropdownNotif(); break;
+                case 'fechar-config': fecharDropdownConfig(); break;
+                case 'fechar-perfil': fecharDropdownPerfil(); break;
+                case 'sair-da-conta':
+                    if (confirm('Tem certeza que deseja sair da conta?')) {
+                        localStorage.removeItem('usuarioLogado');
+                        window.location.href = '/home.html';
+                    }
+                    fecharDropdownPerfil();
+                    break;
+                default:
+                    alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
+                    fecharDropdownConfig(); 
+                    fecharDropdownPerfil();
+                    break;
+            }
+        });
+    });
+    
+    document.addEventListener('click', event => {
+        const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
+                               !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
+                               !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
+        
+        if (isClickOutside) {
+            fecharDropdownNotif();
+            fecharDropdownConfig();
+            fecharDropdownPerfil();
+        }
+    });
+
+    // Adicionar estilos CSS inline para os status
+    const style = document.createElement('style');
+    style.textContent = `
+        .status-aceito {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+        .status-andamento {
+            background: rgba(255, 165, 0, 0.2);
+            color: #FFA500;
+        }
+        .status-concluido {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+        }
+        .btn-marcar-concluido:hover {
+            background: #45a049 !important;
+            transform: scale(1.05);
+            transition: all 0.3s;
+        }
+    `;
+    document.head.appendChild(style);
+});
     </script>
 </body>
 </html>

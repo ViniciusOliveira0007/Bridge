@@ -24,7 +24,6 @@
                 <img src="./imagens-diario/configuracao.svg" alt="botão de configuração" class="btn-config">
                 <img src="./imagens-diario/foto_de_perfil.png" alt="imagem de perfil" class="foto-de-perfil" id="fotoPerfil">
                 
-                <!-- Dropdowns -->
                 <div class="dropdown-notificacoes" id="dropdownNotif">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
@@ -57,7 +56,7 @@
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
                             <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
-                            <span id="nomeUsuarioPerfil">Olá, Usuário</span>
+                            <span id="nomeUsuarioPerfil">Olá, Carregando...</span>
                         </div>
                         <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
@@ -126,18 +125,18 @@
         </div>
     </main>
 
-    <script src="./Foto-usuario-adaptativa.js"></script>
+   
     <script>
         const API_URL = 'http://localhost:3000/api';
         
-        // ✅ CORRIGIDO: Tenta pegar de ambas as chaves
+        // --- RECUPERAÇÃO ROBUSTA DE DADOS DO USUÁRIO ---
         let userData = JSON.parse(localStorage.getItem('user') || 'null');
         
         if (!userData) {
             userData = JSON.parse(localStorage.getItem('usuarioLogado') || '{}');
         }
         
-        // Se ainda não tiver, tenta construir manualmente
+        // Se ainda não tiver, tenta construir manualmente (fallback)
         if (!userData.id) {
             const userId = localStorage.getItem('userId');
             const userName = localStorage.getItem('userName');
@@ -151,7 +150,7 @@
                     email: userEmail,
                     role: userRole
                 };
-                // Salva no formato correto
+                // Salva no formato correto para as próximas vezes
                 localStorage.setItem('user', JSON.stringify(userData));
             }
         }
@@ -161,9 +160,10 @@
 
         console.log('👤 Dados do usuário carregados:', userData);
 
-        // Atualiza nome no perfil
+        // --- CORREÇÃO AQUI: EXIBIR NOME COMPLETO ---
+        // Antes estava: userName.split(' ')[0]
         if (userName) {
-            document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${userName.split(' ')[0]}`;
+            document.getElementById('nomeUsuarioPerfil').textContent = `Olá, ${userName}`;
         }
         
         // Atualiza foto de perfil se existir
@@ -173,7 +173,7 @@
             fotoPerfil.src = `http://localhost:3000${userPerfilUrl}`;
         }
 
-        // Função para carregar presenças do aluno
+        // --- FUNÇÃO PARA CARREGAR PRESENÇAS ---
         async function carregarPresencas() {
             try {
                 const response = await fetch(`${API_URL}/presencas/aluno/${userId}`);
@@ -196,7 +196,7 @@
             }
         }
 
-        // Função para renderizar a tabela
+        // --- FUNÇÃO PARA RENDERIZAR TABELA ---
         function renderizarTabela(estatisticas) {
             const tbody = document.getElementById('corpoTabelaPresencas');
             
@@ -218,7 +218,6 @@
                 totalFrequencia += stat.frequenciaAtual;
                 countTurmas++;
 
-                const statusClass = stat.status === 'REGULAR' ? 'status-regular' : 'status-irregular';
                 const statusColor = stat.status === 'REGULAR' ? '#4caf50' : '#f44336';
 
                 return `
@@ -266,19 +265,63 @@
             `;
         }
 
-        // Gerenciamento de dropdowns
+        // --- GERENCIAMENTO DE DROPDOWNS ---
+        // Adiciona lógica de clique para mostrar/esconder
+        const dropNotif = document.getElementById('dropdownNotif');
+        const dropConfig = document.getElementById('dropdownConfig');
+        const dropPerfil = document.getElementById('dropdownPerfil');
+
+        function fecharTodos() {
+            if(dropNotif) dropNotif.classList.remove('ativo');
+            if(dropConfig) dropConfig.classList.remove('ativo');
+            if(dropPerfil) dropPerfil.classList.remove('ativo');
+        }
+
+        // Botões
+        document.querySelector('.btn-notificao-nav').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const estaAberto = dropNotif.classList.contains('ativo');
+            fecharTodos();
+            if(!estaAberto) dropNotif.classList.add('ativo');
+        });
+
+        document.querySelector('.btn-config').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const estaAberto = dropConfig.classList.contains('ativo');
+            fecharTodos();
+            if(!estaAberto) dropConfig.classList.add('ativo');
+        });
+
+        document.getElementById('fotoPerfil').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const estaAberto = dropPerfil.classList.contains('ativo');
+            fecharTodos();
+            if(!estaAberto) dropPerfil.classList.add('ativo');
+        });
+
+        // Fechar nos botões X
+        document.querySelectorAll('.btn-fechar').forEach(btn => {
+            btn.addEventListener('click', fecharTodos);
+        });
+
+        // Fechar ao clicar fora
+        window.addEventListener('click', () => {
+            fecharTodos();
+        });
+
+        // Ações dos botões dentro dos dropdowns
         document.querySelectorAll('[data-action]').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const action = e.target.getAttribute('data-action');
-                
                 if (action === 'sair-da-conta') {
-                    localStorage.removeItem('user');
-                    window.location.href = '../login.html';
+                    if(confirm('Tem certeza que deseja sair?')) {
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('usuarioLogado');
+                        window.location.href = '/public/home.html';
+                    }
                 }
             });
         });
     </script>
-
-     <script src="Foto-usuario-adaptativa.js"></script>
 </body>
 </html>

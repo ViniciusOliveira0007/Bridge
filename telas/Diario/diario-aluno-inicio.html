@@ -32,68 +32,6 @@
             background-color: #f4f4f4;
             border-color: #999;
         }
-
-        /* --- CSS DOS DROPDOWNS (CORRIGIDO) --- */
-        .menu-3 {
-            position: relative !important; 
-        }
-
-        .dropdown-notificacoes, 
-        .dropdown-configuracoes, 
-        .dropdown-perfil {
-            display: none;
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-          
-            z-index: 9999;
-        }
-
-        .mostrar {
-            display: block !important;
-            animation: aparecer 0.2s ease-in-out;
-        }
-
-        @keyframes aparecer {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .dropdown-header {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #f8f9fa;
-            border-radius: 8px 8px 0 0;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .dropdown-opcoes { padding: 10px; }
-
-        .opcao-item {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            text-align: left;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #555;
-            transition: 0.2s;
-            border-radius: 5px;
-        }
-
-        .opcao-item:hover { background-color: #f0f0f0; color: #000; }
-
-        .btn-fechar { background: none; border: none; font-size: 24px; cursor: pointer; color: #999; line-height: 1; }
-        .btn-fechar:hover { color: #cb0b0b; }
     </style>
 </head>
 <body>
@@ -107,9 +45,9 @@
             </div>
             
             <div class="menu-3">
-                <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav" onclick="toggleDropdown('dropdownNotif')">
-                <img src="./imagens-diario/configuracao.svg" alt="configuração" class="btn-config" onclick="toggleDropdown('dropdownConfig')">
-                <img src="./imagens-diario/foto_de_perfil.png" alt="perfil" class="foto-de-perfil" id="fotoPerfilNav" onclick="toggleDropdown('dropdownPerfil')">
+                <img src="./imagens-diario/sininho.svg" alt="notificação" class="btn-notificao-nav">
+                <img src="./imagens-diario/configuracao.svg" alt="configuração" class="btn-config">
+                <img src="./imagens-diario/foto_de_perfil.png" alt="perfil" class="foto-de-perfil">
 
                 <div class="dropdown-notificacoes" id="dropdownNotif">
                     <div class="dropdown-header">
@@ -117,7 +55,7 @@
                             <img src="./imagens-diario/sino-black.svg" alt="Notificação">
                             <span>Notificações</span>
                         </div>
-                        <button class="btn-fechar" id="fecharNotif">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-notif">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
                         <div class="notificacao-vazia">Nenhuma notificação no momento</div>
@@ -130,7 +68,7 @@
                             <img src="./imagens-diario/configuracao-black.svg" alt="Configuração">
                             <span>Configurações</span>
                         </div>
-                        <button class="btn-fechar" id="fecharConfig">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-config">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
                         <button class="opcao-item">Tema</button>
@@ -142,22 +80,18 @@
                 <div class="dropdown-perfil" id="dropdownPerfil">
                     <div class="dropdown-header">
                         <div class="dropdown-titulo">
-                            <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini" id="fotoPerfilMini">
-                            <span id="nomeNoDropdown">Olá, Professor</span>
+                            <img src="./imagens-diario/foto_de_perfil.png" alt="Perfil" class="perfil-mini">
+                            <span id="nomeNoDropdown">Olá, Aluno</span>
                         </div>
-                        <button class="btn-fechar" id="fecharPerfil">&times;</button>
+                        <button class="btn-fechar" data-action="fechar-perfil">&times;</button>
                     </div>
                     <div class="dropdown-opcoes">
                         <button class="opcao-item">Seu perfil</button>
                         <button class="opcao-item">Privacidade</button>
                         <button class="opcao-item">Ajuda e Recursos</button>
-                        <button class="opcao-item sair-conta" onclick="fazerLogout()">Sair da Conta</button>
+                        <button class="opcao-item sair-conta" data-action="sair-da-conta">Sair da Conta</button>
                     </div>
                 </div>
-
-
-
-
             </div>
         </div>
     </nav>
@@ -239,67 +173,140 @@
     <script>
         const API_URL = 'http://localhost:3000/api';
         
-        // --- FUNÇÕES DROPDOWNS ---
-        function toggleDropdown(idAlvo) {
-            const el = document.getElementById(idAlvo);
-            const estaAberto = el.classList.contains('mostrar');
-            fecharTodosDropdowns();
-            if (!estaAberto) el.classList.add('mostrar');
-        }
-
-        function fecharTodosDropdowns() {
-            document.getElementById('dropdownNotif').classList.remove('mostrar');
-            document.getElementById('dropdownConfig').classList.remove('mostrar');
-            document.getElementById('dropdownPerfil').classList.remove('mostrar');
-        }
-
-        function fazerLogout() {
-            localStorage.removeItem('user');
-            window.location.href = '/telas/Login/tela-senha.html';
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.matches('.btn-notificao-nav') && 
-                !event.target.matches('.btn-config') && 
-                !event.target.matches('.foto-de-perfil') &&
-                !event.target.closest('.dropdown-notificacoes') &&
-                !event.target.closest('.dropdown-configuracoes') &&
-                !event.target.closest('.dropdown-perfil')) {
-                fecharTodosDropdowns();
-            }
-        }
-
-        // --- LÓGICA DE DADOS ---
+        // --- 1. VERIFICAÇÃO DE SEGURANÇA IMEDIATA ---
+        // Se não tiver usuário, nem carrega o resto, joga para o login/home
         let userData = JSON.parse(localStorage.getItem('user') || 'null');
         if (!userData) {
             userData = JSON.parse(localStorage.getItem('usuarioLogado') || '{}');
         }
 
-        if (userData && userData.id) {
-            document.getElementById('saudacao').textContent = `Bem-vindo ${userData.name || 'Aluno'}!`;
-            document.getElementById('nomeNoDropdown').textContent = `Olá, ${userData.name || 'Aluno'}`;
-            document.getElementById('rmAluno').textContent = userData.id;
-            document.getElementById('nomeCompleto').textContent = userData.name || '-';
-            document.getElementById('emailAluno').textContent = userData.email || '-';
-            
-            if (userData.perfilUrl) {
-                const fotoUrl = `http://localhost:3000${userData.perfilUrl}`;
-                document.getElementById('fotoPerfilNav').src = fotoUrl;
-                document.getElementById('fotoPerfilDiario').src = fotoUrl;
-            }
+        if (!userData || !userData.id) {
+            // Se não estiver logado, redireciona imediatamente
+            window.location.href = '/public/home.html'; 
         }
 
-        // Script do Preview
-        document.getElementById('inputFotoAluno').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const previewUrl = URL.createObjectURL(file);
-                document.getElementById('fotoPerfilDiario').src = previewUrl;
-                document.getElementById('fotoPerfilNav').src = previewUrl;
+        // --- 2. CARREGAMENTO DE DADOS NA TELA ---
+        document.addEventListener('DOMContentLoaded', function() {
+            if (userData && userData.id) {
+                // Preencher Saudação e Header
+                const saudacao = document.getElementById('saudacao');
+                const nomeDropdown = document.getElementById('nomeNoDropdown');
+                
+                if(saudacao) saudacao.textContent = `Bem-vindo, ${userData.name || 'Aluno'}!`;
+                if(nomeDropdown) nomeDropdown.textContent = `Olá, ${userData.name || 'Aluno'}`;
+                
+                // Preencher Bloco de Informações
+                const elRm = document.getElementById('rmAluno');
+                const elNome = document.getElementById('nomeCompleto');
+                const elEmail = document.getElementById('emailAluno');
+                
+                if(elRm) elRm.textContent = userData.id;
+                if(elNome) elNome.textContent = userData.name || '-';
+                if(elEmail) elEmail.textContent = userData.email || '-';
+                
+                // Carregar Fotos
+                if (userData.perfilUrl) {
+                    const fotoUrl = `http://localhost:3000${userData.perfilUrl}`;
+                    
+                    // Atualiza todas as fotos com a classe .foto-de-perfil (nav e outras)
+                    document.querySelectorAll('.foto-de-perfil').forEach(img => {
+                        img.src = fotoUrl;
+                        img.onerror = () => img.src = './imagens-diario/foto_de_perfil.png';
+                    });
+                    
+                    // Atualiza foto grande do diário
+                    const fotoDiario = document.getElementById('fotoPerfilDiario');
+                    if (fotoDiario) {
+                        fotoDiario.src = fotoUrl;
+                        fotoDiario.onerror = () => fotoDiario.src = './imagens-diario/foto_de_perfil.png';
+                    }
+                    
+                    // Atualiza foto mini do dropdown
+                    const fotoMini = document.querySelector('.perfil-mini');
+                    if (fotoMini) {
+                        fotoMini.src = fotoUrl;
+                        fotoMini.onerror = () => fotoMini.src = './imagens-diario/foto_de_perfil.png';
+                    }
+                }
             }
+
+            // --- 3. LÓGICA DE PREVIEW DE FOTO ---
+            const inputFoto = document.getElementById('inputFotoAluno');
+            if(inputFoto) {
+                inputFoto.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const previewUrl = URL.createObjectURL(file);
+                        
+                        // Atualiza visualmente na hora
+                        const fotoDiario = document.getElementById('fotoPerfilDiario');
+                        if(fotoDiario) fotoDiario.src = previewUrl;
+                        
+                        document.querySelectorAll('.foto-de-perfil').forEach(img => {
+                            img.src = previewUrl;
+                        });
+                        
+                        // Opcional: Aqui você adicionaria a lógica para enviar a foto para a API
+                    }
+                });
+            }
+
+            // --- 4. LÓGICA DOS DROPDOWNS (MENU) ---
+            const dropdownNotif = document.getElementById('dropdownNotif');
+            const dropdownConfig = document.getElementById('dropdownConfig');
+            const dropdownPerfil = document.getElementById('dropdownPerfil');
+
+            function fecharTodos() {
+                if(dropdownNotif) dropdownNotif.classList.remove('ativo');
+                if(dropdownConfig) dropdownConfig.classList.remove('ativo');
+                if(dropdownPerfil) dropdownPerfil.classList.remove('ativo');
+            }
+
+            // Listeners de abertura
+            const btnNotif = document.querySelector('.btn-notificao-nav');
+            if(btnNotif) btnNotif.onclick = (e) => { e.stopPropagation(); const ab = dropdownNotif.classList.contains('ativo'); fecharTodos(); if(!ab) dropdownNotif.classList.add('ativo'); };
+
+            const btnConfig = document.querySelector('.btn-config');
+            if(btnConfig) btnConfig.onclick = (e) => { e.stopPropagation(); const ab = dropdownConfig.classList.contains('ativo'); fecharTodos(); if(!ab) dropdownConfig.classList.add('ativo'); };
+
+            // Botão da foto de perfil no menu superior
+            // Nota: Seleciona especificamente a imagem dentro do menu-3 para evitar conflito
+            const btnPerfil = document.querySelector('.menu-3 .foto-de-perfil'); 
+            if(btnPerfil) btnPerfil.onclick = (e) => { e.stopPropagation(); const ab = dropdownPerfil.classList.contains('ativo'); fecharTodos(); if(!ab) dropdownPerfil.classList.add('ativo'); };
+
+            // Botões de fechar (X)
+            document.querySelectorAll('.btn-fechar').forEach(btn => {
+                btn.onclick = (e) => { e.stopPropagation(); fecharTodos(); };
+            });
+
+            // Fechar ao clicar fora
+            window.onclick = () => fecharTodos();
+
+            // --- 5. AÇÕES DOS BOTÕES DO MENU (INCLUINDO LOGOUT CORRIGIDO) ---
+            document.querySelectorAll('[data-action]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const action = this.getAttribute('data-action');
+                    
+                    if (action === 'fechar-notif') dropdownNotif.classList.remove('ativo');
+                    else if (action === 'fechar-config') dropdownConfig.classList.remove('ativo');
+                    else if (action === 'fechar-perfil') dropdownPerfil.classList.remove('ativo');
+                    
+                    else if (action === 'sair-da-conta') {
+                        if (confirm('Deseja sair da conta?')) {
+                            // Limpa os dados
+                            localStorage.removeItem('user');
+                            localStorage.removeItem('usuarioLogado');
+                            localStorage.clear(); // Garante limpeza total
+                            
+                            // Redirecionamento CORRIGIDO (Caminho absoluto)
+                            window.location.href = '/public/home.html';
+                        }
+                    }
+                });
+            });
         });
     </script>
 
-    <script src="Foto-usuario-adaptativa.js"></script>
+    
 </body>
 </html>

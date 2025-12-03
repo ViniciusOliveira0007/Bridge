@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="./estilos_login/estilo_senha_esquecida.css">
 </head>
 <body>
-
     <nav>
         <div class="bloco-de-opcoes">
             <div class="layout-fixo">
@@ -46,28 +45,15 @@
                         <div class="cabecalho-campo">
                             <div class="nova-senha">Nova senha</div>
                         </div>
-                        <input 
-                            class="entrada-texto" 
-                            placeholder="*Exemplo123" 
-                            type="password"
-                            id="novaSenha"
-                            required
-                        >
+                        <input class="entrada-texto" placeholder="*Exemplo123" type="password" id="novaSenha" required>
                     </div>
                     <div class="campo-confirmar-senha">
                         <div class="cabecalho-campo">
                             <div class="confirmar-senha">Confirmar senha</div>
                         </div>
-                        <input 
-                            class="entrada-texto" 
-                            placeholder="*Exemplo123" 
-                            type="password"
-                            id="confirmarSenha"
-                            required
-                        >
+                        <input class="entrada-texto" placeholder="*Exemplo123" type="password" id="confirmarSenha" required>
                     </div>
                     
-                    <!-- Mensagens de erro/sucesso -->
                     <div id="messageArea" style="margin-top: 10px; display: none;">
                         <p id="errorMessage" style="color: red; font-size: 14px;"></p>
                         <p id="successMessage" style="color: green; font-size: 14px;"></p>
@@ -77,7 +63,7 @@
                         <div class="precisa-de-ajuda">Precisa de ajuda?</div>
                     </div>
                     <button type="submit" class="botao-confirmar" id="submitBtn">
-                        Confirmar
+                        Continuar
                     </button>
                 </div>
             </form>
@@ -86,40 +72,25 @@
                 <img class="fundo-requisitos" src="./imagens_login/Fundo-de-requerimentos.svg" />
                 <div class="conteudo-requisitos">
                     <div class="titulo-requisitos">
-                        <div class="requisitos-para-validacao-de-senha">
-                            Requisitos para validação de senha:
-                        </div>
+                        <div class="requisitos-para-validacao-de-senha">Requisitos para validação de senha:</div>
                     </div>
                     <div class="lista-requisitos">
-                        <!-- Requisito: 8 caracteres -->
                         <div class="item-requisito">
                             <img class="icone-aceitacao" id="icon-length" src="./imagens_login/Recusado.svg" />
-                            <div class="ter-pelo-menos-8-caracteres">
-                                Ter pelo menos 8 caracteres
-                            </div>
+                            <div class="ter-pelo-menos-8-caracteres">Ter pelo menos 8 caracteres</div>
                         </div>
-                        <!-- Requisito: letra maiúscula -->
                         <div class="item-requisito">
                             <img class="icone-aceitacao" id="icon-uppercase" src="./imagens_login/Recusado.svg" />
-                            <div class="ter-pelo-menos-1-letra-maiuscula">
-                                Ter pelo menos 1 letra maiúscula
-                            </div>
+                            <div class="ter-pelo-menos-1-letra-maiuscula">Ter pelo menos 1 letra maiúscula</div>
                         </div>
-                        <!-- Requisito: letra minúscula -->
                         <div class="item-requisito">
                             <img class="icone-aceitacao" id="icon-lowercase" src="./imagens_login/Recusado.svg" />
-                            <div class="ter-pelo-menos-1-letra-minuscula">
-                                Ter pelo menos 1 letra minúscula
-                            </div>
+                            <div class="ter-pelo-menos-1-letra-minuscula">Ter pelo menos 1 letra minúscula</div>
                         </div>
-                        <!-- Requisito: caracter especial -->
                         <div class="item-requisito">
                             <img class="icone-aceitacao" id="icon-special" src="./imagens_login/Recusado.svg" />
-                            <div class="ter-pelo-menos-1-caracter-especial">
-                                Ter pelo menos 1 caracter especial
-                            </div>
+                            <div class="ter-pelo-menos-1-caracter-especial">Ter pelo menos 1 caracter especial</div>
                         </div>
-                        <!-- Requisito: número -->
                         <div class="item-requisito">
                             <img class="icone-aceitacao" id="icon-number" src="./imagens_login/Recusado.svg" />   
                             <div class="ter-pelo-menos-1-numero">Ter pelo menos 1 número</div>
@@ -139,166 +110,134 @@
         </div>
     </main>
 
-    <script>
-        // Pega o email do localStorage
-        const userEmail = localStorage.getItem('userEmail');
+     <script>
+    // ✅ Pega dados salvos do fluxo de login
+    const userEmail = localStorage.getItem('userEmail');
+    const userIdString = localStorage.getItem('userId');
+    const userId = userIdString ? parseInt(userIdString) : null;
+    
+    // Check de segurança
+    if (!userEmail || userId === null || isNaN(userId)) {
+        alert('Sessão expirada. Por favor, inicie o processo de recuperação novamente.');
+        window.location.href = './tela-senha.html';
+    }
+
+    // Elementos
+    const novaSenhaInput = document.getElementById('novaSenha');
+    const confirmarSenhaInput = document.getElementById('confirmarSenha');
+    const form = document.getElementById('resetPasswordForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const messageArea = document.getElementById('messageArea');
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+
+    // Ícones de Validação
+    const icons = {
+        length: document.getElementById('icon-length'),
+        uppercase: document.getElementById('icon-uppercase'),
+        lowercase: document.getElementById('icon-lowercase'),
+        special: document.getElementById('icon-special'),
+        number: document.getElementById('icon-number')
+    };
+
+    let requisitos = {
+        length: false, 
+        uppercase: false, 
+        lowercase: false, 
+        special: false, 
+        number: false
+    };
+
+    function validarSenha(senha) {
+        requisitos.length = senha.length >= 8;
+        requisitos.uppercase = /[A-Z]/.test(senha);
+        requisitos.lowercase = /[a-z]/.test(senha);
+        requisitos.special = /[@$!%*?&#]/.test(senha);
+        requisitos.number = /\d/.test(senha);
+        atualizarIcones();
+    }
+
+    function atualizarIcones() {
+        for (const key in requisitos) {
+            icons[key].src = requisitos[key] 
+                ? './imagens_login/Aceitação.svg' 
+                : './imagens_login/Recusado.svg';
+        }
+    }
+
+    novaSenhaInput.addEventListener('input', (e) => validarSenha(e.target.value));
+
+    // ✅ SUBMISSÃO DO FORMULÁRIO (CORRIGIDA)
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
         
-        // Se não tiver email, redireciona para tela de login
-        if (!userEmail) {
-            alert('Por favor, faça login primeiro');
-            window.location.href = './tela-senha.html';
+        const novaSenha = novaSenhaInput.value;
+        const confirmarSenha = confirmarSenhaInput.value;
+        
+        messageArea.style.display = 'none';
+        errorMessage.textContent = '';
+        successMessage.textContent = '';
+        
+        // Valida requisitos
+        if (!Object.values(requisitos).every(Boolean)) {
+            messageArea.style.display = 'block';
+            errorMessage.textContent = 'A senha não atende a todos os requisitos';
+            return;
+        }
+        
+        // Valida se as senhas coincidem
+        if (novaSenha !== confirmarSenha) {
+            messageArea.style.display = 'block';
+            errorMessage.textContent = 'As senhas não coincidem';
+            return;
         }
 
-        // Elementos do formulário
-        const novaSenhaInput = document.getElementById('novaSenha');
-        const confirmarSenhaInput = document.getElementById('confirmarSenha');
-        const form = document.getElementById('resetPasswordForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const messageArea = document.getElementById('messageArea');
-        const errorMessage = document.getElementById('errorMessage');
-        const successMessage = document.getElementById('successMessage');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando código...';
 
-        // Ícones de validação
-        const iconLength = document.getElementById('icon-length');
-        const iconUppercase = document.getElementById('icon-uppercase');
-        const iconLowercase = document.getElementById('icon-lowercase');
-        const iconSpecial = document.getElementById('icon-special');
-        const iconNumber = document.getElementById('icon-number');
+        try {
+            // ✅ Envia código SMS usando email (controller busca o telefone)
+            const response = await fetch('http://localhost:3000/api/enviar-codigo-sms', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    email: userEmail  // ✅ Envia apenas email, controller busca o telefone
+                })
+            });
 
-        // Estado dos requisitos
-        let requisitos = {
-            length: false,
-            uppercase: false,
-            lowercase: false,
-            special: false,
-            number: false
-        };
+            const data = await response.json();
 
-        // Função para validar senha em tempo real
-        function validarSenha(senha) {
-            // Pelo menos 8 caracteres
-            requisitos.length = senha.length >= 8;
-            
-            // Pelo menos 1 letra maiúscula
-            requisitos.uppercase = /[A-Z]/.test(senha);
-            
-            // Pelo menos 1 letra minúscula
-            requisitos.lowercase = /[a-z]/.test(senha);
-            
-            // Pelo menos 1 caractere especial
-            requisitos.special = /[@$!%*?&#]/.test(senha);
-            
-            // Pelo menos 1 número
-            requisitos.number = /\d/.test(senha);
-
-            // Atualiza os ícones
-            atualizarIcones();
-        }
-
-        // Função para atualizar os ícones
-        function atualizarIcones() {
-            iconLength.src = requisitos.length 
-                ? './imagens_login/Aceitação.svg' 
-                : './imagens_login/Recusado.svg';
-            
-            iconUppercase.src = requisitos.uppercase 
-                ? './imagens_login/Aceitação.svg' 
-                : './imagens_login/Recusado.svg';
-            
-            iconLowercase.src = requisitos.lowercase 
-                ? './imagens_login/Aceitação.svg' 
-                : './imagens_login/Recusado.svg';
-            
-            iconSpecial.src = requisitos.special 
-                ? './imagens_login/Aceitação.svg' 
-                : './imagens_login/Recusado.svg';
-            
-            iconNumber.src = requisitos.number 
-                ? './imagens_login/Aceitação.svg' 
-                : './imagens_login/Recusado.svg';
-        }
-
-        // Verifica se todos os requisitos foram atendidos
-        function todosRequisitosAtendidos() {
-            return Object.values(requisitos).every(req => req === true);
-        }
-
-        // Escuta mudanças no campo de nova senha
-        novaSenhaInput.addEventListener('input', (e) => {
-            validarSenha(e.target.value);
-        });
-
-        // Envio do formulário
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const novaSenha = novaSenhaInput.value;
-            const confirmarSenha = confirmarSenhaInput.value;
-            
-            // Esconde mensagens anteriores
-            messageArea.style.display = 'none';
-            errorMessage.textContent = '';
-            successMessage.textContent = '';
-            
-            // Validação 1: Todos os requisitos atendidos?
-            if (!todosRequisitosAtendidos()) {
-                messageArea.style.display = 'block';
-                errorMessage.textContent = 'A senha não atende a todos os requisitos';
-                return;
-            }
-            
-            // Validação 2: Senhas coincidem?
-            if (novaSenha !== confirmarSenha) {
-                messageArea.style.display = 'block';
-                errorMessage.textContent = 'As senhas não coincidem';
-                return;
-            }
-            
-            // Desabilita o botão
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Redefinindo...';
-            
-            try {
-                // Envia para API
-                const response = await fetch('http://localhost:3000/api/reset-password', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: userEmail,
-                        novaSenha: novaSenha
-                    })
-                });
+            if (response.ok && data.success) {
+                console.log('✅ Código SMS enviado com sucesso');
                 
-                const data = await response.json();
+                // ✅ Salva senha temporariamente e marca fluxo de reset
+                sessionStorage.setItem('tempNovaSenha', novaSenha);
+                sessionStorage.setItem('authFlow', 'reset-password');
                 
-                if (response.ok && data.success) {
-                    // Sucesso!
-                    messageArea.style.display = 'block';
-                    successMessage.textContent = 'Senha redefinida com sucesso! Redirecionando...';
-                    
-                    // Aguarda 2 segundos e redireciona
-                    setTimeout(() => {
-                        window.location.href = './confirmacao-de-senha.html';
-                    }, 2000);
-                } else {
-                    // Erro
-                    messageArea.style.display = 'block';
-                    errorMessage.textContent = data.message || 'Erro ao redefinir senha';
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Confirmar';
+                // Salva telefone se retornado
+                if (data.telefone) {
+                    localStorage.setItem('userTelefone', data.telefone);
                 }
-                
-            } catch (error) {
-                console.error('Erro:', error);
-                messageArea.style.display = 'block';
-                errorMessage.textContent = 'Erro ao conectar com o servidor';
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Confirmar';
-            }
-        });
-    </script>
 
+                messageArea.style.display = 'block';
+                successMessage.textContent = 'Código enviado! Redirecionando...';
+
+                // Redireciona para verificação SMS
+                setTimeout(() => {
+                    window.location.href = './verificacao-sms.html';
+                }, 1500);
+            } else {
+                throw new Error(data.message || 'Erro ao enviar código SMS');
+            }
+
+        } catch (error) {
+            console.error('❌ Erro:', error);
+            messageArea.style.display = 'block';
+            errorMessage.textContent = error.message || 'Erro ao comunicar com servidor. Verifique se possui telefone cadastrado.';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Continuar';
+        }
+    });
+</script>
 </body>
 </html>
