@@ -885,6 +885,9 @@ nav a:hover, .nome-da-guia a:hover {
     height: 30px;
     border-radius: 20px;
 }
+
+
+
 /* Responsividade */
 @media (max-width: 768px) {
     /* Ajustes para telas menores */
