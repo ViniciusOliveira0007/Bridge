@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil Trilhas</title>
+    <title>Portifólio Trilhas</title>
     <link rel="stylesheet" href="../estilos_trilhas/estilo_portifolio_trilhas.css">
 </head>
 <body>
@@ -86,12 +86,12 @@
                         <a href="../trilhas.html" class="btn-trilhas-perfil">Explorar <img src="../imagens_trilhas/home-icon-trilhas.svg" alt="Explorar"></a>    
                         <a href="./perfil_trilhas.html" class="btn-trilhas-perfil">Seu perfil <img src="../imagens_trilhas/seu-perfil-trilhas.svg" alt="portifolio"></a>    
                         <a href="./seus_projetos_trilhas.html" class="btn-trilhas-perfil">Meus Projetos<img src="../imagens_trilhas/seus-projetos.svg" alt="seus projetos"></a>    
-                        <a href="" class="btn-trilhas-perfil">Propostas<img src="../imagens_trilhas/projetos-aceitos-trilhas.svg" alt="projetos aceitos"></a>    
+                        <a href="./propostas_trilhas.html" class="btn-trilhas-perfil">Propostas<img src="../imagens_trilhas/projetos-aceitos-trilhas.svg" alt="projetos aceitos"></a>    
                     </div>
                 </div>
             </div>
             <h3 class="h3-proposta">Sugestões de Propostas</h3>
-<div class="secao-propostas">
+            <div class="secao-propostas">
                 <a href="#" class="btn-proposta">
                     <div class="box-propostas-projeto">
                             <img src="../imagens_trilhas/img-empresas/meta.svg" alt="Projeto Pendente Google" class="proposta">
@@ -146,39 +146,13 @@
                                 <div class="seu-portifolio-trilhas">
                                     <h3 class="h3-seu-portifolio">Seu Portifólio</h3>
                                     <div class="secao-seu-portifolio">
-                                        <div class="card-portifolio">
-                                            <div class="img-do-portifolio">
-                                                <img src="../imagens_trilhas/img-Portifolio/imgPortifolio3.jpeg" alt="" class="img-portifolio">
-                                            </div>
-                                            <div class="nm-portifolio">
-                                                <h3 class="titulo-portifolio">Logotipos entregues</h3>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="card-portifolio">
-                                            <div class="img-do-portifolio">
-                                                <img src="../imagens_trilhas/img-Portifolio/imgPortifolio2.jpeg" alt="" class="img-portifolio">
-                                            </div>
-                                            <div class="nm-portifolio">
-                                                <h3 class="titulo-portifolio">Logotipos entregues</h3>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="card-portifolio">
-                                            <div class="img-do-portifolio">
-                                                <img src="../imagens_trilhas/img-Portifolio/imgPortifolio1.jpeg" alt="" class="img-portifolio">
-                                            </div>
-                                            <div class="nm-portifolio">
-                                                <h3 class="titulo-portifolio">Logotipos entregues</h3>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="anexos">
                                     <div class="arquivos-em-anexo">
                                         <h3 class="h3-seu-portifolio">Arquivos em Anexo</h3>
                                         <div class="content-anexos">
-                                            <div class="secao-arquivos-anexados">
+                                            <div class="secao-arquivos-anexados" >
                                                 <div class="card-de-anexo">
                                                     <div class="projeto">
                                                         <div class="img-de-anexo">
@@ -290,7 +264,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     await carregarDadosUsuario();
 
     // ============================================
-    // CARREGAR PORTFÓLIO DO BANCO
+    // CARREGAR PORTFÓLIO E ANEXOS DO BANCO
     // ============================================
     async function carregarPortfolio() {
         try {
@@ -300,46 +274,83 @@ document.addEventListener('DOMContentLoaded', async function() {
             const data = await response.json();
             
             if (data.success && data.portfolios) {
-                console.log(`✅ ${data.portfolios.length} itens de portfólio carregados`);
-                renderizarPortfolio(data.portfolios);
+                // SEPARAÇÃO LÓGICA:
+                // Se tiver 'data:image' ou for URL de imagem, é do portfólio visual.
+                // Se tiver nome de ícone (svg) ou link externo focado, é anexo.
+                
+                const imagensPortfolio = data.portfolios.filter(item => {
+                    // Consideramos portfolio se tiver imagemUrl e NÃO for um ícone pequeno (svg solto)
+                    return item.imagemUrl && !item.imagemUrl.includes('.svg') && (item.imagemUrl.includes('data:image') || item.imagemUrl.includes('http') || item.imagemUrl.includes('/uploads'));
+                });
+
+                const arquivosAnexos = data.portfolios.filter(item => {
+                    // Consideramos anexo se tiver linkExterno OU se a imagemUrl for um ícone svg
+                    return (item.linkExterno && item.linkExterno.length > 0) || (item.imagemUrl && item.imagemUrl.includes('.svg'));
+                });
+
+                renderizarPortfolioImagens(imagensPortfolio);
+                renderizarAnexos(arquivosAnexos);
             }
         } catch (error) {
             console.error('❌ Erro ao carregar portfólio:', error);
         }
     }
 
-    function renderizarPortfolio(portfolios) {
+    function renderizarPortfolioImagens(itens) {
         const container = document.querySelector('.secao-seu-portifolio');
         if (!container) return;
 
-        // Limpar itens estáticos
-        container.innerHTML = '';
+        container.innerHTML = ''; // Limpa antes de renderizar
 
-        if (portfolios.length === 0) {
-            container.innerHTML = `
-                <div style="text-align: center; padding: 40px; color: #999;">
-                    <p>Nenhum item no portfólio ainda</p>
-                    <p style="font-size: 14px;">Clique em "Adicionar" para começar</p>
-                </div>
-            `;
+        if (itens.length === 0) {
+            container.innerHTML = `<p style="text-align:center; color:#999; width:100%;">Nenhum projeto visual adicionado.</p>`;
             return;
         }
 
-        portfolios.forEach(item => {
+        itens.forEach(item => {
             const cardHTML = `
                 <div class="card-portifolio" data-portfolio-id="${item.id}">
                     <div class="img-do-portifolio">
-                        <img src="${item.imagemUrl || '../imagens_trilhas/img-Portifolio/default.jpg'}" 
-                             alt="${item.titulo}" 
-                             class="img-portifolio">
+                        <img src="${item.imagemUrl}" alt="${item.titulo}" class="img-portifolio">
                     </div>
                     <div class="nm-portifolio">
                         <h3 class="titulo-portifolio">${item.titulo}</h3>
-                        ${item.linkExterno ? `<a href="${item.linkExterno}" target="_blank" class="link-externo">🔗 Ver projeto</a>` : ''}
                     </div>
                 </div>
             `;
-            
+            container.insertAdjacentHTML('beforeend', cardHTML);
+        });
+    }
+
+    function renderizarAnexos(itens) {
+        // Encontra o container específico de anexos dentro do HTML
+        const container = document.querySelector('.secao-arquivos-anexados');
+        if (!container) return;
+
+        container.innerHTML = ''; // Limpa antes de renderizar
+
+        if (itens.length === 0) {
+            container.innerHTML = `<p style="padding: 20px; color:#999;">Nenhum arquivo anexado.</p>`;
+            return;
+        }
+
+        itens.forEach(item => {
+            // Se a imagemUrl for um ícone salvo, usa ele. Se não, usa um padrão.
+            const icone = (item.imagemUrl && item.imagemUrl.includes('.svg')) 
+                ? `../imagens_trilhas/icone-habilidades-trilhas/${item.imagemUrl}` // Assume que salvamos só o nome 'Word.svg'
+                : `../imagens_trilhas/icone-habilidades-trilhas/github-white.svg`; // Padrão
+
+            const cardHTML = `
+                <div class="card-de-anexo" data-portfolio-id="${item.id}">
+                    <div class="projeto">
+                        <div class="img-de-anexo">
+                            <img src="${icone}" alt="Ícone" class="img-anexo">
+                        </div>
+                        <p class="nome-projeto">${item.titulo}</p>
+                    </div>
+                    <a href="${item.linkExterno || '#'}" target="_blank" class="btn-ver-sobre">Ver sobre</a>
+                </div>
+            `;
             container.insertAdjacentHTML('beforeend', cardHTML);
         });
     }
@@ -347,7 +358,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     await carregarPortfolio();
 
     // ============================================
-    // POPUP ADICIONAR PORTFÓLIO
+    // POPUP E TABS
     // ============================================
     const popupAdd = document.getElementById('popupAdicionar');
     const btnOpenAdd = document.getElementById('btnAdicionarPortifolio');
@@ -384,7 +395,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // ============================================
-    // SALVAR PORTFÓLIO (IMAGEM) NO BANCO
+    // SALVAR PORTFÓLIO (IMAGEM)
     // ============================================
     const formImagem = document.getElementById('form-imagem');
     formImagem.addEventListener('submit', async function(e) {
@@ -394,6 +405,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         const inputImg = document.getElementById('inputImagem');
         
         if(inputImg.files && inputImg.files[0]) {
+            const file = inputImg.files[0];
+
+            // 1. Verificação de tamanho (Limite de 2MB para evitar erro no servidor)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('⚠️ A imagem é muito grande! Escolha uma imagem menor que 2MB.');
+                return;
+            }
+
             const reader = new FileReader();
             
             reader.onload = async function(e) {
@@ -406,7 +425,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                         body: JSON.stringify({
                             usuarioId: usuarioLogado.id,
                             titulo: titulo,
-                            imagemUrl: imagemBase64, // Em produção, fazer upload real
+                            imagemUrl: imagemBase64, 
+                            linkExterno: '', // Imagem não tem link externo obrigatorio
                             ordem: 0
                         })
                     });
@@ -414,21 +434,21 @@ document.addEventListener('DOMContentLoaded', async function() {
                     const data = await response.json();
 
                     if (data.success) {
-                        alert('✅ Item adicionado ao portfólio!');
+                        alert('✅ Imagem adicionada com sucesso!');
                         formImagem.reset();
                         document.getElementById('txtNomeImagem').innerText = "Escolher imagem...";
                         fecharPopupAdd();
-                        await carregarPortfolio(); // Recarregar
+                        await carregarPortfolio(); // Recarrega tudo
                     } else {
-                        alert('❌ ' + (data.message || 'Erro ao adicionar item'));
+                        alert('❌ Erro no servidor: ' + (data.message || 'Falha ao salvar'));
                     }
                 } catch (error) {
-                    console.error('❌ Erro ao salvar:', error);
-                    alert('Erro ao adicionar ao portfólio');
+                    console.error('❌ Erro na requisição:', error);
+                    alert('Erro de conexão ao tentar salvar a imagem.');
                 }
             }
             
-            reader.readAsDataURL(inputImg.files[0]);
+            reader.readAsDataURL(file);
         }
     });
 
@@ -437,22 +457,32 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 
     // ============================================
-    // SALVAR ANEXO (ARQUIVO/LINK) NO BANCO
+    // SALVAR ANEXO (ARQUIVO/LINK)
     // ============================================
     const formArquivo = document.getElementById('form-arquivo');
     formArquivo.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const titulo = document.getElementById('tituloArquivo').value;
-        const link = document.getElementById('linkArquivo').value || '#';
+        const link = document.getElementById('linkArquivo').value;
+        const iconeEscolhido = document.getElementById('tipoIcone').value; // Ex: "Word.svg"
+
+        if (!link) {
+            alert('Por favor, insira um link.');
+            return;
+        }
 
         try {
+            // TRUQUE: Como o banco provavelmente só tem 'imagemUrl' e 'linkExterno',
+            // vamos salvar o NOME DO ÍCONE no campo imagemUrl para recuperá-lo depois.
+            
             const response = await fetch(`${API_URL}/trilhas/portfolio`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     usuarioId: usuarioLogado.id,
                     titulo: titulo,
+                    imagemUrl: iconeEscolhido, // Salvamos "Word.svg" aqui
                     linkExterno: link,
                     ordem: 0
                 })
@@ -461,44 +491,29 @@ document.addEventListener('DOMContentLoaded', async function() {
             const data = await response.json();
 
             if (data.success) {
-                alert('✅ Anexo adicionado ao portfólio!');
+                alert('✅ Anexo adicionado!');
                 formArquivo.reset();
                 fecharPopupAdd();
-                
-                // Adicionar à seção de anexos (renderização local)
-                const icone = document.getElementById('tipoIcone').value;
-                const novoAnexoHTML = `
-                    <div class="card-de-anexo" data-portfolio-id="${data.portfolio.id}">
-                        <div class="projeto">
-                            <div class="img-de-anexo">
-                                <img src="../imagens_trilhas/icone-habilidades-trilhas/${icone}" alt="Ícone" class="img-anexo">
-                            </div>
-                            <p class="nome-projeto">${titulo}</p>
-                        </div>
-                        <a href="${link}" target="_blank" class="btn-ver-sobre">Ver sobre</a>
-                    </div>
-                `;
-
-                const containerAnexos = document.querySelector('.secao-arquivos-anexados');
-                containerAnexos.insertAdjacentHTML('beforeend', novoAnexoHTML);
+                await carregarPortfolio(); // Recarrega para aparecer na lista certa
             } else {
-                alert('❌ ' + (data.message || 'Erro ao adicionar anexo'));
+                alert('❌ Erro: ' + (data.message || 'Falha ao salvar anexo'));
             }
         } catch (error) {
             console.error('❌ Erro ao salvar anexo:', error);
-            alert('Erro ao adicionar anexo');
+            alert('Erro de conexão.');
         }
     });
 
     // ============================================
-    // VISUALIZADOR DE IMAGEM
+    // VISUALIZADOR E EDIÇÃO (MANTIDO E AJUSTADO)
     // ============================================
     const popupViewer = document.getElementById('popupVisualizarImg');
     const imgExpandida = document.getElementById('imgExpandida');
     const tituloExpandido = document.getElementById('tituloExpandido');
     const btnFecharViewer = document.getElementById('btnFecharViewer');
 
-    document.addEventListener('click', function(e) {
+    // Delegação de eventos para abrir imagem (funciona com elementos criados dinamicamente)
+    document.querySelector('.secao-seu-portifolio').addEventListener('click', function(e) {
         if (e.target.classList.contains('img-portifolio')) {
             const srcImagem = e.target.src;
             const cardPai = e.target.closest('.card-portifolio');
@@ -506,31 +521,21 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             imgExpandida.src = srcImagem;
             tituloExpandido.innerText = titulo;
-
             popupViewer.classList.add('ativo');
         }
     });
 
     function fecharViewer() {
         popupViewer.classList.remove('ativo');
-        setTimeout(() => {
-            imgExpandida.src = "";
-        }, 300);
+        setTimeout(() => imgExpandida.src = "", 300);
     }
 
-    if(btnFecharViewer) {
-        btnFecharViewer.addEventListener('click', fecharViewer);
-    }
-
-    popupViewer.addEventListener('click', function(e) {
-        if (e.target === popupViewer || e.target.classList.contains('popup-viewer-container')) {
-            fecharViewer();
-        }
+    if(btnFecharViewer) btnFecharViewer.addEventListener('click', fecharViewer);
+    popupViewer.addEventListener('click', e => {
+        if (e.target === popupViewer || e.target.classList.contains('popup-viewer-container')) fecharViewer();
     });
 
-    // ============================================
-    // MODO EDIÇÃO - REMOVER ITENS
-    // ============================================
+    // Lógica de Edição / Remoção
     const btnEditarPortfolio = document.getElementById('btnEditarPortifolio');
     let modoEdicao = false;
 
@@ -539,65 +544,69 @@ document.addEventListener('DOMContentLoaded', async function() {
             e.preventDefault();
             modoEdicao = !modoEdicao;
 
-            const cards = document.querySelectorAll('.card-portifolio[data-portfolio-id]');
+            // Seleciona cards de imagens e de anexos
+            const todosCards = document.querySelectorAll('.card-portifolio, .card-de-anexo');
             
             if (modoEdicao) {
                 btnEditarPortfolio.innerHTML = 'Concluir Edição <img src="../imagens_trilhas/edit-icon-perfil.svg">';
                 btnEditarPortfolio.style.background = '#4CAF50';
                 
-                cards.forEach(card => {
-                    if (!card.querySelector('.btn-remover-portfolio')) {
-                        const btnRemover = document.createElement('button');
-                        btnRemover.className = 'btn-remover-portfolio';
-                        btnRemover.innerHTML = '🗑️';
-                        btnRemover.style.cssText = 'position: absolute; top: 10px; right: 10px; background: #f44336; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; z-index: 10;';
+                todosCards.forEach(card => {
+                    // Verifica se já tem botão pra não duplicar
+                    if (card.querySelector('.btn-remover-portfolio')) return;
+
+                    const btnRemover = document.createElement('button');
+                    btnRemover.className = 'btn-remover-portfolio';
+                    btnRemover.innerHTML = '&times;';
+                    // Estilo do botão de remover
+                    btnRemover.style.cssText = `
+                        position: absolute; top: -10px; right: -10px; 
+                        background: red; color: white; border: none; 
+                        border-radius: 50%; width: 25px; height: 25px; 
+                        cursor: pointer; z-index: 100; font-weight: bold;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                    `;
+                    
+                    btnRemover.addEventListener('click', async function(ev) {
+                        ev.stopPropagation(); // Evita abrir o viewer
+                        ev.preventDefault(); // Evita abrir o link do anexo
                         
-                        btnRemover.addEventListener('click', async function(e) {
-                            e.stopPropagation();
-                            
-                            const portfolioId = card.dataset.portfolioId;
-                            
-                            if (confirm('Deseja remover este item do portfólio?')) {
-                                try {
-                                    const response = await fetch(`${API_URL}/trilhas/portfolio/${portfolioId}`, {
-                                        method: 'DELETE'
-                                    });
+                        const portfolioId = card.dataset.portfolioId;
+                        
+                        if (confirm('Deseja excluir este item permanentemente?')) {
+                            try {
+                                const response = await fetch(`${API_URL}/trilhas/portfolio/${portfolioId}`, {
+                                    method: 'DELETE'
+                                });
+                                const data = await response.json();
 
-                                    const data = await response.json();
-
-                                    if (data.success) {
-                                        card.style.opacity = '0';
-                                        setTimeout(() => card.remove(), 300);
-                                        alert('✅ Item removido!');
-                                    } else {
-                                        alert('❌ Erro ao remover item');
-                                    }
-                                } catch (error) {
-                                    console.error('❌ Erro ao remover:', error);
-                                    alert('Erro ao remover item');
+                                if (data.success) {
+                                    card.style.opacity = '0';
+                                    setTimeout(() => card.remove(), 300);
+                                } else {
+                                    alert('Erro ao remover.');
                                 }
+                            } catch (error) {
+                                alert('Erro de conexão.');
                             }
-                        });
-                        
-                        card.style.position = 'relative';
-                        card.appendChild(btnRemover);
-                    }
+                        }
+                    });
+                    
+                    // Garante que o card tenha position relative para o botão ficar posicionado
+                    card.style.position = 'relative'; 
+                    card.appendChild(btnRemover);
                 });
+
             } else {
                 btnEditarPortfolio.innerHTML = 'Editar Portfólio <img src="../imagens_trilhas/edit-icon-perfil.svg">';
                 btnEditarPortfolio.style.background = '';
                 
-                cards.forEach(card => {
-                    const btnRemover = card.querySelector('.btn-remover-portfolio');
-                    if (btnRemover) btnRemover.remove();
-                });
+                document.querySelectorAll('.btn-remover-portfolio').forEach(btn => btn.remove());
             }
         });
     }
 
-    // ============================================
-    // DROPDOWNS (mantido)
-    // ============================================
+    // Dropdowns menu (Mantido original)
     const dropdownNotif = document.getElementById('dropdownNotif');
     const dropdownConfig = document.getElementById('dropdownConfig');
     const dropdownPerfil = document.getElementById('dropdownPerfil');
@@ -605,61 +614,24 @@ document.addEventListener('DOMContentLoaded', async function() {
     const btnConfig = document.querySelector('.btn-config');
     const fotoPerfilNav = document.getElementById('fotoPerfilNav');
     
-    function fecharDropdownNotif() { dropdownNotif.classList.remove('ativo'); }
-    function fecharDropdownConfig() { dropdownConfig.classList.remove('ativo'); }
-    function fecharDropdownPerfil() { dropdownPerfil.classList.remove('ativo'); }
+    function fecharDropdownNotif() { if(dropdownNotif) dropdownNotif.classList.remove('ativo'); }
+    function fecharDropdownConfig() { if(dropdownConfig) dropdownConfig.classList.remove('ativo'); }
+    function fecharDropdownPerfil() { if(dropdownPerfil) dropdownPerfil.classList.remove('ativo'); }
     
-    btnNotif.addEventListener('click', () => {
-        fecharDropdownConfig();
-        fecharDropdownPerfil();
-        dropdownNotif.classList.toggle('ativo');
-    });
-    
-    btnConfig.addEventListener('click', () => {
-        fecharDropdownNotif();
-        fecharDropdownPerfil();
-        dropdownConfig.classList.toggle('ativo');
-    });
-    
-    fotoPerfilNav.addEventListener('click', () => {
-        fecharDropdownNotif();
-        fecharDropdownConfig();
-        dropdownPerfil.classList.toggle('ativo');
-    });
+    if(btnNotif) btnNotif.addEventListener('click', () => { fecharDropdownConfig(); fecharDropdownPerfil(); dropdownNotif.classList.toggle('ativo'); });
+    if(btnConfig) btnConfig.addEventListener('click', () => { fecharDropdownNotif(); fecharDropdownPerfil(); dropdownConfig.classList.toggle('ativo'); });
+    if(fotoPerfilNav) fotoPerfilNav.addEventListener('click', () => { fecharDropdownNotif(); fecharDropdownConfig(); dropdownPerfil.classList.toggle('ativo'); });
 
     document.querySelectorAll('[data-action]').forEach(btn => {
         btn.addEventListener('click', function() {
             const action = this.getAttribute('data-action');
-            switch(action) {
-                case 'fechar-notif': fecharDropdownNotif(); break;
-                case 'fechar-config': fecharDropdownConfig(); break;
-                case 'fechar-perfil': fecharDropdownPerfil(); break;
-                case 'sair-da-conta':
-                    if (confirm('Tem certeza que deseja sair da conta?')) {
-                        localStorage.removeItem('usuarioLogado');
-                        window.location.href = '/home.html';
-                    }
-                    fecharDropdownPerfil();
-                    break;
-                default:
-                    alert(`Funcionalidade '${action.replace('abrir-', '')}' será implementada`);
-                    fecharDropdownConfig(); 
-                    fecharDropdownPerfil();
-                    break;
+            if (action === 'sair-da-conta') {
+                localStorage.removeItem('usuarioLogado');
+                window.location.href = '/home.html';
+            } else {
+                fecharDropdownNotif(); fecharDropdownConfig(); fecharDropdownPerfil();
             }
         });
-    });
-    
-    document.addEventListener('click', event => {
-        const isClickOutside = !dropdownNotif.contains(event.target) && event.target !== btnNotif &&
-                               !dropdownConfig.contains(event.target) && event.target !== btnConfig &&
-                               !dropdownPerfil.contains(event.target) && event.target !== fotoPerfilNav;
-        
-        if (isClickOutside) {
-            fecharDropdownNotif();
-            fecharDropdownConfig();
-            fecharDropdownPerfil();
-        }
     });
 });
     </script>

@@ -50,7 +50,7 @@ import {
   verificarCodigoSMS 
 } from "./controllers/smsController";
 
-// ✅ NOVO: Controlador de Presenças
+// Controlador de Presenças
 import { 
   registrarPresenca, 
   estatisticasPresencaAluno,
@@ -58,6 +58,31 @@ import {
   presencaPorData,
   atualizarPresenca
 } from "./controllers/presencaController";
+
+// Controlador de Trilhas
+import { 
+  listarProjetosDisponiveis,
+  criarProjeto,
+  buscarProjeto,
+  candidatarProjeto,
+  recusarProposta,
+  listarCandidaturasUsuario,
+  adicionarPortfolio,
+  listarPortfolio,
+  removerPortfolio,
+  adicionarFormacao,
+  listarFormacoes,
+  removerFormacao,
+  adicionarHabilidade,
+  listarHabilidadesUsuario,
+  atualizarHabilidade,
+  removerHabilidade,
+  listarHabilidadesCatalogo,
+  avaliarUsuario,
+  listarAvaliacoesUsuario,
+  atualizarSobreMim,
+  buscarPerfilTrilhas
+} from "./controllers/trilhasController";
 
 const app = express();
 const prisma = new PrismaClient();
@@ -205,7 +230,6 @@ app.get("/api/users/:userId", buscarUsuario);
 app.post("/api/users/:userId/perfil", uploadPerfil.single("perfil"), atualizarFotoPerfil);
 app.delete("/api/users/:userId/perfil", removerFotoPerfil);
 
-// Rota para atualizar telefone do usuário
 app.put("/api/users/:userId/telefone", async (req, res) => {
   try {
     const { userId } = req.params;
@@ -258,33 +282,65 @@ app.post("/api/atividades/:id/entregar", entregarAtividade);
 // ========================================
 // ROTAS DE TURMAS E CURSOS
 // ========================================
-// --- Cursos ---
 app.get("/api/cursos", getCursos);
-
-// --- Turmas (Operações CRUD) ---
 app.get("/api/turmas", getTurmas);
 app.post("/api/turmas", createTurma);
 app.get("/api/turmas/:turmaId", getTurma);
 app.put("/api/turmas/:turmaId", updateTurma);
 app.delete("/api/turmas/:turmaId", deleteTurma);
-
-// --- Membros da Turma (Alunos) ---
 app.get("/api/turmas/:turmaId/membros", getMembros);
 app.post("/api/turmas/:turmaId/membros", addAlunoTurma);
 app.delete("/api/turmas/:turmaId/membros/:alunoId", removeAlunoTurma);
-
-// --- Turmas Específicas de Usuários ---
 app.get("/api/turmas/aluno/:alunoId", getTurmasDoAluno);
 app.get("/api/turmas/professor/:professorId", getTurmasDoProfessor);
 
 // ========================================
-// ✅ ROTAS DE PRESENÇA (NOVO)
+// ROTAS DE PRESENÇA
 // ========================================
 app.post("/api/presencas/registrar", registrarPresenca);
 app.get("/api/presencas/aluno/:alunoId", estatisticasPresencaAluno);
 app.get("/api/presencas/turma/:turmaId", presencasPorTurma);
 app.get("/api/presencas/turma/:turmaId/data/:data", presencaPorData);
 app.put("/api/presencas/:presencaId", atualizarPresenca);
+
+// ========================================
+//  ROTAS DE TRILHAS 
+// ========================================
+
+// --- PROJETOS ---
+app.get("/api/trilhas/projetos", listarProjetosDisponiveis);
+app.get("/api/trilhas/projetos/:projetoId", buscarProjeto);
+app.post("/api/trilhas/projetos", criarProjeto);
+
+// --- CANDIDATURAS ---
+app.post("/api/trilhas/candidaturas", candidatarProjeto);
+app.get("/api/trilhas/candidaturas/usuario/:usuarioId", listarCandidaturasUsuario);
+app.post("/api/trilhas/propostas/:propostaId/recusar", recusarProposta);
+
+// --- PORTFÓLIO ---
+app.get("/api/trilhas/portfolio/:usuarioId", listarPortfolio);
+app.post("/api/trilhas/portfolio", adicionarPortfolio);
+app.delete("/api/trilhas/portfolio/:portfolioId", removerPortfolio);
+
+// --- FORMAÇÕES ---
+app.get("/api/trilhas/formacoes/:usuarioId", listarFormacoes);
+app.post("/api/trilhas/formacoes", adicionarFormacao);
+app.delete("/api/trilhas/formacoes/:formacaoId", removerFormacao);
+
+// --- HABILIDADES ---
+app.get("/api/trilhas/habilidades/:usuarioId", listarHabilidadesUsuario);
+app.get("/api/trilhas/habilidades-catalogo", listarHabilidadesCatalogo);
+app.post("/api/trilhas/habilidades", adicionarHabilidade);
+app.put("/api/trilhas/habilidades/:usuarioHabilidadeId", atualizarHabilidade);
+app.delete("/api/trilhas/habilidades/:usuarioHabilidadeId", removerHabilidade);
+
+// --- PERFIL ---
+app.get("/api/trilhas/perfil/:usuarioId", buscarPerfilTrilhas); 
+app.put("/api/trilhas/perfil/:usuarioId/sobre-mim", atualizarSobreMim);
+
+// --- AVALIAÇÕES ---
+app.post("/api/trilhas/avaliacoes", avaliarUsuario);
+app.get("/api/trilhas/avaliacoes/:usuarioId", listarAvaliacoesUsuario);
 
 // ========================================
 // PLACEHOLDERS
@@ -302,6 +358,7 @@ app.listen(PORT, () => {
   console.log(`📊 API disponível em http://localhost:${PORT}/api/health`);
   console.log(`📱 SMS verification habilitado`);
   console.log(`✅ Sistema de Presenças ativo`);
+  console.log(`🎯 Sistema de Trilhas ativo`);
 });
 
 // ========================================

@@ -987,4 +987,51 @@ export const atualizarSobreMim = async (req: Request, res: Response) => {
       message: 'Erro no servidor'
     });
   }
+  
 };
+
+  export const buscarPerfilTrilhas = async (req: Request, res: Response) => {
+    try {
+      const { usuarioId } = req.params;
+
+      if (!usuarioId) {
+        return res.status(400).json({
+          success: false,
+          message: 'ID do usuário é obrigatório'
+        });
+      }
+
+      const user = await prisma.user.findUnique({
+        where: { id: parseInt(usuarioId) },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          role: true,
+          perfilUrl: true,
+          sobreMim: true,
+          telefone: true,
+          createdAt: true,
+        }
+      });
+
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: 'Usuário não encontrado'
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        user
+      });
+    } catch (error) {
+      console.error('Erro ao buscar perfil trilhas:', error);
+      return res.status(500).json({
+        success: false,
+        message: 'Erro no servidor'
+      });
+    }
+  };
+

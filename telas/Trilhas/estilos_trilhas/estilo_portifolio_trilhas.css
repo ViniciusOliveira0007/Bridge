@@ -571,10 +571,10 @@ nav a:hover, .nome-da-guia a:hover {
     flex: 1;
     padding: 20px;
     display: flex;
-    justify-content: right;
+    justify-content: center;
     align-items: flex-start;
     overflow-y: auto;
-    margin-right: 100px;
+    width: 100%;;
 }
 
 .container-seu-portifolio{
@@ -723,17 +723,22 @@ nav a:hover, .nome-da-guia a:hover {
     padding: 15px 0 0 15px ;
 }
 .secao-seu-portifolio{
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     width: 100%;
     height: auto;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
-    grid-template-columns: 1fr 1fr 1fr;
-    display: grid;
     gap: 20px;
     padding: 20px;
+    min-height: 200px;
+}
+
+.secao-seu-portifolio.vazia {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .card-portifolio{
     display: flex;

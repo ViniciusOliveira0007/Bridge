@@ -572,10 +572,10 @@ nav a:hover, .nome-da-guia a:hover {
     flex: 1;
     padding: 20px;
     display: flex;
-    justify-content: right;
+    justify-content: center;
     align-items: flex-start;
     overflow-y: auto;
-    margin-right: 180px;
+    width: 100%;
 }
 
 /*Postagens do trilhas*/
@@ -704,7 +704,7 @@ nav a:hover, .nome-da-guia a:hover {
 .comentarios-trlhas {
     background: #3f3f3f30;
     border-radius: 20px 20px 0px 0px;
-    padding: 10px 5px;
+    padding: 5px;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -741,6 +741,7 @@ nav a:hover, .nome-da-guia a:hover {
     width: 100%;
     transform-origin: center; 
     display: inline-block;
+    transition: all 0.3s ease;
 }
 .btn-interacoes:hover{
     border-radius: 0px;
@@ -878,6 +879,54 @@ nav a:hover, .nome-da-guia a:hover {
     height: 30px;
     align-items: center;
     justify-content: center;
+}
+
+
+/* ESSA PÁRTE É O CARD DE ACEITAR VINICIUS */
+
+.card-aceite {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    width: 95%;
+    background-color: #3f3f3f30; 
+    border-radius: 20px 15px 15px 20px;
+    border: 1px #3f3f3f70 solid;
+    padding:8px;
+    margin-top: 10px;
+    animation: slideIn 0.3s ease-out; 
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.img-aceite-perfil {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #3f3f3f;
+}
+
+.info-aceite {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nome-aceite {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.texto-aceite {
+    color: #17bb4d;
+    font-size: 12px;
+    font-weight: 500;
 }
 
 

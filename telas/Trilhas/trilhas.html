@@ -88,7 +88,7 @@
                         <a href="./telas-trilhas/perfil_trilhas.html" class="btn-trilhas-perfil">Seu perfil <img src="./imagens_trilhas/seu-perfil-trilhas.svg" alt="seu perfil"></a>    
                         <a href="./telas-trilhas/portifolio_trilhas.html" class="btn-trilhas-perfil">Portifólio <img src="./imagens_trilhas/portifolio-perfil-trilhas.svg" alt="portifolio"></a>    
                         <a href="./telas-trilhas/seus_projetos_trilhas.html" class="btn-trilhas-perfil">Meus Projetos<img src="./imagens_trilhas/seus-projetos.svg" alt="seus projetos"></a>    
-                        <a href="" class="btn-trilhas-perfil">Propostas<img src="./imagens_trilhas/projetos-aceitos-trilhas.svg" alt="projetos aceitos"></a>    
+                        <a href="./telas-trilhas/propostas_trilhas.html" class="btn-trilhas-perfil">Propostas<img src="./imagens_trilhas/projetos-aceitos-trilhas.svg" alt="projetos aceitos"></a>    
                     </div>
                 </div>
             </div>
@@ -160,9 +160,10 @@
                                 <div class="todos-comentarios">
                                     <div class="comentarios-trlhas"></div>
 
-                                   <div class="interações-proposta-trilhas">
-                                        <div class="btn-interacoes" id="btnAceitar">Aceitar</div>
-                                        <div class="btn-interacoes" id="btnRecusar">Recusar</div>
+                                    <div class="interações-proposta-trilhas">
+                                        <div class="btn-interacoes" id="btnAceitar" onclick="gerarCardAceiteVisual(this)">Aceitar</div>
+
+                                        <div class="btn-interacoes btn-recusar" id="btnRecusar">Recusar</div>
                                     </div>
                                 </div>
 
@@ -543,38 +544,61 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // ============================================
-    // 6. ACEITAR PROJETO (CANDIDATAR-SE)
+    // 6. FUNÇÃO VISUAL DE ACEITE (LÓGICA NOVA)
     // ============================================
-    window.aceitarProjeto = async function(projetoId) {
-        try {
-            console.log(`🎯 Aceitando projeto ${projetoId}...`);
+        window.gerarCardAceiteVisual = function(btnAceitar) {
             
-            const response = await fetch(`${API_URL}/trilhas/candidaturas`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    projetoId: projetoId,
-                    usuarioId: usuarioLogado.id
-                })
-            });
+        const containerBotoes = btnAceitar.parentElement;
+        const btnRecusar = containerBotoes.querySelector('#btnRecusar') || containerBotoes.querySelector('.btn-recusar'); 
+        const boxTrilha = btnAceitar.closest('.box-trilhas');
+        const areaComentarios = boxTrilha.querySelector('.comentarios-trlhas');
+        
+        // Verifica o estado atual (se já foi aceito ou não) através de um atributo de dados
+        const jaAceito = btnAceitar.getAttribute('data-status') === 'aceito';
 
-            const data = await response.json();
+        const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+        const fotoAtual = document.getElementById('fotoPerfilNav').src;
+        const nomeAtual = usuario ? usuario.name : 'Usuário';
+        const idCard = `card-aceite-${boxTrilha.getAttribute('data-projeto-id') || Date.now()}`;
 
-            if (data.success) {
-                alert('✅ Proposta aceita com sucesso! Projeto adicionado aos seus projetos.');
-                
-                // Recarregar projetos para atualizar o status
-                await carregarProjetos();
-            } else {
-                alert('❌ ' + (data.message || 'Erro ao aceitar proposta'));
+        if (!jaAceito) {
+
+            if(btnRecusar) btnRecusar.style.display = 'none';
+
+            btnAceitar.textContent = 'Cancelar Candidatura'; 
+            btnAceitar.style.width = '100%';
+            btnAceitar.style.backgroundColor = '#424242'; 
+            btnAceitar.style.borderRadius = '0 0 10px 10px'; 
+            btnAceitar.setAttribute('data-status', 'aceito'); 
+
+            // Criar e inserir o HTML do Card de Aceite
+            const htmlAceite = `
+                <div class="card-aceite" id="${idCard}">
+                    <img src="${fotoAtual}" alt="${nomeAtual}" class="img-aceite-perfil">
+                    <div class="info-aceite">
+                        <span class="nome-aceite">${nomeAtual}</span>
+                        <span class="texto-aceite">Aceitou essa proposta</span>
+                    </div>
+                </div>
+            `;
+            areaComentarios.insertAdjacentHTML('afterbegin', htmlAceite); 
+
+        } else {
+  
+            if(btnRecusar) btnRecusar.style.display = 'block';
+
+            btnAceitar.textContent = 'Aceitar';
+            btnAceitar.style.width = ''
+            btnAceitar.style.backgroundColor = ''; 
+            btnAceitar.style.borderRadius = ''; 
+            btnAceitar.setAttribute('data-status', 'pendente');
+
+            const cardParaRemover = areaComentarios.querySelector('.card-aceite'); 
+            if (cardParaRemover) {
+                cardParaRemover.remove();
             }
-        } catch (error) {
-            console.error('❌ Erro ao aceitar projeto:', error);
-            alert('Erro ao processar sua candidatura. Tente novamente.');
         }
-    };
+    }
 
     // ============================================
     // 7. RECUSAR PROJETO

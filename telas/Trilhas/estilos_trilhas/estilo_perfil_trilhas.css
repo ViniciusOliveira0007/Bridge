@@ -6,7 +6,6 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    /* REMOVIDO: background-color: #333; para não escurecer o conteúdo central/body */
 }
 
 /* Navegação principal */
@@ -17,7 +16,6 @@ nav {
     display: flex;
     align-items: center;
     border: #e0e0e0;
-    /* FIXO: Barra principal no topo */
     position: fixed; 
     top: 0;
     left: 0;
@@ -571,10 +569,10 @@ nav a:hover, .nome-da-guia a:hover {
     flex: 1;
     padding: 20px;
     display: flex;
-    justify-content: right;
-    margin-right: 180px;
+    justify-content: center;
     align-items: flex-start;
     overflow-y: auto;
+    width: 100%;
 }
 
 .container-seu-perfil{
@@ -862,18 +860,20 @@ nav a:hover, .nome-da-guia a:hover {
     flex-direction: row;
     width: 100%;
     height: 50px;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     gap: 10px;
+    padding-right: 20px;
 }
 .content-edit-sobre-mim{
     display: flex;
     flex-direction: row;
     width: 100%;
     height: 50px;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     gap: 10px;
+    padding-right: 20px;
 }
 .content-habilidades{
     width: 100%;
@@ -1032,9 +1032,10 @@ nav a:hover, .nome-da-guia a:hover {
     flex-direction: row;
     width: 100%;
     height: 50px;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     gap: 10px;
+    padding-right: 20px;
 }
 .texto-habilidade{
     display: flex;
@@ -1079,8 +1080,9 @@ nav a:hover, .nome-da-guia a:hover {
 /* A caixa do Popup */
 .popup-container {
     background-color: #161616;
-    width: 90%;
-    max-width: 500px;
+    width: 100%;
+    max-width: 750px;
+    max-height: 90vh;
     border-radius: 20px;
     border: 1px solid #3f3f3f;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -1410,27 +1412,28 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 0.9em;
 }
 
-/* Novo Container para o Grid de Habilidades */
+
 .grid-habilidades {
-    /* Define o layout de Grid 4x4 */
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 colunas de tamanho igual */
-    gap: 15px; /* Espaçamento entre os cards */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 15px; 
     padding: 10px;
     
-    /* Configuração de altura e rolagem para pop-up */
-    max-height: 400px; 
+
+    max-height: 500px; 
     overflow-y: auto;
     margin-bottom: 20px;
+    scrollbar-color: #444 #222;
 }
 
-/* Garante que o card de habilidade dentro do pop-up seja interativo */
+
 .popup-overlay .card-habilidade {
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
-    padding: 10px; /* Mantém o espaçamento interno do card */
-    border: 1px solid transparent; /* Adiciona uma borda transparente para não "saltar" ao selecionar */
-    background-color: #1e1e1e; /* Um fundo sutil para o card, se o fundo do popup for escuro */
+    padding: 20px 10px; 
+    border: 1px solid transparent; 
+    background-color: #1e1e1e; 
+    justify-content: center;align-items: center;
 }
 
 .popup-overlay .card-habilidade:hover {
@@ -1438,16 +1441,97 @@ input[type=number]::-webkit-outer-spin-button {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* Estilo para a habilidade SELECIONADA (importante para feedback visual) */
 .popup-overlay .card-habilidade.selecionada {
-    border: 2px solid #3f3f3f; /* Cor de destaque para seleção, use a cor primária do seu projeto */
-    background-color: #3f3f3f60; /* Fundo levemente diferente para indicar seleção */
+    border: 2px solid #3f3f3f; 
+    background-color: #3f3f3f60; 
+}
+
+
+.btn-excluir-habilidade {
+    position: absolute; 
+    top: -10px;
+    right: -10px;
+    background: #ff4d4d; 
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    line-height: 25px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    opacity: 0; 
+    pointer-events: none; 
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.card-habilidade {
+    position: relative; 
+}
+
+
+.secao-suas-habilidades.modo-edicao-ativo .btn-excluir-habilidade {
+    opacity: 1; 
+    pointer-events: all; 
+}
+
+/* Opcional: Efeito visual ao excluir */
+.secao-suas-habilidades.modo-edicao-ativo .card-habilidade:hover {
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    background: #ff000020;
+    border: none;
+    transform: scale(1.02);
+    cursor: pointer; 
+}
+
+/* Estilo do botão X */
+.btn-excluir-formacao { 
+    position: absolute; 
+    top: -10px;
+    right: -10px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    line-height: 25px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    opacity: 0; /* Escondido por padrão */
+    pointer-events: none; 
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+/* Garante que o card seja a referência do botão X */
+.card-formacao {
+    position: relative; 
+}
+
+/* Aplica na seção de Formações quando o modo de edição estiver ATIVO */
+#secaoSuasFormacoes.modo-edicao-ativo .btn-excluir-formacao {
+    opacity: 1; 
+    pointer-events: all; 
+}
+
+/* Opcional: Efeito visual no card quando o modo de edição está ativo */
+#secaoSuasFormacoes.modo-edicao-ativo .card-formacao:hover {
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    background: #ff000020;
+    border: none;
+    cursor: pointer;
 }
 
 /* Responsividade do grid */
 @media (max-width: 768px) {
     .grid-habilidades {
-        grid-template-columns: repeat(3, 1fr); /* 3 colunas em tablets */
+        grid-template-columns: repeat(3, 1fr); 
     }
 }
 @media (max-width: 600px) {
@@ -1460,9 +1544,6 @@ input[type=number]::-webkit-outer-spin-button {
         grid-template-columns: 1fr; /* 1 coluna em telas muito pequenas */
     }
 }
-
-
-
 
 
 /* Responsividade */

@@ -6,7 +6,6 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    /* REMOVIDO: background-color: #333; para não escurecer o conteúdo central/body */
 }
 
 /* Navegação principal */
@@ -17,7 +16,6 @@ nav {
     display: flex;
     align-items: center;
     border: #e0e0e0;
-    /* FIXO: Barra principal no topo */
     position: fixed; 
     top: 0;
     left: 0;
@@ -567,7 +565,7 @@ nav a:hover, .nome-da-guia a:hover {
     box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1)
 }
 
-.seus-projetos{
+.seu-perfil{
     flex: 1;
     padding: 20px;
     display: flex;
@@ -577,33 +575,33 @@ nav a:hover, .nome-da-guia a:hover {
     width: 100%;
 }
 
-.container-seus-projetos{
+.container-seu-perfil{
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
     width: 100%;
-    max-width: 1000px;
+    max-width: 900px;
 }
-.content-trilhas-seus-projetos{
+.content-trilhas-perfil{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
-.box-seus-projetos{
+.box-seu-perfil{
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
-    width: auto;
+    width: 100%;
     height: auto;
     border: #dadada solid 1px;
     border-radius: 20px;
     padding:10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.info-portifolio-trilhas{
+.info-perfil-trilhas{
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -611,6 +609,7 @@ nav a:hover, .nome-da-guia a:hover {
     width: 100%;
     height: auto;
     padding: 20px;
+    margin: 5px;
     border-radius: 20px;
 }
 .info-perfil-trilhas desc-perfil{
@@ -630,7 +629,6 @@ nav a:hover, .nome-da-guia a:hover {
     justify-content: right;
     align-items: center;
     width: 100%;
-    height: 30px;
     gap: 10px;
 }
 .btn-trilhas{
@@ -676,216 +674,176 @@ nav a:hover, .nome-da-guia a:hover {
     align-items: center;
     justify-content: center
 }
-.estrutura-portifolio{
-    width: 55%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-}
-.nm-usuario{
-    color: #ffffff;
-    text-align: left;
-    font-size: 16px;
-    width: 100%;
-    padding-bottom:  2px;
+
+/* =========================================
+   ESTILOS DE CONTAINER
+   ========================================= */
+/* Onde os cards serão exibidos, usando grid para layout responsivo */
+.grid-projetos {
+    display: grid;
+    /* Faz com que o grid tenha 1 ou mais colunas, com mínimo de 300px */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
 }
 
-.portifolio{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-    
-}
-
-.conteudo-portifolio-trilhas{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    width: 100%;
-    padding: 5px 10px;
-    padding-bottom: 10px;
-}
-.seu-portifolio-trilhas{
-    width: 100%;
-    justify-content: center;
-    background: #3f3f3f30;
-    border-radius: 20px;
-    transition: 0.3s ease;
-    margin-top: 10px;
-}
-.h3-seu-portifolio{
-    color: #ffffff;
-    justify-content: center;
-    text-align: left;
-    font-size: 16px;
-    padding: 15px 0 0 15px ;
-}
-.secao-seu-portifolio{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: auto;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    grid-template-columns: 1fr;
-    display: grid;
-    gap: 20px;
-    padding: 10px;
-}
-.card-portifolio{
-    display: flex;
-    flex-direction: row;
-    background: #16161660;
-    padding: 10px;
-    width: 100%;
-    height: 220px;
-    border-radius: 20px;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-.card-portifolio:hover{
-    background: #161616;
-    border: #3f3f3f solid 1px;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1)
-}
-.img-do-portifolio{
-    width: auto;
-    height: 100%;
-    border-radius: 20px;
-}
-.img-portifolio{
-    width: 180px;
-    height: 100%;
-    border-radius: 10px;
-}
-.content-projeto{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    background: #3f3f3f30;
-    border-radius: 10px;
-    padding-right: 20px;
-}
-.titulo-projeto{
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: left;
-    padding: 10px;
-    width: 100%;
-}
-.header-projeto{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-.data-projeto{
-    color: #ffffff50;
-    font-size: 14px;
-    padding: 10px 5px;
-    width: 150px;
-}
-.box-projeto{
-    width: 100%;
-    background: #3f3f3f50;
-    border-radius: 10px;
-    margin: 10px;
-    height: auto;
-}
-.secao-habilidade-projeto{
-    width: 100%;
-    height: 70px;
-    justify-content: left;
-    margin-bottom: 20px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    display: grid;
-    gap: 5px;
-    padding: 10px 0;
-}
-.card-habilidade{
-    margin: 5px 10px;
-    display: flex;
-    flex-direction: row;
-    background: #16161660;
-    padding: 5px 10px;
-    width: auto;
-    height: 60px;
+/* =========================================
+   ESTILO DO CARD
+   ========================================= */
+.card-projeto {
+    background: #161616; /* Fundo do card */
+    border: 1px solid #3f3f3f;
     border-radius: 15px;
-    align-items: center;
-    gap: 5px;
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-.card-habilidade:hover{
-    background: #161616;
-    border: #3f3f3f solid 1px;
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-.nome-habilidade{
-    color: #ffffff;
-    padding: 5px 0;
-    font-weight: bold;
-    font-size: 14px;
-}
-.nivel-habilidade{
-    color: #ffffff;
-    font-size: 12px;
-    margin-bottom: 5px;
-}
-.img-sua-habilidade{
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    background: #3f3f3f20;
-    padding: 5px;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    justify-content: center;
-    align-items: center;
-    transition:0.5s ease-in-out;
-}
-.img-sua-habilidade:hover{
-    background: #3f3f3f50;
-    box-shadow: 0 1px 5px rgba(255, 255, 255, 0.1)
-}
-.img-habilidade{
-    width: 30px;
-    height: 30px;
-    align-items: center;
-    justify-content: center;
-}
-.h3-nm-empresa{
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: left;
-    padding: 10px;
-    width: 100%;
-}
-.empresa-entregue{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: left;
-    align-items: center;
-    margin-left: 15px;
-}
-.img-empresa{
-    width: 30px;
-    height: 30px;
-    border-radius: 20px;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    min-height: 280px; /* Altura mínima para padronizar */
 }
 
+.card-projeto:hover {
+    transform: translateY(-5px);
+    border-color: #15D3B1; /* Destaque verde ao passar o mouse */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+/* Header do Card */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.empresa-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.empresa-avatar {
+    width: 35px;
+    height: 35px;
+    background: #2a2a2a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    border: 1px solid #3f3f3f;
+}
+
+.empresa-nome {
+    color: #ccc;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Badge Prioridade */
+.projeto-prioridade {
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+/* Cores das Prioridades */
+.prioridade-Alta { background: rgba(255, 77, 77, 0.15); color: #ff4d4d; border: 1px solid #ff4d4d40; }
+.prioridade-Media { background: rgba(255, 166, 0, 0.15); color: orange; border: 1px solid rgba(255, 166, 0, 0.4); }
+.prioridade-Baixa { background: rgba(21, 211, 177, 0.15); color: #15D3B1; border: 1px solid #15D3B140; }
+
+/* Corpo do Card */
+.card-body h3 {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.card-descricao {
+    color: #999;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    /* Limita o texto a 3 linhas */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag-skill {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #2a2a2a;
+    color: #ddd;
+    border: 1px solid #333;
+}
+
+.tag-categoria {
+    border-color: #15D3B1;
+    color: #15D3B1;
+    background: rgba(21, 211, 177, 0.1);
+}
+
+/* Footer do Card */
+.card-footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #2a2a2a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-vagas {
+    color: #666;
+    font-size: 12px;
+}
+
+.btn-ver-detalhes {
+    background: transparent;
+    color: #15D3B1;
+    border: 1px solid #15D3B1;
+    padding: 6px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    transition: 0.3s;
+    text-decoration: none; /* remove sublinhado */
+}
+
+.btn-ver-detalhes:hover {
+    background: #15D3B1;
+    color: #000;
+}
+
+/* Responsividade do grid */
+@media (max-width: 768px) {
+    .grid-habilidades {
+        grid-template-columns: repeat(3, 1fr); 
+    }
+}
+@media (max-width: 600px) {
+    .grid-habilidades {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas menores */
+    }
+}
+@media (max-width: 400px) {
+    .grid-habilidades {
+        grid-template-columns: 1fr; /* 1 coluna em telas muito pequenas */
+    }
+}
 
 
 /* Responsividade */
